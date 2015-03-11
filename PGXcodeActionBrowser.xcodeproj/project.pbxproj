@@ -24,6 +24,8 @@
 		42C1AD8C1AAF5F2000248A8D /* PGBlockAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD8B1AAF5F2000248A8D /* PGBlockAction.m */; };
 		42C1AD901AAF614500248A8D /* PGConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD8F1AAF614500248A8D /* PGConstants.m */; };
 		42C1AD931AAF632700248A8D /* PGTestCaseActionProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD921AAF632700248A8D /* PGTestCaseActionProvider.m */; };
+		42CEA4EB1AB0ADDA006973B7 /* PGSearchService.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CEA4EA1AB0ADDA006973B7 /* PGSearchService.m */; };
+		42FD3C0F1AB0ABE900F0A442 /* PGRoundCornerWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FD3C0E1AB0ABE900F0A442 /* PGRoundCornerWindow.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +76,10 @@
 		42C1AD8F1AAF614500248A8D /* PGConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGConstants.m; sourceTree = "<group>"; };
 		42C1AD911AAF632700248A8D /* PGTestCaseActionProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGTestCaseActionProvider.h; sourceTree = "<group>"; };
 		42C1AD921AAF632700248A8D /* PGTestCaseActionProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGTestCaseActionProvider.m; sourceTree = "<group>"; };
+		42CEA4E91AB0ADDA006973B7 /* PGSearchService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGSearchService.h; sourceTree = "<group>"; };
+		42CEA4EA1AB0ADDA006973B7 /* PGSearchService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSearchService.m; sourceTree = "<group>"; };
+		42FD3C0D1AB0ABE900F0A442 /* PGRoundCornerWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGRoundCornerWindow.h; sourceTree = "<group>"; };
+		42FD3C0E1AB0ABE900F0A442 /* PGRoundCornerWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGRoundCornerWindow.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +161,7 @@
 		42C1AD4E1AAF3E7F00248A8D /* PGXcodeActionBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				42FD3C0C1AB0ABC700F0A442 /* UI */,
 				42BD033C1AB0880200FB7C07 /* Controllers */,
 				42C1AD8D1AAF612A00248A8D /* Common */,
 				42C1AD821AAF522A00248A8D /* Model */,
@@ -217,8 +224,9 @@
 		42C1AD821AAF522A00248A8D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				42C1AD881AAF5EDE00248A8D /* Actions */,
 				42C1AD891AAF5EE300248A8D /* Action Providers */,
+				42C1AD881AAF5EDE00248A8D /* Actions */,
+				42CEA4E81AB0ADC0006973B7 /* Search */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -256,6 +264,24 @@
 				42807D411AB07D4B007988F3 /* PGInputValidation.m */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		42CEA4E81AB0ADC0006973B7 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				42CEA4E91AB0ADDA006973B7 /* PGSearchService.h */,
+				42CEA4EA1AB0ADDA006973B7 /* PGSearchService.m */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		42FD3C0C1AB0ABC700F0A442 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				42FD3C0D1AB0ABE900F0A442 /* PGRoundCornerWindow.h */,
+				42FD3C0E1AB0ABE900F0A442 /* PGRoundCornerWindow.m */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -388,9 +414,11 @@
 			files = (
 				42C1AD901AAF614500248A8D /* PGConstants.m in Sources */,
 				42C1AD551AAF3E7F00248A8D /* PGXcodeActionBrowser.m in Sources */,
+				42FD3C0F1AB0ABE900F0A442 /* PGRoundCornerWindow.m in Sources */,
 				42C1AD861AAF534200248A8D /* PGNSMenuActionProvider.m in Sources */,
 				42807D3F1AB0708A007988F3 /* PGUtils.m in Sources */,
 				42BD03491AB0880200FB7C07 /* PGActionBrowserWindowController.m in Sources */,
+				42CEA4EB1AB0ADDA006973B7 /* PGSearchService.m in Sources */,
 				42C1AD931AAF632700248A8D /* PGTestCaseActionProvider.m in Sources */,
 				42807D421AB07D4B007988F3 /* PGInputValidation.m in Sources */,
 				42C1AD8C1AAF5F2000248A8D /* PGBlockAction.m in Sources */,
