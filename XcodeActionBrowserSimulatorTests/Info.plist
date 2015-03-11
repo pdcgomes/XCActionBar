@@ -3,11 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>English</string>
+	<string>en</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
-	<key>CFBundleIconFile</key>
-	<string></string>
 	<key>CFBundleIdentifier</key>
 	<string>org.pedrogomes.$(PRODUCT_NAME:rfc1034identifier)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -22,18 +20,5 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
-	<key>LSMinimumSystemVersion</key>
-	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
-	<key>NSPrincipalClass</key>
-	<string>PGXcodeActionBrowser</string>
-	<key>XC4Compatible</key>
-	<true/>
-	<key>XCPluginHasUI</key>
-	<false/>
-	<key>DVTPlugInCompatibilityUUIDs</key>
-	<array>
-		<string>C4A681B0-4A26-480E-93EC-1218098B9AA0</string>
-		<string>AD68E85B-441B-4301-B564-A45E4919A6AD</string>
-	</array>
 </dict>
 </plist>

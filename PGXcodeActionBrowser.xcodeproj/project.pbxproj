@@ -7,20 +7,73 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		42807D3F1AB0708A007988F3 /* PGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 42807D3E1AB0708A007988F3 /* PGUtils.m */; };
+		42807D421AB07D4B007988F3 /* PGInputValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = 42807D411AB07D4B007988F3 /* PGInputValidation.m */; };
+		42BD03481AB0880200FB7C07 /* PGActionBrowserWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42BD03401AB0880200FB7C07 /* PGActionBrowserWindowController.xib */; };
+		42BD03491AB0880200FB7C07 /* PGActionBrowserWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42BD03421AB0880200FB7C07 /* PGActionBrowserWindowController.m */; };
 		42C1AD4B1AAF3E7F00248A8D /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42C1AD4A1AAF3E7F00248A8D /* AppKit.framework */; };
 		42C1AD4D1AAF3E7F00248A8D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42C1AD4C1AAF3E7F00248A8D /* Foundation.framework */; };
-		42C1AD521AAF3E7F00248A8D /* PGXcodeActionBrowser.xcscheme in Resources */ = {isa = PBXBuildFile; fileRef = 42C1AD511AAF3E7F00248A8D /* PGXcodeActionBrowser.xcscheme */; };
 		42C1AD551AAF3E7F00248A8D /* PGXcodeActionBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD541AAF3E7F00248A8D /* PGXcodeActionBrowser.m */; };
+		42C1AD651AAF3EC000248A8D /* PGApplicationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD641AAF3EC000248A8D /* PGApplicationDelegate.m */; };
+		42C1AD671AAF3EC000248A8D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD661AAF3EC000248A8D /* main.m */; };
+		42C1AD6A1AAF3EC000248A8D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD691AAF3EC000248A8D /* ViewController.m */; };
+		42C1AD6C1AAF3EC000248A8D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42C1AD6B1AAF3EC000248A8D /* Images.xcassets */; };
+		42C1AD6F1AAF3EC000248A8D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42C1AD6D1AAF3EC000248A8D /* Main.storyboard */; };
+		42C1AD7B1AAF3EC000248A8D /* XcodeActionBrowserSimulatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD7A1AAF3EC000248A8D /* XcodeActionBrowserSimulatorTests.m */; };
+		42C1AD861AAF534200248A8D /* PGNSMenuActionProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD851AAF534200248A8D /* PGNSMenuActionProvider.m */; };
+		42C1AD8C1AAF5F2000248A8D /* PGBlockAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD8B1AAF5F2000248A8D /* PGBlockAction.m */; };
+		42C1AD901AAF614500248A8D /* PGConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD8F1AAF614500248A8D /* PGConstants.m */; };
+		42C1AD931AAF632700248A8D /* PGTestCaseActionProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD921AAF632700248A8D /* PGTestCaseActionProvider.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		42C1AD751AAF3EC000248A8D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 42C1AD3F1AAF3E7F00248A8D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 42C1AD5E1AAF3EC000248A8D;
+			remoteInfo = XcodeActionBrowserSimulator;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		422781921AB05883003CDD79 /* PGActionBrowser-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PGActionBrowser-Prefix.pch"; sourceTree = "<group>"; };
+		42807D3D1AB0708A007988F3 /* PGUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGUtils.h; sourceTree = "<group>"; };
+		42807D3E1AB0708A007988F3 /* PGUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGUtils.m; sourceTree = "<group>"; };
+		42807D401AB07D4B007988F3 /* PGInputValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGInputValidation.h; sourceTree = "<group>"; };
+		42807D411AB07D4B007988F3 /* PGInputValidation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGInputValidation.m; sourceTree = "<group>"; };
+		42BD03401AB0880200FB7C07 /* PGActionBrowserWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PGActionBrowserWindowController.xib; sourceTree = "<group>"; };
+		42BD03411AB0880200FB7C07 /* PGActionBrowserWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGActionBrowserWindowController.h; sourceTree = "<group>"; };
+		42BD03421AB0880200FB7C07 /* PGActionBrowserWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGActionBrowserWindowController.m; sourceTree = "<group>"; };
 		42C1AD471AAF3E7F00248A8D /* PGXcodeActionBrowser.xcplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PGXcodeActionBrowser.xcplugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		42C1AD4A1AAF3E7F00248A8D /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		42C1AD4C1AAF3E7F00248A8D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		42C1AD501AAF3E7F00248A8D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		42C1AD511AAF3E7F00248A8D /* PGXcodeActionBrowser.xcscheme */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = PGXcodeActionBrowser.xcscheme; path = PGXcodeActionBrowser.xcodeproj/xcshareddata/xcschemes/PGXcodeActionBrowser.xcscheme; sourceTree = SOURCE_ROOT; };
-		42C1AD531AAF3E7F00248A8D /* PGXcodeActionBrowser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGXcodeActionBrowser.h; sourceTree = "<group>"; };
-		42C1AD541AAF3E7F00248A8D /* PGXcodeActionBrowser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PGXcodeActionBrowser.m; sourceTree = "<group>"; };
+		42C1AD531AAF3E7F00248A8D /* PGXcodeActionBrowser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PGXcodeActionBrowser.h; path = ../PGXcodeActionBrowser.h; sourceTree = "<group>"; };
+		42C1AD541AAF3E7F00248A8D /* PGXcodeActionBrowser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PGXcodeActionBrowser.m; path = ../PGXcodeActionBrowser.m; sourceTree = "<group>"; };
+		42C1AD5F1AAF3EC000248A8D /* XcodeActionBrowserSimulator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XcodeActionBrowserSimulator.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		42C1AD621AAF3EC000248A8D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		42C1AD631AAF3EC000248A8D /* PGApplicationDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGApplicationDelegate.h; sourceTree = "<group>"; };
+		42C1AD641AAF3EC000248A8D /* PGApplicationDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PGApplicationDelegate.m; sourceTree = "<group>"; };
+		42C1AD661AAF3EC000248A8D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		42C1AD681AAF3EC000248A8D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		42C1AD691AAF3EC000248A8D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		42C1AD6B1AAF3EC000248A8D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		42C1AD6E1AAF3EC000248A8D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		42C1AD741AAF3EC000248A8D /* XcodeActionBrowserSimulatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XcodeActionBrowserSimulatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		42C1AD791AAF3EC000248A8D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		42C1AD7A1AAF3EC000248A8D /* XcodeActionBrowserSimulatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XcodeActionBrowserSimulatorTests.m; sourceTree = "<group>"; };
+		42C1AD831AAF526A00248A8D /* PGActionBrowserProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGActionBrowserProvider.h; sourceTree = "<group>"; };
+		42C1AD841AAF534200248A8D /* PGNSMenuActionProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGNSMenuActionProvider.h; sourceTree = "<group>"; };
+		42C1AD851AAF534200248A8D /* PGNSMenuActionProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGNSMenuActionProvider.m; sourceTree = "<group>"; };
+		42C1AD871AAF5D7000248A8D /* PGActionInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGActionInterface.h; sourceTree = "<group>"; };
+		42C1AD8A1AAF5F2000248A8D /* PGBlockAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGBlockAction.h; sourceTree = "<group>"; };
+		42C1AD8B1AAF5F2000248A8D /* PGBlockAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGBlockAction.m; sourceTree = "<group>"; };
+		42C1AD8E1AAF614500248A8D /* PGConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGConstants.h; sourceTree = "<group>"; };
+		42C1AD8F1AAF614500248A8D /* PGConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGConstants.m; sourceTree = "<group>"; };
+		42C1AD911AAF632700248A8D /* PGTestCaseActionProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGTestCaseActionProvider.h; sourceTree = "<group>"; };
+		42C1AD921AAF632700248A8D /* PGTestCaseActionProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGTestCaseActionProvider.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,13 +86,48 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		42C1AD5C1AAF3EC000248A8D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		42C1AD711AAF3EC000248A8D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		42807D301AB05F4B007988F3 /* Plugin */ = {
+			isa = PBXGroup;
+			children = (
+				42C1AD531AAF3E7F00248A8D /* PGXcodeActionBrowser.h */,
+				42C1AD541AAF3E7F00248A8D /* PGXcodeActionBrowser.m */,
+			);
+			path = Plugin;
+			sourceTree = "<group>";
+		};
+		42BD033C1AB0880200FB7C07 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				42BD03411AB0880200FB7C07 /* PGActionBrowserWindowController.h */,
+				42BD03421AB0880200FB7C07 /* PGActionBrowserWindowController.m */,
+				42BD03401AB0880200FB7C07 /* PGActionBrowserWindowController.xib */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		42C1AD3E1AAF3E7F00248A8D = {
 			isa = PBXGroup;
 			children = (
 				42C1AD4E1AAF3E7F00248A8D /* PGXcodeActionBrowser */,
+				42C1AD601AAF3EC000248A8D /* XcodeActionBrowserSimulator */,
+				42C1AD771AAF3EC000248A8D /* XcodeActionBrowserSimulatorTests */,
 				42C1AD491AAF3E7F00248A8D /* Frameworks */,
 				42C1AD481AAF3E7F00248A8D /* Products */,
 			);
@@ -49,6 +137,8 @@
 			isa = PBXGroup;
 			children = (
 				42C1AD471AAF3E7F00248A8D /* PGXcodeActionBrowser.xcplugin */,
+				42C1AD5F1AAF3EC000248A8D /* XcodeActionBrowserSimulator.app */,
+				42C1AD741AAF3EC000248A8D /* XcodeActionBrowserSimulatorTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -65,8 +155,10 @@
 		42C1AD4E1AAF3E7F00248A8D /* PGXcodeActionBrowser */ = {
 			isa = PBXGroup;
 			children = (
-				42C1AD531AAF3E7F00248A8D /* PGXcodeActionBrowser.h */,
-				42C1AD541AAF3E7F00248A8D /* PGXcodeActionBrowser.m */,
+				42BD033C1AB0880200FB7C07 /* Controllers */,
+				42C1AD8D1AAF612A00248A8D /* Common */,
+				42C1AD821AAF522A00248A8D /* Model */,
+				42807D301AB05F4B007988F3 /* Plugin */,
 				42C1AD4F1AAF3E7F00248A8D /* Supporting Files */,
 			);
 			path = PGXcodeActionBrowser;
@@ -77,8 +169,93 @@
 			children = (
 				42C1AD501AAF3E7F00248A8D /* Info.plist */,
 				42C1AD511AAF3E7F00248A8D /* PGXcodeActionBrowser.xcscheme */,
+				422781921AB05883003CDD79 /* PGActionBrowser-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		42C1AD601AAF3EC000248A8D /* XcodeActionBrowserSimulator */ = {
+			isa = PBXGroup;
+			children = (
+				42C1AD631AAF3EC000248A8D /* PGApplicationDelegate.h */,
+				42C1AD641AAF3EC000248A8D /* PGApplicationDelegate.m */,
+				42C1AD681AAF3EC000248A8D /* ViewController.h */,
+				42C1AD691AAF3EC000248A8D /* ViewController.m */,
+				42C1AD6B1AAF3EC000248A8D /* Images.xcassets */,
+				42C1AD6D1AAF3EC000248A8D /* Main.storyboard */,
+				42C1AD611AAF3EC000248A8D /* Supporting Files */,
+			);
+			path = XcodeActionBrowserSimulator;
+			sourceTree = "<group>";
+		};
+		42C1AD611AAF3EC000248A8D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				42C1AD621AAF3EC000248A8D /* Info.plist */,
+				42C1AD661AAF3EC000248A8D /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		42C1AD771AAF3EC000248A8D /* XcodeActionBrowserSimulatorTests */ = {
+			isa = PBXGroup;
+			children = (
+				42C1AD7A1AAF3EC000248A8D /* XcodeActionBrowserSimulatorTests.m */,
+				42C1AD781AAF3EC000248A8D /* Supporting Files */,
+			);
+			path = XcodeActionBrowserSimulatorTests;
+			sourceTree = "<group>";
+		};
+		42C1AD781AAF3EC000248A8D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				42C1AD791AAF3EC000248A8D /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		42C1AD821AAF522A00248A8D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				42C1AD881AAF5EDE00248A8D /* Actions */,
+				42C1AD891AAF5EE300248A8D /* Action Providers */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		42C1AD881AAF5EDE00248A8D /* Actions */ = {
+			isa = PBXGroup;
+			children = (
+				42C1AD871AAF5D7000248A8D /* PGActionInterface.h */,
+				42C1AD8A1AAF5F2000248A8D /* PGBlockAction.h */,
+				42C1AD8B1AAF5F2000248A8D /* PGBlockAction.m */,
+			);
+			name = Actions;
+			sourceTree = "<group>";
+		};
+		42C1AD891AAF5EE300248A8D /* Action Providers */ = {
+			isa = PBXGroup;
+			children = (
+				42C1AD831AAF526A00248A8D /* PGActionBrowserProvider.h */,
+				42C1AD841AAF534200248A8D /* PGNSMenuActionProvider.h */,
+				42C1AD851AAF534200248A8D /* PGNSMenuActionProvider.m */,
+				42C1AD911AAF632700248A8D /* PGTestCaseActionProvider.h */,
+				42C1AD921AAF632700248A8D /* PGTestCaseActionProvider.m */,
+			);
+			name = "Action Providers";
+			sourceTree = "<group>";
+		};
+		42C1AD8D1AAF612A00248A8D /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				42C1AD8E1AAF614500248A8D /* PGConstants.h */,
+				42C1AD8F1AAF614500248A8D /* PGConstants.m */,
+				42807D3D1AB0708A007988F3 /* PGUtils.h */,
+				42807D3E1AB0708A007988F3 /* PGUtils.m */,
+				42807D401AB07D4B007988F3 /* PGInputValidation.h */,
+				42807D411AB07D4B007988F3 /* PGInputValidation.m */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -101,6 +278,41 @@
 			productReference = 42C1AD471AAF3E7F00248A8D /* PGXcodeActionBrowser.xcplugin */;
 			productType = "com.apple.product-type.bundle";
 		};
+		42C1AD5E1AAF3EC000248A8D /* XcodeActionBrowserSimulator */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 42C1AD7C1AAF3EC000248A8D /* Build configuration list for PBXNativeTarget "XcodeActionBrowserSimulator" */;
+			buildPhases = (
+				42C1AD5B1AAF3EC000248A8D /* Sources */,
+				42C1AD5C1AAF3EC000248A8D /* Frameworks */,
+				42C1AD5D1AAF3EC000248A8D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = XcodeActionBrowserSimulator;
+			productName = XcodeActionBrowserSimulator;
+			productReference = 42C1AD5F1AAF3EC000248A8D /* XcodeActionBrowserSimulator.app */;
+			productType = "com.apple.product-type.application";
+		};
+		42C1AD731AAF3EC000248A8D /* XcodeActionBrowserSimulatorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 42C1AD7F1AAF3EC000248A8D /* Build configuration list for PBXNativeTarget "XcodeActionBrowserSimulatorTests" */;
+			buildPhases = (
+				42C1AD701AAF3EC000248A8D /* Sources */,
+				42C1AD711AAF3EC000248A8D /* Frameworks */,
+				42C1AD721AAF3EC000248A8D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				42C1AD761AAF3EC000248A8D /* PBXTargetDependency */,
+			);
+			name = XcodeActionBrowserSimulatorTests;
+			productName = XcodeActionBrowserSimulatorTests;
+			productReference = 42C1AD741AAF3EC000248A8D /* XcodeActionBrowserSimulatorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -113,6 +325,13 @@
 					42C1AD461AAF3E7F00248A8D = {
 						CreatedOnToolsVersion = 6.1.1;
 					};
+					42C1AD5E1AAF3EC000248A8D = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					42C1AD731AAF3EC000248A8D = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = 42C1AD5E1AAF3EC000248A8D;
+					};
 				};
 			};
 			buildConfigurationList = 42C1AD421AAF3E7F00248A8D /* Build configuration list for PBXProject "PGXcodeActionBrowser" */;
@@ -121,6 +340,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 42C1AD3E1AAF3E7F00248A8D;
 			productRefGroup = 42C1AD481AAF3E7F00248A8D /* Products */;
@@ -128,6 +348,8 @@
 			projectRoot = "";
 			targets = (
 				42C1AD461AAF3E7F00248A8D /* PGXcodeActionBrowser */,
+				42C1AD5E1AAF3EC000248A8D /* XcodeActionBrowserSimulator */,
+				42C1AD731AAF3EC000248A8D /* XcodeActionBrowserSimulatorTests */,
 			);
 		};
 /* End PBXProject section */
@@ -137,7 +359,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				42C1AD521AAF3E7F00248A8D /* PGXcodeActionBrowser.xcscheme in Resources */,
+				42BD03481AB0880200FB7C07 /* PGActionBrowserWindowController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		42C1AD5D1AAF3EC000248A8D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				42C1AD6C1AAF3EC000248A8D /* Images.xcassets in Resources */,
+				42C1AD6F1AAF3EC000248A8D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		42C1AD721AAF3EC000248A8D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,11 +386,55 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42C1AD901AAF614500248A8D /* PGConstants.m in Sources */,
 				42C1AD551AAF3E7F00248A8D /* PGXcodeActionBrowser.m in Sources */,
+				42C1AD861AAF534200248A8D /* PGNSMenuActionProvider.m in Sources */,
+				42807D3F1AB0708A007988F3 /* PGUtils.m in Sources */,
+				42BD03491AB0880200FB7C07 /* PGActionBrowserWindowController.m in Sources */,
+				42C1AD931AAF632700248A8D /* PGTestCaseActionProvider.m in Sources */,
+				42807D421AB07D4B007988F3 /* PGInputValidation.m in Sources */,
+				42C1AD8C1AAF5F2000248A8D /* PGBlockAction.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		42C1AD5B1AAF3EC000248A8D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				42C1AD6A1AAF3EC000248A8D /* ViewController.m in Sources */,
+				42C1AD671AAF3EC000248A8D /* main.m in Sources */,
+				42C1AD651AAF3EC000248A8D /* PGApplicationDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		42C1AD701AAF3EC000248A8D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				42C1AD7B1AAF3EC000248A8D /* XcodeActionBrowserSimulatorTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		42C1AD761AAF3EC000248A8D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 42C1AD5E1AAF3EC000248A8D /* XcodeActionBrowserSimulator */;
+			targetProxy = 42C1AD751AAF3EC000248A8D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		42C1AD6D1AAF3EC000248A8D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				42C1AD6E1AAF3EC000248A8D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		42C1AD561AAF3E7F00248A8D /* Debug */ = {
@@ -230,6 +512,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = "$(HOME)";
+				GCC_PREFIX_HEADER = "PGXcodeActionBrowser/PGActionBrowser-Prefix.pch";
 				INFOPLIST_FILE = PGXcodeActionBrowser/Info.plist;
 				INSTALL_PATH = "/Library/Application Support/Developer/Shared/Xcode/Plug-ins";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -244,11 +527,86 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = "$(HOME)";
+				GCC_PREFIX_HEADER = "PGXcodeActionBrowser/PGActionBrowser-Prefix.pch";
 				INFOPLIST_FILE = PGXcodeActionBrowser/Info.plist;
 				INSTALL_PATH = "/Library/Application Support/Developer/Shared/Xcode/Plug-ins";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xcplugin;
+			};
+			name = Release;
+		};
+		42C1AD7D1AAF3EC000248A8D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = XcodeActionBrowserSimulator/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		42C1AD7E1AAF3EC000248A8D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				INFOPLIST_FILE = XcodeActionBrowserSimulator/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		42C1AD801AAF3EC000248A8D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = XcodeActionBrowserSimulatorTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XcodeActionBrowserSimulator.app/Contents/MacOS/XcodeActionBrowserSimulator";
+			};
+			name = Debug;
+		};
+		42C1AD811AAF3EC000248A8D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = XcodeActionBrowserSimulatorTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XcodeActionBrowserSimulator.app/Contents/MacOS/XcodeActionBrowserSimulator";
 			};
 			name = Release;
 		};
@@ -271,6 +629,25 @@
 				42C1AD5A1AAF3E7F00248A8D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		42C1AD7C1AAF3EC000248A8D /* Build configuration list for PBXNativeTarget "XcodeActionBrowserSimulator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				42C1AD7D1AAF3EC000248A8D /* Debug */,
+				42C1AD7E1AAF3EC000248A8D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		42C1AD7F1AAF3EC000248A8D /* Build configuration list for PBXNativeTarget "XcodeActionBrowserSimulatorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				42C1AD801AAF3EC000248A8D /* Debug */,
+				42C1AD811AAF3EC000248A8D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

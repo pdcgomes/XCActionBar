@@ -1,19 +1,17 @@
 //
-//  PGXcodeActionBrowser.h
+//  PGUnitTestsActionProvider.h
 //  PGXcodeActionBrowser
 //
 //  Created by Pedro Gomes on 10/03/2015.
 //  Copyright (c) 2015 Pedro Gomes. All rights reserved.
 //
 
-#import <AppKit/AppKit.h>
+#import <Foundation/Foundation.h>
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@interface PGXcodeActionBrowser : NSObject
+@interface PGTestCaseActionProvider : NSObject
 
-+ (instancetype)sharedPlugin;
-
-@property (nonatomic, strong, readonly) NSBundle *bundle;
+- (instancetype)initWithTestCase:(id)testCase;
 
 @end

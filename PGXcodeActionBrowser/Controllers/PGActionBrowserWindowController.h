@@ -1,19 +1,17 @@
 //
-//  PGXcodeActionBrowser.h
+//  PGActionBrowserWindowController.h
 //  PGXcodeActionBrowser
 //
-//  Created by Pedro Gomes on 10/03/2015.
+//  Created by Pedro Gomes on 11/03/2015.
 //  Copyright (c) 2015 Pedro Gomes. All rights reserved.
 //
 
-#import <AppKit/AppKit.h>
+#import <Cocoa/Cocoa.h>
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@interface PGXcodeActionBrowser : NSObject
+@interface PGActionBrowserWindowController : NSWindowController
 
-+ (instancetype)sharedPlugin;
-
-@property (nonatomic, strong, readonly) NSBundle *bundle;
+- (id)initWithBundle:(NSBundle *)bundle;
 
 @end

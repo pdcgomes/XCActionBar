@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="PGActionBrowserWindowController">
+            <connections>
+                <outlet property="searchField" destination="0nc-H3-qNB" id="dVN-Hd-h3t"/>
+                <outlet property="window" destination="QvC-M9-y7g" id="e3x-cH-4St"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="Action Browser" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" animationBehavior="default" id="QvC-M9-y7g">
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="196" y="240" width="480" height="32"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <view key="contentView" id="EiT-Mj-1SZ">
+                <rect key="frame" x="0.0" y="0.0" width="480" height="32"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0nc-H3-qNB">
+                        <rect key="frame" x="5" y="5" width="470" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="22" id="KEA-bY-vN5"/>
+                        </constraints>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Action ..." bezelStyle="round" id="9OQ-Mv-aFx">
+                            <font key="font" metaFont="system" size="17"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                        <connections>
+                            <outlet property="delegate" destination="-2" id="lFJ-Ao-YET"/>
+                        </connections>
+                    </textField>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="0nc-H3-qNB" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="5" id="1Wk-PF-dkF"/>
+                    <constraint firstAttribute="bottom" secondItem="0nc-H3-qNB" secondAttribute="bottom" constant="5" id="39p-g4-pMs"/>
+                    <constraint firstAttribute="trailing" secondItem="0nc-H3-qNB" secondAttribute="trailing" constant="5" id="7Ia-T9-HM4"/>
+                    <constraint firstItem="0nc-H3-qNB" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="5" id="89u-Ui-8xY"/>
+                </constraints>
+            </view>
+        </window>
+    </objects>
+</document>
