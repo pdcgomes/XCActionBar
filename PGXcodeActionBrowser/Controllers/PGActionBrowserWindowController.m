@@ -10,7 +10,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@interface PGActionBrowserWindowController () <NSTextFieldDelegate>
+@interface PGActionBrowserWindowController () <NSTextFieldDelegate, NSWindowDelegate>
 
 @property (weak) IBOutlet NSTextField *searchField;
 
@@ -24,12 +24,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (id)initWithBundle:(NSBundle *)bundle
 {
-    if(self = [super initWithWindowNibName:NSStringFromClass([PGActionBrowserWindowController class])]) {
-        @try {
-//            if ([NSUserNotificationCenter class])
-//                [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
-        }
-        @catch(NSException *exception) { NSLog(@"I've heard you like exceptions... %@", exception); }
+    if((self = [super initWithWindowNibName:NSStringFromClass([PGActionBrowserWindowController class])])) {
+        
     }
     return self;
 }
@@ -39,6 +35,42 @@
 - (void)windowDidLoad
 {
     [super windowDidLoad];
+    
+    self.searchField.focusRingType = NSFocusRingTypeNone;
+
+    [self.window setDelegate:self];
+    [self.window makeFirstResponder:self.searchField];
+}
+
+#pragma mark - Event Handling
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)cancelOperation:(id)sender
+{
+    [self close];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+//- (void)keyDown:(NSEvent *)theEvent
+//{
+//}
+
+#pragma mark - NSWindowDelegate
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)windowDidBecomeKey:(NSNotification *)notification
+{
+    [self.window makeFirstResponder:self.searchField];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)windowDidResignKey:(NSNotification *)notification
+{
+    [self close];
 }
 
 @end

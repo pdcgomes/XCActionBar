@@ -12,6 +12,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 @interface PGActionBrowserWindowController : NSWindowController
 
+@property (nonatomic, weak) id searchService;
+
 - (id)initWithBundle:(NSBundle *)bundle;
 
 @end
