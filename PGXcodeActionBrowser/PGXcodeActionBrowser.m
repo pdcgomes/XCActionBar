@@ -8,6 +8,7 @@
 
 #import "PGXcodeActionBrowser.h"
 
+#import "PGActionIndex.h"
 #import "PGSearchService.h"
 
 #import "PGNSMenuActionProvider.h"
@@ -25,9 +26,7 @@ static PGXcodeActionBrowser *sharedPlugin;
 
 @property (nonatomic, strong, readwrite) NSBundle *bundle;
 
-@property (nonatomic, strong) NSMutableArray   *providers;
-@property (nonatomic, strong) dispatch_queue_t indexerQueue;
-
+@property (nonatomic, strong) id<PGActionIndex  > actionIndex;
 @property (nonatomic, strong) id<PGSearchService> searchService;
 
 @property (nonatomic, strong) PGActionBrowserWindowController *windowController;
@@ -83,7 +82,6 @@ static PGXcodeActionBrowser *sharedPlugin;
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-// Sample Action, for menu item:
 - (void)openActionBrowser
 {
     if(self.windowController == nil) {
@@ -101,7 +99,7 @@ static PGXcodeActionBrowser *sharedPlugin;
 ////////////////////////////////////////////////////////////////////////////////
 - (void)performInitialization
 {
-    self.indexerQueue  = dispatch_queue_create("org.pedrogomes.XcodeActionBrowser.ActionIndexer", DISPATCH_QUEUE_CONCURRENT);
+    self.actionIndex   = [[PGActionIndex alloc] init];
     self.searchService = [[PGSearchService alloc] init];
     
     [self buildMenuActions];
@@ -138,8 +136,6 @@ static PGXcodeActionBrowser *sharedPlugin;
 ////////////////////////////////////////////////////////////////////////////////
 - (void)buildActionProviders
 {
-    self.providers = [NSMutableArray array];
-    
     ////////////////////////////////////////////////////////////////////////////////
     // Setup providers for MenuBar
     ////////////////////////////////////////////////////////////////////////////////
@@ -155,7 +151,7 @@ static PGXcodeActionBrowser *sharedPlugin;
         NSMenuItem *item = [mainMenu itemWithTitle:title];
         if(item == nil) continue;
         
-        [self.providers addObject:[[PGNSMenuActionProvider alloc] initWithMenu:item.submenu]];
+        [self.actionIndex registerProvider:[[PGNSMenuActionProvider alloc] initWithMenu:item.submenu]];
     }
 }
 
@@ -163,17 +159,7 @@ static PGXcodeActionBrowser *sharedPlugin;
 ////////////////////////////////////////////////////////////////////////////////
 - (void)buildActionIndexWithCompletionHandler:(PGGeneralCompletionHandler)completionHandler
 {
-    dispatch_group_t group = dispatch_group_create();
-    
-    for(id<PGActionBrowserProvider> provider in self.providers) {
-        dispatch_group_enter(group);
-        
-        [provider prepareActionsOnQueue:self.indexerQueue completionHandler:^{
-            dispatch_group_leave(group);
-        }];
-    }
-    
-    dispatch_group_notify(group, dispatch_get_main_queue(), completionHandler);
+    [self.actionIndex updateWithCompletionHandler:completionHandler];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -187,7 +173,7 @@ static PGXcodeActionBrowser *sharedPlugin;
     
     NSRect frameForWindow         = window.frame;
     NSRect centeredFrameForWindow = NSMakeRect(screenCenter.x - (frameForWindow.size.width / 2),
-                                               screenCenter.y - (frameForWindow.size.height / 2),
+                                               screenCenter.y - (frameForWindow.size.height / 2) + (boundsForScreen.size.height / 4),
                                                frameForWindow.size.width,
                                                frameForWindow.size.height);
     [window setFrame:centeredFrameForWindow display:YES];
