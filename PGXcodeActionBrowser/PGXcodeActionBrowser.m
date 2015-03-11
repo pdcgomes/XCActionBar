@@ -8,10 +8,12 @@
 
 #import "PGXcodeActionBrowser.h"
 
-#import "PGActionBrowserWindowController.h"
-#import "PGTestCaseActionProvider.h"
+#import "PGSearchService.h"
 
 #import "PGNSMenuActionProvider.h"
+#import "PGTestCaseActionProvider.h"
+
+#import "PGActionBrowserWindowController.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -25,6 +27,8 @@ static PGXcodeActionBrowser *sharedPlugin;
 
 @property (nonatomic, strong) NSMutableArray   *providers;
 @property (nonatomic, strong) dispatch_queue_t indexerQueue;
+
+@property (nonatomic, strong) id<PGSearchService> searchService;
 
 @property (nonatomic, strong) PGActionBrowserWindowController *windowController;
 
@@ -67,32 +71,12 @@ static PGXcodeActionBrowser *sharedPlugin;
 - (id)initWithBundle:(NSBundle *)plugin
 {
     if (self = [super init]) {
-        // reference to plugin's bundle, for resource access
         self.bundle = plugin;
-        self.indexerQueue = dispatch_queue_create("org.pedrogomes.XcodeActionBrowser.ActionIndexer", DISPATCH_QUEUE_CONCURRENT);
         
         ////////////////////////////////////////////////////////////////////////////////
-        // Create menu items, initialize UI, etc.
+        // General initialization
         ////////////////////////////////////////////////////////////////////////////////
-        NSMenuItem *menuItem = [[NSApp mainMenu] itemWithTitle:@"Window"];
-        if(menuItem) {
-            [menuItem.submenu addItem:[NSMenuItem separatorItem]];
-            NSMenuItem *actionMenuItem = [[NSMenuItem alloc] initWithTitle:@"Action Browser (indexing...)"
-                                                                    action:@selector(openActionBrowser)
-                                                             keyEquivalent:@""];
-            actionMenuItem.target  = self;
-            actionMenuItem.enabled = NO;
-
-            [menuItem.submenu addItem:actionMenuItem];
-         
-            TRLog(@"Indexing actions ...");
-            [self buildActionProviders];
-            [self buildActionIndexWithCompletionHandler:^{
-                actionMenuItem.title   = @"Action Browser";
-                actionMenuItem.enabled = YES;
-                TRLog(@"Indexing completed!");
-            }];
-        }
+        [self performInitialization];
     }
     return self;
 }
@@ -106,40 +90,66 @@ static PGXcodeActionBrowser *sharedPlugin;
         self.windowController = [[PGActionBrowserWindowController alloc] initWithBundle:self.bundle];
     }
     
-    NSWindow *window = [self.windowController window];
-    
-    NSRect boundsForScreen = [NSScreen mainScreen].frame;
-    NSPoint screenCenter   = NSMakePoint(boundsForScreen.size.width / 2,
-                                         boundsForScreen.size.height / 2);
-    
-    NSRect frameForWindow         = window.frame;
-    NSRect centeredFrameForWindow = NSMakeRect(screenCenter.x - (frameForWindow.size.width / 2),
-                                               screenCenter.y - (frameForWindow.size.height / 2),
-                                               frameForWindow.size.width,
-                                               frameForWindow.size.height);
-    [window setFrame:centeredFrameForWindow display:YES];
-    
-    [[self.windowController window] makeKeyAndOrderFront:self];
-//    self.window = [[PGActionBrowserWindowController alloc] initWithWindowNibPath:windowNibPath owner:nil];
-//    [self.window showWindow:self];
-    
+    [self centerWindowInScreen:[self.windowController window]];
+    [self.windowController showWindow:self];
+    [self.windowController becomeFirstResponder];
 }
 
 #pragma mark - Helpers
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+- (void)performInitialization
+{
+    self.indexerQueue  = dispatch_queue_create("org.pedrogomes.XcodeActionBrowser.ActionIndexer", DISPATCH_QUEUE_CONCURRENT);
+    self.searchService = [[PGSearchService alloc] init];
+    
+    [self buildMenuActions];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)buildMenuActions
+{
+    NSMenuItem *menuItem = [[NSApp mainMenu] itemWithTitle:@"Window"];
+    if(menuItem == nil) return;
+    
+    [menuItem.submenu addItem:[NSMenuItem separatorItem]];
+    NSMenuItem *actionMenuItem = [[NSMenuItem alloc] initWithTitle:@"Action Browser (indexing...)"
+                                                            action:@selector(openActionBrowser)
+                                                     keyEquivalent:@"8"];
+    actionMenuItem.keyEquivalentModifierMask = (NSCommandKeyMask | NSShiftKeyMask);
+    actionMenuItem.target  = self;
+    actionMenuItem.enabled = NO;
+    
+    [menuItem.submenu insertItem:actionMenuItem
+                         atIndex:[menuItem.submenu indexOfItemWithTitle:@"Bring All to Front"] - 1];
+    
+    TRLog(@"Indexing actions ...");
+    [self buildActionProviders];
+    [self buildActionIndexWithCompletionHandler:^{
+        actionMenuItem.title   = @"Action Browser";
+        actionMenuItem.enabled = YES;
+        TRLog(@"Indexing completed!");
+    }];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 - (void)buildActionProviders
 {
+    self.providers = [NSMutableArray array];
+    
+    ////////////////////////////////////////////////////////////////////////////////
+    // Setup providers for MenuBar
+    ////////////////////////////////////////////////////////////////////////////////
     NSArray *menuBarActions = @[@"File", @"Edit",
                                 @"View", @"Find",
                                 @"Navigate", @"Editor",
                                 @"Product", @"Debug",
                                 @"Source Control",
                                 @"Window", @"Help"];
-    
     NSMenu *mainMenu = [NSApp mainMenu];
-    self.providers = [NSMutableArray array];
     
     for(NSString *title in menuBarActions) {
         NSMenuItem *item = [mainMenu itemWithTitle:title];
@@ -164,6 +174,23 @@ static PGXcodeActionBrowser *sharedPlugin;
     }
     
     dispatch_group_notify(group, dispatch_get_main_queue(), completionHandler);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Review: move to helper/category
+////////////////////////////////////////////////////////////////////////////////
+- (void)centerWindowInScreen:(NSWindow *)window
+{
+    NSRect boundsForScreen = [NSScreen mainScreen].frame;
+    NSPoint screenCenter   = NSMakePoint(boundsForScreen.size.width / 2,
+                                         boundsForScreen.size.height / 2);
+    
+    NSRect frameForWindow         = window.frame;
+    NSRect centeredFrameForWindow = NSMakeRect(screenCenter.x - (frameForWindow.size.width / 2),
+                                               screenCenter.y - (frameForWindow.size.height / 2),
+                                               frameForWindow.size.width,
+                                               frameForWindow.size.height);
+    [window setFrame:centeredFrameForWindow display:YES];
 }
 
 @end
