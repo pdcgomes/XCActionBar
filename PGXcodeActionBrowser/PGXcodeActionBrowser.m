@@ -82,7 +82,7 @@ static PGXcodeActionBrowser *sharedPlugin;
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (void)openActionBrowser
+- (void)presentActionSearchBar
 {
     if(self.windowController == nil) {
         self.windowController = [[PGActionBrowserWindowController alloc] initWithBundle:self.bundle];
@@ -114,7 +114,7 @@ static PGXcodeActionBrowser *sharedPlugin;
     
     [menuItem.submenu addItem:[NSMenuItem separatorItem]];
     NSMenuItem *actionMenuItem = [[NSMenuItem alloc] initWithTitle:@"Action Browser (indexing...)"
-                                                            action:@selector(openActionBrowser)
+                                                            action:@selector(presentActionSearchBar)
                                                      keyEquivalent:@"8"];
     actionMenuItem.keyEquivalentModifierMask = (NSCommandKeyMask | NSShiftKeyMask);
     actionMenuItem.target  = self;
@@ -124,6 +124,7 @@ static PGXcodeActionBrowser *sharedPlugin;
                          atIndex:[menuItem.submenu indexOfItemWithTitle:@"Bring All to Front"] - 1];
     
     TRLog(@"Indexing actions ...");
+    
     [self buildActionProviders];
     [self buildActionIndexWithCompletionHandler:^{
         actionMenuItem.title   = @"Action Browser";
@@ -153,6 +154,14 @@ static PGXcodeActionBrowser *sharedPlugin;
         
         [self.actionIndex registerProvider:[[PGNSMenuActionProvider alloc] initWithMenu:item.submenu]];
     }
+    
+    ////////////////////////////////////////////////////////////////////////////////
+    // TODO: build unit test providers
+    ////////////////////////////////////////////////////////////////////////////////
+
+    ////////////////////////////////////////////////////////////////////////////////
+    // TODO: build code snippet provider
+    ////////////////////////////////////////////////////////////////////////////////
 }
 
 ////////////////////////////////////////////////////////////////////////////////

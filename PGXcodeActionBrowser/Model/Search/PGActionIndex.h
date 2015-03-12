@@ -17,6 +17,8 @@
 
 - (void)updateWithCompletionHandler:(PGGeneralCompletionHandler)completionHandler;
 
+- (NSArray *)lookup:(NSString *)str;
+
 @end
 
 ////////////////////////////////////////////////////////////////////////////////

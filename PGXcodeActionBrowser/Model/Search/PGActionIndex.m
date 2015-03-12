@@ -8,6 +8,7 @@
 
 #import "PGActionBrowserProvider.h"
 #import "PGActionIndex.h"
+#import "PGActionInterface.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -15,6 +16,7 @@
 
 @property (nonatomic, strong) dispatch_queue_t indexerQueue;
 @property (nonatomic, strong) NSMutableArray   *providers;
+@property (nonatomic, strong) NSArray          *index;
 
 @end
 
@@ -37,13 +39,18 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (void)registerProvider:(id<PGActionBrowserProvider>)provider
 {
-    [self.providers addObject:provider];
+    @synchronized(self) {
+        [self.providers addObject:provider];
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (void)updateWithCompletionHandler:(PGGeneralCompletionHandler)completionHandler
 {
+    ////////////////////////////////////////////////////////////////////////////////
+    // Build All Actions
+    ////////////////////////////////////////////////////////////////////////////////
     dispatch_group_t group = dispatch_group_create();
     
     for(id<PGActionBrowserProvider> provider in self.providers) {
@@ -53,8 +60,60 @@
             dispatch_group_leave(group);
         }];
     }
+
+    ////////////////////////////////////////////////////////////////////////////////
+    // When done, collect all actions into our internal index
+    ////////////////////////////////////////////////////////////////////////////////
+    RTVDeclareWeakSelf(weakSelf);
+
+    dispatch_group_enter(group);
+    dispatch_barrier_async(self.indexerQueue, ^{
+        [weakSelf rebuildIndex];
+        dispatch_group_leave(group);
+    });
     
     dispatch_group_notify(group, dispatch_get_main_queue(), completionHandler);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (NSArray *)lookup:(NSString *)str
+{
+    ////////////////////////////////////////////////////////////////////////////////
+    // this is highly inefficient - obviously just a first pass to get the core feature working
+    ////////////////////////////////////////////////////////////////////////////////
+    NSMutableArray *matches = [NSMutableArray array];
+    
+    for(id<PGActionInterface> action in self.index) {
+        if(str.length > action.title.length) continue;
+        
+        NSRange range = [action.title rangeOfString:str
+                                            options:(NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch)
+                                              range:NSMakeRange(0, str.length)];
+        if(range.location == NSNotFound) continue;
+        [matches addObject:action];
+    }
+    
+    return [NSArray arrayWithArray:matches];
+}
+
+#pragma mark - Helpers
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)rebuildIndex
+{
+    NSArray *providers = nil;
+    @synchronized(self) {
+        providers = [self.providers copy];
+    }
+    
+    NSMutableArray *actionIndex = [NSMutableArray array];
+    for(id<PGActionBrowserProvider> provider in providers) {
+        NSArray *actions = [provider findAllActions];
+        [actionIndex addObjectsFromArray:actions];
+    }
+    self.index = [NSArray arrayWithArray:actionIndex];;
 }
 
 @end
