@@ -7,6 +7,7 @@
 //
 
 #import "PGActionBrowserWindowController.h"
+#import "PGActionInterface.h"
 #import "PGSearchService.h"
 
 #import "PGSearchResultCell.h"
@@ -55,8 +56,10 @@
     [super windowDidLoad];
     
     RTVDeclareWeakSelf(weakSelf);
-    self.commandHandlers = @{NSStringFromSelector(@selector(moveDown:)):    [^{ [weakSelf selectNextSearchResult]; } copy],
-                             NSStringFromSelector(@selector(moveUp:)):      [^{ [weakSelf selectPreviousSearchResult]; } copy]};
+    self.commandHandlers = @{NSStringFromSelector(@selector(moveDown:)):     [^{ [weakSelf selectNextSearchResult]; } copy],
+                             NSStringFromSelector(@selector(moveUp:)):       [^{ [weakSelf selectPreviousSearchResult]; } copy],
+                             NSStringFromSelector(@selector(insertNewline:)):[^{ [weakSelf executeSelectedAction]; } copy]
+                             };
     
     self.searchField.focusRingType = NSFocusRingTypeNone;
     self.searchField.delegate      = self;
@@ -116,14 +119,15 @@
 {
     NSTextField *textField = notification.object;
 
-    TRLog(@"<SearchQueryChanged>, <query=%@>", textField.stringValue);
+//    TRLog(@"<SearchQueryChanged>, <query=%@>", textField.stringValue);
 
     // TODO: wait a bit before attempting to update search results - cancel previous update if any
-    [self updateSearchResults:[textField.stringValue componentsSeparatedByCharactersInSet:[NSCharacterSet alphanumericCharacterSet]]];
-    [self resizeWindowToAccomodateSearchResults];
+    RTVDeclareWeakSelf(weakSelf);
+    
     [self.searchService performSearchWithQuery:textField.stringValue
                              completionHandler:^(NSArray *results) {
-        
+                                 [weakSelf updateSearchResults:results];
+                                 [weakSelf resizeWindowToAccomodateSearchResults];
     }];
 }
 
@@ -165,7 +169,9 @@
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
     PGSearchResultCell *cell = [tableView makeViewWithIdentifier:NSStringFromClass([PGSearchResultCell class]) owner:self];
-    [cell.textField setStringValue:[NSString stringWithFormat:@"Result #%@", @(row)]];
+    
+    id<PGActionInterface> action = self.searchResults[row];
+    [cell.textField setStringValue:[NSString stringWithFormat:@"%@ (%@)", action.title, action.hint]];
     
     return cell;
 }
@@ -189,7 +195,7 @@
     
 }
 
-#pragma mark - Helpers
+#pragma mark - Event Action Handlers
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -216,6 +222,21 @@
     
     [self selectSearchResultAtIndex:indexToSelect];
 }
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)executeSelectedAction
+{
+    NSInteger selectedIndex = self.searchResultsTable.selectedRow;
+    if(selectedIndex == -1) return;
+    
+    id<PGActionInterface> selectedAction = self.searchResults[selectedIndex];
+    [selectedAction execute];
+
+    [self close];
+}
+
+#pragma mark - Helpers
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
