@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4228E3E81AB1B7D100918EAA /* PGSearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4228E3E71AB1B7D100918EAA /* PGSearchResultCell.xib */; };
+		4228E3EB1AB1B82A00918EAA /* PGSearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4228E3EA1AB1B82A00918EAA /* PGSearchResultCell.m */; };
 		42807D3F1AB0708A007988F3 /* PGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 42807D3E1AB0708A007988F3 /* PGUtils.m */; };
 		42807D421AB07D4B007988F3 /* PGInputValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = 42807D411AB07D4B007988F3 /* PGInputValidation.m */; };
 		42A647241AB0B666003803AE /* PGActionIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A647231AB0B666003803AE /* PGActionIndex.m */; };
@@ -41,6 +43,9 @@
 
 /* Begin PBXFileReference section */
 		422781921AB05883003CDD79 /* PGActionBrowser-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PGActionBrowser-Prefix.pch"; sourceTree = "<group>"; };
+		4228E3E71AB1B7D100918EAA /* PGSearchResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PGSearchResultCell.xib; sourceTree = "<group>"; };
+		4228E3E91AB1B82A00918EAA /* PGSearchResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGSearchResultCell.h; sourceTree = "<group>"; };
+		4228E3EA1AB1B82A00918EAA /* PGSearchResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSearchResultCell.m; sourceTree = "<group>"; };
 		42807D3D1AB0708A007988F3 /* PGUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGUtils.h; sourceTree = "<group>"; };
 		42807D3E1AB0708A007988F3 /* PGUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGUtils.m; sourceTree = "<group>"; };
 		42807D401AB07D4B007988F3 /* PGInputValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGInputValidation.h; sourceTree = "<group>"; };
@@ -164,12 +169,12 @@
 		42C1AD4E1AAF3E7F00248A8D /* PGXcodeActionBrowser */ = {
 			isa = PBXGroup;
 			children = (
-				42FD3C0C1AB0ABC700F0A442 /* UI */,
-				42BD033C1AB0880200FB7C07 /* Controllers */,
 				42C1AD8D1AAF612A00248A8D /* Common */,
+				42BD033C1AB0880200FB7C07 /* Controllers */,
 				42C1AD821AAF522A00248A8D /* Model */,
 				42807D301AB05F4B007988F3 /* Plugin */,
 				42C1AD4F1AAF3E7F00248A8D /* Supporting Files */,
+				42FD3C0C1AB0ABC700F0A442 /* UI */,
 			);
 			path = PGXcodeActionBrowser;
 			sourceTree = "<group>";
@@ -285,6 +290,9 @@
 			children = (
 				42FD3C0D1AB0ABE900F0A442 /* PGRoundCornerWindow.h */,
 				42FD3C0E1AB0ABE900F0A442 /* PGRoundCornerWindow.m */,
+				4228E3E71AB1B7D100918EAA /* PGSearchResultCell.xib */,
+				4228E3E91AB1B82A00918EAA /* PGSearchResultCell.h */,
+				4228E3EA1AB1B82A00918EAA /* PGSearchResultCell.m */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -391,6 +399,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				42BD03481AB0880200FB7C07 /* PGActionBrowserWindowController.xib in Resources */,
+				4228E3E81AB1B7D100918EAA /* PGSearchResultCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,6 +433,7 @@
 				42807D3F1AB0708A007988F3 /* PGUtils.m in Sources */,
 				42BD03491AB0880200FB7C07 /* PGActionBrowserWindowController.m in Sources */,
 				42CEA4EB1AB0ADDA006973B7 /* PGSearchService.m in Sources */,
+				4228E3EB1AB1B82A00918EAA /* PGSearchResultCell.m in Sources */,
 				42C1AD931AAF632700248A8D /* PGTestCaseActionProvider.m in Sources */,
 				42807D421AB07D4B007988F3 /* PGInputValidation.m in Sources */,
 				42C1AD8C1AAF5F2000248A8D /* PGBlockAction.m in Sources */,
