@@ -75,6 +75,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)execute
 {
+    if(self.action) {
+        self.action();
+        return YES;
+    }
     return NO;
 }
 
