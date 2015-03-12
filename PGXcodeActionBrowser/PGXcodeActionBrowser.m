@@ -86,6 +86,8 @@ static PGXcodeActionBrowser *sharedPlugin;
 {
     if(self.windowController == nil) {
         self.windowController = [[PGActionBrowserWindowController alloc] initWithBundle:self.bundle];
+        // REVIEW: initWithBundle:searchService:
+        self.windowController.searchService = self.searchService;
     }
     
     [self centerWindowInScreen:[self.windowController window]];
@@ -100,7 +102,7 @@ static PGXcodeActionBrowser *sharedPlugin;
 - (void)performInitialization
 {
     self.actionIndex   = [[PGActionIndex alloc] init];
-    self.searchService = [[PGSearchService alloc] init];
+    self.searchService = [[PGSearchService alloc] initWithIndex:self.actionIndex];
     
     [self buildMenuActions];
 }

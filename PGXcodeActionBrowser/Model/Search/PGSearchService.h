@@ -27,6 +27,9 @@ typedef void (^PGSearchServiceCompletionHandler)(NSArray *results);
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+@protocol PGActionIndex;
 @interface PGSearchService : NSObject <PGSearchService>
+
+- (instancetype)initWithIndex:(id<PGActionIndex>)index;
 
 @end
