@@ -23,6 +23,15 @@
 ////////////////////////////////////////////////////////////////////////////////
 @implementation PGNSMenuActionProvider
 
+@synthesize delegate = _delegate;
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)dealloc
+{
+    [self deregisterObservers];
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (instancetype)initWithMenu:(NSMenu *)menu
@@ -37,6 +46,18 @@
 }
 
 #pragma mark - PGActionProvider
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)setDelegate:(id<PGActionBrowserProviderDelegate>)delegate
+{
+    if(_delegate == delegate) return;
+    _delegate = delegate;
+    
+    [self deregisterObservers];
+
+    if(TRCheckIsEmpty(delegate) == NO) [self registerObservers];
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -80,7 +101,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (NSArray *)findAllActions
 {
-    return @[];
+    return [NSArray arrayWithArray:self.actions];
 }
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -105,16 +126,16 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (void)registerObservers
 {
-    //    APPKIT_EXTERN NSString *NSMenuDidAddItemNotification;
-    //    APPKIT_EXTERN NSString *NSMenuDidRemoveItemNotification;
-    //    APPKIT_EXTERN NSString *NSMenuDidChangeItemNotification;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyOfIndexRebuildRequired) name:NSMenuDidAddItemNotification object:self.menu];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyOfIndexRebuildRequired) name:NSMenuDidRemoveItemNotification object:self.menu];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyOfIndexRebuildRequired) name:NSMenuDidChangeItemNotification object:self.menu];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (void)deregisterObservers
 {
-    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -139,6 +160,7 @@
         [actions addObject:action];
         TRLog(@"<action:: title=%@, subtitle=%@, hint=%@>", action.title, action.subtitle, action.hint);
     }}
+    self.actions = [NSArray arrayWithArray:actions];
     
     [self registerObservers];
 }
@@ -150,6 +172,15 @@
     return [NSString stringWithFormat:@"%@%@",
             PGBuildModifierKeyMaskString(item.keyEquivalentModifierMask),
             item.keyEquivalent.uppercaseString];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)notifyOfIndexRebuildRequired
+{
+    if([self.delegate respondsToSelector:@selector(actionProviderDidNotifyOfIndexRebuildNeeded:)]) {
+        [self.delegate actionProviderDidNotifyOfIndexRebuildNeeded:self];
+    }
 }
 
 @end

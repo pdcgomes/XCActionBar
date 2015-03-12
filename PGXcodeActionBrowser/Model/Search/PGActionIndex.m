@@ -12,7 +12,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@interface PGActionIndex ()
+@interface PGActionIndex () <PGActionBrowserProviderDelegate>
 
 @property (nonatomic, strong) dispatch_queue_t indexerQueue;
 @property (nonatomic, strong) NSMutableArray   *providers;
@@ -95,6 +95,34 @@
     }
     
     return [NSArray arrayWithArray:matches];
+}
+
+#pragma mark - PGActionProviderDelegate
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)actionProviderDidNotifyOfIndexRebuildNeeded:(id<PGActionBrowserProvider>)provider
+{
+    TRLog(@"<IndexRebuildNeeded>, <provider=%@>", provider);
+    
+    RTVDeclareWeakSelf(weakSelf);
+    
+    void (^RegisterProviderDelegates)(id<PGActionBrowserProviderDelegate> delegate) = ^(id delegate){
+        NSArray *providers = nil;
+        @synchronized(self) {
+            providers = [weakSelf.providers copy];
+        }
+
+        for(id<PGActionBrowserProvider> provider in weakSelf.providers) {
+            [provider setDelegate:delegate];
+        }
+    };
+    
+    RegisterProviderDelegates(nil);
+    
+    [self updateWithCompletionHandler:^{
+        RegisterProviderDelegates(weakSelf);
+    }];
 }
 
 #pragma mark - Helpers

@@ -11,7 +11,17 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+@protocol PGActionBrowserProvider;
+@protocol PGActionBrowserProviderDelegate <NSObject>
+
+- (void)actionProviderDidNotifyOfIndexRebuildNeeded:(id<PGActionBrowserProvider>)provider;
+
+@end
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 @protocol PGActionBrowserProvider <NSObject>
+
+@property (nonatomic, weak) id<PGActionBrowserProviderDelegate> delegate;
 
 - (void)prepareActionsOnQueue:(dispatch_queue_t)indexerQueue
             completionHandler:(PGGeneralCompletionHandler)completionHandler;
