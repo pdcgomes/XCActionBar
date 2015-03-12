@@ -10,10 +10,14 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+@protocol PGSearchService;
 @interface PGActionBrowserWindowController : NSWindowController
 
-@property (nonatomic, weak) id searchService;
+@property (nonatomic, weak) id<PGSearchService> searchService;
 
 - (id)initWithBundle:(NSBundle *)bundle;
+
+- (void)updateSearchResults:(NSArray *)results;
+- (void)clearSearchResults;
 
 @end
