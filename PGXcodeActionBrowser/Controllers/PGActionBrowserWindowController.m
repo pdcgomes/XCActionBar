@@ -20,11 +20,15 @@
 @interface PGActionBrowserWindowController () <NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate, NSWindowDelegate>
 
 @property (nonatomic) NSRect frameForEmptySearchResults;
+@property (nonatomic) CGFloat searchFieldBottomConstraintConstant;
 
 @property (nonatomic) NSDictionary *commandHandlers;
 
 @property (weak) IBOutlet NSTextField *searchField;
 @property (weak) IBOutlet NSTableView *searchResultsTable;
+@property (weak) IBOutlet NSLayoutConstraint *searchFieldBottomConstraint;
+@property (weak) IBOutlet NSLayoutConstraint *searchResultsTableHeightConstraint;
+@property (weak) IBOutlet NSLayoutConstraint *searchResultsTableBottomConstraint;
 
 @property (nonatomic) NSArray *searchResults;
 
@@ -51,8 +55,8 @@
     [super windowDidLoad];
     
     RTVDeclareWeakSelf(weakSelf);
-    self.commandHandlers = @{NSStringFromSelector(@selector(moveUp:)):      [^{ [weakSelf selectNextSearchResult]; } copy],
-                             NSStringFromSelector(@selector(moveDown:)):    [^{ [weakSelf selectPreviousSearchResult]; } copy]};
+    self.commandHandlers = @{NSStringFromSelector(@selector(moveDown:)):    [^{ [weakSelf selectNextSearchResult]; } copy],
+                             NSStringFromSelector(@selector(moveUp:)):      [^{ [weakSelf selectPreviousSearchResult]; } copy]};
     
     self.searchField.focusRingType = NSFocusRingTypeNone;
     self.searchField.delegate      = self;
@@ -60,7 +64,8 @@
     
     self.searchResultsTable.rowSizeStyle            = NSTableViewRowSizeStyleMedium;
     self.searchResultsTable.selectionHighlightStyle = NSTableViewSelectionHighlightStyleRegular;
-
+    
+    [self restoreWindowSize];
     [self.window setDelegate:self];
     [self.window makeFirstResponder:self.searchField];
 }
@@ -89,6 +94,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (void)windowDidBecomeKey:(NSNotification *)notification
 {
+    self.searchFieldBottomConstraintConstant = self.searchFieldBottomConstraint.constant;
     self.frameForEmptySearchResults = self.window.frame;
     
     [self.window makeFirstResponder:self.searchField];
@@ -190,6 +196,12 @@
 - (void)selectNextSearchResult
 {
     TRLog(@"<selectNextSearchResult>");
+    
+    NSInteger rowCount      = [self.searchResultsTable numberOfRows];
+    NSInteger selectedIndex = self.searchResultsTable.selectedRow;
+    NSInteger indexToSelect = (selectedIndex == -1 ? 0 : (selectedIndex + 1 < rowCount ? selectedIndex + 1 : 0));
+    
+    [self selectSearchResultAtIndex:indexToSelect];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -197,31 +209,48 @@
 - (void)selectPreviousSearchResult
 {
     TRLog(@"<selectPreviousSearchResult>");
+    
+    NSInteger rowCount      = [self.searchResultsTable numberOfRows];
+    NSInteger selectedIndex = self.searchResultsTable.selectedRow;
+    NSInteger indexToSelect = (selectedIndex == -1 ? rowCount - 1 : (selectedIndex - 1 >= 0 ? selectedIndex - 1 : rowCount - 1));
+    
+    [self selectSearchResultAtIndex:indexToSelect];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)selectSearchResultAtIndex:(NSInteger)indexToSelect
+{
+    [self.searchResultsTable selectRowIndexes:[NSIndexSet indexSetWithIndex:indexToSelect]
+                         byExtendingSelection:NO];
+    [self.searchResultsTable scrollRowToVisible:indexToSelect];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (void)resizeWindowToAccomodateSearchResults
 {
-    if(TRCheckIsEmpty(self.searchResults)) {
-        [self.window setFrame:self.frameForEmptySearchResults display:NO];
+    if(TRCheckIsEmpty(self.searchResults) == NO) {
+        self.searchResultsTable.alphaValue = 1.0;
+        self.searchResultsTable.hidden = NO;
+        self.searchResultsTableBottomConstraint.constant = 10.0;
+        self.searchResultsTableHeightConstraint.constant = 250.0;
     }
-    else {
-        NSRect resizedWindowFrame = (NSRect) {
-            .origin = self.frameForEmptySearchResults.origin,
-            .size   = NSMakeSize(self.frameForEmptySearchResults.size.width, self.frameForEmptySearchResults.size.height + 250.0),
-        };
-        [self.window setFrame:resizedWindowFrame
-                      display:YES];
-    }
+    else [self restoreWindowSize];
+    
+    [self.searchField layoutSubtreeIfNeeded];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (void)restoreWindowSize
 {
-    [self.window setFrame:self.frameForEmptySearchResults
-                  display:YES];
+    self.searchResultsTable.alphaValue = 0.0;
+    self.searchResultsTable.hidden = YES;
+    self.searchResultsTableBottomConstraint.constant = 0.0;
+    self.searchResultsTableHeightConstraint.constant = 0.0;
+    
+    [self.window.contentView layoutSubtreeIfNeeded];
 }
 
 @end
