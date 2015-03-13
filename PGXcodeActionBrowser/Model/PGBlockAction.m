@@ -26,6 +26,8 @@
 
 @synthesize enabled, icon, representedObject;
 
+#pragma mark - Dealloc and Initialization
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (instancetype)initWithTitle:(NSString *)title
@@ -71,6 +73,8 @@
     return self;
 }
 
+#pragma mark - Public Methods
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)execute
@@ -80,6 +84,21 @@
         return YES;
     }
     return NO;
+}
+
+#pragma mark - Properties
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)enabled
+{
+    // REVIEW: move this to a concrete NSMenuItemAction class or build some dynamic property checker mechanism
+    // good enough for now
+    BOOL supportsDynamicEnabledState = (TRCheckIsClass(self.representedObject, [NSMenuItem class]));
+    if(supportsDynamicEnabledState) {
+        return [(NSMenuItem *)self.representedObject isEnabled];
+    }
+    return self->enabled;
 }
 
 @end
