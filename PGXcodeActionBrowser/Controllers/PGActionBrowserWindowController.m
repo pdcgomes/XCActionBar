@@ -171,7 +171,7 @@
     PGSearchResultCell *cell = [tableView makeViewWithIdentifier:NSStringFromClass([PGSearchResultCell class]) owner:self];
     
     id<PGActionInterface> action = self.searchResults[row];
-    [cell.textField setStringValue:[NSString stringWithFormat:@"%@ (%@)", action.title, action.hint]];
+    [cell.textField setStringValue:[NSString stringWithFormat:@"%@ (%@) [%@]", action.title, action.hint, action.subtitle]];
     
     return cell;
 }

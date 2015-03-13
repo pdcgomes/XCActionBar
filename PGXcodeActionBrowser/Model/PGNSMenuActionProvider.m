@@ -144,25 +144,72 @@
 {
     [self deregisterObservers];
     
-    RTVDeclareWeakSelf(weakSelf);
-    
+    self.actions = [self recursivelyBuildAvailableActionsForMenu:self.menu];
+
+    [self registerObservers];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Recursive approach
+////////////////////////////////////////////////////////////////////////////////
+//- (NSArray *)recursivelyBuildAvailableActionsForMenu:(NSMenu *)menu
+//{
+//    NSMutableArray *actions = [NSMutableArray array];
+//    
+//    for(NSMenuItem *item in menu.itemArray) { @autoreleasepool {
+//        PGBlockAction *action = [[PGBlockAction alloc] initWithTitle:item.title
+//                                                            subtitle:menu.title
+//                                                                hint:[self buildHintForMenuItem:item]
+//                                                              action:^{
+//                                                                  NSUInteger index = [menu indexOfItem:item];
+//                                                                  [menu performActionForItemAtIndex:index];
+//                                                              }];
+//        [actions addObject:action];
+//        if(item.submenu == nil) continue;
+//        
+//        NSArray *subActions = [self recursivelyBuildAvailableActionsForMenu:item.submenu];
+//        if(TRCheckIsEmpty(subActions) == NO) {
+//            [actions addObjectsFromArray:subActions];
+//        }
+//        TRLog(@"<action:: title=%@, subtitle=%@, hint=%@>", action.title, action.subtitle, action.hint);
+//    }}
+//    
+//    return [NSArray arrayWithArray:actions];
+//}
+
+////////////////////////////////////////////////////////////////////////////////
+// Stack based approach
+////////////////////////////////////////////////////////////////////////////////
+- (NSArray *)recursivelyBuildAvailableActionsForMenu:(NSMenu *)menu
+{
     NSMutableArray *actions = [NSMutableArray array];
     
-    TRLog(@"%@: buildAvaiableActions (%@)", self.description, self.menu.title);
-    for(NSMenuItem *item in self.menu.itemArray) { @autoreleasepool {
-        PGBlockAction *action = [[PGBlockAction alloc] initWithTitle:item.title
-                                                            subtitle:@""
-                                                                hint:[self buildHintForMenuItem:item]
-                                                              action:^{
-                                                                  NSUInteger index = [weakSelf.menu indexOfItem:item];
-                                                                  [weakSelf.menu performActionForItemAtIndex:index];
-                                                              }];
-        [actions addObject:action];
-        TRLog(@"<action:: title=%@, subtitle=%@, hint=%@>", action.title, action.subtitle, action.hint);
-    }}
-    self.actions = [NSArray arrayWithArray:actions];
+    NSMutableArray *processingQueue = [NSMutableArray arrayWithObject:menu];
     
-    [self registerObservers];
+    while(processingQueue.count > 0) {
+        NSMenu *menu = [processingQueue firstObject];
+        [processingQueue removeObjectAtIndex:0];
+        
+        NSString *subtitle = [self buildSubtitleForMenu:menu];
+        
+        for(NSMenuItem *item in menu.itemArray) { @autoreleasepool {
+            PGBlockAction *action = [[PGBlockAction alloc] initWithTitle:item.title
+                                                                subtitle:subtitle
+                                                                    hint:(item.hasSubmenu ? @"" : [self buildHintForMenuItem:item])
+                                                                  action:^{
+                                                                      NSUInteger index = [menu indexOfItem:item];
+                                                                      [menu performActionForItemAtIndex:index];
+                                                                  }];
+            action.representedObject = item;
+            [actions addObject:action];
+            
+            if(item.submenu) [processingQueue addObject:item.submenu];
+            
+            TRLog(@"<action:: title=%@, subtitle=%@, hint=%@>", action.title, action.subtitle, action.hint);
+        }}
+    }
+    
+    return [NSArray arrayWithArray:actions];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -172,6 +219,23 @@
     return [NSString stringWithFormat:@"%@%@",
             PGBuildModifierKeyMaskString(item.keyEquivalentModifierMask),
             item.keyEquivalent.uppercaseString];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (NSString *)buildSubtitleForMenu:(NSMenu *)menu
+{
+    NSMutableString *title     = [[NSMutableString alloc] initWithString:menu.title];
+    NSMutableArray *components = [NSMutableArray arrayWithObject:title];
+
+    NSMenu *parentMenu = menu.supermenu;
+    while(parentMenu) {
+        [components insertObject:[NSString stringWithFormat:@"%@ > ", parentMenu.title]
+                         atIndex:0];
+        parentMenu = parentMenu.supermenu;
+    }
+    [components removeObjectAtIndex:0]; // get rid of the top level Xcode menu reference
+    return [components componentsJoinedByString:@""];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
