@@ -9,3 +9,5 @@
 #import <Foundation/Foundation.h>
 
 FOUNDATION_EXTERN NSString *PGBuildModifierKeyMaskString(NSUInteger mask);
+
+FOUNDATION_EXTERN void PGMethodSwizzle(Class class, SEL selector, SEL exchangeWithSelector);

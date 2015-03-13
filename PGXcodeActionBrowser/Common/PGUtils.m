@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Pedro Gomes. All rights reserved.
 //
 
+#import <objc/runtime.h>
+
 #import "PGUtils.h"
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -34,4 +36,19 @@ NSString *PGBuildModifierKeyMaskString(NSUInteger mask)
         }
     }
     return str.copy;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+void PGMethodSwizzle(Class class, SEL selector, SEL exchangeWithSelector)
+{
+    Method method             = nil;
+    Method exchangeWithMethod = nil;
+    
+    method             = class_getInstanceMethod(class, selector);
+    exchangeWithMethod = class_getInstanceMethod(class, exchangeWithSelector);
+    
+    if(method != nil && exchangeWithMethod != nil) {
+        method_exchangeImplementations(method, exchangeWithMethod);
+    }
 }
