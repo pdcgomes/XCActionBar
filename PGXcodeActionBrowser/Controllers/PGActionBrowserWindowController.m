@@ -16,6 +16,8 @@
 //NSLeftArrowFunctionKey      = 0xF702,
 //NSRightArrowFunctionKey     = 0xF703,
 
+typedef BOOL (^PGCommandHandler)(void);
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @interface PGActionBrowserWindowController () <NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate, NSWindowDelegate>
@@ -56,9 +58,9 @@
     [super windowDidLoad];
     
     RTVDeclareWeakSelf(weakSelf);
-    self.commandHandlers = @{NSStringFromSelector(@selector(moveDown:)):     [^{ [weakSelf selectNextSearchResult]; } copy],
-                             NSStringFromSelector(@selector(moveUp:)):       [^{ [weakSelf selectPreviousSearchResult]; } copy],
-                             NSStringFromSelector(@selector(insertNewline:)):[^{ [weakSelf executeSelectedAction]; } copy]
+    self.commandHandlers = @{NSStringFromSelector(@selector(moveDown:)):     [^BOOL { return [weakSelf selectNextSearchResult]; } copy],
+                             NSStringFromSelector(@selector(moveUp:)):       [^BOOL { return [weakSelf selectPreviousSearchResult]; } copy],
+                             NSStringFromSelector(@selector(insertNewline:)):[^BOOL { return [weakSelf executeSelectedAction]; } copy]
                              };
     
     self.searchField.focusRingType = NSFocusRingTypeNone;
@@ -140,8 +142,8 @@
     NSString *commandKey = NSStringFromSelector(command);
     BOOL handleCommand   = (TRCheckContainsKey(self.commandHandlers, commandKey) == YES);
     if(handleCommand == YES) {
-        dispatch_block_t commandHandler = self.commandHandlers[commandKey];
-        commandHandler();
+        PGCommandHandler commandHandler = self.commandHandlers[commandKey];
+        return commandHandler();
     }
     return handleCommand;
 }
@@ -199,7 +201,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (void)selectNextSearchResult
+- (BOOL)selectNextSearchResult
 {
     TRLog(@"<selectNextSearchResult>");
     
@@ -208,11 +210,13 @@
     NSInteger indexToSelect = (selectedIndex == -1 ? 0 : (selectedIndex + 1 < rowCount ? selectedIndex + 1 : 0));
     
     [self selectSearchResultAtIndex:indexToSelect];
+
+    return YES;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (void)selectPreviousSearchResult
+- (BOOL)selectPreviousSearchResult
 {
     TRLog(@"<selectPreviousSearchResult>");
     
@@ -221,19 +225,23 @@
     NSInteger indexToSelect = (selectedIndex == -1 ? rowCount - 1 : (selectedIndex - 1 >= 0 ? selectedIndex - 1 : rowCount - 1));
     
     [self selectSearchResultAtIndex:indexToSelect];
+
+    return YES;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (void)executeSelectedAction
+- (BOOL)executeSelectedAction
 {
     NSInteger selectedIndex = self.searchResultsTable.selectedRow;
-    if(selectedIndex == -1) return;
+    if(selectedIndex == -1) return NO;
     
     id<PGActionInterface> selectedAction = self.searchResults[selectedIndex];
-    [selectedAction execute];
+    BOOL executed = [selectedAction execute];
 
     [self close];
+    
+    return executed;
 }
 
 #pragma mark - Helpers
