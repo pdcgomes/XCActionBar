@@ -79,11 +79,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)execute
 {
-    if(self.action) {
-        self.action();
-        return YES;
-    }
-    return NO;
+    TR_RETURN_FALSE_UNLESS(self.enabled == YES && self.action != nil);
+
+    self.action();
+    
+    return YES;
 }
 
 #pragma mark - Properties

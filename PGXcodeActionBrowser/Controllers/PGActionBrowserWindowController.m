@@ -246,7 +246,7 @@ typedef BOOL (^PGCommandHandler)(void);
     id<PGActionInterface> selectedAction = self.searchResults[selectedIndex];
     BOOL executed = [selectedAction execute];
 
-    [self close];
+    if(executed) [self close];
     
     return executed;
 }
