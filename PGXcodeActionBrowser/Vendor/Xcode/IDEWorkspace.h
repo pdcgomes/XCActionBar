@@ -86,7 +86,7 @@
 - (void)setSimpleFilesFocused:(BOOL)arg1;
 @property(readonly) BOOL hostsOnlyXcode3Project;
 @property(readonly) NSString *representingTitle;
-//@property(readonly) DVTFilePath *representingFilePath;
+@property(readonly) DVTFilePath *representingFilePath;
 //@property(retain) IDEExecutionEnvironment *executionEnvironment;
 - (void)_setupExecutionEnvironment;
 - (float)maxSupportedArchiveVersion;
