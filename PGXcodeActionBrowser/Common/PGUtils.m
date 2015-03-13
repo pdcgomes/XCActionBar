@@ -12,12 +12,26 @@
 ////////////////////////////////////////////////////////////////////////////////
 NSString *PGBuildModifierKeyMaskString(NSUInteger mask)
 {
-    NSDictionary *flagsToStrMap = @{@(NSShiftKeyMask):      @"\u21e7",
-                                    @(NSControlKeyMask):    @"\u2303",
-                                    @(NSCommandKeyMask):    @"\u2318",
-                                    @(NSAlternateKeyMask):  @"\u2325"};
-    if(TRCheckContainsKey(flagsToStrMap, @(mask)) == YES) {
-        return flagsToStrMap[@(mask)];
+    static dispatch_once_t onceToken;
+    static NSDictionary *flagsToStrMap = nil;
+    static NSArray *orderedKeys = nil;
+    dispatch_once(&onceToken, ^{
+        flagsToStrMap = @{@(NSAlternateKeyMask):  @"\u2325",
+                          @(NSControlKeyMask):    @"\u2303",
+                          @(NSShiftKeyMask):      @"\u21e7",
+                          @(NSCommandKeyMask):    @"\u2318"};
+        
+        orderedKeys   = @[@(NSAlternateKeyMask),
+                          @(NSControlKeyMask),
+                          @(NSShiftKeyMask),
+                          @(NSCommandKeyMask)];
+    });
+    
+    NSMutableString *str = [[NSMutableString alloc] init];
+    for(NSNumber *key in orderedKeys) {
+        if(TRCheckOption(mask, key.integerValue) == YES) {
+            [str appendString:flagsToStrMap[key]];
+        }
     }
-    return @"";
+    return str.copy;
 }
