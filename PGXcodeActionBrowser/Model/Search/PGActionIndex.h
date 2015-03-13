@@ -13,7 +13,8 @@
 @protocol PGActionProvider;
 @protocol PGActionIndex <NSObject>
 
-- (void)registerProvider:(id<PGActionProvider>)provider;
+- (id<NSCopying>)registerProvider:(id<PGActionProvider>)provider;
+- (void)deregisterProvider:(id<NSCopying>)providerToken;
 
 - (void)updateWithCompletionHandler:(PGGeneralCompletionHandler)completionHandler;
 

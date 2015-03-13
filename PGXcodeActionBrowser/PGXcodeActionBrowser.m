@@ -18,6 +18,9 @@
 
 #import "IDEIndex.h"
 #import "IDEWorkspace.h"
+#import "DVTFilePath.h"
+
+#define XCIDEWorkspaceKey(_workspace_) [_workspace_.representingFilePath pathString]
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -31,6 +34,8 @@ static PGXcodeActionBrowser *sharedPlugin;
 
 @property (nonatomic, strong) id<PGActionIndex  > actionIndex;
 @property (nonatomic, strong) id<PGSearchService> searchService;
+
+@property (nonatomic, strong) NSMutableDictionary *providersByWorkspace;
 
 @property (nonatomic, strong) PGActionBrowserWindowController *windowController;
 
@@ -74,6 +79,7 @@ static PGXcodeActionBrowser *sharedPlugin;
 {
     if (self = [super init]) {
         self.bundle = plugin;
+        self.providersByWorkspace = [NSMutableDictionary dictionary];
         
         ////////////////////////////////////////////////////////////////////////////////
         // General initialization
@@ -175,10 +181,13 @@ static PGXcodeActionBrowser *sharedPlugin;
 - (void)buildActionProvidersForWorkspace:(IDEWorkspace *)workspace
 {
     PGWorkspaceUnitTestsActionProvider *provider = [[PGWorkspaceUnitTestsActionProvider alloc] initWithWorkspace:workspace];
+    
+    id token =
     [self.actionIndex registerProvider:provider];
     [self.actionIndex updateWithCompletionHandler:^{
         TRLog(@"Index updated with %@", provider);
     }];
+    self.providersByWorkspace[XCIDEWorkspaceKey(workspace)] = token;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -215,6 +224,10 @@ static PGXcodeActionBrowser *sharedPlugin;
                                                  name:@"IDEIndexDidIndexWorkspaceNotification"
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleWorkspaceClosedNotification:)
+                                                 name:@"_IDEWorkspaceClosedNotification"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleNavigationBarEventNotification:)
                                                  name:@"IDENavigableItemCoordinatorDidForgetItemsNotification"
                                                object:nil];
@@ -243,7 +256,25 @@ static PGXcodeActionBrowser *sharedPlugin;
     IDEIndex *index         = notification.object;
     IDEWorkspace *workspace = index.workspace;
     
-    [self buildActionProvidersForWorkspace:workspace];
+    if(TRCheckContainsKey(self.providersByWorkspace, XCIDEWorkspaceKey(workspace)) == NO) {
+        [self buildActionProvidersForWorkspace:workspace];
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)handleWorkspaceClosedNotification:(NSNotification *)notification
+{
+    IDEWorkspace *workspace = notification.object;
+
+    NSString *workspaceKey = XCIDEWorkspaceKey(workspace);
+    if(TRCheckContainsKey(self.providersByWorkspace, workspaceKey) == YES) {
+        [self.actionIndex deregisterProvider:self.providersByWorkspace[workspaceKey]];
+        [self.providersByWorkspace removeObjectForKey:workspaceKey];
+        [self.actionIndex updateWithCompletionHandler:^{
+            TRLog(@"Index update post-removal completed");
+        }];
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////

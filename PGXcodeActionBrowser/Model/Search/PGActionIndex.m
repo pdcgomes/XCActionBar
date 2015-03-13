@@ -14,9 +14,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 @interface PGActionIndex () <PGActionBrowserProviderDelegate>
 
-@property (nonatomic, strong) dispatch_queue_t indexerQueue;
-@property (nonatomic, strong) NSMutableArray   *providers;
-@property (nonatomic, strong) NSArray          *index;
+@property (nonatomic, strong) dispatch_queue_t      indexerQueue;
+@property (nonatomic, strong) NSMutableDictionary   *providers;
+@property (nonatomic, strong) NSArray               *index;
 
 @end
 
@@ -30,17 +30,30 @@
 {
     if((self = [super init])) {
         self.indexerQueue = dispatch_queue_create("org.pedrogomes.XcodeActionBrowser.ActionIndexer", DISPATCH_QUEUE_CONCURRENT);
-        self.providers    = [NSMutableArray array];
+        self.providers    = [NSMutableDictionary dictionary];
     }
     return self;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (void)registerProvider:(id<PGActionProvider>)provider
+- (id<NSCopying>)registerProvider:(id<PGActionProvider>)provider
+{
+    NSString *token = [[NSUUID UUID] UUIDString];
+
+    @synchronized(self) {
+        self.providers[token] = provider;
+    }
+    
+    return token;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)deregisterProvider:(id<NSCopying>)providerToken;
 {
     @synchronized(self) {
-        [self.providers addObject:provider];
+        [self.providers removeObjectForKey:providerToken];
     }
 }
 
@@ -53,7 +66,7 @@
     ////////////////////////////////////////////////////////////////////////////////
     dispatch_group_t group = dispatch_group_create();
     
-    for(id<PGActionProvider> provider in self.providers) {
+    for(id<PGActionProvider> provider in [self.providers allValues]) {
         dispatch_group_enter(group);
         
         [provider prepareActionsOnQueue:self.indexerQueue completionHandler:^{
@@ -110,10 +123,10 @@
     void (^RegisterProviderDelegates)(id<PGActionBrowserProviderDelegate> delegate) = ^(id delegate){
         NSArray *providers = nil;
         @synchronized(self) {
-            providers = [weakSelf.providers copy];
+            providers = [[weakSelf.providers allValues] copy];
         }
 
-        for(id<PGActionProvider> provider in weakSelf.providers) {
+        for(id<PGActionProvider> provider in providers) {
             [provider setDelegate:delegate];
         }
     };
@@ -133,7 +146,7 @@
 {
     NSArray *providers = nil;
     @synchronized(self) {
-        providers = [self.providers copy];
+        providers = [[self.providers allValues] copy];
     }
     
     NSMutableArray *actionIndex = [NSMutableArray array];
