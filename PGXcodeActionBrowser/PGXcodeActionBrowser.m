@@ -12,9 +12,12 @@
 #import "PGSearchService.h"
 
 #import "PGNSMenuActionProvider.h"
-#import "PGTestCaseActionProvider.h"
+#import "PGWorkspaceUnitTestsActionProvider.h"
 
 #import "PGActionBrowserWindowController.h"
+
+#import "IDEIndex.h"
+#import "IDEWorkspace.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -76,6 +79,7 @@ static PGXcodeActionBrowser *sharedPlugin;
         // General initialization
         ////////////////////////////////////////////////////////////////////////////////
         [self performInitialization];
+        [self registerObservers];
     }
     return self;
 }
@@ -168,6 +172,17 @@ static PGXcodeActionBrowser *sharedPlugin;
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+- (void)buildActionProvidersForWorkspace:(IDEWorkspace *)workspace
+{
+    PGWorkspaceUnitTestsActionProvider *provider = [[PGWorkspaceUnitTestsActionProvider alloc] initWithWorkspace:workspace];
+    [self.actionIndex registerProvider:provider];
+    [self.actionIndex updateWithCompletionHandler:^{
+        TRLog(@"Index updated with %@", provider);
+    }];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 - (void)buildActionIndexWithCompletionHandler:(PGGeneralCompletionHandler)completionHandler
 {
     [self.actionIndex updateWithCompletionHandler:completionHandler];
@@ -188,6 +203,54 @@ static PGXcodeActionBrowser *sharedPlugin;
                                                frameForWindow.size.width,
                                                frameForWindow.size.height);
     [window setFrame:centeredFrameForWindow display:YES];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)registerObservers
+{
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationListener:) name:nil object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleWorkspaceIndexingCompletedNotification:)
+                                                 name:@"IDEIndexDidIndexWorkspaceNotification"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleNavigationBarEventNotification:)
+                                                 name:@"IDENavigableItemCoordinatorDidForgetItemsNotification"
+                                               object:nil];
+    
+    //13/03/2015 14:30:48.116 Xcode[8198]:   Notification: _IDEWorkspaceClosedNotification
+    //13/03/2015 13:54:01.412 Xcode[8198]:   Notification: IDENavigableItemCoordinatorDidForgetItemsNotification
+    //13/03/2015 14:30:48.113 Xcode[8198]:   Notification: PBXProjectDidCloseNotification
+    //13/03/2015 14:30:48.111 Xcode[8198]:   Notification: PBXProjectWillCloseNotification
+
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)notificationListener:(NSNotification *)notification
+{
+    if([[notification name] length] >= 2 && [[[notification name] substringWithRange:NSMakeRange(0, 2)] isEqualTo:@"NS"])
+        return;
+    else
+        NSLog(@"  Notification: %@", [notification name]);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)handleWorkspaceIndexingCompletedNotification:(NSNotification *)notification
+{
+    IDEIndex *index         = notification.object;
+    IDEWorkspace *workspace = index.workspace;
+    
+    [self buildActionProvidersForWorkspace:workspace];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)handleNavigationBarEventNotification:(NSNotification *)notification
+{
+    
 }
 
 @end
