@@ -19,6 +19,8 @@
 @property (nonatomic, assign) BOOL    enabled;
 @property (nonatomic, strong) NSImage *icon;
 
+@property (nonatomic, strong) id representedObject;
+
 - (BOOL)execute;
 
 @end
