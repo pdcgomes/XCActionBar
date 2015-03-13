@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "890A4B3E171F031300AFE577"
+               BlueprintIdentifier = "42C1AD461AAF3E7F00248A8D"
                BuildableName = "PGXcodeActionBrowser.xcplugin"
                BlueprintName = "PGXcodeActionBrowser"
                ReferencedContainer = "container:PGXcodeActionBrowser.xcodeproj">
@@ -42,7 +42,26 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "42C1AD731AAF3EC000248A8D"
+               BuildableName = "XcodeActionBrowserSimulatorTests.xctest"
+               BlueprintName = "XcodeActionBrowserSimulatorTests"
+               ReferencedContainer = "container:PGXcodeActionBrowser.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "42C1AD461AAF3E7F00248A8D"
+            BuildableName = "PGXcodeActionBrowser.xcplugin"
+            BlueprintName = "PGXcodeActionBrowser"
+            ReferencedContainer = "container:PGXcodeActionBrowser.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -56,12 +75,14 @@
       allowLocationSimulation = "NO"
       viewDebuggingEnabled = "No">
       <PathRunnable
+         runnableDebuggingMode = "0"
+         BundleIdentifier = "com.apple.dt.Xcode"
          FilePath = "/Applications/Xcode.app">
       </PathRunnable>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "890A4B3E171F031300AFE577"
+            BlueprintIdentifier = "42C1AD461AAF3E7F00248A8D"
             BuildableName = "PGXcodeActionBrowser.xcplugin"
             BlueprintName = "PGXcodeActionBrowser"
             ReferencedContainer = "container:PGXcodeActionBrowser.xcodeproj">
@@ -76,6 +97,15 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "42C1AD461AAF3E7F00248A8D"
+            BuildableName = "PGXcodeActionBrowser.xcplugin"
+            BlueprintName = "PGXcodeActionBrowser"
+            ReferencedContainer = "container:PGXcodeActionBrowser.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

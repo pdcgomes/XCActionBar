@@ -26,7 +26,7 @@
 		42C1AD861AAF534200248A8D /* PGNSMenuActionProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD851AAF534200248A8D /* PGNSMenuActionProvider.m */; };
 		42C1AD8C1AAF5F2000248A8D /* PGBlockAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD8B1AAF5F2000248A8D /* PGBlockAction.m */; };
 		42C1AD901AAF614500248A8D /* PGConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD8F1AAF614500248A8D /* PGConstants.m */; };
-		42C1AD931AAF632700248A8D /* PGTestCaseActionProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD921AAF632700248A8D /* PGTestCaseActionProvider.m */; };
+		42C1AD931AAF632700248A8D /* PGWorkspaceUnitTestsActionProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD921AAF632700248A8D /* PGWorkspaceUnitTestsActionProvider.m */; };
 		42CEA4EB1AB0ADDA006973B7 /* PGSearchService.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CEA4EA1AB0ADDA006973B7 /* PGSearchService.m */; };
 		42FD3C0F1AB0ABE900F0A442 /* PGRoundCornerWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FD3C0E1AB0ABE900F0A442 /* PGRoundCornerWindow.m */; };
 /* End PBXBuildFile section */
@@ -42,10 +42,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		42066D251AB3284800131861 /* IDETestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDETestManager.h; sourceTree = "<group>"; };
+		42066D291AB32F5300131861 /* _IDEOCUnitTestRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _IDEOCUnitTestRecord.h; sourceTree = "<group>"; };
+		421E21561AB3214B000893ED /* IDEIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDEIndex.h; sourceTree = "<group>"; };
+		421E21571AB32164000893ED /* IDEWorkspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDEWorkspace.h; sourceTree = "<group>"; };
+		421E21581AB321BB000893ED /* IDETest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDETest.h; sourceTree = "<group>"; };
+		421E21591AB321BB000893ED /* IDETestable-Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IDETestable-Protocol.h"; sourceTree = "<group>"; };
+		421E215A1AB321C5000893ED /* IDETest-IDETestNavigatorAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IDETest-IDETestNavigatorAdditions.h"; sourceTree = "<group>"; };
+		421E215B1AB321DC000893ED /* _IDETestableState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _IDETestableState.h; sourceTree = "<group>"; };
 		422781921AB05883003CDD79 /* PGActionBrowser-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PGActionBrowser-Prefix.pch"; sourceTree = "<group>"; };
 		4228E3E71AB1B7D100918EAA /* PGSearchResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PGSearchResultCell.xib; sourceTree = "<group>"; };
 		4228E3E91AB1B82A00918EAA /* PGSearchResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGSearchResultCell.h; sourceTree = "<group>"; };
 		4228E3EA1AB1B82A00918EAA /* PGSearchResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSearchResultCell.m; sourceTree = "<group>"; };
+		425C2DA01AB33B3600143A65 /* IDETestContainer-Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IDETestContainer-Protocol.h"; sourceTree = "<group>"; };
 		42807D3D1AB0708A007988F3 /* PGUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGUtils.h; sourceTree = "<group>"; };
 		42807D3E1AB0708A007988F3 /* PGUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGUtils.m; sourceTree = "<group>"; };
 		42807D401AB07D4B007988F3 /* PGInputValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGInputValidation.h; sourceTree = "<group>"; };
@@ -82,8 +91,8 @@
 		42C1AD8B1AAF5F2000248A8D /* PGBlockAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGBlockAction.m; sourceTree = "<group>"; };
 		42C1AD8E1AAF614500248A8D /* PGConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGConstants.h; sourceTree = "<group>"; };
 		42C1AD8F1AAF614500248A8D /* PGConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGConstants.m; sourceTree = "<group>"; };
-		42C1AD911AAF632700248A8D /* PGTestCaseActionProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGTestCaseActionProvider.h; sourceTree = "<group>"; };
-		42C1AD921AAF632700248A8D /* PGTestCaseActionProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGTestCaseActionProvider.m; sourceTree = "<group>"; };
+		42C1AD911AAF632700248A8D /* PGWorkspaceUnitTestsActionProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGWorkspaceUnitTestsActionProvider.h; sourceTree = "<group>"; };
+		42C1AD921AAF632700248A8D /* PGWorkspaceUnitTestsActionProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGWorkspaceUnitTestsActionProvider.m; sourceTree = "<group>"; };
 		42CEA4E91AB0ADDA006973B7 /* PGSearchService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGSearchService.h; sourceTree = "<group>"; };
 		42CEA4EA1AB0ADDA006973B7 /* PGSearchService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSearchService.m; sourceTree = "<group>"; };
 		42FD3C0D1AB0ABE900F0A442 /* PGRoundCornerWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGRoundCornerWindow.h; sourceTree = "<group>"; };
@@ -124,6 +133,37 @@
 				42C1AD541AAF3E7F00248A8D /* PGXcodeActionBrowser.m */,
 			);
 			path = Plugin;
+			sourceTree = "<group>";
+		};
+		42BA258D1AB31267004220B4 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				42BA258E1AB31267004220B4 /* Xcode */,
+			);
+			path = Vendor;
+			sourceTree = "<group>";
+		};
+		42BA258E1AB31267004220B4 /* Xcode */ = {
+			isa = PBXGroup;
+			children = (
+				425C2DA01AB33B3600143A65 /* IDETestContainer-Protocol.h */,
+				42066D291AB32F5300131861 /* _IDEOCUnitTestRecord.h */,
+				421E215B1AB321DC000893ED /* _IDETestableState.h */,
+				421E21561AB3214B000893ED /* IDEIndex.h */,
+				421E215A1AB321C5000893ED /* IDETest-IDETestNavigatorAdditions.h */,
+				421E21581AB321BB000893ED /* IDETest.h */,
+				421E21591AB321BB000893ED /* IDETestable-Protocol.h */,
+				42066D251AB3284800131861 /* IDETestManager.h */,
+				421E21571AB32164000893ED /* IDEWorkspace.h */,
+			);
+			path = Xcode;
+			sourceTree = "<group>";
+		};
+		42BA258F1AB31357004220B4 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Categories;
 			sourceTree = "<group>";
 		};
 		42BD033C1AB0880200FB7C07 /* Controllers */ = {
@@ -169,12 +209,14 @@
 		42C1AD4E1AAF3E7F00248A8D /* PGXcodeActionBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				42BA258F1AB31357004220B4 /* Categories */,
 				42C1AD8D1AAF612A00248A8D /* Common */,
 				42BD033C1AB0880200FB7C07 /* Controllers */,
 				42C1AD821AAF522A00248A8D /* Model */,
 				42807D301AB05F4B007988F3 /* Plugin */,
 				42C1AD4F1AAF3E7F00248A8D /* Supporting Files */,
 				42FD3C0C1AB0ABC700F0A442 /* UI */,
+				42BA258D1AB31267004220B4 /* Vendor */,
 			);
 			path = PGXcodeActionBrowser;
 			sourceTree = "<group>";
@@ -255,8 +297,8 @@
 				42C1AD831AAF526A00248A8D /* PGActionBrowserProvider.h */,
 				42C1AD841AAF534200248A8D /* PGNSMenuActionProvider.h */,
 				42C1AD851AAF534200248A8D /* PGNSMenuActionProvider.m */,
-				42C1AD911AAF632700248A8D /* PGTestCaseActionProvider.h */,
-				42C1AD921AAF632700248A8D /* PGTestCaseActionProvider.m */,
+				42C1AD911AAF632700248A8D /* PGWorkspaceUnitTestsActionProvider.h */,
+				42C1AD921AAF632700248A8D /* PGWorkspaceUnitTestsActionProvider.m */,
 			);
 			name = "Action Providers";
 			sourceTree = "<group>";
@@ -434,7 +476,7 @@
 				42BD03491AB0880200FB7C07 /* PGActionBrowserWindowController.m in Sources */,
 				42CEA4EB1AB0ADDA006973B7 /* PGSearchService.m in Sources */,
 				4228E3EB1AB1B82A00918EAA /* PGSearchResultCell.m in Sources */,
-				42C1AD931AAF632700248A8D /* PGTestCaseActionProvider.m in Sources */,
+				42C1AD931AAF632700248A8D /* PGWorkspaceUnitTestsActionProvider.m in Sources */,
 				42807D421AB07D4B007988F3 /* PGInputValidation.m in Sources */,
 				42C1AD8C1AAF5F2000248A8D /* PGBlockAction.m in Sources */,
 				42A647241AB0B666003803AE /* PGActionIndex.m in Sources */,
