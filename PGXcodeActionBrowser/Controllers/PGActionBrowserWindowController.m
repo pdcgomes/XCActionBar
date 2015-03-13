@@ -267,7 +267,8 @@ typedef BOOL (^PGCommandHandler)(void);
 - (void)resizeWindowToAccomodateSearchResults
 {
     if(TRCheckIsEmpty(self.searchResults) == NO) {
-        self.searchResultsTable.alphaValue = 1.0;
+        [[self.searchResultsTable animator] setAlphaValue:1.0];
+        
         self.searchResultsTable.hidden = NO;
         self.searchResultsTableBottomConstraint.constant = 10.0;
         self.searchResultsTableHeightConstraint.constant = 250.0;
@@ -281,7 +282,8 @@ typedef BOOL (^PGCommandHandler)(void);
 ////////////////////////////////////////////////////////////////////////////////
 - (void)restoreWindowSize
 {
-    self.searchResultsTable.alphaValue = 0.0;
+    [[self.searchResultsTable animator] setAlphaValue:0.0];
+    
     self.searchResultsTable.hidden = YES;
     self.searchResultsTableBottomConstraint.constant = 0.0;
     self.searchResultsTableHeightConstraint.constant = 0.0;
