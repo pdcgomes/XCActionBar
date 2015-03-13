@@ -10,10 +10,10 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@protocol PGActionBrowserProvider;
+@protocol PGActionProvider;
 @protocol PGActionIndex <NSObject>
 
-- (void)registerProvider:(id<PGActionBrowserProvider>)provider;
+- (void)registerProvider:(id<PGActionProvider>)provider;
 
 - (void)updateWithCompletionHandler:(PGGeneralCompletionHandler)completionHandler;
 

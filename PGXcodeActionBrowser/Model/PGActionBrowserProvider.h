@@ -11,15 +11,15 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@protocol PGActionBrowserProvider;
+@protocol PGActionProvider;
 @protocol PGActionBrowserProviderDelegate <NSObject>
 
-- (void)actionProviderDidNotifyOfIndexRebuildNeeded:(id<PGActionBrowserProvider>)provider;
+- (void)actionProviderDidNotifyOfIndexRebuildNeeded:(id<PGActionProvider>)provider;
 
 @end
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@protocol PGActionBrowserProvider <NSObject>
+@protocol PGActionProvider <NSObject>
 
 @property (nonatomic, weak) id<PGActionBrowserProviderDelegate> delegate;
 

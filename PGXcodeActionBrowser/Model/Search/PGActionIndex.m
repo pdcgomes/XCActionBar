@@ -37,7 +37,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (void)registerProvider:(id<PGActionBrowserProvider>)provider
+- (void)registerProvider:(id<PGActionProvider>)provider
 {
     @synchronized(self) {
         [self.providers addObject:provider];
@@ -53,7 +53,7 @@
     ////////////////////////////////////////////////////////////////////////////////
     dispatch_group_t group = dispatch_group_create();
     
-    for(id<PGActionBrowserProvider> provider in self.providers) {
+    for(id<PGActionProvider> provider in self.providers) {
         dispatch_group_enter(group);
         
         [provider prepareActionsOnQueue:self.indexerQueue completionHandler:^{
@@ -101,7 +101,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (void)actionProviderDidNotifyOfIndexRebuildNeeded:(id<PGActionBrowserProvider>)provider
+- (void)actionProviderDidNotifyOfIndexRebuildNeeded:(id<PGActionProvider>)provider
 {
     TRLog(@"<IndexRebuildNeeded>, <provider=%@>", provider);
     
@@ -113,7 +113,7 @@
             providers = [weakSelf.providers copy];
         }
 
-        for(id<PGActionBrowserProvider> provider in weakSelf.providers) {
+        for(id<PGActionProvider> provider in weakSelf.providers) {
             [provider setDelegate:delegate];
         }
     };
@@ -137,7 +137,7 @@
     }
     
     NSMutableArray *actionIndex = [NSMutableArray array];
-    for(id<PGActionBrowserProvider> provider in providers) {
+    for(id<PGActionProvider> provider in providers) {
         NSArray *actions = [provider findAllActions];
         [actionIndex addObjectsFromArray:actions];
     }
