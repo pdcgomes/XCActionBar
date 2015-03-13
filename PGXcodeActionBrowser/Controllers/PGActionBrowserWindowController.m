@@ -188,13 +188,17 @@ typedef BOOL (^PGCommandHandler)(void);
     
     self.searchResults = results;
     [self.searchResultsTable reloadData];
+    
+    if(TRCheckIsEmpty(self.searchResultsTable) == NO) {
+        [self selectSearchResultAtIndex:0];
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (void)clearSearchResults
 {
-    
+    [self updateSearchResults:@[]];
 }
 
 #pragma mark - Event Action Handlers
