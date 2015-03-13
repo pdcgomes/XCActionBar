@@ -98,13 +98,27 @@
     NSMutableArray *matches = [NSMutableArray array];
     
     for(id<PGActionInterface> action in self.index) {
-        if(str.length > action.title.length) continue;
-        
-        NSRange range = [action.title rangeOfString:str
-                                            options:(NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch)
-                                              range:NSMakeRange(0, str.length)];
-        if(range.location == NSNotFound) continue;
-        [matches addObject:action];
+
+        BOOL done = NO;
+        NSString *stringToMatch = action.title;
+
+        do {
+            if(str.length > stringToMatch.length) break;
+
+            NSRange range = [stringToMatch rangeOfString:str
+                                                options:(NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch)
+                                                  range:NSMakeRange(0, str.length)];
+            if(range.location != NSNotFound) {
+                [matches addObject:action];
+                break;
+            }
+            NSRange rangeForNextMatch = [stringToMatch rangeOfString:@" "];
+            if(rangeForNextMatch.location == NSNotFound) break;
+            if(rangeForNextMatch.location + 1 > stringToMatch.length) break;
+            
+            stringToMatch = [stringToMatch substringFromIndex:rangeForNextMatch.location + 1];
+        }
+        while(!done);
     }
     
     return [NSArray arrayWithArray:matches];
