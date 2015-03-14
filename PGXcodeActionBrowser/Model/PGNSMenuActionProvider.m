@@ -201,6 +201,8 @@
                                                                       [menu performActionForItemAtIndex:index];
                                                                   }];
             action.representedObject = item;
+//            action.category = [self actionCategory];
+            action.group    = [self actionGroupName];
             [actions addObject:action];
             
             if(item.submenu) [processingQueue addObject:item.submenu];

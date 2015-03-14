@@ -24,7 +24,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 @implementation PGBlockAction
 
-@synthesize enabled, icon, representedObject;
+@synthesize category, group, enabled, icon, representedObject;
 
 #pragma mark - Dealloc and Initialization
 

@@ -16,6 +16,9 @@
 @property (nonatomic, readonly,   copy) NSString *subtitle;
 @property (nonatomic, readonly,   copy) NSString *hint;
 
+@property (nonatomic, copy) NSString *category;
+@property (nonatomic, copy) NSString *group;
+
 @property (nonatomic, assign) BOOL    enabled;
 @property (nonatomic, strong) NSImage *icon;
 
