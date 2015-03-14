@@ -16,7 +16,7 @@
 		42BD03491AB0880200FB7C07 /* PGActionBrowserWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42BD03421AB0880200FB7C07 /* PGActionBrowserWindowController.m */; };
 		42C1AD4B1AAF3E7F00248A8D /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42C1AD4A1AAF3E7F00248A8D /* AppKit.framework */; };
 		42C1AD4D1AAF3E7F00248A8D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42C1AD4C1AAF3E7F00248A8D /* Foundation.framework */; };
-		42C1AD551AAF3E7F00248A8D /* PGXcodeActionBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD541AAF3E7F00248A8D /* PGXcodeActionBrowser.m */; };
+		42C1AD551AAF3E7F00248A8D /* XCActionBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD541AAF3E7F00248A8D /* XCActionBar.m */; };
 		42C1AD651AAF3EC000248A8D /* PGApplicationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD641AAF3EC000248A8D /* PGApplicationDelegate.m */; };
 		42C1AD671AAF3EC000248A8D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD661AAF3EC000248A8D /* main.m */; };
 		42C1AD6A1AAF3EC000248A8D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD691AAF3EC000248A8D /* ViewController.m */; };
@@ -70,8 +70,8 @@
 		42C1AD4C1AAF3E7F00248A8D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		42C1AD501AAF3E7F00248A8D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		42C1AD511AAF3E7F00248A8D /* PGXcodeActionBrowser.xcscheme */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = PGXcodeActionBrowser.xcscheme; path = PGXcodeActionBrowser.xcodeproj/xcshareddata/xcschemes/PGXcodeActionBrowser.xcscheme; sourceTree = SOURCE_ROOT; };
-		42C1AD531AAF3E7F00248A8D /* PGXcodeActionBrowser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PGXcodeActionBrowser.h; path = ../PGXcodeActionBrowser.h; sourceTree = "<group>"; };
-		42C1AD541AAF3E7F00248A8D /* PGXcodeActionBrowser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PGXcodeActionBrowser.m; path = ../PGXcodeActionBrowser.m; sourceTree = "<group>"; };
+		42C1AD531AAF3E7F00248A8D /* XCActionBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = XCActionBar.h; path = ../XCActionBar.h; sourceTree = "<group>"; };
+		42C1AD541AAF3E7F00248A8D /* XCActionBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = XCActionBar.m; path = ../XCActionBar.m; sourceTree = "<group>"; };
 		42C1AD5F1AAF3EC000248A8D /* XcodeActionBrowserSimulator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XcodeActionBrowserSimulator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42C1AD621AAF3EC000248A8D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		42C1AD631AAF3EC000248A8D /* PGApplicationDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGApplicationDelegate.h; sourceTree = "<group>"; };
@@ -130,8 +130,8 @@
 		42807D301AB05F4B007988F3 /* Plugin */ = {
 			isa = PBXGroup;
 			children = (
-				42C1AD531AAF3E7F00248A8D /* PGXcodeActionBrowser.h */,
-				42C1AD541AAF3E7F00248A8D /* PGXcodeActionBrowser.m */,
+				42C1AD531AAF3E7F00248A8D /* XCActionBar.h */,
+				42C1AD541AAF3E7F00248A8D /* XCActionBar.m */,
 			);
 			path = Plugin;
 			sourceTree = "<group>";
@@ -471,7 +471,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				42C1AD901AAF614500248A8D /* PGConstants.m in Sources */,
-				42C1AD551AAF3E7F00248A8D /* PGXcodeActionBrowser.m in Sources */,
+				42C1AD551AAF3E7F00248A8D /* XCActionBar.m in Sources */,
 				42FD3C0F1AB0ABE900F0A442 /* PGRoundCornerWindow.m in Sources */,
 				42C1AD861AAF534200248A8D /* PGNSMenuActionProvider.m in Sources */,
 				42807D3F1AB0708A007988F3 /* PGUtils.m in Sources */,
