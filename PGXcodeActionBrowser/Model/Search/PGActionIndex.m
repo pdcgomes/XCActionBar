@@ -99,17 +99,20 @@
     
     for(id<PGActionInterface> action in self.index) {
 
-        BOOL done = NO;
         NSString *stringToMatch = action.title;
 
-        do {
-            if(str.length > stringToMatch.length) break;
+        BOOL foundMatch = NO;
 
+        ////////////////////////////////////////////////////////////////////////////////
+        // Search Title and Title's subwords
+        ////////////////////////////////////////////////////////////////////////////////
+        while(str.length <= stringToMatch.length) {
             NSRange range = [stringToMatch rangeOfString:str
                                                 options:(NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch)
                                                   range:NSMakeRange(0, str.length)];
             if(range.location != NSNotFound) {
                 [matches addObject:action];
+                foundMatch = YES;
                 break;
             }
             NSRange rangeForNextMatch = [stringToMatch rangeOfString:@" "];
@@ -118,7 +121,21 @@
             
             stringToMatch = [stringToMatch substringFromIndex:rangeForNextMatch.location + 1];
         }
-        while(!done);
+        
+        ////////////////////////////////////////////////////////////////////////////////
+        // No matches ...
+        // lets try the action's group instead
+        ////////////////////////////////////////////////////////////////////////////////
+//        if(foundMatch == NO) {
+//            if(str.length > action.group.length) continue;
+//
+//            NSRange range = [action.group rangeOfString:str
+//                                                options:(NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch)
+//                                                  range:NSMakeRange(0, str.length)];
+//            if(range.location != NSNotFound) {
+//                [matches addObject:action];
+//            }
+//        }
     }
     
     return [NSArray arrayWithArray:matches];
