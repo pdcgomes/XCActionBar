@@ -58,9 +58,11 @@ typedef BOOL (^PGCommandHandler)(void);
     [super windowDidLoad];
     
     RTVDeclareWeakSelf(weakSelf);
-    self.commandHandlers = @{NSStringFromSelector(@selector(moveDown:)):     [^BOOL { return [weakSelf selectNextSearchResult]; } copy],
+    self.commandHandlers = @{
                              NSStringFromSelector(@selector(moveUp:)):       [^BOOL { return [weakSelf selectPreviousSearchResult]; } copy],
-                             NSStringFromSelector(@selector(insertNewline:)):[^BOOL { return [weakSelf executeSelectedAction]; } copy]
+                             NSStringFromSelector(@selector(moveDown:)):     [^BOOL { return [weakSelf selectNextSearchResult]; } copy],
+                             NSStringFromSelector(@selector(insertNewline:)):[^BOOL { return [weakSelf executeSelectedAction]; } copy],
+                             NSStringFromSelector(@selector(insertTab:)):    [^BOOL { return [weakSelf autoCompleteWithSelectedAction]; } copy]
                              };
     
     self.searchField.focusRingType = NSFocusRingTypeNone;
@@ -124,13 +126,8 @@ typedef BOOL (^PGCommandHandler)(void);
 //    TRLog(@"<SearchQueryChanged>, <query=%@>", textField.stringValue);
 
     // TODO: wait a bit before attempting to update search results - cancel previous update if any
-    RTVDeclareWeakSelf(weakSelf);
-    
-    [self.searchService performSearchWithQuery:textField.stringValue
-                             completionHandler:^(NSArray *results) {
-                                 [weakSelf updateSearchResults:results];
-                                 [weakSelf resizeWindowToAccomodateSearchResults];
-    }];
+    [self performSearchWithExpression:textField.stringValue];
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -251,6 +248,21 @@ typedef BOOL (^PGCommandHandler)(void);
     return executed;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)autoCompleteWithSelectedAction
+{
+    NSInteger selectedIndex = self.searchResultsTable.selectedRow;
+    if(selectedIndex == -1) return YES;
+
+    id<PGActionInterface> selectedAction = self.searchResults[selectedIndex];
+
+    [self.searchField setStringValue:selectedAction.title];
+    [self performSearchWithExpression:selectedAction.title];
+    
+    return YES;
+}
+
 #pragma mark - Helpers
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -289,6 +301,19 @@ typedef BOOL (^PGCommandHandler)(void);
     self.searchResultsTableHeightConstraint.constant = 0.0;
     
     [self.window.contentView layoutSubtreeIfNeeded];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)performSearchWithExpression:(NSString *)expression
+{
+    RTVDeclareWeakSelf(weakSelf);
+    
+    [self.searchService performSearchWithQuery:expression
+                             completionHandler:^(NSArray *results) {
+                                 [weakSelf updateSearchResults:results];
+                                 [weakSelf resizeWindowToAccomodateSearchResults];
+                             }];
 }
 
 @end
