@@ -38,6 +38,7 @@ static XCActionBar *sharedPlugin;
 @property (nonatomic, strong) NSMutableDictionary *providersByWorkspace;
 
 @property (nonatomic, strong) PGActionBrowserWindowController *windowController;
+@property (nonatomic, strong) NSMenuItem *actionBarMenuItem;
 
 @end
 
@@ -114,35 +115,36 @@ static XCActionBar *sharedPlugin;
     self.actionIndex   = [[PGActionIndex alloc] init];
     self.searchService = [[PGSearchService alloc] initWithIndex:self.actionIndex];
     
-    [self buildMenuActions];
+    RTVDeclareWeakSelf(weakSelf);
+
+    TRLog(@"Indexing actions ...");
+
+    [self buildMenuAction];
+    [self buildActionProviders];
+    [self buildActionIndexWithCompletionHandler:^{
+        weakSelf.actionBarMenuItem.title   = @"Action Browser";
+        weakSelf.actionBarMenuItem.enabled = YES;
+        TRLog(@"Indexing completed!");
+    }];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (void)buildMenuActions
+- (void)buildMenuAction
 {
     NSMenuItem *menuItem = [[NSApp mainMenu] itemWithTitle:@"Window"];
     if(menuItem == nil) return;
     
     [menuItem.submenu addItem:[NSMenuItem separatorItem]];
-    NSMenuItem *actionMenuItem = [[NSMenuItem alloc] initWithTitle:@"Action Browser (indexing...)"
-                                                            action:@selector(presentActionSearchBar)
-                                                     keyEquivalent:@"8"];
-    actionMenuItem.keyEquivalentModifierMask = (NSCommandKeyMask | NSShiftKeyMask);
-    actionMenuItem.target  = self;
-    actionMenuItem.enabled = NO;
+    self.actionBarMenuItem = [[NSMenuItem alloc] initWithTitle:@"Action Browser (indexing...)"
+                                                        action:@selector(presentActionSearchBar)
+                                                 keyEquivalent:@"8"];
+    self.actionBarMenuItem.keyEquivalentModifierMask = (NSCommandKeyMask | NSShiftKeyMask);
+    self.actionBarMenuItem.target  = self;
+    self.actionBarMenuItem.enabled = NO;
     
-    [menuItem.submenu insertItem:actionMenuItem
+    [menuItem.submenu insertItem:self.actionBarMenuItem
                          atIndex:[menuItem.submenu indexOfItemWithTitle:@"Bring All to Front"] - 1];
-    
-    TRLog(@"Indexing actions ...");
-    
-    [self buildActionProviders];
-    [self buildActionIndexWithCompletionHandler:^{
-        actionMenuItem.title   = @"Action Browser";
-        actionMenuItem.enabled = YES;
-        TRLog(@"Indexing completed!");
-    }];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -152,12 +154,17 @@ static XCActionBar *sharedPlugin;
     ////////////////////////////////////////////////////////////////////////////////
     // Setup providers for MenuBar
     ////////////////////////////////////////////////////////////////////////////////
-    NSArray *menuBarActions = @[@"File", @"Edit",
-                                @"View", @"Find",
-                                @"Navigate", @"Editor",
-                                @"Product", @"Debug",
+    NSArray *menuBarActions = @[@"File",
+                                @"Edit",
+                                @"View",
+                                @"Find",
+                                @"Navigate",
+                                @"Editor",
+                                @"Product",
+                                @"Debug",
                                 @"Source Control",
-                                @"Window", @"Help"];
+                                @"Window",
+                                @"Help"];
     NSMenu *mainMenu = [NSApp mainMenu];
     
     for(NSString *title in menuBarActions) {
