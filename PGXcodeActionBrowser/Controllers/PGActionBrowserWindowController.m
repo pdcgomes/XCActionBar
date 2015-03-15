@@ -69,8 +69,9 @@ typedef BOOL (^PGCommandHandler)(void);
     self.searchField.delegate      = self;
     self.searchField.nextResponder = self;
     
-    self.searchResultsTable.rowSizeStyle            = NSTableViewRowSizeStyleMedium;
+    self.searchResultsTable.rowSizeStyle            = NSTableViewRowSizeStyleCustom;
     self.searchResultsTable.selectionHighlightStyle = NSTableViewSelectionHighlightStyleRegular;
+    self.searchResultsTable.rowHeight               = 50.0;
     
     [self restoreWindowSize];
     [self.window setDelegate:self];
@@ -172,7 +173,11 @@ typedef BOOL (^PGCommandHandler)(void);
     PGSearchResultCell *cell = [tableView makeViewWithIdentifier:NSStringFromClass([PGSearchResultCell class]) owner:self];
     
     id<PGActionInterface> action = self.searchResults[row];
-    [cell.textField setStringValue:[NSString stringWithFormat:@"%@ (%@) [%@]", action.title, action.hint, action.subtitle]];
+//    [cell.textField setStringValue:[NSString stringWithFormat:@"%@ (%@) [%@]", action.title, action.hint, action.subtitle]];
+    cell.textField.stringValue         = action.title;
+    cell.hintTextField.stringValue     = action.hint;
+    cell.subtitleTextField.stringValue = action.subtitle;
+
     if(action.enabled == NO) {
         cell.textField.textColor = [NSColor darkGrayColor];
     }

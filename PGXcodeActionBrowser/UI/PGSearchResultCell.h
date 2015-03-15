@@ -12,4 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 @interface PGSearchResultCell : NSTableCellView
 
+@property (strong) IBOutlet NSTextField *hintTextField;
+@property (strong) IBOutlet NSTextField *subtitleTextField;
+
 @end
