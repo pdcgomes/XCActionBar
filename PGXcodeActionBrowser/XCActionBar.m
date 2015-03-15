@@ -122,7 +122,7 @@ static XCActionBar *sharedPlugin;
     [self buildMenuAction];
     [self buildActionProviders];
     [self buildActionIndexWithCompletionHandler:^{
-        weakSelf.actionBarMenuItem.title   = @"Action Browser";
+        weakSelf.actionBarMenuItem.title   = @"Action Bar";
         weakSelf.actionBarMenuItem.enabled = YES;
         TRLog(@"Indexing completed!");
     }];
@@ -136,7 +136,7 @@ static XCActionBar *sharedPlugin;
     if(menuItem == nil) return;
     
     [menuItem.submenu addItem:[NSMenuItem separatorItem]];
-    self.actionBarMenuItem = [[NSMenuItem alloc] initWithTitle:@"Action Browser (indexing...)"
+    self.actionBarMenuItem = [[NSMenuItem alloc] initWithTitle:@"Action Bar (indexing...)"
                                                         action:@selector(presentActionSearchBar)
                                                  keyEquivalent:@"8"];
     self.actionBarMenuItem.keyEquivalentModifierMask = (NSCommandKeyMask | NSShiftKeyMask);
