@@ -19,5 +19,6 @@
 
 - (void)updateSearchResults:(NSArray *)results;
 - (void)clearSearchResults;
+- (void)executeLastAction;
 
 @end

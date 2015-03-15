@@ -35,6 +35,8 @@ typedef BOOL (^PGCommandHandler)(void);
 
 @property (nonatomic) NSArray *searchResults;
 
+@property (weak) id<PGActionInterface> lastExecutedAction;
+
 @end
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -208,6 +210,13 @@ typedef BOOL (^PGCommandHandler)(void);
     [self updateSearchResults:@[]];
 }
 
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)executeLastAction
+{
+    [self.lastExecutedAction execute];
+}
+
 #pragma mark - Event Action Handlers
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -250,7 +259,10 @@ typedef BOOL (^PGCommandHandler)(void);
     id<PGActionInterface> selectedAction = self.searchResults[selectedIndex];
     BOOL executed = [selectedAction execute];
 
-    if(executed) [self close];
+    if(executed) {
+        [self close];
+        self.lastExecutedAction = selectedAction;
+    }
     
     return executed;
 }

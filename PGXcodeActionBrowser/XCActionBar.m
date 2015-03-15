@@ -13,9 +13,12 @@
 
 #import "PGNSMenuActionProvider.h"
 #import "PGWorkspaceUnitTestsActionProvider.h"
+#import "XCCodeSnippetProvider.h"
 
 #import "PGActionBrowserWindowController.h"
 
+#import "IDECodeSnippet.h"
+#import "IDECodeSnippetRepository.h"
 #import "IDEIndex.h"
 #import "IDEWorkspace.h"
 #import "DVTFilePath.h"
@@ -81,7 +84,7 @@ static XCActionBar *sharedPlugin;
     if (self = [super init]) {
         self.bundle = plugin;
         self.providersByWorkspace = [NSMutableDictionary dictionary];
-        
+
         ////////////////////////////////////////////////////////////////////////////////
         // General initialization
         ////////////////////////////////////////////////////////////////////////////////
@@ -106,6 +109,13 @@ static XCActionBar *sharedPlugin;
     [self.windowController becomeFirstResponder];
 }
 
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)repeatLastAction
+{
+    [self.windowController executeLastAction];
+}
+
 #pragma mark - Helpers
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -119,18 +129,19 @@ static XCActionBar *sharedPlugin;
 
     TRLog(@"Indexing actions ...");
 
-    [self buildMenuAction];
+    [self builActionBarMenuItem];
     [self buildActionProviders];
     [self buildActionIndexWithCompletionHandler:^{
         weakSelf.actionBarMenuItem.title   = @"Action Bar";
         weakSelf.actionBarMenuItem.enabled = YES;
+        [weakSelf buildRepeatLastActionMenuItem];
         TRLog(@"Indexing completed!");
     }];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (void)buildMenuAction
+- (void)builActionBarMenuItem
 {
     NSMenuItem *menuItem = [[NSApp mainMenu] itemWithTitle:@"Window"];
     if(menuItem == nil) return;
@@ -145,6 +156,26 @@ static XCActionBar *sharedPlugin;
     
     [menuItem.submenu insertItem:self.actionBarMenuItem
                          atIndex:[menuItem.submenu indexOfItemWithTitle:@"Bring All to Front"] - 1];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)buildRepeatLastActionMenuItem
+{
+    NSMenuItem *menuItem = [[NSApp mainMenu] itemWithTitle:@"Window"];
+    if(menuItem == nil) return;
+    
+    NSMenuItem *repeatCommandMenuItem = [[NSMenuItem alloc] initWithTitle:@"Repeat last action"
+                                                                   action:@selector(repeatLastAction)
+                                                            keyEquivalent:@"7"];
+
+    repeatCommandMenuItem.keyEquivalentModifierMask = (NSCommandKeyMask | NSAlternateKeyMask);
+    repeatCommandMenuItem.target  = self;
+    repeatCommandMenuItem.enabled = YES;
+
+    [menuItem.submenu insertItem:repeatCommandMenuItem
+                         atIndex:[menuItem.submenu indexOfItemWithTitle:@"Action Bar"]];
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -174,13 +205,17 @@ static XCActionBar *sharedPlugin;
         [self.actionIndex registerProvider:[[PGNSMenuActionProvider alloc] initWithMenu:item.submenu]];
     }
     
+
+    ////////////////////////////////////////////////////////////////////////////////
+    // Code Snippets
+    ////////////////////////////////////////////////////////////////////////////////
+    IDECodeSnippetRepository *codeSnippetRepository = [NSClassFromString(@"IDECodeSnippetRepository") performSelector:@selector(sharedRepository)];
+    XCCodeSnippetProvider *codeSnippetProvider      = [[XCCodeSnippetProvider alloc] initWithCodeSnippetRepository:codeSnippetRepository];
+    
     ////////////////////////////////////////////////////////////////////////////////
     // TODO: build unit test providers
     ////////////////////////////////////////////////////////////////////////////////
-
-    ////////////////////////////////////////////////////////////////////////////////
-    // TODO: build code snippet provider
-    ////////////////////////////////////////////////////////////////////////////////
+    [self.actionIndex registerProvider:codeSnippetProvider];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
