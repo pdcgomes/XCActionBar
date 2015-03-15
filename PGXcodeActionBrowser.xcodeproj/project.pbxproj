@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4228E3E81AB1B7D100918EAA /* PGSearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4228E3E71AB1B7D100918EAA /* PGSearchResultCell.xib */; };
 		4228E3EB1AB1B82A00918EAA /* PGSearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4228E3EA1AB1B82A00918EAA /* PGSearchResultCell.m */; };
+		422DB1BF1AB60134007D13F9 /* XCCodeSnippetProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 422DB1BE1AB60134007D13F9 /* XCCodeSnippetProvider.m */; };
 		42807D3F1AB0708A007988F3 /* PGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 42807D3E1AB0708A007988F3 /* PGUtils.m */; };
 		42807D421AB07D4B007988F3 /* PGInputValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = 42807D411AB07D4B007988F3 /* PGInputValidation.m */; };
 		42A647241AB0B666003803AE /* PGActionIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A647231AB0B666003803AE /* PGActionIndex.m */; };
@@ -54,6 +55,10 @@
 		4228E3E71AB1B7D100918EAA /* PGSearchResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PGSearchResultCell.xib; sourceTree = "<group>"; };
 		4228E3E91AB1B82A00918EAA /* PGSearchResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGSearchResultCell.h; sourceTree = "<group>"; };
 		4228E3EA1AB1B82A00918EAA /* PGSearchResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSearchResultCell.m; sourceTree = "<group>"; };
+		422DB1BA1AB5FAF5007D13F9 /* IDECodeSnippet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDECodeSnippet.h; sourceTree = "<group>"; };
+		422DB1BC1AB5FB2D007D13F9 /* IDECodeSnippetRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDECodeSnippetRepository.h; sourceTree = "<group>"; };
+		422DB1BD1AB60134007D13F9 /* XCCodeSnippetProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCCodeSnippetProvider.h; sourceTree = "<group>"; };
+		422DB1BE1AB60134007D13F9 /* XCCodeSnippetProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCCodeSnippetProvider.m; sourceTree = "<group>"; };
 		425C2DA01AB33B3600143A65 /* IDETestContainer-Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IDETestContainer-Protocol.h"; sourceTree = "<group>"; };
 		425D65C01AB3633700140766 /* DVTFilePath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DVTFilePath.h; sourceTree = "<group>"; };
 		42807D3D1AB0708A007988F3 /* PGUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGUtils.h; sourceTree = "<group>"; };
@@ -127,6 +132,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		422DB1BB1AB5FB05007D13F9 /* IDEKit */ = {
+			isa = PBXGroup;
+			children = (
+				422DB1BA1AB5FAF5007D13F9 /* IDECodeSnippet.h */,
+				422DB1BC1AB5FB2D007D13F9 /* IDECodeSnippetRepository.h */,
+			);
+			name = IDEKit;
+			sourceTree = "<group>";
+		};
 		42807D301AB05F4B007988F3 /* Plugin */ = {
 			isa = PBXGroup;
 			children = (
@@ -147,16 +161,17 @@
 		42BA258E1AB31267004220B4 /* Xcode */ = {
 			isa = PBXGroup;
 			children = (
-				425C2DA01AB33B3600143A65 /* IDETestContainer-Protocol.h */,
+				422DB1BB1AB5FB05007D13F9 /* IDEKit */,
 				42066D291AB32F5300131861 /* _IDEOCUnitTestRecord.h */,
 				421E215B1AB321DC000893ED /* _IDETestableState.h */,
+				425D65C01AB3633700140766 /* DVTFilePath.h */,
 				421E21561AB3214B000893ED /* IDEIndex.h */,
 				421E215A1AB321C5000893ED /* IDETest-IDETestNavigatorAdditions.h */,
 				421E21581AB321BB000893ED /* IDETest.h */,
 				421E21591AB321BB000893ED /* IDETestable-Protocol.h */,
+				425C2DA01AB33B3600143A65 /* IDETestContainer-Protocol.h */,
 				42066D251AB3284800131861 /* IDETestManager.h */,
 				421E21571AB32164000893ED /* IDEWorkspace.h */,
-				425D65C01AB3633700140766 /* DVTFilePath.h */,
 			);
 			path = Xcode;
 			sourceTree = "<group>";
@@ -301,6 +316,8 @@
 				42C1AD851AAF534200248A8D /* PGNSMenuActionProvider.m */,
 				42C1AD911AAF632700248A8D /* PGWorkspaceUnitTestsActionProvider.h */,
 				42C1AD921AAF632700248A8D /* PGWorkspaceUnitTestsActionProvider.m */,
+				422DB1BD1AB60134007D13F9 /* XCCodeSnippetProvider.h */,
+				422DB1BE1AB60134007D13F9 /* XCCodeSnippetProvider.m */,
 			);
 			name = "Action Providers";
 			sourceTree = "<group>";
@@ -475,6 +492,7 @@
 				42FD3C0F1AB0ABE900F0A442 /* PGRoundCornerWindow.m in Sources */,
 				42C1AD861AAF534200248A8D /* PGNSMenuActionProvider.m in Sources */,
 				42807D3F1AB0708A007988F3 /* PGUtils.m in Sources */,
+				422DB1BF1AB60134007D13F9 /* XCCodeSnippetProvider.m in Sources */,
 				42BD03491AB0880200FB7C07 /* PGActionBrowserWindowController.m in Sources */,
 				42CEA4EB1AB0ADDA006973B7 /* PGSearchService.m in Sources */,
 				4228E3EB1AB1B82A00918EAA /* PGSearchResultCell.m in Sources */,
