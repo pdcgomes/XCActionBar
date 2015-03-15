@@ -105,6 +105,8 @@ typedef BOOL (^PGCommandHandler)(void);
     self.frameForEmptySearchResults = self.window.frame;
     
     [self.window makeFirstResponder:self.searchField];
+    
+    [self restoreLastSearchAndSelection];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -301,6 +303,15 @@ typedef BOOL (^PGCommandHandler)(void);
     self.searchResultsTableHeightConstraint.constant = 0.0;
     
     [self.window.contentView layoutSubtreeIfNeeded];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)restoreLastSearchAndSelection
+{
+    TR_RETURN_UNLESS(TRCheckIsEmpty(self.searchField.stringValue) == NO);
+    
+    [self performSearchWithExpression:self.searchField.stringValue];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
