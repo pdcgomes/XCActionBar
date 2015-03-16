@@ -1,0 +1,15 @@
+//
+//  XCAddPrefixToLinesAction.h
+//  PGXcodeActionBrowser
+//
+//  Created by Pedro Gomes on 16/03/2015.
+//  Copyright (c) 2015 Pedro Gomes. All rights reserved.
+//
+
+#import "XCCustomAction.h"
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+@interface XCAddPrefixToLinesAction : XCCustomAction
+
+@end

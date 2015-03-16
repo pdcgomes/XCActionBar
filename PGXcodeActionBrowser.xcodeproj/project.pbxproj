@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		421D37081AB790D900FF8338 /* XCSurroundWithActions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 421D37071AB790D900FF8338 /* XCSurroundWithActions.plist */; };
+		421D370B1AB7982300FF8338 /* XCAddPrefixToLinesAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 421D370A1AB7982300FF8338 /* XCAddPrefixToLinesAction.m */; };
+		421D370E1AB7982F00FF8338 /* XCAddSuffixToLinesAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 421D370D1AB7982F00FF8338 /* XCAddSuffixToLinesAction.m */; };
 		4228E3E81AB1B7D100918EAA /* PGSearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4228E3E71AB1B7D100918EAA /* PGSearchResultCell.xib */; };
 		4228E3EB1AB1B82A00918EAA /* PGSearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4228E3EA1AB1B82A00918EAA /* PGSearchResultCell.m */; };
 		422DB1BF1AB60134007D13F9 /* XCCodeSnippetProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 422DB1BE1AB60134007D13F9 /* XCCodeSnippetProvider.m */; };
@@ -54,6 +56,10 @@
 		42066D251AB3284800131861 /* IDETestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDETestManager.h; sourceTree = "<group>"; };
 		42066D291AB32F5300131861 /* _IDEOCUnitTestRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _IDEOCUnitTestRecord.h; sourceTree = "<group>"; };
 		421D37071AB790D900FF8338 /* XCSurroundWithActions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = XCSurroundWithActions.plist; sourceTree = "<group>"; };
+		421D37091AB7982300FF8338 /* XCAddPrefixToLinesAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCAddPrefixToLinesAction.h; sourceTree = "<group>"; };
+		421D370A1AB7982300FF8338 /* XCAddPrefixToLinesAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCAddPrefixToLinesAction.m; sourceTree = "<group>"; };
+		421D370C1AB7982F00FF8338 /* XCAddSuffixToLinesAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCAddSuffixToLinesAction.h; sourceTree = "<group>"; };
+		421D370D1AB7982F00FF8338 /* XCAddSuffixToLinesAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCAddSuffixToLinesAction.m; sourceTree = "<group>"; };
 		421E21561AB3214B000893ED /* IDEIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDEIndex.h; sourceTree = "<group>"; };
 		421E21571AB32164000893ED /* IDEWorkspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDEWorkspace.h; sourceTree = "<group>"; };
 		421E21581AB321BB000893ED /* IDETest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDETest.h; sourceTree = "<group>"; };
@@ -191,6 +197,10 @@
 		42A71F261AB71569008B5B92 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				421D37091AB7982300FF8338 /* XCAddPrefixToLinesAction.h */,
+				421D370A1AB7982300FF8338 /* XCAddPrefixToLinesAction.m */,
+				421D370C1AB7982F00FF8338 /* XCAddSuffixToLinesAction.h */,
+				421D370D1AB7982F00FF8338 /* XCAddSuffixToLinesAction.m */,
 				42A71F201AB714C2008B5B92 /* XCSortContentsAction.h */,
 				42A71F211AB714C2008B5B92 /* XCSortContentsAction.m */,
 				42A71F1D1AB714AE008B5B92 /* XCSortSelectionAction.h */,
@@ -540,9 +550,11 @@
 				42C1AD551AAF3E7F00248A8D /* XCActionBar.m in Sources */,
 				42FD3C0F1AB0ABE900F0A442 /* PGRoundCornerWindow.m in Sources */,
 				42C1AD861AAF534200248A8D /* XCNSMenuActionProvider.m in Sources */,
+				421D370B1AB7982300FF8338 /* XCAddPrefixToLinesAction.m in Sources */,
 				42807D3F1AB0708A007988F3 /* PGUtils.m in Sources */,
 				422DB1BF1AB60134007D13F9 /* XCCodeSnippetProvider.m in Sources */,
 				42A71F1C1AB71323008B5B92 /* XCCustomAction.m in Sources */,
+				421D370E1AB7982F00FF8338 /* XCAddSuffixToLinesAction.m in Sources */,
 				42BD03491AB0880200FB7C07 /* PGActionBrowserWindowController.m in Sources */,
 				42CEA4EB1AB0ADDA006973B7 /* PGSearchService.m in Sources */,
 				4228E3EB1AB1B82A00918EAA /* PGSearchResultCell.m in Sources */,
