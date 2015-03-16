@@ -10,6 +10,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+@protocol XCIDEContext;
 @protocol PGActionInterface <NSObject>
 
 @property (nonatomic, readonly,   copy) NSString *title;
@@ -25,5 +26,6 @@
 @property (nonatomic, strong) id representedObject;
 
 - (BOOL)execute;
+- (BOOL)executeWithContext:(id<XCIDEContext>)context;
 
 @end

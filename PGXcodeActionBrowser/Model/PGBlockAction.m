@@ -16,7 +16,7 @@
 @property (nonatomic,   copy) NSString *subtitle;
 @property (nonatomic,   copy) NSString *hint;
 
-@property (nonatomic,   copy) dispatch_block_t action;
+@property (nonatomic,   copy) XCBlockActionHandler action;
 
 @end
 
@@ -31,7 +31,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (instancetype)initWithTitle:(NSString *)title
-                       action:(dispatch_block_t)action
+                       action:(XCBlockActionHandler)action
 {
     NSParameterAssert(title);
     NSParameterAssert(action);
@@ -46,7 +46,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (instancetype)initWithTitle:(NSString *)title
                      subtitle:(NSString *)subtitle
-                       action:(dispatch_block_t)action
+                       action:(XCBlockActionHandler)action
 {
     if((self = [self initWithTitle:title subtitle:subtitle hint:@"" action:action])) {
         
@@ -59,7 +59,7 @@
 - (instancetype)initWithTitle:(NSString *)title
                      subtitle:(NSString *)subtitle
                          hint:(NSString *)hint
-                       action:(dispatch_block_t)action
+                       action:(XCBlockActionHandler)action
 {
     NSParameterAssert(title);
     NSParameterAssert(action);
@@ -81,8 +81,19 @@
 {
     TR_RETURN_FALSE_UNLESS(self.enabled == YES && self.action != nil);
 
-    self.action();
+    self.action(nil);
     
+    return YES;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)executeWithContext:(id<XCIDEContext>)context
+{
+    TR_RETURN_FALSE_UNLESS(self.enabled == YES && self.action != nil);
+
+    self.action(context);
+
     return YES;
 }
 

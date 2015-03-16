@@ -11,6 +11,8 @@
 #import "IDETestManager.h"
 #import "IDEWorkspace.h"
 
+#import "XCIDEContext.h"
+
 #import "PGBlockAction.h"
 #import "PGWorkspaceUnitTestsActionProvider.h"
 
@@ -112,7 +114,7 @@
             
             PGBlockAction *action = [[PGBlockAction alloc] initWithTitle:test.identifier
                                                                 subtitle:[(id<IDETestable>)test.testable name]
-                                                                  action:^{
+                                                                  action:^(id<XCIDEContext> context) {
                                                                       TRLog(@"<RunUnitTestAction>, <test=%@>", test.identifier);
             }];
             [actions addObject:action];

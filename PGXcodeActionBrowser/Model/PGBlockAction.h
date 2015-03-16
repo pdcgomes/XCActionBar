@@ -8,20 +8,23 @@
 
 #import "PGActionInterface.h"
 
+@protocol XCIDEContext;
+typedef void(^XCBlockActionHandler)(id<XCIDEContext> context); // context can be nil
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @interface PGBlockAction : NSObject <PGActionInterface>
 
 - (instancetype)initWithTitle:(NSString *)title
-                       action:(dispatch_block_t)action;
+                       action:(XCBlockActionHandler)action;
 
 - (instancetype)initWithTitle:(NSString *)title
                      subtitle:(NSString *)subtitle
-                       action:(dispatch_block_t)action;
+                       action:(XCBlockActionHandler)action;
 
 - (instancetype)initWithTitle:(NSString *)title
                      subtitle:(NSString *)subtitle
                          hint:(NSString *)hint
-                       action:(dispatch_block_t)action;
+                       action:(XCBlockActionHandler)action;
 
 @end

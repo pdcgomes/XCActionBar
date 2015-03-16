@@ -196,7 +196,7 @@
             PGBlockAction *action = [[PGBlockAction alloc] initWithTitle:item.title
                                                                 subtitle:subtitle
                                                                     hint:(item.hasSubmenu ? @"" : [self buildHintForMenuItem:item])
-                                                                  action:^{
+                                                                  action:^(id<XCIDEContext> context) {
                                                                       NSUInteger index = [menu indexOfItem:item];
                                                                       [menu performActionForItemAtIndex:index];
                                                                   }];
@@ -207,7 +207,7 @@
             
             if(item.submenu) [processingQueue addObject:item.submenu];
             
-            TRLog(@"<action:: title=%@, subtitle=%@, hint=%@>", action.title, action.subtitle, action.hint);
+//            TRLog(@"<action:: title=%@, subtitle=%@, hint=%@>", action.title, action.subtitle, action.hint);
         }}
     }
     
