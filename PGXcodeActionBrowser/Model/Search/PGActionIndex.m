@@ -96,7 +96,7 @@
     // this is highly inefficient - obviously just a first pass to get the core feature working
     ////////////////////////////////////////////////////////////////////////////////
     NSMutableArray *matches = [NSMutableArray array];
-    
+
     for(id<PGActionInterface> action in self.index) {
 
         NSString *stringToMatch = action.title;
