@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>XCActionIdentifier</key>
+		<string>XCSurroundWithTypeAutoreleasePool</string>
+		<key>XCActionTitle</key>
+		<string>Autorelease pool</string>
+		<key>XCActionSummary</key>
+		<string>@autoreleasepool { ... }</string>
+		<key>XCActionPrefix</key>
+		<string>@autoreleasepool {\n</string>
+		<key>XCActionSuffix</key>
+		<string>\n}</string>
+	</dict>
+	<dict>
+		<key>XCActionIdentifier</key>
+		<string>XCSurroundWithTypeBrackets</string>
+		<key>XCActionTitle</key>
+		<string>Brackets</string>
+		<key>XCActionSummary</key>
+		<string>[ ... ]</string>
+		<key>XCActionPrefix</key>
+		<string>[</string>
+		<key>XCActionSuffix</key>
+		<string>]</string>
+	</dict>
+	<dict>
+		<key>XCActionIdentifier</key>
+		<string>XCSurroundWithTypeCurlyBraces</string>
+		<key>XCActionTitle</key>
+		<string>Curly Braces</string>
+		<key>XCActionSummary</key>
+		<string>{ ... }</string>
+		<key>XCActionPrefix</key>
+		<string>{\n</string>
+		<key>XCActionSuffix</key>
+		<string>\n}</string>
+	</dict>
+	<dict>
+		<key>XCActionIdentifier</key>
+		<string>XCSurroundWithTypeInlineBlock</string>
+		<key>XCActionTitle</key>
+		<string>Inline Block</string>
+		<key>XCActionSummary</key>
+		<string>void (^BlockVariable)(void) = ^{ ... }</string>
+		<key>XCActionPrefix</key>
+		<string>&lt;#returnType#&gt;(^&lt;#blockName#&gt;)(&lt;#parameterTypes#&gt;) = ^(&lt;#parameters#&gt;) {\n</string>
+		<key>XCActionSuffix</key>
+		<string>};</string>
+	</dict>
+	<dict>
+		<key>XCActionIdentifier</key>
+		<string>XCSurroundWithTypeNSLog</string>
+		<key>XCActionTitle</key>
+		<string>NSLog</string>
+		<key>XCActionSummary</key>
+		<string>NSLog(@&quot; ... &quot;)</string>
+		<key>XCActionPrefix</key>
+		<string>NSLog(@&quot;</string>
+		<key>XCActionSuffix</key>
+		<string>&quot;);</string>
+	</dict>
+	<dict>
+		<key>XCActionIdentifier</key>
+		<string>XCSurroundWithTypeNSNumber</string>
+		<key>XCActionTitle</key>
+		<string>NSNumber literal</string>
+		<key>XCActionSummary</key>
+		<string>@(...)</string>
+		<key>XCActionPrefix</key>
+		<string>@(</string>
+		<key>XCActionSuffix</key>
+		<string>)</string>
+	</dict>
+	<dict>
+		<key>XCActionIdentifier</key>
+		<string>XCSurroundWithTypeNSString</string>
+		<key>XCActionTitle</key>
+		<string>NSString literal</string>
+		<key>XCActionSummary</key>
+		<string>@&quot;...&quot;</string>
+		<key>XCActionPrefix</key>
+		<string>@&quot;</string>
+		<key>XCActionSuffix</key>
+		<string>&quot;</string>
+	</dict>
+	<dict>
+		<key>XCActionIdentifier</key>
+		<string>XCSurroundWithTypeParenthesis</string>
+		<key>XCActionTitle</key>
+		<string>Parenthesis</string>
+		<key>XCActionSummary</key>
+		<string>( ... )</string>
+		<key>XCActionPrefix</key>
+		<string>(</string>
+		<key>XCActionSuffix</key>
+		<string>)</string>
+	</dict>
+	<dict>
+		<key>XCActionIdentifier</key>
+		<string>XCSurroundWithTypePragmaAuditNonNull</string>
+		<key>XCActionTitle</key>
+		<string>Audit Non-null region</string>
+		<key>XCActionSummary</key>
+		<string></string>
+		<key>XCActionPrefix</key>
+		<string>NS_ASSUME_NONNULL_BEGIN\n</string>
+		<key>XCActionSuffix</key>
+		<string>\nNS_ASSUME_NONNULL_END</string>
+	</dict>
+	<dict>
+		<key>XCActionIdentifier</key>
+		<string>XCSurroundWithTypePragmaDiagnostic</string>
+		<key>XCActionTitle</key>
+		<string>Pragma diagnostic region</string>
+		<key>XCActionSummary</key>
+		<string>@autoreleasepool { ... }</string>
+		<key>XCActionPrefix</key>
+		<string>#pragma clang diagnostic push\n#pragma clang diagnostic ignored &quot;-Warc-performSelector-leaks&quot;\n</string>
+		<key>XCActionSuffix</key>
+		<string>\n#pragma clang diagnostic pop</string>
+	</dict>
+	<dict>
+		<key>XCActionIdentifier</key>
+		<string>XCSurroundWithTypeQuotesDouble</string>
+		<key>XCActionTitle</key>
+		<string>Double quotes</string>
+		<key>XCActionSummary</key>
+		<string>&quot; ... &quot;</string>
+		<key>XCActionPrefix</key>
+		<string>&quot;</string>
+		<key>XCActionSuffix</key>
+		<string>&quot;</string>
+	</dict>
+	<dict>
+		<key>XCActionIdentifier</key>
+		<string>XCSurroundWithTypeQuotesSingle</string>
+		<key>XCActionTitle</key>
+		<string>Single quotes</string>
+		<key>XCActionSummary</key>
+		<string>&apos; ... &apos;</string>
+		<key>XCActionPrefix</key>
+		<string>&apos;</string>
+		<key>XCActionSuffix</key>
+		<string>&apos;</string>
+	</dict>
+	<dict>
+		<key>XCActionIdentifier</key>
+		<string>XCSurroundWithTypeTryCatch</string>
+		<key>XCActionTitle</key>
+		<string>Try/Catch</string>
+		<key>XCActionSummary</key>
+		<string>@try{ ...} catch(NSException *exception) {}</string>
+		<key>XCActionPrefix</key>
+		<string>@try {\n</string>
+		<key>XCActionSuffix</key>
+		<string>}\n@catch(NSException *exception) {\n\n}</string>
+	</dict>
+</array>
+</plist>

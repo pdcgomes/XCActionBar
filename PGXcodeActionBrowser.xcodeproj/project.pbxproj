@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		421D37081AB790D900FF8338 /* XCSurroundWithActions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 421D37071AB790D900FF8338 /* XCSurroundWithActions.plist */; };
 		4228E3E81AB1B7D100918EAA /* PGSearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4228E3E71AB1B7D100918EAA /* PGSearchResultCell.xib */; };
 		4228E3EB1AB1B82A00918EAA /* PGSearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4228E3EA1AB1B82A00918EAA /* PGSearchResultCell.m */; };
 		422DB1BF1AB60134007D13F9 /* XCCodeSnippetProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 422DB1BE1AB60134007D13F9 /* XCCodeSnippetProvider.m */; };
@@ -52,6 +53,7 @@
 /* Begin PBXFileReference section */
 		42066D251AB3284800131861 /* IDETestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDETestManager.h; sourceTree = "<group>"; };
 		42066D291AB32F5300131861 /* _IDEOCUnitTestRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _IDEOCUnitTestRecord.h; sourceTree = "<group>"; };
+		421D37071AB790D900FF8338 /* XCSurroundWithActions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = XCSurroundWithActions.plist; sourceTree = "<group>"; };
 		421E21561AB3214B000893ED /* IDEIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDEIndex.h; sourceTree = "<group>"; };
 		421E21571AB32164000893ED /* IDEWorkspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDEWorkspace.h; sourceTree = "<group>"; };
 		421E21581AB321BB000893ED /* IDETest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDETest.h; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				42A71F1E1AB714AE008B5B92 /* XCSortSelectionAction.m */,
 				42A71F231AB714E4008B5B92 /* XCSurroundWithAction.h */,
 				42A71F241AB714E4008B5B92 /* XCSurroundWithAction.m */,
+				421D37071AB790D900FF8338 /* XCSurroundWithActions.plist */,
 			);
 			name = Custom;
 			sourceTree = "<group>";
@@ -503,6 +506,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				42BD03481AB0880200FB7C07 /* PGActionBrowserWindowController.xib in Resources */,
+				421D37081AB790D900FF8338 /* XCSurroundWithActions.plist in Resources */,
 				4228E3E81AB1B7D100918EAA /* PGSearchResultCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
