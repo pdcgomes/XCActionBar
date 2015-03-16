@@ -8,6 +8,10 @@
 
 #import "XCCodeSnippetProvider.h"
 
+#import "PGBlockAction.h"
+
+#import "XCIDEContext.h"
+
 #import "IDECodeSnippet.h"
 #import "IDECodeSnippetRepository.h"
 
@@ -15,6 +19,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 @interface XCCodeSnippetProvider ()
 
+@property (nonatomic) NSArray *actions;
 @property (nonatomic) IDECodeSnippetRepository *repository;
 
 @end
@@ -41,21 +46,21 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (NSString *)actionCategory
 {
-    return @"Unit Tests";
+    return @"Code Snippets";
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (NSString *)actionGroupName
 {
-    return @"Unit Tests";
+    return @"Code Snippets";
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (NSArray *)findAllActions
 {
-    return @[];
+    return self.actions;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -94,10 +99,25 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (void)buildAvailableActions
 {
+    NSMutableArray *actions = [NSMutableArray array];
+
     for(IDECodeSnippet *snippet in self.repository.codeSnippets) {
         TRLog(@"<CodeSnippet>, <id=%@, title=%@, shortcut=%@, scopes=%@>", snippet.identifier, snippet.title, snippet.completionPrefix, snippet.completionScopes);
+        
+        PGBlockAction *action = [[PGBlockAction alloc] initWithTitle:snippet.title
+                                                            subtitle:snippet.summary
+                                                                hint:snippet.completionPrefix
+                                                              action:^(id<XCIDEContext> context) {
+                                                                  [context.sourceCodeTextView insertText:snippet.contents];
+        }];
+        action.enabled = YES;
+        action.group   = [self actionGroupName];
+        action.representedObject = snippet;
+        
+        [actions addObject:action];
     }
     
+    self.actions = [NSArray arrayWithArray:actions];
 }
 
 @end
