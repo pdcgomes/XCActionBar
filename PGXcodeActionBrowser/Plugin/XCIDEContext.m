@@ -14,4 +14,26 @@
 
 @synthesize workspaceDocument, sourceCodeDocument, sourceCodeTextView;
 
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (NSRange)retrieveTextSelectionRange
+{
+    NSArray *selectedTextRanges = [self.sourceCodeTextView selectedRanges];
+    if(TRCheckIsEmpty(selectedTextRanges) == YES) return (NSRange){NSNotFound, -1};
+    
+    NSRange rangeForSelectedText = [selectedTextRanges.firstObject rangeValue];
+
+    return rangeForSelectedText;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (NSString *)retrieveTextSelection
+{
+    NSRange rangeForSelectedText = [self retrieveTextSelectionRange];
+    if(rangeForSelectedText.location == NSNotFound) return nil;
+    
+    return [self.sourceCodeTextView.textStorage.string substringWithRange:rangeForSelectedText];    
+}
+
 @end

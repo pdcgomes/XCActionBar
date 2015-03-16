@@ -17,6 +17,10 @@
 @property (nonatomic,   weak) IDESourceCodeDocument *sourceCodeDocument;
 @property (nonatomic, assign) NSTextView            *sourceCodeTextView; // does not support weak references
 
+// Convenience API
+- (NSRange)retrieveTextSelectionRange;
+- (NSString *)retrieveTextSelection;
+
 @end
 
 ////////////////////////////////////////////////////////////////////////////////
