@@ -14,11 +14,11 @@
 #import "XCIDEContext.h"
 
 #import "PGBlockAction.h"
-#import "PGWorkspaceUnitTestsActionProvider.h"
+#import "XCWorkspaceUnitTestsActionProvider.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@interface PGWorkspaceUnitTestsActionProvider ()
+@interface XCWorkspaceUnitTestsActionProvider ()
 
 @property (nonatomic,   weak) IDETestManager *testManager;
 @property (nonatomic,   weak) IDEWorkspace *workspace;
@@ -29,7 +29,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@implementation PGWorkspaceUnitTestsActionProvider
+@implementation XCWorkspaceUnitTestsActionProvider
 
 @synthesize delegate;
 

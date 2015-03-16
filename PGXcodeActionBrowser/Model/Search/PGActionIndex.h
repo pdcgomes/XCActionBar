@@ -10,10 +10,10 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@protocol PGActionProvider;
+@protocol XCActionProvider;
 @protocol PGActionIndex <NSObject>
 
-- (id<NSCopying>)registerProvider:(id<PGActionProvider>)provider;
+- (id<NSCopying>)registerProvider:(id<XCActionProvider>)provider;
 - (void)deregisterProvider:(id<NSCopying>)providerToken;
 
 - (void)updateWithCompletionHandler:(PGGeneralCompletionHandler)completionHandler;

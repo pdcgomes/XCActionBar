@@ -1,18 +1,20 @@
 //
-//  PGNSMenuActionProvider.h
+//  PGUnitTestsActionProvider.h
 //  XCActionBar
 //
 //  Created by Pedro Gomes on 10/03/2015.
 //  Copyright (c) 2015 Pedro Gomes. All rights reserved.
 //
-#import <AppKit/AppKit.h>
 
-#import "PGActionBrowserProvider.h"
+#import <Foundation/Foundation.h>
+
+#import "XCActionProvider.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@interface PGNSMenuActionProvider : NSObject <PGActionProvider>
+@class IDEWorkspace;
+@interface XCWorkspaceUnitTestsActionProvider : NSObject <XCActionProvider>
 
-- (instancetype)initWithMenu:(NSMenu *)menu;
+- (instancetype)initWithWorkspace:(IDEWorkspace *)workspace;
 
 @end

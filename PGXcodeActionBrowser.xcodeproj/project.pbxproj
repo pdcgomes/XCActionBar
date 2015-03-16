@@ -13,6 +13,7 @@
 		42807D3F1AB0708A007988F3 /* PGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 42807D3E1AB0708A007988F3 /* PGUtils.m */; };
 		42807D421AB07D4B007988F3 /* PGInputValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = 42807D411AB07D4B007988F3 /* PGInputValidation.m */; };
 		42A647241AB0B666003803AE /* PGActionIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A647231AB0B666003803AE /* PGActionIndex.m */; };
+		42A71F181AB710EB008B5B92 /* XCCustomActionProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A71F171AB710EB008B5B92 /* XCCustomActionProvider.m */; };
 		42BB07451AB6F82100F42EAE /* XCIDEHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 42BB07441AB6F82100F42EAE /* XCIDEHelper.m */; };
 		42BB07481AB6FBBD00F42EAE /* XCIDEContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 42BB07471AB6FBBD00F42EAE /* XCIDEContext.m */; };
 		42BD03481AB0880200FB7C07 /* PGActionBrowserWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42BD03401AB0880200FB7C07 /* PGActionBrowserWindowController.xib */; };
@@ -26,10 +27,10 @@
 		42C1AD6C1AAF3EC000248A8D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42C1AD6B1AAF3EC000248A8D /* Images.xcassets */; };
 		42C1AD6F1AAF3EC000248A8D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42C1AD6D1AAF3EC000248A8D /* Main.storyboard */; };
 		42C1AD7B1AAF3EC000248A8D /* XcodeActionBrowserSimulatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD7A1AAF3EC000248A8D /* XcodeActionBrowserSimulatorTests.m */; };
-		42C1AD861AAF534200248A8D /* PGNSMenuActionProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD851AAF534200248A8D /* PGNSMenuActionProvider.m */; };
+		42C1AD861AAF534200248A8D /* XCNSMenuActionProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD851AAF534200248A8D /* XCNSMenuActionProvider.m */; };
 		42C1AD8C1AAF5F2000248A8D /* PGBlockAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD8B1AAF5F2000248A8D /* PGBlockAction.m */; };
 		42C1AD901AAF614500248A8D /* PGConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD8F1AAF614500248A8D /* PGConstants.m */; };
-		42C1AD931AAF632700248A8D /* PGWorkspaceUnitTestsActionProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD921AAF632700248A8D /* PGWorkspaceUnitTestsActionProvider.m */; };
+		42C1AD931AAF632700248A8D /* XCWorkspaceUnitTestsActionProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD921AAF632700248A8D /* XCWorkspaceUnitTestsActionProvider.m */; };
 		42CEA4EB1AB0ADDA006973B7 /* PGSearchService.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CEA4EA1AB0ADDA006973B7 /* PGSearchService.m */; };
 		42FD3C0F1AB0ABE900F0A442 /* PGRoundCornerWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FD3C0E1AB0ABE900F0A442 /* PGRoundCornerWindow.m */; };
 /* End PBXBuildFile section */
@@ -69,6 +70,8 @@
 		42807D411AB07D4B007988F3 /* PGInputValidation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGInputValidation.m; sourceTree = "<group>"; };
 		42A647221AB0B666003803AE /* PGActionIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGActionIndex.h; sourceTree = "<group>"; };
 		42A647231AB0B666003803AE /* PGActionIndex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGActionIndex.m; sourceTree = "<group>"; };
+		42A71F161AB710EB008B5B92 /* XCCustomActionProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCCustomActionProvider.h; sourceTree = "<group>"; };
+		42A71F171AB710EB008B5B92 /* XCCustomActionProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCCustomActionProvider.m; sourceTree = "<group>"; };
 		42BB07431AB6F82100F42EAE /* XCIDEHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCIDEHelper.h; sourceTree = "<group>"; };
 		42BB07441AB6F82100F42EAE /* XCIDEHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCIDEHelper.m; sourceTree = "<group>"; };
 		42BB07461AB6FBBD00F42EAE /* XCIDEContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCIDEContext.h; sourceTree = "<group>"; };
@@ -76,7 +79,7 @@
 		42BD03401AB0880200FB7C07 /* PGActionBrowserWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PGActionBrowserWindowController.xib; sourceTree = "<group>"; };
 		42BD03411AB0880200FB7C07 /* PGActionBrowserWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGActionBrowserWindowController.h; sourceTree = "<group>"; };
 		42BD03421AB0880200FB7C07 /* PGActionBrowserWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGActionBrowserWindowController.m; sourceTree = "<group>"; };
-		42C1AD471AAF3E7F00248A8D /* PGXcodeActionBrowser.xcplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PGXcodeActionBrowser.xcplugin; sourceTree = BUILT_PRODUCTS_DIR; };
+		42C1AD471AAF3E7F00248A8D /* XCActionBar.xcplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XCActionBar.xcplugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		42C1AD4A1AAF3E7F00248A8D /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		42C1AD4C1AAF3E7F00248A8D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		42C1AD501AAF3E7F00248A8D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -95,16 +98,16 @@
 		42C1AD741AAF3EC000248A8D /* XcodeActionBrowserSimulatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XcodeActionBrowserSimulatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		42C1AD791AAF3EC000248A8D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		42C1AD7A1AAF3EC000248A8D /* XcodeActionBrowserSimulatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XcodeActionBrowserSimulatorTests.m; sourceTree = "<group>"; };
-		42C1AD831AAF526A00248A8D /* PGActionBrowserProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGActionBrowserProvider.h; sourceTree = "<group>"; };
-		42C1AD841AAF534200248A8D /* PGNSMenuActionProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGNSMenuActionProvider.h; sourceTree = "<group>"; };
-		42C1AD851AAF534200248A8D /* PGNSMenuActionProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGNSMenuActionProvider.m; sourceTree = "<group>"; };
+		42C1AD831AAF526A00248A8D /* XCActionProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCActionProvider.h; sourceTree = "<group>"; };
+		42C1AD841AAF534200248A8D /* XCNSMenuActionProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCNSMenuActionProvider.h; sourceTree = "<group>"; };
+		42C1AD851AAF534200248A8D /* XCNSMenuActionProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCNSMenuActionProvider.m; sourceTree = "<group>"; };
 		42C1AD871AAF5D7000248A8D /* PGActionInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGActionInterface.h; sourceTree = "<group>"; };
 		42C1AD8A1AAF5F2000248A8D /* PGBlockAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGBlockAction.h; sourceTree = "<group>"; };
 		42C1AD8B1AAF5F2000248A8D /* PGBlockAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGBlockAction.m; sourceTree = "<group>"; };
 		42C1AD8E1AAF614500248A8D /* PGConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGConstants.h; sourceTree = "<group>"; };
 		42C1AD8F1AAF614500248A8D /* PGConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGConstants.m; sourceTree = "<group>"; };
-		42C1AD911AAF632700248A8D /* PGWorkspaceUnitTestsActionProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGWorkspaceUnitTestsActionProvider.h; sourceTree = "<group>"; };
-		42C1AD921AAF632700248A8D /* PGWorkspaceUnitTestsActionProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGWorkspaceUnitTestsActionProvider.m; sourceTree = "<group>"; };
+		42C1AD911AAF632700248A8D /* XCWorkspaceUnitTestsActionProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCWorkspaceUnitTestsActionProvider.h; sourceTree = "<group>"; };
+		42C1AD921AAF632700248A8D /* XCWorkspaceUnitTestsActionProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCWorkspaceUnitTestsActionProvider.m; sourceTree = "<group>"; };
 		42CEA4E91AB0ADDA006973B7 /* PGSearchService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGSearchService.h; sourceTree = "<group>"; };
 		42CEA4EA1AB0ADDA006973B7 /* PGSearchService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSearchService.m; sourceTree = "<group>"; };
 		42FD3C0D1AB0ABE900F0A442 /* PGRoundCornerWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGRoundCornerWindow.h; sourceTree = "<group>"; };
@@ -215,7 +218,7 @@
 		42C1AD481AAF3E7F00248A8D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				42C1AD471AAF3E7F00248A8D /* PGXcodeActionBrowser.xcplugin */,
+				42C1AD471AAF3E7F00248A8D /* XCActionBar.xcplugin */,
 				42C1AD5F1AAF3EC000248A8D /* XcodeActionBrowserSimulator.app */,
 				42C1AD741AAF3EC000248A8D /* XcodeActionBrowserSimulatorTests.xctest */,
 			);
@@ -319,13 +322,15 @@
 		42C1AD891AAF5EE300248A8D /* Action Providers */ = {
 			isa = PBXGroup;
 			children = (
-				42C1AD831AAF526A00248A8D /* PGActionBrowserProvider.h */,
-				42C1AD841AAF534200248A8D /* PGNSMenuActionProvider.h */,
-				42C1AD851AAF534200248A8D /* PGNSMenuActionProvider.m */,
-				42C1AD911AAF632700248A8D /* PGWorkspaceUnitTestsActionProvider.h */,
-				42C1AD921AAF632700248A8D /* PGWorkspaceUnitTestsActionProvider.m */,
+				42C1AD831AAF526A00248A8D /* XCActionProvider.h */,
+				42C1AD841AAF534200248A8D /* XCNSMenuActionProvider.h */,
+				42C1AD851AAF534200248A8D /* XCNSMenuActionProvider.m */,
+				42C1AD911AAF632700248A8D /* XCWorkspaceUnitTestsActionProvider.h */,
+				42C1AD921AAF632700248A8D /* XCWorkspaceUnitTestsActionProvider.m */,
 				422DB1BD1AB60134007D13F9 /* XCCodeSnippetProvider.h */,
 				422DB1BE1AB60134007D13F9 /* XCCodeSnippetProvider.m */,
+				42A71F161AB710EB008B5B92 /* XCCustomActionProvider.h */,
+				42A71F171AB710EB008B5B92 /* XCCustomActionProvider.m */,
 			);
 			name = "Action Providers";
 			sourceTree = "<group>";
@@ -385,7 +390,7 @@
 			);
 			name = XCActionBar;
 			productName = PGXcodeActionBrowser;
-			productReference = 42C1AD471AAF3E7F00248A8D /* PGXcodeActionBrowser.xcplugin */;
+			productReference = 42C1AD471AAF3E7F00248A8D /* XCActionBar.xcplugin */;
 			productType = "com.apple.product-type.bundle";
 		};
 		42C1AD5E1AAF3EC000248A8D /* XcodeActionBrowserSimulator */ = {
@@ -499,15 +504,16 @@
 			files = (
 				42C1AD901AAF614500248A8D /* PGConstants.m in Sources */,
 				42BB07451AB6F82100F42EAE /* XCIDEHelper.m in Sources */,
+				42A71F181AB710EB008B5B92 /* XCCustomActionProvider.m in Sources */,
 				42C1AD551AAF3E7F00248A8D /* XCActionBar.m in Sources */,
 				42FD3C0F1AB0ABE900F0A442 /* PGRoundCornerWindow.m in Sources */,
-				42C1AD861AAF534200248A8D /* PGNSMenuActionProvider.m in Sources */,
+				42C1AD861AAF534200248A8D /* XCNSMenuActionProvider.m in Sources */,
 				42807D3F1AB0708A007988F3 /* PGUtils.m in Sources */,
 				422DB1BF1AB60134007D13F9 /* XCCodeSnippetProvider.m in Sources */,
 				42BD03491AB0880200FB7C07 /* PGActionBrowserWindowController.m in Sources */,
 				42CEA4EB1AB0ADDA006973B7 /* PGSearchService.m in Sources */,
 				4228E3EB1AB1B82A00918EAA /* PGSearchResultCell.m in Sources */,
-				42C1AD931AAF632700248A8D /* PGWorkspaceUnitTestsActionProvider.m in Sources */,
+				42C1AD931AAF632700248A8D /* XCWorkspaceUnitTestsActionProvider.m in Sources */,
 				42807D421AB07D4B007988F3 /* PGInputValidation.m in Sources */,
 				42C1AD8C1AAF5F2000248A8D /* PGBlockAction.m in Sources */,
 				42BB07481AB6FBBD00F42EAE /* XCIDEContext.m in Sources */,

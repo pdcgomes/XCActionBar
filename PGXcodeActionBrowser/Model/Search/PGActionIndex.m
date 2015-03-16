@@ -6,13 +6,13 @@
 //  Copyright (c) 2015 Pedro Gomes. All rights reserved.
 //
 
-#import "PGActionBrowserProvider.h"
+#import "XCActionProvider.h"
 #import "PGActionIndex.h"
 #import "PGActionInterface.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@interface PGActionIndex () <PGActionBrowserProviderDelegate>
+@interface PGActionIndex () <XCActionProviderDelegate>
 
 @property (nonatomic, strong) dispatch_queue_t      indexerQueue;
 @property (nonatomic, strong) NSMutableDictionary   *providers;
@@ -37,7 +37,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (id<NSCopying>)registerProvider:(id<PGActionProvider>)provider
+- (id<NSCopying>)registerProvider:(id<XCActionProvider>)provider
 {
     NSString *token = [[NSUUID UUID] UUIDString];
 
@@ -66,7 +66,7 @@
     ////////////////////////////////////////////////////////////////////////////////
     dispatch_group_t group = dispatch_group_create();
     
-    for(id<PGActionProvider> provider in [self.providers allValues]) {
+    for(id<XCActionProvider> provider in [self.providers allValues]) {
         dispatch_group_enter(group);
         
         [provider prepareActionsOnQueue:self.indexerQueue completionHandler:^{
@@ -145,19 +145,19 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (void)actionProviderDidNotifyOfIndexRebuildNeeded:(id<PGActionProvider>)provider
+- (void)actionProviderDidNotifyOfIndexRebuildNeeded:(id<XCActionProvider>)provider
 {
     TRLog(@"<IndexRebuildNeeded>, <provider=%@>", provider);
     
     RTVDeclareWeakSelf(weakSelf);
     
-    void (^RegisterProviderDelegates)(id<PGActionBrowserProviderDelegate> delegate) = ^(id delegate){
+    void (^RegisterProviderDelegates)(id<XCActionProviderDelegate> delegate) = ^(id delegate){
         NSArray *providers = nil;
         @synchronized(self) {
             providers = [[weakSelf.providers allValues] copy];
         }
 
-        for(id<PGActionProvider> provider in providers) {
+        for(id<XCActionProvider> provider in providers) {
             [provider setDelegate:delegate];
         }
     };
@@ -181,7 +181,7 @@
     }
     
     NSMutableArray *actionIndex = [NSMutableArray array];
-    for(id<PGActionProvider> provider in providers) {
+    for(id<XCActionProvider> provider in providers) {
         NSArray *actions = [provider findAllActions];
         [actionIndex addObjectsFromArray:actions];
     }

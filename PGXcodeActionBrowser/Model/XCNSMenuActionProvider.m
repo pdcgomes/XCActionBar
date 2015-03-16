@@ -6,13 +6,13 @@
 //  Copyright (c) 2015 Pedro Gomes. All rights reserved.
 //
 
-#import "PGNSMenuActionProvider.h"
+#import "XCNSMenuActionProvider.h"
 #import "PGBlockAction.h"
 #import "PGUtils.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@interface PGNSMenuActionProvider ()
+@interface XCNSMenuActionProvider ()
 
 @property (nonatomic,   weak) NSMenu  *menu;
 @property (nonatomic, strong) NSArray *actions;
@@ -21,7 +21,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@implementation PGNSMenuActionProvider
+@implementation XCNSMenuActionProvider
 
 @synthesize delegate = _delegate;
 
@@ -49,7 +49,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (void)setDelegate:(id<PGActionBrowserProviderDelegate>)delegate
+- (void)setDelegate:(id<XCActionProviderDelegate>)delegate
 {
     if(_delegate == delegate) return;
     _delegate = delegate;

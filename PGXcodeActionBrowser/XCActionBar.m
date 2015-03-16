@@ -13,8 +13,8 @@
 #import "PGActionIndex.h"
 #import "PGSearchService.h"
 
-#import "PGNSMenuActionProvider.h"
-#import "PGWorkspaceUnitTestsActionProvider.h"
+#import "XCNSMenuActionProvider.h"
+#import "XCWorkspaceUnitTestsActionProvider.h"
 #import "XCCodeSnippetProvider.h"
 
 #import "PGActionBrowserWindowController.h"
@@ -209,7 +209,7 @@ static XCActionBar *sharedPlugin;
         NSMenuItem *item = [mainMenu itemWithTitle:title];
         if(item == nil) continue;
         
-        [self.actionIndex registerProvider:[[PGNSMenuActionProvider alloc] initWithMenu:item.submenu]];
+        [self.actionIndex registerProvider:[[XCNSMenuActionProvider alloc] initWithMenu:item.submenu]];
     }
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -225,7 +225,7 @@ static XCActionBar *sharedPlugin;
 ////////////////////////////////////////////////////////////////////////////////
 - (void)buildActionProvidersForWorkspace:(IDEWorkspace *)workspace
 {
-    PGWorkspaceUnitTestsActionProvider *provider = [[PGWorkspaceUnitTestsActionProvider alloc] initWithWorkspace:workspace];
+    XCWorkspaceUnitTestsActionProvider *provider = [[XCWorkspaceUnitTestsActionProvider alloc] initWithWorkspace:workspace];
     
     id token =
     [self.actionIndex registerProvider:provider];
