@@ -15,6 +15,9 @@
 		42A647241AB0B666003803AE /* PGActionIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A647231AB0B666003803AE /* PGActionIndex.m */; };
 		42A71F181AB710EB008B5B92 /* XCCustomActionProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A71F171AB710EB008B5B92 /* XCCustomActionProvider.m */; };
 		42A71F1C1AB71323008B5B92 /* XCCustomAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A71F1B1AB71323008B5B92 /* XCCustomAction.m */; };
+		42A71F1F1AB714AE008B5B92 /* XCSortSelectionAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A71F1E1AB714AE008B5B92 /* XCSortSelectionAction.m */; };
+		42A71F221AB714C2008B5B92 /* XCSortContentsAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A71F211AB714C2008B5B92 /* XCSortContentsAction.m */; };
+		42A71F251AB714E4008B5B92 /* XCSurroundWithAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A71F241AB714E4008B5B92 /* XCSurroundWithAction.m */; };
 		42BB07451AB6F82100F42EAE /* XCIDEHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 42BB07441AB6F82100F42EAE /* XCIDEHelper.m */; };
 		42BB07481AB6FBBD00F42EAE /* XCIDEContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 42BB07471AB6FBBD00F42EAE /* XCIDEContext.m */; };
 		42BD03481AB0880200FB7C07 /* PGActionBrowserWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42BD03401AB0880200FB7C07 /* PGActionBrowserWindowController.xib */; };
@@ -75,6 +78,12 @@
 		42A71F171AB710EB008B5B92 /* XCCustomActionProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCCustomActionProvider.m; sourceTree = "<group>"; };
 		42A71F1A1AB71323008B5B92 /* XCCustomAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCCustomAction.h; sourceTree = "<group>"; };
 		42A71F1B1AB71323008B5B92 /* XCCustomAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCCustomAction.m; sourceTree = "<group>"; };
+		42A71F1D1AB714AE008B5B92 /* XCSortSelectionAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSortSelectionAction.h; sourceTree = "<group>"; };
+		42A71F1E1AB714AE008B5B92 /* XCSortSelectionAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCSortSelectionAction.m; sourceTree = "<group>"; };
+		42A71F201AB714C2008B5B92 /* XCSortContentsAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSortContentsAction.h; sourceTree = "<group>"; };
+		42A71F211AB714C2008B5B92 /* XCSortContentsAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCSortContentsAction.m; sourceTree = "<group>"; };
+		42A71F231AB714E4008B5B92 /* XCSurroundWithAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSurroundWithAction.h; sourceTree = "<group>"; };
+		42A71F241AB714E4008B5B92 /* XCSurroundWithAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCSurroundWithAction.m; sourceTree = "<group>"; };
 		42BB07431AB6F82100F42EAE /* XCIDEHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCIDEHelper.h; sourceTree = "<group>"; };
 		42BB07441AB6F82100F42EAE /* XCIDEHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCIDEHelper.m; sourceTree = "<group>"; };
 		42BB07461AB6FBBD00F42EAE /* XCIDEContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCIDEContext.h; sourceTree = "<group>"; };
@@ -104,9 +113,9 @@
 		42C1AD831AAF526A00248A8D /* XCActionProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCActionProvider.h; sourceTree = "<group>"; };
 		42C1AD841AAF534200248A8D /* XCNSMenuActionProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCNSMenuActionProvider.h; sourceTree = "<group>"; };
 		42C1AD851AAF534200248A8D /* XCNSMenuActionProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCNSMenuActionProvider.m; sourceTree = "<group>"; };
-		42C1AD871AAF5D7000248A8D /* XCActionInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCActionInterface.h; sourceTree = "<group>"; };
-		42C1AD8A1AAF5F2000248A8D /* PGBlockAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGBlockAction.h; sourceTree = "<group>"; };
-		42C1AD8B1AAF5F2000248A8D /* PGBlockAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGBlockAction.m; sourceTree = "<group>"; };
+		42C1AD871AAF5D7000248A8D /* XCActionInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XCActionInterface.h; path = ../XCActionInterface.h; sourceTree = "<group>"; };
+		42C1AD8A1AAF5F2000248A8D /* PGBlockAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PGBlockAction.h; path = ../PGBlockAction.h; sourceTree = "<group>"; };
+		42C1AD8B1AAF5F2000248A8D /* PGBlockAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PGBlockAction.m; path = ../PGBlockAction.m; sourceTree = "<group>"; };
 		42C1AD8E1AAF614500248A8D /* PGConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGConstants.h; sourceTree = "<group>"; };
 		42C1AD8F1AAF614500248A8D /* PGConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGConstants.m; sourceTree = "<group>"; };
 		42C1AD911AAF632700248A8D /* XCWorkspaceUnitTestsActionProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCWorkspaceUnitTestsActionProvider.h; sourceTree = "<group>"; };
@@ -167,10 +176,27 @@
 		42A71F191AB7130F008B5B92 /* Actions */ = {
 			isa = PBXGroup;
 			children = (
+				42A71F261AB71569008B5B92 /* Custom */,
+				42C1AD871AAF5D7000248A8D /* XCActionInterface.h */,
+				42C1AD8A1AAF5F2000248A8D /* PGBlockAction.h */,
+				42C1AD8B1AAF5F2000248A8D /* PGBlockAction.m */,
 				42A71F1A1AB71323008B5B92 /* XCCustomAction.h */,
 				42A71F1B1AB71323008B5B92 /* XCCustomAction.m */,
 			);
 			path = Actions;
+			sourceTree = "<group>";
+		};
+		42A71F261AB71569008B5B92 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				42A71F201AB714C2008B5B92 /* XCSortContentsAction.h */,
+				42A71F211AB714C2008B5B92 /* XCSortContentsAction.m */,
+				42A71F1D1AB714AE008B5B92 /* XCSortSelectionAction.h */,
+				42A71F1E1AB714AE008B5B92 /* XCSortSelectionAction.m */,
+				42A71F231AB714E4008B5B92 /* XCSurroundWithAction.h */,
+				42A71F241AB714E4008B5B92 /* XCSurroundWithAction.m */,
+			);
+			name = Custom;
 			sourceTree = "<group>";
 		};
 		42BA258D1AB31267004220B4 /* Vendor */ = {
@@ -314,27 +340,16 @@
 		42C1AD821AAF522A00248A8D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				42A71F191AB7130F008B5B92 /* Actions */,
 				42C1AD891AAF5EE300248A8D /* Action Providers */,
-				42C1AD881AAF5EDE00248A8D /* Actions */,
 				42CEA4E81AB0ADC0006973B7 /* Search */,
 			);
 			path = Model;
 			sourceTree = "<group>";
 		};
-		42C1AD881AAF5EDE00248A8D /* Actions */ = {
-			isa = PBXGroup;
-			children = (
-				42C1AD871AAF5D7000248A8D /* XCActionInterface.h */,
-				42C1AD8A1AAF5F2000248A8D /* PGBlockAction.h */,
-				42C1AD8B1AAF5F2000248A8D /* PGBlockAction.m */,
-			);
-			name = Actions;
-			sourceTree = "<group>";
-		};
 		42C1AD891AAF5EE300248A8D /* Action Providers */ = {
 			isa = PBXGroup;
 			children = (
-				42A71F191AB7130F008B5B92 /* Actions */,
 				42C1AD831AAF526A00248A8D /* XCActionProvider.h */,
 				422DB1BD1AB60134007D13F9 /* XCCodeSnippetProvider.h */,
 				422DB1BE1AB60134007D13F9 /* XCCodeSnippetProvider.m */,
@@ -530,7 +545,10 @@
 				42C1AD931AAF632700248A8D /* XCWorkspaceUnitTestsActionProvider.m in Sources */,
 				42807D421AB07D4B007988F3 /* PGInputValidation.m in Sources */,
 				42C1AD8C1AAF5F2000248A8D /* PGBlockAction.m in Sources */,
+				42A71F1F1AB714AE008B5B92 /* XCSortSelectionAction.m in Sources */,
+				42A71F251AB714E4008B5B92 /* XCSurroundWithAction.m in Sources */,
 				42BB07481AB6FBBD00F42EAE /* XCIDEContext.m in Sources */,
+				42A71F221AB714C2008B5B92 /* XCSortContentsAction.m in Sources */,
 				42A647241AB0B666003803AE /* PGActionIndex.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
