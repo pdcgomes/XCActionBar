@@ -123,7 +123,7 @@ NSDictionary *XCSurroundWithActionInfo(XCSurroundWithType type)
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)executeSurroundWithBrackets:(id<XCIDEContext>)context
 {
-    NSString *prefix = @"[\n";
+    NSString *prefix = @"[";
     NSString *suffix = @"]";
     
     return [self surroundTextSelectionInContext:context withPrefix:prefix andSuffix:suffix];
@@ -212,7 +212,7 @@ NSDictionary *XCSurroundWithActionInfo(XCSurroundWithType type)
 - (BOOL)executeSurroundWithQuotesDouble:(id<XCIDEContext>)context
 {
     NSString *prefix = @"\"";
-    NSString *suffix = @"\"";
+    NSString *suffix = prefix;
     
     return [self surroundTextSelectionInContext:context withPrefix:prefix andSuffix:suffix];
 }
@@ -222,7 +222,7 @@ NSDictionary *XCSurroundWithActionInfo(XCSurroundWithType type)
 - (BOOL)executeSurroundWithQuotesSingle:(id<XCIDEContext>)context
 {
     NSString *prefix = @"'";
-    NSString *suffix = @"'";
+    NSString *suffix = prefix;
     
     return [self surroundTextSelectionInContext:context withPrefix:prefix andSuffix:suffix];
 }
