@@ -6,14 +6,14 @@
 //  Copyright (c) 2015 Pedro Gomes. All rights reserved.
 //
 
-#import "PGActionInterface.h"
+#import "XCActionInterface.h"
 
 @protocol XCIDEContext;
 typedef void(^XCBlockActionHandler)(id<XCIDEContext> context); // context can be nil
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@interface PGBlockAction : NSObject <PGActionInterface>
+@interface PGBlockAction : NSObject <XCActionInterface>
 
 - (instancetype)initWithTitle:(NSString *)title
                        action:(XCBlockActionHandler)action;

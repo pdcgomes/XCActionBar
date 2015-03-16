@@ -7,7 +7,7 @@
 //
 
 #import "PGActionBrowserWindowController.h"
-#import "PGActionInterface.h"
+#import "XCActionInterface.h"
 #import "PGSearchService.h"
 
 #import "PGSearchResultCell.h"
@@ -39,7 +39,7 @@ typedef BOOL (^PGCommandHandler)(void);
 
 @property (nonatomic) NSArray *searchResults;
 
-@property (weak) id<PGActionInterface> lastExecutedAction;
+@property (weak) id<XCActionInterface> lastExecutedAction;
 
 @end
 
@@ -178,7 +178,7 @@ typedef BOOL (^PGCommandHandler)(void);
 {
     PGSearchResultCell *cell = [tableView makeViewWithIdentifier:NSStringFromClass([PGSearchResultCell class]) owner:self];
     
-    id<PGActionInterface> action = self.searchResults[row];
+    id<XCActionInterface> action = self.searchResults[row];
 //    [cell.textField setStringValue:[NSString stringWithFormat:@"%@ (%@) [%@]", action.title, action.hint, action.subtitle]];
     cell.textField.stringValue         = TRSafeString(action.title);
     cell.hintTextField.stringValue     = TRSafeString(action.hint);
@@ -260,7 +260,7 @@ typedef BOOL (^PGCommandHandler)(void);
     NSInteger selectedIndex = self.searchResultsTable.selectedRow;
     if(selectedIndex == -1) return NO;
     
-    id<PGActionInterface> selectedAction = self.searchResults[selectedIndex];
+    id<XCActionInterface> selectedAction = self.searchResults[selectedIndex];
     BOOL executed = [selectedAction executeWithContext:self.context];
 
     if(executed) {
@@ -278,7 +278,7 @@ typedef BOOL (^PGCommandHandler)(void);
     NSInteger selectedIndex = self.searchResultsTable.selectedRow;
     if(selectedIndex == -1) return YES;
 
-    id<PGActionInterface> selectedAction = self.searchResults[selectedIndex];
+    id<XCActionInterface> selectedAction = self.searchResults[selectedIndex];
 
     [self.searchField setStringValue:selectedAction.title];
     [self performSearchWithExpression:selectedAction.title];

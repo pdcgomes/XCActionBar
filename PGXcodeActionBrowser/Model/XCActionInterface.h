@@ -11,7 +11,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @protocol XCIDEContext;
-@protocol PGActionInterface <NSObject>
+@protocol XCActionInterface <NSObject>
 
 @property (nonatomic, readonly,   copy) NSString *title;
 @property (nonatomic, readonly,   copy) NSString *subtitle;

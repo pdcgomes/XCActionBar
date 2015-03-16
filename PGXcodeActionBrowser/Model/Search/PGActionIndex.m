@@ -8,7 +8,7 @@
 
 #import "XCActionProvider.h"
 #import "PGActionIndex.h"
-#import "PGActionInterface.h"
+#import "XCActionInterface.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -97,7 +97,7 @@
     ////////////////////////////////////////////////////////////////////////////////
     NSMutableArray *matches = [NSMutableArray array];
 
-    for(id<PGActionInterface> action in self.index) {
+    for(id<XCActionInterface> action in self.index) {
 
         NSString *stringToMatch = action.title;
 
