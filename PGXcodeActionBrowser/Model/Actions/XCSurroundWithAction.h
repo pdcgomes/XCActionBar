@@ -14,6 +14,7 @@ typedef NS_ENUM(NSUInteger, XCSurroundWithType) {
     XCSurroundWithTypeAutoreleasePool,
     XCSurroundWithTypeBrackets,
     XCSurroundWithTypeCurlyBraces,
+    XCSurroundWithTypeInlineBlock,
     XCSurroundWithTypeQuotesSingle,
     XCSurroundWithTypeQuotesDouble,
     XCSurroundWithTypeNSNumber,
@@ -22,6 +23,7 @@ typedef NS_ENUM(NSUInteger, XCSurroundWithType) {
     XCSurroundWithTypePragmaDiagnostic,
     XCSurroundWithTypePragmaAuditNonNull,
     XCSurroundWithTypeSnippet, // Applies the selected snippet as the first token of the selected expression -- be careful with this
+    XCSurroundWithTypeTryCatch,
     
     XCSurroundWithTypeCustomText, // Not yet supported
 };

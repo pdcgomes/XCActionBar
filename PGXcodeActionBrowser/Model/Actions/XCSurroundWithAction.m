@@ -24,6 +24,7 @@ NSDictionary *XCSurroundWithActionInfo(XCSurroundWithType type)
         case XCSurroundWithTypeBrackets:            return XCSurroundWithInfoPair(@"Brackets", @"[ ... ]");
         case XCSurroundWithTypeCurlyBraces:         return XCSurroundWithInfoPair(@"Curly Braces", @"{ ... }");
         case XCSurroundWithTypeCustomText:          return XCSurroundWithInfoPair(@"Custom text", @"...");
+        case XCSurroundWithTypeInlineBlock:         return XCSurroundWithInfoPair(@"Inline Block", @"...");
         case XCSurroundWithTypeNSNumber:            return XCSurroundWithInfoPair(@"NSNumber literal", @"@(...)");
         case XCSurroundWithTypeNSString:            return XCSurroundWithInfoPair(@"NSString literal", @"@\"\"");
         case XCSurroundWithTypeParenthesis:         return XCSurroundWithInfoPair(@"Parenthesis", @"( ... )");
@@ -32,13 +33,13 @@ NSDictionary *XCSurroundWithActionInfo(XCSurroundWithType type)
         case XCSurroundWithTypeQuotesDouble:        return XCSurroundWithInfoPair(@"Double quotes", @"\" ... \" ");
         case XCSurroundWithTypeQuotesSingle:        return XCSurroundWithInfoPair(@"Single qoutes", @"' ... '");
         case XCSurroundWithTypeSnippet:             return XCSurroundWithInfoPair(@"Apply code snippet", @"Applies the first token of the selected snippet");
+        case XCSurroundWithTypeTryCatch:            return XCSurroundWithInfoPair(@"Try/Catch", @"@try{ ...} catch(NSException *exception) {}");
             
         default:
             NSCAssert(false, @"Unhandled XCSurroundWithType case");
             break;
     }
 }
-
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -79,6 +80,7 @@ NSDictionary *XCSurroundWithActionInfo(XCSurroundWithType type)
             case XCSurroundWithTypeBrackets:            { function = ^(id<XCIDEContext> context) { return [weakSelf executeSurroundWithBrackets:context]; };            } break;
             case XCSurroundWithTypeCurlyBraces:         { function = ^(id<XCIDEContext> context) { return [weakSelf executeSurroundWithCurlyBraces:context]; };         } break;
             case XCSurroundWithTypeCustomText:          { function = ^(id<XCIDEContext> context) { return [weakSelf executeSurroundWithCustomText:context]; };          } break;
+            case XCSurroundWithTypeInlineBlock:         { function = ^(id<XCIDEContext> context) { return [weakSelf executeSurroundWithInlineBlock:context]; };         } break;
             case XCSurroundWithTypeNSNumber:            { function = ^(id<XCIDEContext> context) { return [weakSelf executeSurroundWithNSNumber:context]; };            } break;
             case XCSurroundWithTypeNSString:            { function = ^(id<XCIDEContext> context) { return [weakSelf executeSurroundWithNSString:context]; };            } break;
             case XCSurroundWithTypeParenthesis:         { function = ^(id<XCIDEContext> context) { return [weakSelf executeSurroundWithParenthesis:context]; };         } break;
@@ -87,6 +89,7 @@ NSDictionary *XCSurroundWithActionInfo(XCSurroundWithType type)
             case XCSurroundWithTypeQuotesDouble:        { function = ^(id<XCIDEContext> context) { return [weakSelf executeSurroundWithQuotesDouble:context]; };        } break;
             case XCSurroundWithTypeQuotesSingle:        { function = ^(id<XCIDEContext> context) { return [weakSelf executeSurroundWithQuotesSingle:context]; };        } break;
             case XCSurroundWithTypeSnippet:             { function = ^(id<XCIDEContext> context) { return [weakSelf executeSurroundWithSnippet:context]; };             } break;
+            case XCSurroundWithTypeTryCatch:            { function = ^(id<XCIDEContext> context) { return [weakSelf executeSurroundWithTryCatch:context]; };            } break;
                 
             default:
                 NSCAssert(false, @"Unhandled XCSurroundWithType case");
@@ -130,7 +133,7 @@ NSDictionary *XCSurroundWithActionInfo(XCSurroundWithType type)
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)executeSurroundWithCurlyBraces:(id<XCIDEContext>)context
 {
-    NSString *prefix = @"@{\n";
+    NSString *prefix = @"{\n";
     NSString *suffix = @"\n}";
     
     return [self surroundTextSelectionInContext:context withPrefix:prefix andSuffix:suffix];
@@ -141,6 +144,16 @@ NSDictionary *XCSurroundWithActionInfo(XCSurroundWithType type)
 - (BOOL)executeSurroundWithCustomText:(id<XCIDEContext>)context
 {
     return NO;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)executeSurroundWithInlineBlock:(id<XCIDEContext>)context
+{
+    NSString *prefix = @"<#returnType#>(^<#blockName#>)(<#parameterTypes#>) = ^(<#parameters#>) {\n";
+    NSString *suffix = @"};";
+    
+    return [self surroundTextSelectionInContext:context withPrefix:prefix andSuffix:suffix];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -221,6 +234,18 @@ NSDictionary *XCSurroundWithActionInfo(XCSurroundWithType type)
     return NO;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)executeSurroundWithTryCatch:(id<XCIDEContext>)context
+{
+    NSString *prefix = (@"@try {\n");
+    NSString *suffix = (@"}\n"
+                        @"@catch(NSException *exception) {\n"
+                        @"\n}");
+    
+    return [self surroundTextSelectionInContext:context withPrefix:prefix andSuffix:suffix];
+}
+
 #pragma mark - Helpers
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -242,18 +267,19 @@ NSDictionary *XCSurroundWithActionInfo(XCSurroundWithType type)
 {
     NSRange rangeForSelectedText = [context retrieveTextSelectionRange];
     if(rangeForSelectedText.location == NSNotFound) return NO;
-
     
     NSTextView *textView = context.sourceCodeTextView;
     if([textView shouldChangeTextInRange:rangeForSelectedText replacementString:replacementText] == NO) {
         return NO;
     }
-    
+
+    NSRange rangeForSurroundedText = NSMakeRange(rangeForSelectedText.location, replacementText.length);
+
     [textView.textStorage beginEditing];
     
     [context.sourceCodeDocument.textStorage replaceCharactersInRange:rangeForSelectedText
                                                           withString:replacementText];
-    [context.sourceCodeDocument.textStorage indentCharacterRange:rangeForSelectedText
+    [context.sourceCodeDocument.textStorage indentCharacterRange:rangeForSurroundedText
                                                      undoManager:context.sourceCodeDocument.undoManager];
     
     [textView.textStorage endEditing];
