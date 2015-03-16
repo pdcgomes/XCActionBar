@@ -7,6 +7,8 @@
 //
 
 #import "XCActionBar.h"
+#import "XCIDEContext.h"
+#import "XCIDEHelper.h"
 
 #import "PGActionIndex.h"
 #import "PGSearchService.h"
@@ -34,6 +36,8 @@ static XCActionBar *sharedPlugin;
 @interface XCActionBar ()
 
 @property (nonatomic, strong, readwrite) NSBundle *bundle;
+
+@property (nonatomic, strong) XCIDEContext *context;
 
 @property (nonatomic, strong) id<PGActionIndex  > actionIndex;
 @property (nonatomic, strong) id<PGSearchService> searchService;
@@ -101,9 +105,11 @@ static XCActionBar *sharedPlugin;
     if(self.windowController == nil) {
         self.windowController = [[PGActionBrowserWindowController alloc] initWithBundle:self.bundle];
         // REVIEW: initWithBundle:searchService:
+        self.windowController.context       = self.context;
         self.windowController.searchService = self.searchService;
     }
     
+    [self updateContext];
     [self centerWindowInScreen:[self.windowController window]];
     [self.windowController showWindow:self];
     [self.windowController becomeFirstResponder];
@@ -122,6 +128,7 @@ static XCActionBar *sharedPlugin;
 ////////////////////////////////////////////////////////////////////////////////
 - (void)performInitialization
 {
+    self.context       = [[XCIDEContext alloc] init];
     self.actionIndex   = [[PGActionIndex alloc] init];
     self.searchService = [[PGSearchService alloc] initWithIndex:self.actionIndex];
     
@@ -204,7 +211,6 @@ static XCActionBar *sharedPlugin;
         
         [self.actionIndex registerProvider:[[PGNSMenuActionProvider alloc] initWithMenu:item.submenu]];
     }
-    
 
     ////////////////////////////////////////////////////////////////////////////////
     // Code Snippets
@@ -212,9 +218,6 @@ static XCActionBar *sharedPlugin;
     IDECodeSnippetRepository *codeSnippetRepository = [NSClassFromString(@"IDECodeSnippetRepository") performSelector:@selector(sharedRepository)];
     XCCodeSnippetProvider *codeSnippetProvider      = [[XCCodeSnippetProvider alloc] initWithCodeSnippetRepository:codeSnippetRepository];
     
-    ////////////////////////////////////////////////////////////////////////////////
-    // TODO: build unit test providers
-    ////////////////////////////////////////////////////////////////////////////////
     [self.actionIndex registerProvider:codeSnippetProvider];
 }
 
@@ -324,6 +327,15 @@ static XCActionBar *sharedPlugin;
 - (void)handleNavigationBarEventNotification:(NSNotification *)notification
 {
     
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)updateContext
+{
+    self.context.workspaceDocument  = [XCIDEHelper currentWorkspaceDocument];
+    self.context.sourceCodeDocument = [XCIDEHelper currentSourceCodeDocument];
+    self.context.sourceCodeTextView = [XCIDEHelper currentSourceCodeTextView];
 }
 
 @end
