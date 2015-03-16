@@ -176,9 +176,9 @@ typedef BOOL (^PGCommandHandler)(void);
     
     id<PGActionInterface> action = self.searchResults[row];
 //    [cell.textField setStringValue:[NSString stringWithFormat:@"%@ (%@) [%@]", action.title, action.hint, action.subtitle]];
-    cell.textField.stringValue         = action.title;
-    cell.hintTextField.stringValue     = action.hint;
-    cell.subtitleTextField.stringValue = action.subtitle;
+    cell.textField.stringValue         = TRSafeString(action.title);
+    cell.hintTextField.stringValue     = TRSafeString(action.hint);
+    cell.subtitleTextField.stringValue = TRSafeString(action.subtitle);
 
     if(action.enabled == NO) {
         cell.textField.textColor = [NSColor darkGrayColor];
