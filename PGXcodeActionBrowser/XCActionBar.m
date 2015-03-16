@@ -242,6 +242,7 @@ static XCActionBar *sharedPlugin;
                              [[XCSurroundWithAction alloc] initWithType:XCSurroundWithTypeAutoreleasePool],
                              [[XCSurroundWithAction alloc] initWithType:XCSurroundWithTypeBrackets],
                              [[XCSurroundWithAction alloc] initWithType:XCSurroundWithTypeCurlyBraces],
+                             [[XCSurroundWithAction alloc] initWithType:XCSurroundWithTypeInlineBlock],
 //                             [[XCSurroundWithAction alloc] initWithType:XCSurroundWithTypeCustomText],
                              [[XCSurroundWithAction alloc] initWithType:XCSurroundWithTypeNSNumber],
                              [[XCSurroundWithAction alloc] initWithType:XCSurroundWithTypeNSString],
@@ -251,6 +252,7 @@ static XCActionBar *sharedPlugin;
                              [[XCSurroundWithAction alloc] initWithType:XCSurroundWithTypeQuotesDouble],
                              [[XCSurroundWithAction alloc] initWithType:XCSurroundWithTypeQuotesSingle],
 //                             [[XCSurroundWithAction alloc] initWithType:XCSurroundWithTypeSnippet],
+                             [[XCSurroundWithAction alloc] initWithType:XCSurroundWithTypeTryCatch],
                              ];
     
     XCCustomActionProvider *builtInTextActionsProvider = [[XCCustomActionProvider alloc] initWithCategory:@"Built-in"
