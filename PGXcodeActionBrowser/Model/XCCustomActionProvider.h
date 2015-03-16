@@ -6,10 +6,16 @@
 //  Copyright (c) 2015 Pedro Gomes. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "XCActionProvider.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@interface XCCustomActionProvider : NSObject
+@protocol XCIDEContext;
+@interface XCCustomActionProvider : NSObject <NSUserInterfaceValidations, XCActionProvider>
+
+- (instancetype)initWithCategory:(NSString *)category
+                           group:(NSString *)group
+                         actions:(NSArray *)actions
+                         context:(id<XCIDEContext>)context;
 
 @end
