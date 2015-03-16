@@ -11,6 +11,10 @@
 #import "PGSearchService.h"
 
 #import "PGSearchResultCell.h"
+
+#import "XCIDEContext.h"
+#import "XCIDEHelper.h"
+
 //NSUpArrowFunctionKey        = 0xF700,
 //NSDownArrowFunctionKey      = 0xF701,
 //NSLeftArrowFunctionKey      = 0xF702,
@@ -257,7 +261,7 @@ typedef BOOL (^PGCommandHandler)(void);
     if(selectedIndex == -1) return NO;
     
     id<PGActionInterface> selectedAction = self.searchResults[selectedIndex];
-    BOOL executed = [selectedAction execute];
+    BOOL executed = [selectedAction executeWithContext:self.context];
 
     if(executed) {
         [self close];
