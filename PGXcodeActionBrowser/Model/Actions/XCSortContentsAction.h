@@ -12,4 +12,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 @interface XCSortContentsAction : XCCustomAction
 
+- (instancetype)initWithSortOrder:(NSComparisonResult)sortOrder;
+
 @end
