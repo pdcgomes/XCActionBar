@@ -9,7 +9,10 @@
 #import <Foundation/Foundation.h>
 
 #import "XCIDEContext.h"
+#import "XCIDEHelper.h"
 #import "XCSurroundWithAction.h"
+
+typedef BOOL (^XCSurroundWithFunction)(id<XCIDEContext> context);
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -42,6 +45,7 @@ NSDictionary *XCSurroundWithActionInfo(XCSurroundWithType type)
 @interface XCSurroundWithAction ()
 
 @property (nonatomic, assign) XCSurroundWithType type;
+@property (nonatomic,   copy) XCSurroundWithFunction function;
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *subtitle;
@@ -60,9 +64,35 @@ NSDictionary *XCSurroundWithActionInfo(XCSurroundWithType type)
 - (instancetype)initWithType:(XCSurroundWithType)type
 {
     if((self = [super init])) {
+        NSDictionary *info = XCSurroundWithActionInfo(type);
+
         self.type     = type;
-        self.title    = @"Surround with ...";
-        self.subtitle = @"Surrounds selection with text";
+        self.title    = [NSString stringWithFormat:@"Surround with %@", info[@"title"]];
+        self.subtitle = [NSString stringWithFormat:@"Surrounds selection with %@", info[@"summary"]];
+        self.enabled = YES;
+
+        RTVDeclareWeakSelf(weakSelf);
+        
+        XCSurroundWithFunction function = NULL;
+        switch (type) {
+            case XCSurroundWithTypeAutoreleasePool:     { function = ^(id<XCIDEContext> context) { return [weakSelf executeSurroundWithAutoreleasePool:context]; };     } break;
+            case XCSurroundWithTypeBrackets:            { function = ^(id<XCIDEContext> context) { return [weakSelf executeSurroundWithBrackets:context]; };            } break;
+            case XCSurroundWithTypeCurlyBraces:         { function = ^(id<XCIDEContext> context) { return [weakSelf executeSurroundWithCurlyBraces:context]; };         } break;
+            case XCSurroundWithTypeCustomText:          { function = ^(id<XCIDEContext> context) { return [weakSelf executeSurroundWithCustomText:context]; };          } break;
+            case XCSurroundWithTypeNSNumber:            { function = ^(id<XCIDEContext> context) { return [weakSelf executeSurroundWithNSNumber:context]; };            } break;
+            case XCSurroundWithTypeNSString:            { function = ^(id<XCIDEContext> context) { return [weakSelf executeSurroundWithNSString:context]; };            } break;
+            case XCSurroundWithTypeParenthesis:         { function = ^(id<XCIDEContext> context) { return [weakSelf executeSurroundWithParenthesis:context]; };         } break;
+            case XCSurroundWithTypePragmaAuditNonNull:  { function = ^(id<XCIDEContext> context) { return [weakSelf executeSurroundWithPragmaAuditNonNull:context]; };  } break;
+            case XCSurroundWithTypePragmaDiagnostic:    { function = ^(id<XCIDEContext> context) { return [weakSelf executeSurroundWithPragmaDiagnostic:context]; };    } break;
+            case XCSurroundWithTypeQuotesDouble:        { function = ^(id<XCIDEContext> context) { return [weakSelf executeSurroundWithQuotesDouble:context]; };        } break;
+            case XCSurroundWithTypeQuotesSingle:        { function = ^(id<XCIDEContext> context) { return [weakSelf executeSurroundWithQuotesSingle:context]; };        } break;
+            case XCSurroundWithTypeSnippet:             { function = ^(id<XCIDEContext> context) { return [weakSelf executeSurroundWithSnippet:context]; };             } break;
+                
+            default:
+                NSCAssert(false, @"Unhandled XCSurroundWithType case");
+                break;
+        }
+        self.function = [function copy];
     }
     return self;
 }
@@ -71,7 +101,7 @@ NSDictionary *XCSurroundWithActionInfo(XCSurroundWithType type)
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)executeWithContext:(id<XCIDEContext>)context
 {
-    return NO;
+    return self.function(context);
 }
 
 #pragma mark - Handlers
@@ -80,7 +110,7 @@ NSDictionary *XCSurroundWithActionInfo(XCSurroundWithType type)
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)executeSurroundWithAutoreleasePool:(id<XCIDEContext>)context
 {
-    NSString *prefix = @"@autorelease {\n";
+    NSString *prefix = @"@autoreleasepool {\n";
     NSString *suffix = @"\n}";
     
     return [self surroundTextSelectionInContext:context withPrefix:prefix andSuffix:suffix];
@@ -213,8 +243,21 @@ NSDictionary *XCSurroundWithActionInfo(XCSurroundWithType type)
     NSRange rangeForSelectedText = [context retrieveTextSelectionRange];
     if(rangeForSelectedText.location == NSNotFound) return NO;
 
-    [context.sourceCodeTextView.textStorage replaceCharactersInRange:rangeForSelectedText
+    
+    NSTextView *textView = context.sourceCodeTextView;
+    if([textView shouldChangeTextInRange:rangeForSelectedText replacementString:replacementText] == NO) {
+        return NO;
+    }
+    
+    [textView.textStorage beginEditing];
+    
+    [context.sourceCodeDocument.textStorage replaceCharactersInRange:rangeForSelectedText
                                                           withString:replacementText];
+    [context.sourceCodeDocument.textStorage indentCharacterRange:rangeForSelectedText
+                                                     undoManager:context.sourceCodeDocument.undoManager];
+    
+    [textView.textStorage endEditing];
+
     return YES;
 }
 
