@@ -371,9 +371,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		42C1AD461AAF3E7F00248A8D /* PGXcodeActionBrowser */ = {
+		42C1AD461AAF3E7F00248A8D /* XCActionBar */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 42C1AD581AAF3E7F00248A8D /* Build configuration list for PBXNativeTarget "PGXcodeActionBrowser" */;
+			buildConfigurationList = 42C1AD581AAF3E7F00248A8D /* Build configuration list for PBXNativeTarget "XCActionBar" */;
 			buildPhases = (
 				42C1AD431AAF3E7F00248A8D /* Sources */,
 				42C1AD441AAF3E7F00248A8D /* Resources */,
@@ -383,7 +383,7 @@
 			);
 			dependencies = (
 			);
-			name = PGXcodeActionBrowser;
+			name = XCActionBar;
 			productName = PGXcodeActionBrowser;
 			productReference = 42C1AD471AAF3E7F00248A8D /* PGXcodeActionBrowser.xcplugin */;
 			productType = "com.apple.product-type.bundle";
@@ -457,7 +457,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				42C1AD461AAF3E7F00248A8D /* PGXcodeActionBrowser */,
+				42C1AD461AAF3E7F00248A8D /* XCActionBar */,
 				42C1AD5E1AAF3EC000248A8D /* XcodeActionBrowserSimulator */,
 				42C1AD731AAF3EC000248A8D /* XcodeActionBrowserSimulatorTests */,
 			);
@@ -740,7 +740,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		42C1AD581AAF3E7F00248A8D /* Build configuration list for PBXNativeTarget "PGXcodeActionBrowser" */ = {
+		42C1AD581AAF3E7F00248A8D /* Build configuration list for PBXNativeTarget "XCActionBar" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				42C1AD591AAF3E7F00248A8D /* Debug */,
