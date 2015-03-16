@@ -158,5 +158,29 @@
 		<key>XCSurroundWithActionSuffix</key>
 		<string>}\n@catch(NSException *exception) {\n\n}</string>
 	</dict>
+	<dict>
+		<key>XCSurroundWithActionIdentifier</key>
+		<string>XCSurroundWithTypeWhile</string>
+		<key>XCSurroundWithActionTitle</key>
+		<string>While</string>
+		<key>XCSurroundWithActionSummary</key>
+		<string>While(expression) { ... }</string>
+		<key>XCSurroundWithActionPrefix</key>
+		<string>while(&lt;#Expression#&gt;) {\n</string>
+		<key>XCSurroundWithActionSuffix</key>
+		<string>\n}</string>
+	</dict>
+	<dict>
+		<key>XCSurroundWithActionIdentifier</key>
+		<string>XCSurroundWithTypeDoWhile</string>
+		<key>XCSurroundWithActionTitle</key>
+		<string>Do/While</string>
+		<key>XCSurroundWithActionSummary</key>
+		<string>do { ... } while(expression)</string>
+		<key>XCSurroundWithActionPrefix</key>
+		<string>do {\n</string>
+		<key>XCSurroundWithActionSuffix</key>
+		<string>\nwhile(&lt;#Expression#&gt;)</string>
+	</dict>
 </array>
 </plist>
