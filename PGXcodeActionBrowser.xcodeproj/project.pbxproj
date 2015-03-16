@@ -13,6 +13,8 @@
 		42807D3F1AB0708A007988F3 /* PGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 42807D3E1AB0708A007988F3 /* PGUtils.m */; };
 		42807D421AB07D4B007988F3 /* PGInputValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = 42807D411AB07D4B007988F3 /* PGInputValidation.m */; };
 		42A647241AB0B666003803AE /* PGActionIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A647231AB0B666003803AE /* PGActionIndex.m */; };
+		42BB07451AB6F82100F42EAE /* XCIDEHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 42BB07441AB6F82100F42EAE /* XCIDEHelper.m */; };
+		42BB07481AB6FBBD00F42EAE /* XCIDEContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 42BB07471AB6FBBD00F42EAE /* XCIDEContext.m */; };
 		42BD03481AB0880200FB7C07 /* PGActionBrowserWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42BD03401AB0880200FB7C07 /* PGActionBrowserWindowController.xib */; };
 		42BD03491AB0880200FB7C07 /* PGActionBrowserWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42BD03421AB0880200FB7C07 /* PGActionBrowserWindowController.m */; };
 		42C1AD4B1AAF3E7F00248A8D /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42C1AD4A1AAF3E7F00248A8D /* AppKit.framework */; };
@@ -67,6 +69,10 @@
 		42807D411AB07D4B007988F3 /* PGInputValidation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGInputValidation.m; sourceTree = "<group>"; };
 		42A647221AB0B666003803AE /* PGActionIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGActionIndex.h; sourceTree = "<group>"; };
 		42A647231AB0B666003803AE /* PGActionIndex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGActionIndex.m; sourceTree = "<group>"; };
+		42BB07431AB6F82100F42EAE /* XCIDEHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCIDEHelper.h; sourceTree = "<group>"; };
+		42BB07441AB6F82100F42EAE /* XCIDEHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCIDEHelper.m; sourceTree = "<group>"; };
+		42BB07461AB6FBBD00F42EAE /* XCIDEContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCIDEContext.h; sourceTree = "<group>"; };
+		42BB07471AB6FBBD00F42EAE /* XCIDEContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCIDEContext.m; sourceTree = "<group>"; };
 		42BD03401AB0880200FB7C07 /* PGActionBrowserWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PGActionBrowserWindowController.xib; sourceTree = "<group>"; };
 		42BD03411AB0880200FB7C07 /* PGActionBrowserWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGActionBrowserWindowController.h; sourceTree = "<group>"; };
 		42BD03421AB0880200FB7C07 /* PGActionBrowserWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGActionBrowserWindowController.m; sourceTree = "<group>"; };
@@ -146,6 +152,8 @@
 			children = (
 				42C1AD531AAF3E7F00248A8D /* XCActionBar.h */,
 				42C1AD541AAF3E7F00248A8D /* XCActionBar.m */,
+				42BB07461AB6FBBD00F42EAE /* XCIDEContext.h */,
+				42BB07471AB6FBBD00F42EAE /* XCIDEContext.m */,
 			);
 			path = Plugin;
 			sourceTree = "<group>";
@@ -331,6 +339,8 @@
 				42807D3E1AB0708A007988F3 /* PGUtils.m */,
 				42807D401AB07D4B007988F3 /* PGInputValidation.h */,
 				42807D411AB07D4B007988F3 /* PGInputValidation.m */,
+				42BB07431AB6F82100F42EAE /* XCIDEHelper.h */,
+				42BB07441AB6F82100F42EAE /* XCIDEHelper.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -488,6 +498,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				42C1AD901AAF614500248A8D /* PGConstants.m in Sources */,
+				42BB07451AB6F82100F42EAE /* XCIDEHelper.m in Sources */,
 				42C1AD551AAF3E7F00248A8D /* XCActionBar.m in Sources */,
 				42FD3C0F1AB0ABE900F0A442 /* PGRoundCornerWindow.m in Sources */,
 				42C1AD861AAF534200248A8D /* PGNSMenuActionProvider.m in Sources */,
@@ -499,6 +510,7 @@
 				42C1AD931AAF632700248A8D /* PGWorkspaceUnitTestsActionProvider.m in Sources */,
 				42807D421AB07D4B007988F3 /* PGInputValidation.m in Sources */,
 				42C1AD8C1AAF5F2000248A8D /* PGBlockAction.m in Sources */,
+				42BB07481AB6FBBD00F42EAE /* XCIDEContext.m in Sources */,
 				42A647241AB0B666003803AE /* PGActionIndex.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
