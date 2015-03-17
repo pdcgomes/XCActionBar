@@ -50,7 +50,8 @@
     NSRange rangeForSelectedText  = [context retrieveTextSelectionRange];
     NSRange lineRangeForSelection = [textView.string lineRangeForRange:rangeForSelectedText];
     
-    NSArray *lineComponents = [[textView.string substringWithRange:lineRangeForSelection] componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+    NSMutableArray *lineComponents = [[textView.string substringWithRange:lineRangeForSelection] componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]].mutableCopy;
+    [lineComponents removeLastObject];
     if(lineComponents.count < 2) return NO; // nothing to sort
 
     NSComparator compareFunction  = (self.sortOrder == NSOrderedAscending ?
@@ -72,7 +73,7 @@
                                      });
     
     NSArray *sortedLineComponents = [lineComponents sortedArrayUsingComparator:compareFunction];
-    NSString *sortedChunk         = [sortedLineComponents componentsJoinedByString:@"\n"];
+    NSString *sortedChunk         = [[sortedLineComponents componentsJoinedByString:@"\n"] stringByAppendingString:@"\n"];
     
     [textView.textStorage beginEditing];
 
