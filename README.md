@@ -15,3 +15,41 @@ Shortcuts are great, but there's only so many combinations of keys the average p
 It's much simpler and natural to type command that actually describe what you want to achieve. I'm sure most people will agree that's quicker to type `fold` or `unfold`than it is to type a four-key shortcut (which is basically as long as typing `fold`and probably doesn't feel as natural).
 
 Note: This is preliminary documentation as this is very much work in progress.
+
+###What can it do?
+
+Here's the executive summary in three examples:
+
+Example #1: Built in actions
+
+1. Place the carret on the line you'd like to move up
+2. Type `CMD+SHIFT+8`
+3. Type `m l u`
+4. Return
+5. Type `CMD+OPT+7` to repeat the last action as many times as you'd like (this works for any action)
+
+Example #2: Custom actions
+
+1. Select a block of text
+2. Type `CMD+SHIFT+8`
+3. Type `nsl`
+4. Return
+
+Notice as the selected block of text is automatically surrounded with `NSLog(@"your text selection")`
+Hint: type `surround` for a list of available "Surround Text With" actions
+
+Example #3: Code snippets
+
+1. Place the carret where you'd like to expand the snippet
+2. Type `CMD+SHIFT+8`
+3. Type `inline`
+4. Select `C inline block as variable`
+5. [fuckingblocksyntax.com](fuckingblocksyntax.com) suddenly becomes less necessary
+
+Hopefully these short examples showcase some of the features **XCActionBar** currently supports. 
+I'll continue adding features and making things generally better, so expect lots of changes in the coming weeks. 
+
+Feedback is greatly appreciated -- love it? hate it? suggestions? I'd love to hear about it!
+
+Cheers,
+Pedro.
