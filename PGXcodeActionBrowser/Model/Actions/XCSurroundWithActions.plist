@@ -6,13 +6,15 @@
 		<key>XCSurroundWithActionIdentifier</key>
 		<string>XCSurroundWithTypeAutoreleasePool</string>
 		<key>XCSurroundWithActionTitle</key>
-		<string>Autorelease pool</string>
+		<string>Autorelease Pool</string>
 		<key>XCSurroundWithActionSummary</key>
 		<string>@autoreleasepool { ... }</string>
 		<key>XCSurroundWithActionPrefix</key>
-		<string>@autoreleasepool {\n</string>
+		<string>@autoreleasepool {
+			</string>
 		<key>XCSurroundWithActionSuffix</key>
-		<string>\n}</string>
+		<string>
+			}</string>
 	</dict>
 	<dict>
 		<key>XCSurroundWithActionIdentifier</key>
@@ -34,9 +36,11 @@
 		<key>XCSurroundWithActionSummary</key>
 		<string>{ ... }</string>
 		<key>XCSurroundWithActionPrefix</key>
-		<string>{\n</string>
+		<string>{
+			</string>
 		<key>XCSurroundWithActionSuffix</key>
-		<string>\n}</string>
+		<string>
+			}</string>
 	</dict>
 	<dict>
 		<key>XCSurroundWithActionIdentifier</key>
@@ -46,7 +50,8 @@
 		<key>XCSurroundWithActionSummary</key>
 		<string>void (^BlockVariable)(void) = ^{ ... }</string>
 		<key>XCSurroundWithActionPrefix</key>
-		<string>&lt;#returnType#&gt;(^&lt;#blockName#&gt;)(&lt;#parameterTypes#&gt;) = ^(&lt;#parameters#&gt;) {\n</string>
+		<string>&lt;#returnType#&gt;(^&lt;#blockName#&gt;)(&lt;#parameterTypes#&gt;) = ^(&lt;#parameters#&gt;) {
+			</string>
 		<key>XCSurroundWithActionSuffix</key>
 		<string>};</string>
 	</dict>
@@ -66,7 +71,7 @@
 		<key>XCSurroundWithActionIdentifier</key>
 		<string>XCSurroundWithTypeNSNumber</string>
 		<key>XCSurroundWithActionTitle</key>
-		<string>NSNumber literal</string>
+		<string>NSNumber Literal</string>
 		<key>XCSurroundWithActionSummary</key>
 		<string>@(...)</string>
 		<key>XCSurroundWithActionPrefix</key>
@@ -78,7 +83,7 @@
 		<key>XCSurroundWithActionIdentifier</key>
 		<string>XCSurroundWithTypeNSString</string>
 		<key>XCSurroundWithActionTitle</key>
-		<string>NSString literal</string>
+		<string>NSString Literal</string>
 		<key>XCSurroundWithActionSummary</key>
 		<string>@&quot;...&quot;</string>
 		<key>XCSurroundWithActionPrefix</key>
@@ -104,11 +109,13 @@
 		<key>XCSurroundWithActionTitle</key>
 		<string>Audit Non-null region</string>
 		<key>XCSurroundWithActionSummary</key>
-		<string></string>
+		<string>NS_ASSUME_NONNULL_BEGIN ... END</string>
 		<key>XCSurroundWithActionPrefix</key>
-		<string>NS_ASSUME_NONNULL_BEGIN\n</string>
+		<string>NS_ASSUME_NONNULL_BEGIN
+			</string>
 		<key>XCSurroundWithActionSuffix</key>
-		<string>\nNS_ASSUME_NONNULL_END</string>
+		<string>
+			NS_ASSUME_NONNULL_END</string>
 	</dict>
 	<dict>
 		<key>XCSurroundWithActionIdentifier</key>
@@ -116,17 +123,20 @@
 		<key>XCSurroundWithActionTitle</key>
 		<string>Pragma diagnostic region</string>
 		<key>XCSurroundWithActionSummary</key>
-		<string>@autoreleasepool { ... }</string>
+		<string>#pragma clang diagnostic push ... pop</string>
 		<key>XCSurroundWithActionPrefix</key>
-		<string>#pragma clang diagnostic push\n#pragma clang diagnostic ignored &quot;-Warc-performSelector-leaks&quot;\n</string>
+		<string>#pragma clang diagnostic push
+			#pragma clang diagnostic ignored &quot;-Warc-performSelector-leaks&quot;
+			</string>
 		<key>XCSurroundWithActionSuffix</key>
-		<string>\n#pragma clang diagnostic pop</string>
+		<string>
+			#pragma clang diagnostic pop</string>
 	</dict>
 	<dict>
 		<key>XCSurroundWithActionIdentifier</key>
 		<string>XCSurroundWithTypeQuotesDouble</string>
 		<key>XCSurroundWithActionTitle</key>
-		<string>Double quotes</string>
+		<string>Double Quotes</string>
 		<key>XCSurroundWithActionSummary</key>
 		<string>&quot; ... &quot;</string>
 		<key>XCSurroundWithActionPrefix</key>
@@ -138,7 +148,7 @@
 		<key>XCSurroundWithActionIdentifier</key>
 		<string>XCSurroundWithTypeQuotesSingle</string>
 		<key>XCSurroundWithActionTitle</key>
-		<string>Single quotes</string>
+		<string>Single Quotes</string>
 		<key>XCSurroundWithActionSummary</key>
 		<string>&apos; ... &apos;</string>
 		<key>XCSurroundWithActionPrefix</key>
@@ -154,9 +164,13 @@
 		<key>XCSurroundWithActionSummary</key>
 		<string>@try{ ...} catch(NSException *exception) {}</string>
 		<key>XCSurroundWithActionPrefix</key>
-		<string>@try {\n</string>
+		<string>@try {
+			</string>
 		<key>XCSurroundWithActionSuffix</key>
-		<string>}\n@catch(NSException *exception) {\n\n}</string>
+		<string>}
+			@catch(NSException *exception) {
+				
+				}</string>
 	</dict>
 	<dict>
 		<key>XCSurroundWithActionIdentifier</key>
@@ -166,9 +180,11 @@
 		<key>XCSurroundWithActionSummary</key>
 		<string>While(expression) { ... }</string>
 		<key>XCSurroundWithActionPrefix</key>
-		<string>while(&lt;#Expression#&gt;) {\n</string>
+		<string>while(&lt;#Expression#&gt;) {
+			</string>
 		<key>XCSurroundWithActionSuffix</key>
-		<string>\n}</string>
+		<string>
+			}</string>
 	</dict>
 	<dict>
 		<key>XCSurroundWithActionIdentifier</key>
@@ -178,9 +194,11 @@
 		<key>XCSurroundWithActionSummary</key>
 		<string>do { ... } while(expression)</string>
 		<key>XCSurroundWithActionPrefix</key>
-		<string>do {\n</string>
+		<string>do {
+			</string>
 		<key>XCSurroundWithActionSuffix</key>
-		<string>\nwhile(&lt;#Expression#&gt;)</string>
+		<string>
+			while(&lt;#Expression#&gt;)</string>
 	</dict>
 </array>
 </plist>
