@@ -10,28 +10,16 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-typedef NS_ENUM(NSUInteger, XCSurroundWithType) {
-    XCSurroundWithTypeAutoreleasePool,
-    XCSurroundWithTypeBrackets,
-    XCSurroundWithTypeCurlyBraces,
-    XCSurroundWithTypeInlineBlock,
-    XCSurroundWithTypeQuotesSingle,
-    XCSurroundWithTypeQuotesDouble,
-    XCSurroundWithTypeNSNumber,
-    XCSurroundWithTypeNSString,
-    XCSurroundWithTypeParenthesis,
-    XCSurroundWithTypePragmaDiagnostic,
-    XCSurroundWithTypePragmaAuditNonNull,
-    XCSurroundWithTypeSnippet, // Applies the selected snippet as the first token of the selected expression -- be careful with this
-    XCSurroundWithTypeTryCatch,
-    
-    XCSurroundWithTypeCustomText, // Not yet supported
-};
+FOUNDATION_EXTERN NSString *const XCSurroundWithActionIdentifierKey;
+FOUNDATION_EXTERN NSString *const XCSurroundWithActionTitleKey;
+FOUNDATION_EXTERN NSString *const XCSurroundWithActionSummaryKey;
+FOUNDATION_EXTERN NSString *const XCSurroundWithActionPrefixKey;
+FOUNDATION_EXTERN NSString *const XCSurroundWithActionSuffixKey;
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @interface XCSurroundWithAction : XCCustomAction
 
-- (instancetype)initWithType:(XCSurroundWithType)type;
+- (instancetype)initWithSpec:(NSDictionary *)spec;
 
 @end

@@ -224,40 +224,31 @@ static XCActionBar *sharedPlugin;
     XCCodeSnippetProvider *codeSnippetProvider      = [[XCCodeSnippetProvider alloc] initWithCodeSnippetRepository:codeSnippetRepository];
     
     [self.actionIndex registerProvider:codeSnippetProvider];
-    
+
     ////////////////////////////////////////////////////////////////////////////////
     // Built-in Actions
     // TODO: build menu items for custom actions and bind them to the provider
     ////////////////////////////////////////////////////////////////////////////////
-    NSArray *textActions = @[
-                             // Sort Selection
-                             [[XCSortSelectionAction alloc] initWithSortOrder:NSOrderedAscending],
-                             [[XCSortSelectionAction alloc] initWithSortOrder:NSOrderedDescending],
+    NSMutableArray *textActions = @[
+                                    // Sort Selection
+                                    [[XCSortSelectionAction alloc] initWithSortOrder:NSOrderedAscending],
+                                    [[XCSortSelectionAction alloc] initWithSortOrder:NSOrderedDescending],
+                                    
+                                    // Sort Contents
+                                    [[XCSortContentsAction alloc] initWithSortOrder:NSOrderedAscending],
+                                    [[XCSortContentsAction alloc] initWithSortOrder:NSOrderedDescending],
+                                    
+                                    ].mutableCopy;
 
-                             // Sort Contents
-                             [[XCSortContentsAction alloc] initWithSortOrder:NSOrderedAscending],
-                             [[XCSortContentsAction alloc] initWithSortOrder:NSOrderedDescending],
-                             
-                             // Various Text Manipulation Actions
-                             [[XCSurroundWithAction alloc] initWithType:XCSurroundWithTypeAutoreleasePool],
-                             [[XCSurroundWithAction alloc] initWithType:XCSurroundWithTypeBrackets],
-                             [[XCSurroundWithAction alloc] initWithType:XCSurroundWithTypeCurlyBraces],
-                             [[XCSurroundWithAction alloc] initWithType:XCSurroundWithTypeInlineBlock],
-//                             [[XCSurroundWithAction alloc] initWithType:XCSurroundWithTypeCustomText],
-                             [[XCSurroundWithAction alloc] initWithType:XCSurroundWithTypeNSNumber],
-                             [[XCSurroundWithAction alloc] initWithType:XCSurroundWithTypeNSString],
-                             [[XCSurroundWithAction alloc] initWithType:XCSurroundWithTypeParenthesis],
-                             [[XCSurroundWithAction alloc] initWithType:XCSurroundWithTypePragmaAuditNonNull],
-                             [[XCSurroundWithAction alloc] initWithType:XCSurroundWithTypePragmaDiagnostic],
-                             [[XCSurroundWithAction alloc] initWithType:XCSurroundWithTypeQuotesDouble],
-                             [[XCSurroundWithAction alloc] initWithType:XCSurroundWithTypeQuotesSingle],
-//                             [[XCSurroundWithAction alloc] initWithType:XCSurroundWithTypeSnippet],
-                             [[XCSurroundWithAction alloc] initWithType:XCSurroundWithTypeTryCatch],
-                             ];
+    NSArray *surroundWithActionSpecs = [NSArray arrayWithContentsOfURL:[self.bundle URLForResource:@"XCSurroundWithActions" withExtension:@"plist"]];
+    
+    for(NSDictionary *spec in surroundWithActionSpecs) {
+        [textActions addObject:[[XCSurroundWithAction alloc] initWithSpec:spec]];
+    }
     
     XCCustomActionProvider *builtInTextActionsProvider = [[XCCustomActionProvider alloc] initWithCategory:@"Built-in"
                                                                                                     group:@"Text"
-                                                                                                  actions:textActions
+                                                                                                  actions:textActions.copy
                                                                                                   context:self.context];
     [self.actionIndex registerProvider:builtInTextActionsProvider];
 }
