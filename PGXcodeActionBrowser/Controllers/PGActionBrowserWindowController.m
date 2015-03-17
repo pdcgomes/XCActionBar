@@ -218,7 +218,7 @@ typedef BOOL (^PGCommandHandler)(void);
 ////////////////////////////////////////////////////////////////////////////////
 - (void)executeLastAction
 {
-    [self.lastExecutedAction execute];
+    [self.lastExecutedAction executeWithContext:self.context];
 }
 
 #pragma mark - Event Action Handlers

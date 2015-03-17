@@ -126,6 +126,7 @@ static XCActionBar *sharedPlugin;
 ////////////////////////////////////////////////////////////////////////////////
 - (void)repeatLastAction
 {
+    [self updateContext];
     [self.windowController executeLastAction];
 }
 
