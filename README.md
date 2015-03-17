@@ -9,10 +9,10 @@
 
 ###Motivation:
 
-I always try to accomplish as much as I possibly can without every moving my hands away from the keyboard, there's simply no other means of input that feels quite as natural or efficient.
+I always try to accomplish as much as I possibly can without ever moving my hands away from the keyboard, there's simply no other means of input that feels quite as natural or efficient.
 Shortcuts are great, but there's only so many combinations of keys the average person can memorize. On top of that, the more shortcuts you have, the more likely you are to have to rely on multiple modifier key combinations, which may not always make them very comfortable to type.
 
-It's much simpler and natural to type command that actually describe what you want to achieve. I'm sure most people will agree that's quicker to type `fold` or `unfold`than it is to type a four-key shortcut (which is basically as long as typing `fold`and probably doesn't feel as natural).
+It's much simpler and natural to type commands that actually describe what you want to achieve. I'm sure most people will agree that it's quicker to type `fold` or `unfold`than it is to type a four-key shortcut (which is basically as long as typing `fold`and probably doesn't feel as natural).
 
 Note: This is preliminary documentation as this is very much work in progress.
 
