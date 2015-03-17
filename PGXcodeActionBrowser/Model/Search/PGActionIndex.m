@@ -90,8 +90,11 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (NSArray *)lookup:(NSString *)str
+- (NSArray *)lookup:(NSString *)query
 {
+    NSArray *queryComponents       = [query componentsSeparatedByString:@" "];
+    NSUInteger queryComponentCount = queryComponents.count;
+    
     ////////////////////////////////////////////////////////////////////////////////
     // this is highly inefficient - obviously just a first pass to get the core feature working
     ////////////////////////////////////////////////////////////////////////////////
@@ -106,10 +109,10 @@
         ////////////////////////////////////////////////////////////////////////////////
         // Search Title and Title's subwords
         ////////////////////////////////////////////////////////////////////////////////
-        while(str.length <= stringToMatch.length) {
-            NSRange range = [stringToMatch rangeOfString:str
+        while(query.length <= stringToMatch.length) {
+            NSRange range = [stringToMatch rangeOfString:query
                                                 options:(NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch)
-                                                  range:NSMakeRange(0, str.length)];
+                                                  range:NSMakeRange(0, query.length)];
             if(range.location != NSNotFound) {
                 [matches addObject:action];
                 foundMatch = YES;
@@ -120,6 +123,38 @@
             if(rangeForNextMatch.location + 1 > stringToMatch.length) break;
             
             stringToMatch = [stringToMatch substringFromIndex:rangeForNextMatch.location + 1];
+        }
+        
+        if(foundMatch == YES) continue;
+        if(queryComponentCount < 2) continue;
+
+        ////////////////////////////////////////////////////////////////////////////////
+        // Run additional sub-word prefix search
+        // This allows us to match partial prefixes matches such as:
+        // "Sur wi d q" would match "Surround with double quotes"
+        ////////////////////////////////////////////////////////////////////////////////
+        NSArray *candidateComponents = [action.title componentsSeparatedByString:@" "];
+        if(queryComponentCount > candidateComponents.count) continue;
+        
+        BOOL foundPartialMatch = NO;
+        for(int i = 0; i < queryComponentCount; i++) {
+            foundPartialMatch = NO;
+            
+            NSString *subQuery = queryComponents[i];
+            NSString *subMatch = candidateComponents[i];
+            
+            if(subQuery.length > subMatch.length) break;
+            
+            NSRange range = [subMatch rangeOfString:subQuery
+                                                 options:(NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch)
+                                                   range:NSMakeRange(0, subQuery.length)];
+            foundPartialMatch = (range.location != NSNotFound);
+            if(foundPartialMatch == NO) break;
+        }
+        
+        if(foundPartialMatch == YES) {
+            [matches addObject:action];
+            break;
         }
         
         ////////////////////////////////////////////////////////////////////////////////
