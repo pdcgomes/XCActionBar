@@ -49,6 +49,47 @@ Example #3: Code snippets
 Hopefully these short examples showcase some of the features **XCActionBar** currently supports. 
 I'll continue adding features and making things generally better, so expect lots of changes in the coming weeks. 
 
+### Searching
+
+Action search currently operates on a few data sets:
+
+* Menu Bar items and sub-items (recursively) 
+* Code snippet library (system and user-defined)
+* Custom plugin vended actions
+
+The current searching strategy is very simple and naive but does the job quite effectively. While it doesn't yet support fuzzy matching, it's quite flexible in how it handles partial matches. Take a look at the examples above for a few examples. I'll be working on improving this very soon, but at this stage it does seem to be quite effective.
+
+### Actions
+
+As mentioned above, the plugin comes bundled with a few custom actions. Following is a catalog of all of them and a short summary of what they do:
+
+* `XCDeleteLineAction` deletes the line the carret is currently positioned in
+* `XCDuplicateLineAction` duplicates the line the carret is currently positioned in, or the selected lines
+* `XCSortSelectionAction` performs line sorting (ascending or descending) of the selected lines
+* `XCSurroundWithAction` surrounds the selected text block with an arbitrary prefix/suffix
+
+I've bundled a few `XCSurroundWithAction`S:
+
+* Autorelease pool `@autoreleasepool { ... }`
+* Square Brackets `[ ... ]`
+* Curly Braces `{ ... }`
+* Inline Block `void (^BlockVariable)(void) = ^{ ... }`
+* NSLog `NSLog(@" ... ")`
+* NSNumber `@( ... )`
+* NSString `@" ... "`
+* Parenthesis `( ... )`
+* Audit Non-null region `NS_ASSUME_NONNULL_BEGIN ... NS_ASSUME_NONNULL_END`
+* Pragma diagnostic region
+* Double Quotes `" ... "`
+* Single Quotes `' ... '`
+* Try/Catch `@try{ ...} catch(NSException *exception) {}`
+* While `While(expression) { ... }`
+* Do/While `do { ... } while(expression)`
+
+Note: currently none of these perform any character escaping
+
+Continue reading for more details on how to add your own custom actions.
+
 ### Extensibility
 
 There are quite a lot of ideas floating around regarding extensibility, but for a first-pass implementation there's at least a little bit you can play with, in the form of `SurroundWith` actions. These are currently managed by an external property list file named `XCSurroundWithActions.plist` which can be found in the plugin's resource folder.
