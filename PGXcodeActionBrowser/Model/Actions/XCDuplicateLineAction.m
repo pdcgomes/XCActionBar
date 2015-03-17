@@ -51,8 +51,8 @@
     
     NSString *stringToDuplicate = [[textView.textStorage string] substringWithRange:lineRangeForSelection];
     
-    NSRange rangeOfDuplicatedText = NSMakeRange(lineRangeForSelection.location + 1, lineRangeForSelection.length);
-    [textView setSelectedRange:NSMakeRange(lineRangeForSelection.location + 1, 0)];
+    NSRange rangeOfDuplicatedText = NSMakeRange(lineRangeForSelection.location, lineRangeForSelection.length);
+    [textView setSelectedRange:NSMakeRange(lineRangeForSelection.location, 0)];
     [textView insertText:stringToDuplicate];
     [context.sourceCodeDocument.textStorage indentCharacterRange:rangeOfDuplicatedText
                                                      undoManager:context.sourceCodeDocument.undoManager];
