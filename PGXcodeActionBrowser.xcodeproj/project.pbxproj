@@ -39,6 +39,8 @@
 		42C1AD901AAF614500248A8D /* PGConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD8F1AAF614500248A8D /* PGConstants.m */; };
 		42C1AD931AAF632700248A8D /* XCWorkspaceUnitTestsActionProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD921AAF632700248A8D /* XCWorkspaceUnitTestsActionProvider.m */; };
 		42CEA4EB1AB0ADDA006973B7 /* PGSearchService.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CEA4EA1AB0ADDA006973B7 /* PGSearchService.m */; };
+		42FA5BC81AB82F79007F24B8 /* XCDuplicateLineAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FA5BC71AB82F79007F24B8 /* XCDuplicateLineAction.m */; };
+		42FA5BCB1AB82F84007F24B8 /* XCDeleteLineAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FA5BCA1AB82F84007F24B8 /* XCDeleteLineAction.m */; };
 		42FD3C0F1AB0ABE900F0A442 /* PGRoundCornerWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FD3C0E1AB0ABE900F0A442 /* PGRoundCornerWindow.m */; };
 /* End PBXBuildFile section */
 
@@ -130,6 +132,10 @@
 		42C1AD921AAF632700248A8D /* XCWorkspaceUnitTestsActionProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCWorkspaceUnitTestsActionProvider.m; sourceTree = "<group>"; };
 		42CEA4E91AB0ADDA006973B7 /* PGSearchService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGSearchService.h; sourceTree = "<group>"; };
 		42CEA4EA1AB0ADDA006973B7 /* PGSearchService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSearchService.m; sourceTree = "<group>"; };
+		42FA5BC61AB82F79007F24B8 /* XCDuplicateLineAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCDuplicateLineAction.h; sourceTree = "<group>"; };
+		42FA5BC71AB82F79007F24B8 /* XCDuplicateLineAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCDuplicateLineAction.m; sourceTree = "<group>"; };
+		42FA5BC91AB82F84007F24B8 /* XCDeleteLineAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCDeleteLineAction.h; sourceTree = "<group>"; };
+		42FA5BCA1AB82F84007F24B8 /* XCDeleteLineAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCDeleteLineAction.m; sourceTree = "<group>"; };
 		42FD3C0D1AB0ABE900F0A442 /* PGRoundCornerWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGRoundCornerWindow.h; sourceTree = "<group>"; };
 		42FD3C0E1AB0ABE900F0A442 /* PGRoundCornerWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGRoundCornerWindow.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -201,6 +207,10 @@
 				421D370A1AB7982300FF8338 /* XCAddPrefixToLinesAction.m */,
 				421D370C1AB7982F00FF8338 /* XCAddSuffixToLinesAction.h */,
 				421D370D1AB7982F00FF8338 /* XCAddSuffixToLinesAction.m */,
+				42FA5BC91AB82F84007F24B8 /* XCDeleteLineAction.h */,
+				42FA5BCA1AB82F84007F24B8 /* XCDeleteLineAction.m */,
+				42FA5BC61AB82F79007F24B8 /* XCDuplicateLineAction.h */,
+				42FA5BC71AB82F79007F24B8 /* XCDuplicateLineAction.m */,
 				42A71F201AB714C2008B5B92 /* XCSortContentsAction.h */,
 				42A71F211AB714C2008B5B92 /* XCSortContentsAction.m */,
 				42A71F1D1AB714AE008B5B92 /* XCSortSelectionAction.h */,
@@ -555,6 +565,8 @@
 				422DB1BF1AB60134007D13F9 /* XCCodeSnippetProvider.m in Sources */,
 				42A71F1C1AB71323008B5B92 /* XCCustomAction.m in Sources */,
 				421D370E1AB7982F00FF8338 /* XCAddSuffixToLinesAction.m in Sources */,
+				42FA5BCB1AB82F84007F24B8 /* XCDeleteLineAction.m in Sources */,
+				42FA5BC81AB82F79007F24B8 /* XCDuplicateLineAction.m in Sources */,
 				42BD03491AB0880200FB7C07 /* PGActionBrowserWindowController.m in Sources */,
 				42CEA4EB1AB0ADDA006973B7 /* PGSearchService.m in Sources */,
 				4228E3EB1AB1B82A00918EAA /* PGSearchResultCell.m in Sources */,

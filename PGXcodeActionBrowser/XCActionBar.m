@@ -18,6 +18,8 @@
 #import "XCCodeSnippetProvider.h"
 #import "XCCustomActionProvider.h"
 
+#import "XCDeleteLineAction.h"
+#import "XCDuplicateLineAction.h"
 #import "XCSortContentsAction.h"
 #import "XCSortSelectionAction.h"
 #import "XCSurroundWithAction.h"
@@ -230,6 +232,10 @@ static XCActionBar *sharedPlugin;
     // TODO: build menu items for custom actions and bind them to the provider
     ////////////////////////////////////////////////////////////////////////////////
     NSMutableArray *textActions = @[
+                                    // Duplicate/Delete Lines
+                                    [[XCDeleteLineAction alloc] init],
+                                    [[XCDuplicateLineAction alloc] init],
+                                    
                                     // Sort Selection
                                     [[XCSortSelectionAction alloc] initWithSortOrder:NSOrderedAscending],
                                     [[XCSortSelectionAction alloc] initWithSortOrder:NSOrderedDescending],
