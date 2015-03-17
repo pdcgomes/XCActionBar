@@ -154,7 +154,7 @@
         
         if(foundPartialMatch == YES) {
             [matches addObject:action];
-            break;
+            continue;
         }
         
         ////////////////////////////////////////////////////////////////////////////////
