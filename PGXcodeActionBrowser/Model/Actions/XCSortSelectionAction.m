@@ -68,8 +68,19 @@
     [lineComponents removeLastObject];
     if(lineComponents.count < 2) return NO; // nothing to sort
 
-    NSArray *sortedLineComponents = [lineComponents sortedArrayUsingComparator:self.compareFunction];
-    NSString *sortedChunk         = [[sortedLineComponents componentsJoinedByString:@"\n"] stringByAppendingString:@"\n"];
+    // REVIEW: If we're sort across empty lines, we probably don't want those extra blank lines to take part in the sorted selection, so we strip them out
+    // just a quick and dirty method of achieving this, I'll come up with something cleaner later
+    NSMutableArray *sortedLineComponents         = [lineComponents sortedArrayUsingComparator:self.compareFunction].mutableCopy;
+    NSMutableIndexSet *emptyLineComponentIndices = [NSMutableIndexSet indexSet];
+    
+    [sortedLineComponents enumerateObjectsUsingBlock:^(NSString *line, NSUInteger idx, BOOL *stop) {
+        if(line.length == 0) {
+            [emptyLineComponentIndices addIndex:idx];
+        }
+    }];
+    [sortedLineComponents removeObjectsAtIndexes:emptyLineComponentIndices];
+    
+    NSString *sortedChunk = [[sortedLineComponents componentsJoinedByString:@"\n"] stringByAppendingString:@"\n"];
     
     [textView.textStorage beginEditing];
 
