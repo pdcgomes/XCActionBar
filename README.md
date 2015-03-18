@@ -7,6 +7,10 @@
 
 **Else** Read along ... :)
 
+###Demo:
+
+![image](demo.gif)
+
 ###Motivation:
 
 I always try to accomplish as much as I possibly can without ever moving my hands away from the keyboard, there's simply no other means of input that feels quite as natural or efficient.
