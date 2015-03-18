@@ -15,6 +15,7 @@
 		422DB1BF1AB60134007D13F9 /* XCCodeSnippetProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 422DB1BE1AB60134007D13F9 /* XCCodeSnippetProvider.m */; };
 		42807D3F1AB0708A007988F3 /* PGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 42807D3E1AB0708A007988F3 /* PGUtils.m */; };
 		42807D421AB07D4B007988F3 /* PGInputValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = 42807D411AB07D4B007988F3 /* PGInputValidation.m */; };
+		429086531AB92AE800EC3F78 /* XCSurroundLineWithAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 429086521AB92AE800EC3F78 /* XCSurroundLineWithAction.m */; };
 		42A647241AB0B666003803AE /* PGActionIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A647231AB0B666003803AE /* PGActionIndex.m */; };
 		42A71F181AB710EB008B5B92 /* XCCustomActionProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A71F171AB710EB008B5B92 /* XCCustomActionProvider.m */; };
 		42A71F1C1AB71323008B5B92 /* XCCustomAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A71F1B1AB71323008B5B92 /* XCCustomAction.m */; };
@@ -82,6 +83,8 @@
 		42807D3E1AB0708A007988F3 /* PGUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGUtils.m; sourceTree = "<group>"; };
 		42807D401AB07D4B007988F3 /* PGInputValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGInputValidation.h; sourceTree = "<group>"; };
 		42807D411AB07D4B007988F3 /* PGInputValidation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGInputValidation.m; sourceTree = "<group>"; };
+		429086511AB92AE800EC3F78 /* XCSurroundLineWithAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSurroundLineWithAction.h; sourceTree = "<group>"; };
+		429086521AB92AE800EC3F78 /* XCSurroundLineWithAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCSurroundLineWithAction.m; sourceTree = "<group>"; };
 		42A647221AB0B666003803AE /* PGActionIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGActionIndex.h; sourceTree = "<group>"; };
 		42A647231AB0B666003803AE /* PGActionIndex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGActionIndex.m; sourceTree = "<group>"; };
 		42A71F161AB710EB008B5B92 /* XCCustomActionProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCCustomActionProvider.h; sourceTree = "<group>"; };
@@ -215,6 +218,8 @@
 				42A71F211AB714C2008B5B92 /* XCSortContentsAction.m */,
 				42A71F1D1AB714AE008B5B92 /* XCSortSelectionAction.h */,
 				42A71F1E1AB714AE008B5B92 /* XCSortSelectionAction.m */,
+				429086511AB92AE800EC3F78 /* XCSurroundLineWithAction.h */,
+				429086521AB92AE800EC3F78 /* XCSurroundLineWithAction.m */,
 				42A71F231AB714E4008B5B92 /* XCSurroundWithAction.h */,
 				42A71F241AB714E4008B5B92 /* XCSurroundWithAction.m */,
 				421D37071AB790D900FF8338 /* XCSurroundWithActions.plist */,
@@ -560,6 +565,7 @@
 				42C1AD551AAF3E7F00248A8D /* XCActionBar.m in Sources */,
 				42FD3C0F1AB0ABE900F0A442 /* PGRoundCornerWindow.m in Sources */,
 				42C1AD861AAF534200248A8D /* XCNSMenuActionProvider.m in Sources */,
+				429086531AB92AE800EC3F78 /* XCSurroundLineWithAction.m in Sources */,
 				421D370B1AB7982300FF8338 /* XCAddPrefixToLinesAction.m in Sources */,
 				42807D3F1AB0708A007988F3 /* PGUtils.m in Sources */,
 				422DB1BF1AB60134007D13F9 /* XCCodeSnippetProvider.m in Sources */,

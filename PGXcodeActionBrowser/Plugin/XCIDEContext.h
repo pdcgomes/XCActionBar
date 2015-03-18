@@ -21,6 +21,8 @@
 - (NSRange)retrieveTextSelectionRange;
 - (NSString *)retrieveTextSelection;
 
+- (NSString *)retrievePasteboardTextContents;
+
 @end
 
 ////////////////////////////////////////////////////////////////////////////////

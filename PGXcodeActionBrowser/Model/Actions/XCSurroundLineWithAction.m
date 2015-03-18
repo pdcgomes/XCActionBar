@@ -1,30 +1,42 @@
 //
-//  XCAddSuffixToLinesAction.m
+//  XCSurroundLineWithAction.m
 //  PGXcodeActionBrowser
 //
-//  Created by Pedro Gomes on 16/03/2015.
+//  Created by Pedro Gomes on 18/03/2015.
 //  Copyright (c) 2015 Pedro Gomes. All rights reserved.
 //
 
-#import "XCAddSuffixToLinesAction.h"
+#import "XCSurroundWithAction.h"
+#import "XCSurroundLineWithAction.h"
 
 #import "XCIDEContext.h"
 #import "XCIDEHelper.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@implementation XCAddSuffixToLinesAction
+@interface XCSurroundLineWithAction ()
+
+@property (nonatomic, copy) NSString *prefix;
+@property (nonatomic, copy) NSString *suffix;
+
+@end
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (instancetype)init
+@implementation XCSurroundLineWithAction
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (instancetype)initWithSpec:(NSDictionary *)spec
 {
     if((self = [super init])) {
-        self.title    = @"Add Suffix to Line(s)";
-        self.subtitle = @"Appends pasteboard text contents to each selected line";
-        
+        self.title    = [NSString stringWithFormat:@"Surround line with %@", spec[XCSurroundWithActionTitleKey]];
+        self.subtitle = [NSString stringWithFormat:@"Surrounds each line with %@", spec[XCSurroundWithActionSummaryKey]];
+        self.prefix   = spec[XCSurroundWithActionPrefixKey];
+        self.suffix   = spec[XCSurroundWithActionSuffixKey];
+
         self.enabled  = YES;
-        
+
     }
     return self;
 }
@@ -33,10 +45,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)executeWithContext:(id<XCIDEContext>)context
 {
-    NSString *suffix = [context retrievePasteboardTextContents];
-    
-    if(TRCheckIsEmpty(suffix) == YES) return NO;
-    
     NSTextView *textView = context.sourceCodeTextView;
     
     NSRange rangeForSelectedText  = [context retrieveTextSelectionRange];
@@ -48,11 +56,11 @@
     NSMutableString *replacementString = [[NSMutableString alloc] init];
     
     for(NSString *line in lineComponents) {
+        [replacementString appendString:self.prefix];
         [replacementString appendString:line];
-        [replacementString appendString:suffix];
+        [replacementString appendString:self.suffix];
         [replacementString appendString:@"\n"];
     }
-    
     
     if([textView shouldChangeTextInRange:rangeForSelectedText replacementString:replacementString] == NO) {
         return NO;

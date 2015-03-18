@@ -18,11 +18,14 @@
 #import "XCCodeSnippetProvider.h"
 #import "XCCustomActionProvider.h"
 
+#import "XCAddPrefixToLinesAction.h"
+#import "XCAddSuffixToLinesAction.h"
 #import "XCDeleteLineAction.h"
 #import "XCDuplicateLineAction.h"
 #import "XCSortContentsAction.h"
 #import "XCSortSelectionAction.h"
 #import "XCSurroundWithAction.h"
+#import "XCSurroundLineWithAction.h"
 
 #import "PGActionBrowserWindowController.h"
 
@@ -233,6 +236,9 @@ static XCActionBar *sharedPlugin;
     // TODO: build menu items for custom actions and bind them to the provider
     ////////////////////////////////////////////////////////////////////////////////
     NSMutableArray *textActions = @[
+                                    // Prefix/Suffix
+                                    [[XCAddPrefixToLinesAction alloc] init],
+                                    [[XCAddSuffixToLinesAction alloc] init],
                                     // Duplicate/Delete Lines
                                     [[XCDeleteLineAction alloc] init],
                                     [[XCDuplicateLineAction alloc] init],
@@ -251,6 +257,7 @@ static XCActionBar *sharedPlugin;
     
     for(NSDictionary *spec in surroundWithActionSpecs) {
         [textActions addObject:[[XCSurroundWithAction alloc] initWithSpec:spec]];
+        [textActions addObject:[[XCSurroundLineWithAction alloc] initWithSpec:spec]];
     }
     
     XCCustomActionProvider *builtInTextActionsProvider = [[XCCustomActionProvider alloc] initWithCategory:@"Built-in"

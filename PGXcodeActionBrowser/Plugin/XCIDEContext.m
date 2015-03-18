@@ -36,4 +36,13 @@
     return [self.sourceCodeTextView.textStorage.string substringWithRange:rangeForSelectedText];    
 }
 
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (NSString *)retrievePasteboardTextContents
+{
+    NSArray *items = [[NSPasteboard generalPasteboard] readObjectsForClasses:@[[NSString class], [NSAttributedString class]] options:nil];
+
+    return items.firstObject;
+}
+
 @end
