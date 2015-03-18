@@ -104,17 +104,19 @@
 
         NSString *stringToMatch = action.title;
 
-        BOOL foundMatch = NO;
-
         ////////////////////////////////////////////////////////////////////////////////
         // Search Title and Title's subwords
         ////////////////////////////////////////////////////////////////////////////////
+        BOOL        foundMatch    = NO;
+        NSUInteger  matchLocation = 0;
+
         while(query.length <= stringToMatch.length) {
             NSRange range = [stringToMatch rangeOfString:query
-                                                options:(NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch)
-                                                  range:NSMakeRange(0, query.length)];
+                                                 options:(NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch)
+                                                   range:NSMakeRange(0, query.length)];
             if(range.location != NSNotFound) {
                 [matches addObject:action];
+                action.searchQueryMatchRanges = @[[NSValue valueWithRange:NSMakeRange(matchLocation, query.length)]];
                 foundMatch = YES;
                 break;
             }
@@ -122,6 +124,7 @@
             if(rangeForNextMatch.location == NSNotFound) break;
             if(rangeForNextMatch.location + 1 > stringToMatch.length) break;
             
+            matchLocation += rangeForNextMatch.location + 1;
             stringToMatch = [stringToMatch substringFromIndex:rangeForNextMatch.location + 1];
         }
         
@@ -133,8 +136,12 @@
         // This allows us to match partial prefixes matches such as:
         // "Sur wi d q" would match "Surround with double quotes"
         ////////////////////////////////////////////////////////////////////////////////
+        NSMutableArray *ranges  = [NSMutableArray array];
+
         NSArray *candidateComponents = [action.title componentsSeparatedByString:@" "];
         if(queryComponentCount > candidateComponents.count) continue;
+        
+        matchLocation = 0;
         
         BOOL foundPartialMatch = NO;
         for(int i = 0; i < queryComponentCount; i++) {
@@ -146,13 +153,17 @@
             if(subQuery.length > subMatch.length) break;
             
             NSRange range = [subMatch rangeOfString:subQuery
-                                                 options:(NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch)
-                                                   range:NSMakeRange(0, subQuery.length)];
+                                            options:(NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch)
+                                              range:NSMakeRange(0, subQuery.length)];
             foundPartialMatch = (range.location != NSNotFound);
             if(foundPartialMatch == NO) break;
+
+            [ranges addObject:[NSValue valueWithRange:NSMakeRange(matchLocation, subQuery.length)]];
+            matchLocation += (subMatch.length + 1);
         }
         
         if(foundPartialMatch == YES) {
+            action.searchQueryMatchRanges = ranges;
             [matches addObject:action];
             continue;
         }
