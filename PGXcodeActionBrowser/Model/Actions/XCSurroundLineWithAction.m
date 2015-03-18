@@ -30,7 +30,7 @@
 - (instancetype)initWithSpec:(NSDictionary *)spec
 {
     if((self = [super init])) {
-        self.title    = [NSString stringWithFormat:@"Surround line with %@", spec[XCSurroundWithActionTitleKey]];
+        self.title    = [NSString stringWithFormat:@"Surround lines with %@", spec[XCSurroundWithActionTitleKey]];
         self.subtitle = [NSString stringWithFormat:@"Surrounds each line with %@", spec[XCSurroundWithActionSummaryKey]];
         self.prefix   = spec[XCSurroundWithActionPrefixKey];
         self.suffix   = spec[XCSurroundWithActionSuffixKey];
