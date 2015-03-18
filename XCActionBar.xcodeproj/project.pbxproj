@@ -29,11 +29,6 @@
 		42C1AD4B1AAF3E7F00248A8D /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42C1AD4A1AAF3E7F00248A8D /* AppKit.framework */; };
 		42C1AD4D1AAF3E7F00248A8D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42C1AD4C1AAF3E7F00248A8D /* Foundation.framework */; };
 		42C1AD551AAF3E7F00248A8D /* XCActionBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD541AAF3E7F00248A8D /* XCActionBar.m */; };
-		42C1AD651AAF3EC000248A8D /* PGApplicationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD641AAF3EC000248A8D /* PGApplicationDelegate.m */; };
-		42C1AD671AAF3EC000248A8D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD661AAF3EC000248A8D /* main.m */; };
-		42C1AD6A1AAF3EC000248A8D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD691AAF3EC000248A8D /* ViewController.m */; };
-		42C1AD6C1AAF3EC000248A8D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42C1AD6B1AAF3EC000248A8D /* Images.xcassets */; };
-		42C1AD6F1AAF3EC000248A8D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42C1AD6D1AAF3EC000248A8D /* Main.storyboard */; };
 		42C1AD7B1AAF3EC000248A8D /* XcodeActionBrowserSimulatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD7A1AAF3EC000248A8D /* XcodeActionBrowserSimulatorTests.m */; };
 		42C1AD861AAF534200248A8D /* XCNSMenuActionProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD851AAF534200248A8D /* XCNSMenuActionProvider.m */; };
 		42C1AD8C1AAF5F2000248A8D /* PGBlockAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD8B1AAF5F2000248A8D /* PGBlockAction.m */; };
@@ -108,18 +103,9 @@
 		42C1AD4A1AAF3E7F00248A8D /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		42C1AD4C1AAF3E7F00248A8D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		42C1AD501AAF3E7F00248A8D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		42C1AD511AAF3E7F00248A8D /* PGXcodeActionBrowser.xcscheme */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = PGXcodeActionBrowser.xcscheme; path = PGXcodeActionBrowser.xcodeproj/xcshareddata/xcschemes/PGXcodeActionBrowser.xcscheme; sourceTree = SOURCE_ROOT; };
 		42C1AD531AAF3E7F00248A8D /* XCActionBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = XCActionBar.h; path = ../XCActionBar.h; sourceTree = "<group>"; };
 		42C1AD541AAF3E7F00248A8D /* XCActionBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = XCActionBar.m; path = ../XCActionBar.m; sourceTree = "<group>"; };
 		42C1AD5F1AAF3EC000248A8D /* XcodeActionBrowserSimulator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XcodeActionBrowserSimulator.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		42C1AD621AAF3EC000248A8D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		42C1AD631AAF3EC000248A8D /* PGApplicationDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGApplicationDelegate.h; sourceTree = "<group>"; };
-		42C1AD641AAF3EC000248A8D /* PGApplicationDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PGApplicationDelegate.m; sourceTree = "<group>"; };
-		42C1AD661AAF3EC000248A8D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		42C1AD681AAF3EC000248A8D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		42C1AD691AAF3EC000248A8D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		42C1AD6B1AAF3EC000248A8D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		42C1AD6E1AAF3EC000248A8D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		42C1AD741AAF3EC000248A8D /* XcodeActionBrowserSimulatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XcodeActionBrowserSimulatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		42C1AD791AAF3EC000248A8D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		42C1AD7A1AAF3EC000248A8D /* XcodeActionBrowserSimulatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XcodeActionBrowserSimulatorTests.m; sourceTree = "<group>"; };
@@ -274,7 +260,6 @@
 			isa = PBXGroup;
 			children = (
 				42C1AD4E1AAF3E7F00248A8D /* PGXcodeActionBrowser */,
-				42C1AD601AAF3EC000248A8D /* XcodeActionBrowserSimulator */,
 				42C1AD771AAF3EC000248A8D /* XcodeActionBrowserSimulatorTests */,
 				42C1AD491AAF3E7F00248A8D /* Frameworks */,
 				42C1AD481AAF3E7F00248A8D /* Products */,
@@ -319,31 +304,7 @@
 			isa = PBXGroup;
 			children = (
 				42C1AD501AAF3E7F00248A8D /* Info.plist */,
-				42C1AD511AAF3E7F00248A8D /* PGXcodeActionBrowser.xcscheme */,
 				422781921AB05883003CDD79 /* PGActionBrowser-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		42C1AD601AAF3EC000248A8D /* XcodeActionBrowserSimulator */ = {
-			isa = PBXGroup;
-			children = (
-				42C1AD631AAF3EC000248A8D /* PGApplicationDelegate.h */,
-				42C1AD641AAF3EC000248A8D /* PGApplicationDelegate.m */,
-				42C1AD681AAF3EC000248A8D /* ViewController.h */,
-				42C1AD691AAF3EC000248A8D /* ViewController.m */,
-				42C1AD6B1AAF3EC000248A8D /* Images.xcassets */,
-				42C1AD6D1AAF3EC000248A8D /* Main.storyboard */,
-				42C1AD611AAF3EC000248A8D /* Supporting Files */,
-			);
-			path = XcodeActionBrowserSimulator;
-			sourceTree = "<group>";
-		};
-		42C1AD611AAF3EC000248A8D /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				42C1AD621AAF3EC000248A8D /* Info.plist */,
-				42C1AD661AAF3EC000248A8D /* main.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -505,7 +466,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 42C1AD421AAF3E7F00248A8D /* Build configuration list for PBXProject "PGXcodeActionBrowser" */;
+			buildConfigurationList = 42C1AD421AAF3E7F00248A8D /* Build configuration list for PBXProject "XCActionBar" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -540,8 +501,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				42C1AD6C1AAF3EC000248A8D /* Images.xcassets in Resources */,
-				42C1AD6F1AAF3EC000248A8D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -591,9 +550,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				42C1AD6A1AAF3EC000248A8D /* ViewController.m in Sources */,
-				42C1AD671AAF3EC000248A8D /* main.m in Sources */,
-				42C1AD651AAF3EC000248A8D /* PGApplicationDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -614,17 +570,6 @@
 			targetProxy = 42C1AD751AAF3EC000248A8D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		42C1AD6D1AAF3EC000248A8D /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				42C1AD6E1AAF3EC000248A8D /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		42C1AD561AAF3E7F00248A8D /* Debug */ = {
@@ -803,7 +748,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		42C1AD421AAF3E7F00248A8D /* Build configuration list for PBXProject "PGXcodeActionBrowser" */ = {
+		42C1AD421AAF3E7F00248A8D /* Build configuration list for PBXProject "XCActionBar" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				42C1AD561AAF3E7F00248A8D /* Debug */,

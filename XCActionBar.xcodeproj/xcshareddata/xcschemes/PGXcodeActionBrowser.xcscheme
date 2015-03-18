@@ -16,7 +16,7 @@
                BlueprintIdentifier = "42C1AD461AAF3E7F00248A8D"
                BuildableName = "XCActionBar.xcplugin"
                BlueprintName = "XCActionBar"
-               ReferencedContainer = "container:PGXcodeActionBrowser.xcodeproj">
+               ReferencedContainer = "container:XCActionBar.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -50,7 +50,7 @@
             BlueprintIdentifier = "42C1AD461AAF3E7F00248A8D"
             BuildableName = "XCActionBar.xcplugin"
             BlueprintName = "XCActionBar"
-            ReferencedContainer = "container:PGXcodeActionBrowser.xcodeproj">
+            ReferencedContainer = "container:XCActionBar.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
