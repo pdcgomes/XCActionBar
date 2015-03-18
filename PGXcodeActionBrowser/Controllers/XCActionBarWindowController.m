@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Pedro Gomes. All rights reserved.
 //
 
-#import "PGActionBrowserWindowController.h"
+#import "XCActionBarWindowController.h"
 #import "XCActionInterface.h"
-#import "PGSearchService.h"
+#import "XCSearchService.h"
 
 #import "PGSearchResultCell.h"
 
@@ -24,7 +24,7 @@ typedef BOOL (^PGCommandHandler)(void);
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@interface PGActionBrowserWindowController () <NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate, NSWindowDelegate>
+@interface XCActionBarWindowController () <NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate, NSWindowDelegate>
 
 @property (nonatomic) NSRect frameForEmptySearchResults;
 @property (nonatomic) CGFloat searchFieldBottomConstraintConstant;
@@ -45,13 +45,13 @@ typedef BOOL (^PGCommandHandler)(void);
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@implementation PGActionBrowserWindowController
+@implementation XCActionBarWindowController
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (id)initWithBundle:(NSBundle *)bundle
 {
-    if((self = [super initWithWindowNibName:NSStringFromClass([PGActionBrowserWindowController class])])) {
+    if((self = [super initWithWindowNibName:NSStringFromClass([XCActionBarWindowController class])])) {
         
     }
     return self;

@@ -10,11 +10,11 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@protocol PGSearchService;
+@protocol XCSearchService;
 @protocol XCIDEContext;
-@interface PGActionBrowserWindowController : NSWindowController
+@interface XCActionBarWindowController : NSWindowController
 
-@property (nonatomic, weak) id<PGSearchService> searchService;
+@property (nonatomic, weak) id<XCSearchService> searchService;
 @property (nonatomic, weak) id<XCIDEContext   > context;
 
 - (id)initWithBundle:(NSBundle *)bundle;

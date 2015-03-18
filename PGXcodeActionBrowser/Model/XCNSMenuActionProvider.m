@@ -7,7 +7,7 @@
 //
 
 #import "XCNSMenuActionProvider.h"
-#import "PGBlockAction.h"
+#import "XCBlockAction.h"
 #import "PGUtils.h"
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -193,7 +193,7 @@
         NSString *subtitle = [self buildSubtitleForMenu:menu];
         
         for(NSMenuItem *item in menu.itemArray) { @autoreleasepool {
-            PGBlockAction *action = [[PGBlockAction alloc] initWithTitle:item.title
+            XCBlockAction *action = [[XCBlockAction alloc] initWithTitle:item.title
                                                                 subtitle:subtitle
                                                                     hint:(item.hasSubmenu ? @"" : [self buildHintForMenuItem:item])
                                                                   action:^(id<XCIDEContext> context) {
@@ -231,7 +231,7 @@
     NSMutableArray *components = [NSMutableArray arrayWithObject:title];
 
     NSMenu *parentMenu = menu.supermenu;
-    while(parentMenu) {
+while(parentMenu) {
         [components insertObject:[NSString stringWithFormat:@"%@ > ", parentMenu.title]
                          atIndex:0];
         parentMenu = parentMenu.supermenu;

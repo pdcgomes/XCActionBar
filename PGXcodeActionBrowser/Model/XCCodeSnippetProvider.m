@@ -8,7 +8,7 @@
 
 #import "XCCodeSnippetProvider.h"
 
-#import "PGBlockAction.h"
+#import "XCBlockAction.h"
 
 #import "XCIDEContext.h"
 #import "XCSurroundWithSnippetAction.h"
@@ -105,7 +105,7 @@
     for(IDECodeSnippet *snippet in self.repository.codeSnippets) @autoreleasepool {{
         TRLog(@"<CodeSnippet>, <id=%@, title=%@, shortcut=%@, scopes=%@>", snippet.identifier, snippet.title, snippet.completionPrefix, snippet.completionScopes);
         
-        PGBlockAction *action = [[PGBlockAction alloc] initWithTitle:snippet.title
+        XCBlockAction *action = [[XCBlockAction alloc] initWithTitle:snippet.title
                                                             subtitle:snippet.summary
                                                                 hint:snippet.completionPrefix
                                                               action:^(id<XCIDEContext> context) {

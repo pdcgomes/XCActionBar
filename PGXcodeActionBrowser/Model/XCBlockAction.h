@@ -13,7 +13,7 @@ typedef void(^XCBlockActionHandler)(id<XCIDEContext> context); // context can be
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@interface PGBlockAction : NSObject <XCActionInterface>
+@interface XCBlockAction : NSObject <XCActionInterface>
 
 @property (nonatomic,   copy) NSString *title;
 @property (nonatomic,   copy) NSString *subtitle;

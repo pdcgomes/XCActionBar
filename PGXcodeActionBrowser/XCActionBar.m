@@ -10,8 +10,8 @@
 #import "XCIDEContext.h"
 #import "XCIDEHelper.h"
 
-#import "PGActionIndex.h"
-#import "PGSearchService.h"
+#import "XCActionIndex.h"
+#import "XCSearchService.h"
 
 #import "XCNSMenuActionProvider.h"
 #import "XCWorkspaceUnitTestsActionProvider.h"
@@ -27,7 +27,7 @@
 #import "XCSurroundWithAction.h"
 #import "XCSurroundLineWithAction.h"
 
-#import "PGActionBrowserWindowController.h"
+#import "XCActionBarWindowController.h"
 
 #import "IDECodeSnippet.h"
 #import "IDECodeSnippetRepository.h"
@@ -50,11 +50,11 @@ static XCActionBar *sharedPlugin;
 @property (nonatomic, strong) XCIDEContext *context;
 
 @property (nonatomic, strong) id<PGActionIndex  > actionIndex;
-@property (nonatomic, strong) id<PGSearchService> searchService;
+@property (nonatomic, strong) id<XCSearchService> searchService;
 
 @property (nonatomic, strong) NSMutableDictionary *providersByWorkspace;
 
-@property (nonatomic, strong) PGActionBrowserWindowController *windowController;
+@property (nonatomic, strong) XCActionBarWindowController *windowController;
 @property (nonatomic, strong) NSMenuItem *actionBarMenuItem;
 
 @end
@@ -113,7 +113,7 @@ static XCActionBar *sharedPlugin;
 - (void)presentActionSearchBar
 {
     if(self.windowController == nil) {
-        self.windowController = [[PGActionBrowserWindowController alloc] initWithBundle:self.bundle];
+        self.windowController = [[XCActionBarWindowController alloc] initWithBundle:self.bundle];
         // REVIEW: initWithBundle:searchService:
         self.windowController.context       = self.context;
         self.windowController.searchService = self.searchService;
@@ -140,8 +140,9 @@ static XCActionBar *sharedPlugin;
 - (void)performInitialization
 {
     self.context       = [[XCIDEContext alloc] init];
-    self.actionIndex   = [[PGActionIndex alloc] init];
-    self.searchService = [[PGSearchService alloc] initWithIndex:self.actionIndex];
+    self.actionIndex   = [[XCActionIndex alloc] init];
+    self.searchService = [[XCSearchService alloc] initWithIndex:self.actionIndex
+                                                       strategy:nil];
     
     RTVDeclareWeakSelf(weakSelf);
 

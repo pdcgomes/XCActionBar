@@ -6,27 +6,31 @@
 //  Copyright (c) 2015 Pedro Gomes. All rights reserved.
 //
 
-#import "PGActionIndex.h"
-#import "PGSearchService.h"
+#import "XCActionIndex.h"
+#import "XCSearchService.h"
+#import "XCSearchStrategy.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@interface PGSearchService ()
+@interface XCSearchService ()
 
-@property (nonatomic, weak) id<PGActionIndex> index;
+@property (nonatomic,   weak) id<PGActionIndex   > index;
+@property (nonatomic, strong) id<XCSearchStrategy> strategy;
 
 @end
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@implementation PGSearchService
+@implementation XCSearchService
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (instancetype)initWithIndex:(id<PGActionIndex>)index
+                     strategy:(id<XCSearchStrategy>)strategy
 {
     if((self = [super init])) {
-        self.index = index;
+        self.index    = index;
+        self.strategy = strategy;
     }
     return self;
 }

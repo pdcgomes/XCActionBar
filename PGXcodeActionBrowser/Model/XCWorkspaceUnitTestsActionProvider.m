@@ -13,7 +13,7 @@
 
 #import "XCIDEContext.h"
 
-#import "PGBlockAction.h"
+#import "XCBlockAction.h"
 #import "XCWorkspaceUnitTestsActionProvider.h"
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -112,7 +112,7 @@
         
         for(IDETest *test in tests) {
             
-            PGBlockAction *action = [[PGBlockAction alloc] initWithTitle:test.identifier
+            XCBlockAction *action = [[XCBlockAction alloc] initWithTitle:test.identifier
                                                                 subtitle:[(id<IDETestable>)test.testable name]
                                                                   action:^(id<XCIDEContext> context) {
                                                                       TRLog(@"<RunUnitTestAction>, <test=%@>", test.identifier);

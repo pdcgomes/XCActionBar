@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6751"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="PGActionBrowserWindowController">
+        <customObject id="-2" userLabel="File's Owner" customClass="XCActionBarWindowController">
             <connections>
                 <outlet property="searchField" destination="0nc-H3-qNB" id="dVN-Hd-h3t"/>
                 <outlet property="searchResultsTable" destination="Xbd-j1-ucx" id="C3t-ld-D0f"/>

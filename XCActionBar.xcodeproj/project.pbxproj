@@ -17,7 +17,7 @@
 		42807D3F1AB0708A007988F3 /* PGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 42807D3E1AB0708A007988F3 /* PGUtils.m */; };
 		42807D421AB07D4B007988F3 /* PGInputValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = 42807D411AB07D4B007988F3 /* PGInputValidation.m */; };
 		429086531AB92AE800EC3F78 /* XCSurroundLineWithAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 429086521AB92AE800EC3F78 /* XCSurroundLineWithAction.m */; };
-		42A647241AB0B666003803AE /* PGActionIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A647231AB0B666003803AE /* PGActionIndex.m */; };
+		42A647241AB0B666003803AE /* XCActionIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A647231AB0B666003803AE /* XCActionIndex.m */; };
 		42A71F181AB710EB008B5B92 /* XCCustomActionProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A71F171AB710EB008B5B92 /* XCCustomActionProvider.m */; };
 		42A71F1C1AB71323008B5B92 /* XCCustomAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A71F1B1AB71323008B5B92 /* XCCustomAction.m */; };
 		42A71F1F1AB714AE008B5B92 /* XCSortSelectionAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A71F1E1AB714AE008B5B92 /* XCSortSelectionAction.m */; };
@@ -25,17 +25,17 @@
 		42A71F251AB714E4008B5B92 /* XCSurroundWithAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A71F241AB714E4008B5B92 /* XCSurroundWithAction.m */; };
 		42BB07451AB6F82100F42EAE /* XCIDEHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 42BB07441AB6F82100F42EAE /* XCIDEHelper.m */; };
 		42BB07481AB6FBBD00F42EAE /* XCIDEContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 42BB07471AB6FBBD00F42EAE /* XCIDEContext.m */; };
-		42BD03481AB0880200FB7C07 /* PGActionBrowserWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42BD03401AB0880200FB7C07 /* PGActionBrowserWindowController.xib */; };
-		42BD03491AB0880200FB7C07 /* PGActionBrowserWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42BD03421AB0880200FB7C07 /* PGActionBrowserWindowController.m */; };
+		42BD03481AB0880200FB7C07 /* XCActionBarWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42BD03401AB0880200FB7C07 /* XCActionBarWindowController.xib */; };
+		42BD03491AB0880200FB7C07 /* XCActionBarWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42BD03421AB0880200FB7C07 /* XCActionBarWindowController.m */; };
 		42C1AD4B1AAF3E7F00248A8D /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42C1AD4A1AAF3E7F00248A8D /* AppKit.framework */; };
 		42C1AD4D1AAF3E7F00248A8D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42C1AD4C1AAF3E7F00248A8D /* Foundation.framework */; };
 		42C1AD551AAF3E7F00248A8D /* XCActionBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD541AAF3E7F00248A8D /* XCActionBar.m */; };
 		42C1AD7B1AAF3EC000248A8D /* XcodeActionBrowserSimulatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD7A1AAF3EC000248A8D /* XcodeActionBrowserSimulatorTests.m */; };
 		42C1AD861AAF534200248A8D /* XCNSMenuActionProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD851AAF534200248A8D /* XCNSMenuActionProvider.m */; };
-		42C1AD8C1AAF5F2000248A8D /* PGBlockAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD8B1AAF5F2000248A8D /* PGBlockAction.m */; };
+		42C1AD8C1AAF5F2000248A8D /* XCBlockAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD8B1AAF5F2000248A8D /* XCBlockAction.m */; };
 		42C1AD901AAF614500248A8D /* PGConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD8F1AAF614500248A8D /* PGConstants.m */; };
 		42C1AD931AAF632700248A8D /* XCWorkspaceUnitTestsActionProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD921AAF632700248A8D /* XCWorkspaceUnitTestsActionProvider.m */; };
-		42CEA4EB1AB0ADDA006973B7 /* PGSearchService.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CEA4EA1AB0ADDA006973B7 /* PGSearchService.m */; };
+		42CEA4EB1AB0ADDA006973B7 /* XCSearchService.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CEA4EA1AB0ADDA006973B7 /* XCSearchService.m */; };
 		42FA5BC81AB82F79007F24B8 /* XCDuplicateLineAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FA5BC71AB82F79007F24B8 /* XCDuplicateLineAction.m */; };
 		42FA5BCB1AB82F84007F24B8 /* XCDeleteLineAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FA5BCA1AB82F84007F24B8 /* XCDeleteLineAction.m */; };
 		42FD3C0F1AB0ABE900F0A442 /* PGRoundCornerWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FD3C0E1AB0ABE900F0A442 /* PGRoundCornerWindow.m */; };
@@ -55,6 +55,7 @@
 		421E21591AB321BB000893ED /* IDETestable-Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IDETestable-Protocol.h"; sourceTree = "<group>"; };
 		421E215A1AB321C5000893ED /* IDETest-IDETestNavigatorAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IDETest-IDETestNavigatorAdditions.h"; sourceTree = "<group>"; };
 		421E215B1AB321DC000893ED /* _IDETestableState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _IDETestableState.h; sourceTree = "<group>"; };
+		421F53561AB9CFF600509103 /* XCSearchStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSearchStrategy.h; sourceTree = "<group>"; };
 		422781921AB05883003CDD79 /* XCActionBar-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XCActionBar-Prefix.pch"; sourceTree = "<group>"; };
 		4228E3E71AB1B7D100918EAA /* PGSearchResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PGSearchResultCell.xib; sourceTree = "<group>"; };
 		4228E3E91AB1B82A00918EAA /* PGSearchResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGSearchResultCell.h; sourceTree = "<group>"; };
@@ -73,8 +74,8 @@
 		42807D411AB07D4B007988F3 /* PGInputValidation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGInputValidation.m; sourceTree = "<group>"; };
 		429086511AB92AE800EC3F78 /* XCSurroundLineWithAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSurroundLineWithAction.h; sourceTree = "<group>"; };
 		429086521AB92AE800EC3F78 /* XCSurroundLineWithAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCSurroundLineWithAction.m; sourceTree = "<group>"; };
-		42A647221AB0B666003803AE /* PGActionIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGActionIndex.h; sourceTree = "<group>"; };
-		42A647231AB0B666003803AE /* PGActionIndex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGActionIndex.m; sourceTree = "<group>"; };
+		42A647221AB0B666003803AE /* XCActionIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCActionIndex.h; sourceTree = "<group>"; };
+		42A647231AB0B666003803AE /* XCActionIndex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCActionIndex.m; sourceTree = "<group>"; };
 		42A71F161AB710EB008B5B92 /* XCCustomActionProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCCustomActionProvider.h; sourceTree = "<group>"; };
 		42A71F171AB710EB008B5B92 /* XCCustomActionProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCCustomActionProvider.m; sourceTree = "<group>"; };
 		42A71F1A1AB71323008B5B92 /* XCCustomAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCCustomAction.h; sourceTree = "<group>"; };
@@ -89,9 +90,9 @@
 		42BB07441AB6F82100F42EAE /* XCIDEHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCIDEHelper.m; sourceTree = "<group>"; };
 		42BB07461AB6FBBD00F42EAE /* XCIDEContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCIDEContext.h; sourceTree = "<group>"; };
 		42BB07471AB6FBBD00F42EAE /* XCIDEContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCIDEContext.m; sourceTree = "<group>"; };
-		42BD03401AB0880200FB7C07 /* PGActionBrowserWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PGActionBrowserWindowController.xib; sourceTree = "<group>"; };
-		42BD03411AB0880200FB7C07 /* PGActionBrowserWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGActionBrowserWindowController.h; sourceTree = "<group>"; };
-		42BD03421AB0880200FB7C07 /* PGActionBrowserWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGActionBrowserWindowController.m; sourceTree = "<group>"; };
+		42BD03401AB0880200FB7C07 /* XCActionBarWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XCActionBarWindowController.xib; sourceTree = "<group>"; };
+		42BD03411AB0880200FB7C07 /* XCActionBarWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCActionBarWindowController.h; sourceTree = "<group>"; };
+		42BD03421AB0880200FB7C07 /* XCActionBarWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCActionBarWindowController.m; sourceTree = "<group>"; };
 		42C1AD471AAF3E7F00248A8D /* XCActionBar.xcplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XCActionBar.xcplugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		42C1AD4A1AAF3E7F00248A8D /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		42C1AD4C1AAF3E7F00248A8D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -105,14 +106,14 @@
 		42C1AD841AAF534200248A8D /* XCNSMenuActionProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCNSMenuActionProvider.h; sourceTree = "<group>"; };
 		42C1AD851AAF534200248A8D /* XCNSMenuActionProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCNSMenuActionProvider.m; sourceTree = "<group>"; };
 		42C1AD871AAF5D7000248A8D /* XCActionInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XCActionInterface.h; path = ../XCActionInterface.h; sourceTree = "<group>"; };
-		42C1AD8A1AAF5F2000248A8D /* PGBlockAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PGBlockAction.h; path = ../PGBlockAction.h; sourceTree = "<group>"; };
-		42C1AD8B1AAF5F2000248A8D /* PGBlockAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PGBlockAction.m; path = ../PGBlockAction.m; sourceTree = "<group>"; };
+		42C1AD8A1AAF5F2000248A8D /* XCBlockAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XCBlockAction.h; path = ../XCBlockAction.h; sourceTree = "<group>"; };
+		42C1AD8B1AAF5F2000248A8D /* XCBlockAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XCBlockAction.m; path = ../XCBlockAction.m; sourceTree = "<group>"; };
 		42C1AD8E1AAF614500248A8D /* PGConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGConstants.h; sourceTree = "<group>"; };
 		42C1AD8F1AAF614500248A8D /* PGConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGConstants.m; sourceTree = "<group>"; };
 		42C1AD911AAF632700248A8D /* XCWorkspaceUnitTestsActionProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCWorkspaceUnitTestsActionProvider.h; sourceTree = "<group>"; };
 		42C1AD921AAF632700248A8D /* XCWorkspaceUnitTestsActionProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCWorkspaceUnitTestsActionProvider.m; sourceTree = "<group>"; };
-		42CEA4E91AB0ADDA006973B7 /* PGSearchService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGSearchService.h; sourceTree = "<group>"; };
-		42CEA4EA1AB0ADDA006973B7 /* PGSearchService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSearchService.m; sourceTree = "<group>"; };
+		42CEA4E91AB0ADDA006973B7 /* XCSearchService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSearchService.h; sourceTree = "<group>"; };
+		42CEA4EA1AB0ADDA006973B7 /* XCSearchService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCSearchService.m; sourceTree = "<group>"; };
 		42FA5BC61AB82F79007F24B8 /* XCDuplicateLineAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCDuplicateLineAction.h; sourceTree = "<group>"; };
 		42FA5BC71AB82F79007F24B8 /* XCDuplicateLineAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCDuplicateLineAction.m; sourceTree = "<group>"; };
 		42FA5BC91AB82F84007F24B8 /* XCDeleteLineAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCDeleteLineAction.h; sourceTree = "<group>"; };
@@ -166,8 +167,8 @@
 			children = (
 				42A71F261AB71569008B5B92 /* Custom */,
 				42C1AD871AAF5D7000248A8D /* XCActionInterface.h */,
-				42C1AD8A1AAF5F2000248A8D /* PGBlockAction.h */,
-				42C1AD8B1AAF5F2000248A8D /* PGBlockAction.m */,
+				42C1AD8A1AAF5F2000248A8D /* XCBlockAction.h */,
+				42C1AD8B1AAF5F2000248A8D /* XCBlockAction.m */,
 				42A71F1A1AB71323008B5B92 /* XCCustomAction.h */,
 				42A71F1B1AB71323008B5B92 /* XCCustomAction.m */,
 			);
@@ -236,9 +237,9 @@
 		42BD033C1AB0880200FB7C07 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				42BD03411AB0880200FB7C07 /* PGActionBrowserWindowController.h */,
-				42BD03421AB0880200FB7C07 /* PGActionBrowserWindowController.m */,
-				42BD03401AB0880200FB7C07 /* PGActionBrowserWindowController.xib */,
+				42BD03411AB0880200FB7C07 /* XCActionBarWindowController.h */,
+				42BD03421AB0880200FB7C07 /* XCActionBarWindowController.m */,
+				42BD03401AB0880200FB7C07 /* XCActionBarWindowController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -356,10 +357,11 @@
 		42CEA4E81AB0ADC0006973B7 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				42CEA4E91AB0ADDA006973B7 /* PGSearchService.h */,
-				42CEA4EA1AB0ADDA006973B7 /* PGSearchService.m */,
-				42A647221AB0B666003803AE /* PGActionIndex.h */,
-				42A647231AB0B666003803AE /* PGActionIndex.m */,
+				42A647221AB0B666003803AE /* XCActionIndex.h */,
+				42A647231AB0B666003803AE /* XCActionIndex.m */,
+				42CEA4E91AB0ADDA006973B7 /* XCSearchService.h */,
+				42CEA4EA1AB0ADDA006973B7 /* XCSearchService.m */,
+				421F53561AB9CFF600509103 /* XCSearchStrategy.h */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -455,7 +457,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				42BD03481AB0880200FB7C07 /* PGActionBrowserWindowController.xib in Resources */,
+				42BD03481AB0880200FB7C07 /* XCActionBarWindowController.xib in Resources */,
 				421D37081AB790D900FF8338 /* XCSurroundWithActions.plist in Resources */,
 				4228E3E81AB1B7D100918EAA /* PGSearchResultCell.xib in Resources */,
 			);
@@ -490,17 +492,17 @@
 				421D370E1AB7982F00FF8338 /* XCAddSuffixToLinesAction.m in Sources */,
 				42FA5BCB1AB82F84007F24B8 /* XCDeleteLineAction.m in Sources */,
 				42FA5BC81AB82F79007F24B8 /* XCDuplicateLineAction.m in Sources */,
-				42BD03491AB0880200FB7C07 /* PGActionBrowserWindowController.m in Sources */,
-				42CEA4EB1AB0ADDA006973B7 /* PGSearchService.m in Sources */,
+				42BD03491AB0880200FB7C07 /* XCActionBarWindowController.m in Sources */,
+				42CEA4EB1AB0ADDA006973B7 /* XCSearchService.m in Sources */,
 				4228E3EB1AB1B82A00918EAA /* PGSearchResultCell.m in Sources */,
 				42C1AD931AAF632700248A8D /* XCWorkspaceUnitTestsActionProvider.m in Sources */,
 				42807D421AB07D4B007988F3 /* PGInputValidation.m in Sources */,
-				42C1AD8C1AAF5F2000248A8D /* PGBlockAction.m in Sources */,
+				42C1AD8C1AAF5F2000248A8D /* XCBlockAction.m in Sources */,
 				42A71F1F1AB714AE008B5B92 /* XCSortSelectionAction.m in Sources */,
 				42A71F251AB714E4008B5B92 /* XCSurroundWithAction.m in Sources */,
 				42BB07481AB6FBBD00F42EAE /* XCIDEContext.m in Sources */,
 				42A71F221AB714C2008B5B92 /* XCSortContentsAction.m in Sources */,
-				42A647241AB0B666003803AE /* PGActionIndex.m in Sources */,
+				42A647241AB0B666003803AE /* XCActionIndex.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

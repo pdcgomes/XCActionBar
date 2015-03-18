@@ -12,7 +12,7 @@ typedef void (^PGSearchServiceCompletionHandler)(NSArray *results);
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@protocol PGSearchService <NSObject>
+@protocol XCSearchService <NSObject>
 
 // Will automatically interrupt other search operations
 - (void)performSearchWithQuery:(NSString *)expression completionHandler:(PGSearchServiceCompletionHandler)completionHandler;
@@ -28,8 +28,10 @@ typedef void (^PGSearchServiceCompletionHandler)(NSArray *results);
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @protocol PGActionIndex;
-@interface PGSearchService : NSObject <PGSearchService>
+@protocol XCSearchStrategy;
+@interface XCSearchService : NSObject <XCSearchService>
 
-- (instancetype)initWithIndex:(id<PGActionIndex>)index;
+- (instancetype)initWithIndex:(id<PGActionIndex>)index
+                     strategy:(id<XCSearchStrategy>)strategy;
 
 @end
