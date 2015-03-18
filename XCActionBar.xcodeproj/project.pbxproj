@@ -41,16 +41,6 @@
 		42FD3C0F1AB0ABE900F0A442 /* PGRoundCornerWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FD3C0E1AB0ABE900F0A442 /* PGRoundCornerWindow.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		42C1AD751AAF3EC000248A8D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 42C1AD3F1AAF3E7F00248A8D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 42C1AD5E1AAF3EC000248A8D;
-			remoteInfo = XcodeActionBrowserSimulator;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		42066D251AB3284800131861 /* IDETestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDETestManager.h; sourceTree = "<group>"; };
 		42066D291AB32F5300131861 /* _IDEOCUnitTestRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _IDEOCUnitTestRecord.h; sourceTree = "<group>"; };
@@ -65,7 +55,7 @@
 		421E21591AB321BB000893ED /* IDETestable-Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IDETestable-Protocol.h"; sourceTree = "<group>"; };
 		421E215A1AB321C5000893ED /* IDETest-IDETestNavigatorAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IDETest-IDETestNavigatorAdditions.h"; sourceTree = "<group>"; };
 		421E215B1AB321DC000893ED /* _IDETestableState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _IDETestableState.h; sourceTree = "<group>"; };
-		422781921AB05883003CDD79 /* PGActionBrowser-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PGActionBrowser-Prefix.pch"; sourceTree = "<group>"; };
+		422781921AB05883003CDD79 /* XCActionBar-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XCActionBar-Prefix.pch"; sourceTree = "<group>"; };
 		4228E3E71AB1B7D100918EAA /* PGSearchResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PGSearchResultCell.xib; sourceTree = "<group>"; };
 		4228E3E91AB1B82A00918EAA /* PGSearchResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGSearchResultCell.h; sourceTree = "<group>"; };
 		4228E3EA1AB1B82A00918EAA /* PGSearchResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSearchResultCell.m; sourceTree = "<group>"; };
@@ -108,7 +98,6 @@
 		42C1AD501AAF3E7F00248A8D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		42C1AD531AAF3E7F00248A8D /* XCActionBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = XCActionBar.h; path = ../XCActionBar.h; sourceTree = "<group>"; };
 		42C1AD541AAF3E7F00248A8D /* XCActionBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = XCActionBar.m; path = ../XCActionBar.m; sourceTree = "<group>"; };
-		42C1AD5F1AAF3EC000248A8D /* XcodeActionBrowserSimulator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XcodeActionBrowserSimulator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42C1AD741AAF3EC000248A8D /* XcodeActionBrowserSimulatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XcodeActionBrowserSimulatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		42C1AD791AAF3EC000248A8D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		42C1AD7A1AAF3EC000248A8D /* XcodeActionBrowserSimulatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XcodeActionBrowserSimulatorTests.m; sourceTree = "<group>"; };
@@ -139,13 +128,6 @@
 			files = (
 				42C1AD4B1AAF3E7F00248A8D /* AppKit.framework in Frameworks */,
 				42C1AD4D1AAF3E7F00248A8D /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		42C1AD5C1AAF3EC000248A8D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,7 +257,6 @@
 			isa = PBXGroup;
 			children = (
 				42C1AD471AAF3E7F00248A8D /* XCActionBar.xcplugin */,
-				42C1AD5F1AAF3EC000248A8D /* XcodeActionBrowserSimulator.app */,
 				42C1AD741AAF3EC000248A8D /* XcodeActionBrowserSimulatorTests.xctest */,
 			);
 			name = Products;
@@ -309,7 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				42C1AD501AAF3E7F00248A8D /* Info.plist */,
-				422781921AB05883003CDD79 /* PGActionBrowser-Prefix.pch */,
+				422781921AB05883003CDD79 /* XCActionBar-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -415,23 +396,6 @@
 			productReference = 42C1AD471AAF3E7F00248A8D /* XCActionBar.xcplugin */;
 			productType = "com.apple.product-type.bundle";
 		};
-		42C1AD5E1AAF3EC000248A8D /* XcodeActionBrowserSimulator */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 42C1AD7C1AAF3EC000248A8D /* Build configuration list for PBXNativeTarget "XcodeActionBrowserSimulator" */;
-			buildPhases = (
-				42C1AD5B1AAF3EC000248A8D /* Sources */,
-				42C1AD5C1AAF3EC000248A8D /* Frameworks */,
-				42C1AD5D1AAF3EC000248A8D /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = XcodeActionBrowserSimulator;
-			productName = XcodeActionBrowserSimulator;
-			productReference = 42C1AD5F1AAF3EC000248A8D /* XcodeActionBrowserSimulator.app */;
-			productType = "com.apple.product-type.application";
-		};
 		42C1AD731AAF3EC000248A8D /* XcodeActionBrowserSimulatorTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 42C1AD7F1AAF3EC000248A8D /* Build configuration list for PBXNativeTarget "XcodeActionBrowserSimulatorTests" */;
@@ -443,7 +407,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				42C1AD761AAF3EC000248A8D /* PBXTargetDependency */,
 			);
 			name = XcodeActionBrowserSimulatorTests;
 			productName = XcodeActionBrowserSimulatorTests;
@@ -460,9 +423,6 @@
 				ORGANIZATIONNAME = "Pedro Gomes";
 				TargetAttributes = {
 					42C1AD461AAF3E7F00248A8D = {
-						CreatedOnToolsVersion = 6.1.1;
-					};
-					42C1AD5E1AAF3EC000248A8D = {
 						CreatedOnToolsVersion = 6.1.1;
 					};
 					42C1AD731AAF3EC000248A8D = {
@@ -485,7 +445,6 @@
 			projectRoot = "";
 			targets = (
 				42C1AD461AAF3E7F00248A8D /* XCActionBar */,
-				42C1AD5E1AAF3EC000248A8D /* XcodeActionBrowserSimulator */,
 				42C1AD731AAF3EC000248A8D /* XcodeActionBrowserSimulatorTests */,
 			);
 		};
@@ -499,13 +458,6 @@
 				42BD03481AB0880200FB7C07 /* PGActionBrowserWindowController.xib in Resources */,
 				421D37081AB790D900FF8338 /* XCSurroundWithActions.plist in Resources */,
 				4228E3E81AB1B7D100918EAA /* PGSearchResultCell.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		42C1AD5D1AAF3EC000248A8D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -552,13 +504,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		42C1AD5B1AAF3EC000248A8D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		42C1AD701AAF3EC000248A8D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -568,14 +513,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		42C1AD761AAF3EC000248A8D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 42C1AD5E1AAF3EC000248A8D /* XcodeActionBrowserSimulator */;
-			targetProxy = 42C1AD751AAF3EC000248A8D /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		42C1AD561AAF3E7F00248A8D /* Debug */ = {
@@ -653,7 +590,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = "$(HOME)";
-				GCC_PREFIX_HEADER = "PGXcodeActionBrowser/PGActionBrowser-Prefix.pch";
+				GCC_PREFIX_HEADER = "PGXcodeActionBrowser/XCActionBar-Prefix.pch";
 				INFOPLIST_FILE = PGXcodeActionBrowser/Info.plist;
 				INSTALL_PATH = "/Library/Application Support/Developer/Shared/Xcode/Plug-ins";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -668,45 +605,12 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = "$(HOME)";
-				GCC_PREFIX_HEADER = "PGXcodeActionBrowser/PGActionBrowser-Prefix.pch";
+				GCC_PREFIX_HEADER = "PGXcodeActionBrowser/XCActionBar-Prefix.pch";
 				INFOPLIST_FILE = PGXcodeActionBrowser/Info.plist;
 				INSTALL_PATH = "/Library/Application Support/Developer/Shared/Xcode/Plug-ins";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xcplugin;
-			};
-			name = Release;
-		};
-		42C1AD7D1AAF3EC000248A8D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = XcodeActionBrowserSimulator/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-			};
-			name = Debug;
-		};
-		42C1AD7E1AAF3EC000248A8D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				INFOPLIST_FILE = XcodeActionBrowserSimulator/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -768,15 +672,6 @@
 			buildConfigurations = (
 				42C1AD591AAF3E7F00248A8D /* Debug */,
 				42C1AD5A1AAF3E7F00248A8D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		42C1AD7C1AAF3EC000248A8D /* Build configuration list for PBXNativeTarget "XcodeActionBrowserSimulator" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				42C1AD7D1AAF3EC000248A8D /* Debug */,
-				42C1AD7E1AAF3EC000248A8D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
