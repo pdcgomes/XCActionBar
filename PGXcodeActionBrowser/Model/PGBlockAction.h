@@ -15,6 +15,19 @@ typedef void(^XCBlockActionHandler)(id<XCIDEContext> context); // context can be
 ////////////////////////////////////////////////////////////////////////////////
 @interface PGBlockAction : NSObject <XCActionInterface>
 
+@property (nonatomic,   copy) NSString *title;
+@property (nonatomic,   copy) NSString *subtitle;
+@property (nonatomic,   copy) NSString *hint;
+
+@property (nonatomic,   copy) NSString *category;
+@property (nonatomic,   copy) NSString *group;
+
+@property (nonatomic, assign) BOOL    enabled;
+@property (nonatomic, strong) NSImage *icon;
+
+@property (nonatomic, strong) id representedObject;
+@property (nonatomic, strong) NSArray *searchQueryMatchRanges; // REVIEW:  this elsewhere
+
 - (instancetype)initWithTitle:(NSString *)title
                        action:(XCBlockActionHandler)action;
 

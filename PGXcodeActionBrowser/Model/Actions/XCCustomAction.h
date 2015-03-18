@@ -12,4 +12,17 @@
 ////////////////////////////////////////////////////////////////////////////////
 @interface XCCustomAction : NSObject <XCActionInterface>
 
+@property (nonatomic,   copy) NSString *title;
+@property (nonatomic,   copy) NSString *subtitle;
+@property (nonatomic,   copy) NSString *hint;
+
+@property (nonatomic,   copy) NSString *category;
+@property (nonatomic,   copy) NSString *group;
+
+@property (nonatomic, assign) BOOL    enabled;
+@property (nonatomic, strong) NSImage *icon;
+
+@property (nonatomic, strong) id representedObject;
+@property (nonatomic, strong) NSArray *searchQueryMatchRanges; // REVIEW:  this elsewhere
+
 @end

@@ -12,10 +12,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 @interface PGBlockAction ()
 
-@property (nonatomic,   copy) NSString *title;
-@property (nonatomic,   copy) NSString *subtitle;
-@property (nonatomic,   copy) NSString *hint;
-
 @property (nonatomic,   copy) XCBlockActionHandler action;
 
 @end
@@ -23,8 +19,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @implementation PGBlockAction
-
-@synthesize category, group, enabled, icon, representedObject, searchQueryMatchRanges;
 
 #pragma mark - Dealloc and Initialization
 
@@ -109,7 +103,7 @@
     if(supportsDynamicEnabledState) {
         return [(NSMenuItem *)self.representedObject isEnabled];
     }
-    return self->enabled;
+    return self->_enabled;
 }
 
 @end

@@ -13,18 +13,18 @@
 @protocol XCIDEContext;
 @protocol XCActionInterface <NSObject>
 
-@property (nonatomic, readonly,   copy) NSString *title;
-@property (nonatomic, readonly,   copy) NSString *subtitle;
-@property (nonatomic, readonly,   copy) NSString *hint;
+@property (nonatomic,   copy) NSString *title;
+@property (nonatomic,   copy) NSString *subtitle;
+@property (nonatomic,   copy) NSString *hint;
 
-@property (nonatomic, copy) NSString *category;
-@property (nonatomic, copy) NSString *group;
+@property (nonatomic,   copy) NSString *category;
+@property (nonatomic,   copy) NSString *group;
 
 @property (nonatomic, assign) BOOL    enabled;
 @property (nonatomic, strong) NSImage *icon;
 
 @property (nonatomic, strong) id representedObject;
-@property (nonatomic, strong) NSArray *searchQueryMatchRanges; // REVIEW: move this elsewhere
+@property (nonatomic, strong) NSArray *searchQueryMatchRanges; // REVIEW:  this elsewhere
 
 - (BOOL)execute;
 - (BOOL)executeWithContext:(id<XCIDEContext>)context;
