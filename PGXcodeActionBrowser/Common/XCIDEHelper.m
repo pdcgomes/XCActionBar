@@ -21,7 +21,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 + (id)currentEditor
 {
-    NSWindowController *currentWindowController = [[NSApp keyWindow] windowController];
+    NSWindowController *currentWindowController = [[NSApp mainWindow] windowController];
     if ([currentWindowController isKindOfClass:NSClassFromString(@"IDEWorkspaceWindowController")]) {
         IDEWorkspaceWindowController *workspaceController = (IDEWorkspaceWindowController *)currentWindowController;
         IDEEditorArea *editorArea = [workspaceController editorArea];
@@ -35,7 +35,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 + (IDEWorkspaceDocument *)currentWorkspaceDocument
 {
-    NSWindowController *currentWindowController = [[NSApp keyWindow] windowController];
+    NSWindowController *currentWindowController = [[NSApp mainWindow] windowController];
     id document = [currentWindowController document];
     if (currentWindowController && [document isKindOfClass:NSClassFromString(@"IDEWorkspaceDocument")]) {
         return (IDEWorkspaceDocument *)document;
@@ -86,7 +86,7 @@
 {
     NSMutableArray *mutableArray = [NSMutableArray array];
     
-    id currentWindowController = [[NSApp keyWindow] windowController];
+    id currentWindowController = [[NSApp mainWindow] windowController];
     if ([currentWindowController isKindOfClass:NSClassFromString(@"IDEWorkspaceWindowController")]) {
         IDEWorkspaceWindowController *workspaceController = currentWindowController;
         IDEWorkspaceTabController *workspaceTabController = [workspaceController activeWorkspaceTabController];
