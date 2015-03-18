@@ -126,9 +126,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (void)registerObservers
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyOfIndexRebuildRequired) name:NSMenuDidAddItemNotification object:self.menu];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyOfIndexRebuildRequired) name:NSMenuDidRemoveItemNotification object:self.menu];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyOfIndexRebuildRequired) name:NSMenuDidChangeItemNotification object:self.menu];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyOfIndexRebuildRequired:) name:NSMenuDidAddItemNotification object:self.menu];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyOfIndexRebuildRequired:) name:NSMenuDidRemoveItemNotification object:self.menu];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyOfIndexRebuildRequired:) name:NSMenuDidChangeItemNotification object:self.menu];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -242,7 +242,7 @@ while(parentMenu) {
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (void)notifyOfIndexRebuildRequired
+- (void)notifyOfIndexRebuildRequired:(NSNotification *)notification
 {
     if([self.delegate respondsToSelector:@selector(actionProviderDidNotifyOfIndexRebuildNeeded:)]) {
         [self.delegate actionProviderDidNotifyOfIndexRebuildNeeded:self];
