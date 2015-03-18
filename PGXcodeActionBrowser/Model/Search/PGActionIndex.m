@@ -231,6 +231,9 @@
         NSArray *actions = [provider findAllActions];
         [actionIndex addObjectsFromArray:actions];
     }
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES];
+    [actionIndex sortUsingDescriptors:@[sortDescriptor]];
+    
     self.index = [NSArray arrayWithArray:actionIndex];;
 }
 
