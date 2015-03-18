@@ -193,6 +193,10 @@ typedef BOOL (^PGCommandHandler)(void);
     
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:TRSafeString(action.title)];
     
+    [title addAttribute:NSForegroundColorAttributeName
+                  value:(action.enabled ? [NSColor blackColor] : [NSColor darkGrayColor])
+                  range:NSMakeRange(0, title.length)];
+    
     for(NSValue *rangeValue in action.searchQueryMatchRanges) {
         [title addAttributes:@{NSBackgroundColorAttributeName:[NSColor colorWithCalibratedRed:1.000 green:1.000 blue:0.519 alpha:0.250],
                                NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
@@ -205,10 +209,6 @@ typedef BOOL (^PGCommandHandler)(void);
     cell.textField.attributedStringValue = title;
     cell.hintTextField.stringValue       = TRSafeString(action.hint);
     cell.subtitleTextField.stringValue   = TRSafeString(action.subtitle);
-
-    if(action.enabled == NO) {
-        cell.textField.textColor = [NSColor darkGrayColor];
-    }
     
     return cell;
 }
