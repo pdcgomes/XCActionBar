@@ -76,7 +76,7 @@ typedef BOOL (^PGCommandHandler)(void);
     self.searchField.nextResponder = self;
     
     self.searchResultsTable.rowSizeStyle            = NSTableViewRowSizeStyleCustom;
-    self.searchResultsTable.selectionHighlightStyle = NSTableViewSelectionHighlightStyleRegular;
+    self.searchResultsTable.selectionHighlightStyle = NSTableViewSelectionHighlightStyleSourceList;
     self.searchResultsTable.rowHeight               = 50.0;
     
     [self restoreWindowSize];
