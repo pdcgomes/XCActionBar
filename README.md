@@ -59,6 +59,8 @@ Action search currently operates on a few data sets:
 
 The current searching strategy is very simple and naive but does the job quite effectively. While it doesn't yet support fuzzy matching, it's quite flexible in how it handles partial matches. Take a look at the examples above for a few examples. I'll be working on improving this very soon, but at this stage it does seem to be quite effective.
 
+To bring up the action bar, type in the default shortcut `CMD+SHIFT+8` and enter your search terms. After performing an action, you can repeat it by typing in the repeat command shortcut `CMD+ALT+7`.
+
 ### Actions
 
 As mentioned above, the plugin comes bundled with a few custom actions. Following is a catalog of all of them and a short summary of what they do:
