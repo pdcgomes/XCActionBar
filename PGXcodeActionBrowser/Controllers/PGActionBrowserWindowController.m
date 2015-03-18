@@ -76,7 +76,7 @@ typedef BOOL (^PGCommandHandler)(void);
     self.searchField.nextResponder = self;
     
     self.searchResultsTable.rowSizeStyle            = NSTableViewRowSizeStyleCustom;
-    self.searchResultsTable.selectionHighlightStyle = NSTableViewSelectionHighlightStyleSourceList;
+    self.searchResultsTable.selectionHighlightStyle = NSTableViewSelectionHighlightStyleRegular;
     self.searchResultsTable.rowHeight               = 50.0;
     
     [self restoreWindowSize];
@@ -179,10 +179,21 @@ typedef BOOL (^PGCommandHandler)(void);
     PGSearchResultCell *cell = [tableView makeViewWithIdentifier:NSStringFromClass([PGSearchResultCell class]) owner:self];
     
     id<XCActionInterface> action = self.searchResults[row];
-//    [cell.textField setStringValue:[NSString stringWithFormat:@"%@ (%@) [%@]", action.title, action.hint, action.subtitle]];
-    cell.textField.stringValue         = TRSafeString(action.title);
-    cell.hintTextField.stringValue     = TRSafeString(action.hint);
-    cell.subtitleTextField.stringValue = TRSafeString(action.subtitle);
+    
+    NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:TRSafeString(action.title)];
+    
+    for(NSValue *rangeValue in action.searchQueryMatchRanges) {
+        [title addAttributes:@{NSBackgroundColorAttributeName:[NSColor colorWithCalibratedRed:1.000 green:1.000 blue:0.519 alpha:0.250],
+                               NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
+                               NSUnderlineColorAttributeName: [NSColor yellowColor]}
+                       range:rangeValue.rangeValue];
+    }
+    
+    cell.textField.allowsEditingTextAttributes = YES;
+    
+    cell.textField.attributedStringValue = title;
+    cell.hintTextField.stringValue       = TRSafeString(action.hint);
+    cell.subtitleTextField.stringValue   = TRSafeString(action.subtitle);
 
     if(action.enabled == NO) {
         cell.textField.textColor = [NSColor darkGrayColor];
