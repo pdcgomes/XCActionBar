@@ -65,12 +65,15 @@ To bring up the action bar, type in the default shortcut `CMD+SHIFT+8` and enter
 
 As mentioned above, the plugin comes bundled with a few custom actions. Following is a catalog of all of them and a short summary of what they do:
 
+* `XCAddPrefixToLinesAction` **prepends** the string contents of the pasteboard to each selected line
+* `XCAddSuffixToLinesAction` **appends** the string contents of the pasteboard to each selected line
 * `XCDeleteLineAction` deletes the line the carret is currently positioned in
 * `XCDuplicateLineAction` duplicates the line the carret is currently positioned in, or the selected lines
 * `XCSortSelectionAction` performs line sorting (ascending or descending) of the selected lines
 * `XCSurroundWithAction` surrounds the selected text block with an arbitrary prefix/suffix
+* `XCSurroundLineWithAction` surrounds each selected line with an arbitrary prefix/suffix
 
-I've bundled a few `XCSurroundWithAction`S:
+I've bundled a few `XCSurroundLineWithAction` and `XCSurroundWithAction`S:
 
 * Autorelease pool `@autoreleasepool { ... }`
 * Square Brackets `[ ... ]`
@@ -89,6 +92,7 @@ I've bundled a few `XCSurroundWithAction`S:
 * Do/While `do { ... } while(expression)`
 
 Note: currently none of these perform any character escaping
+Some of the don't really make much sense when applied to **each line** so I might strip some out in the future
 
 Continue reading for more details on how to add your own custom actions.
 
