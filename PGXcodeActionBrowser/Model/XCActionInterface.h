@@ -24,6 +24,7 @@
 @property (nonatomic, strong) NSImage *icon;
 
 @property (nonatomic, strong) id representedObject;
+@property (nonatomic, strong) NSArray *searchQueryMatchRanges; // REVIEW: move this elsewhere
 
 - (BOOL)execute;
 - (BOOL)executeWithContext:(id<XCIDEContext>)context;

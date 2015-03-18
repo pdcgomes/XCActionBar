@@ -24,7 +24,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 @implementation PGBlockAction
 
-@synthesize category, group, enabled, icon, representedObject;
+@synthesize category, group, enabled, icon, representedObject, searchQueryMatchRanges;
 
 #pragma mark - Dealloc and Initialization
 
