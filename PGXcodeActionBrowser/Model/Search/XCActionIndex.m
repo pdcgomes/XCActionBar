@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Pedro Gomes. All rights reserved.
 //
 
+#import "PGUtils.h"
+
 #import "XCActionProvider.h"
 #import "XCActionIndex.h"
 #import "XCActionInterface.h"
@@ -29,7 +31,7 @@
 - (instancetype)init
 {
     if((self = [super init])) {
-        self.indexerQueue = dispatch_queue_create("org.pedrogomes.XcodeActionBrowser.ActionIndexer", DISPATCH_QUEUE_CONCURRENT);
+        self.indexerQueue = dispatch_queue_create("org.pedrogomes.XCActionBar.ActionIndexer", DISPATCH_QUEUE_CONCURRENT);
         self.providers    = [NSMutableDictionary dictionary];
     }
     return self;
@@ -227,10 +229,16 @@
     }
     
     NSMutableArray *actionIndex = [NSMutableArray array];
-    for(id<XCActionProvider> provider in providers) {
-        NSArray *actions = [provider findAllActions];
+    for(id<XCActionProvider> provider in providers) { @autoreleasepool {
+//        NSString *hashForProvider = XCHashObject(provider);
+        NSArray  *actions         = [provider findAllActions];
+//        for(id action in actions) {
+//            NSString *hashForAction = XCHashObject(action);
+//            TRLog(@"<action=%@>, <hash=%@>", action, hashForAction);
+//        }
+        
         [actionIndex addObjectsFromArray:actions];
-    }
+    }}
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES];
     [actionIndex sortUsingDescriptors:@[sortDescriptor]];
     
