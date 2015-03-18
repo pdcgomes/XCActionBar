@@ -11,6 +11,7 @@
 #import "PGBlockAction.h"
 
 #import "XCIDEContext.h"
+#import "XCSurroundWithSnippetAction.h"
 
 #import "IDECodeSnippet.h"
 #import "IDECodeSnippetRepository.h"
@@ -101,7 +102,7 @@
 {
     NSMutableArray *actions = [NSMutableArray array];
 
-    for(IDECodeSnippet *snippet in self.repository.codeSnippets) {
+    for(IDECodeSnippet *snippet in self.repository.codeSnippets) @autoreleasepool {{
         TRLog(@"<CodeSnippet>, <id=%@, title=%@, shortcut=%@, scopes=%@>", snippet.identifier, snippet.title, snippet.completionPrefix, snippet.completionScopes);
         
         PGBlockAction *action = [[PGBlockAction alloc] initWithTitle:snippet.title
@@ -109,13 +110,21 @@
                                                                 hint:snippet.completionPrefix
                                                               action:^(id<XCIDEContext> context) {
                                                                   [context.sourceCodeTextView insertText:snippet.contents];
-        }];
+                                                              }];
         action.enabled = YES;
         action.group   = [self actionGroupName];
         action.representedObject = snippet;
         
         [actions addObject:action];
-    }
+        
+        ////////////////////////////////////////////////////////////////////////////////
+        // Build "Surround With snippet actions"
+        ////////////////////////////////////////////////////////////////////////////////
+        if([XCSurroundWithSnippetAction checkSnippetCompatibility:snippet] == NO) continue;
+        
+        XCSurroundWithSnippetAction *surroundWithSnippetAction = [XCSurroundWithSnippetAction actionWithSnippet:snippet];
+        [actions addObject:surroundWithSnippetAction];
+    }}
     
     self.actions = [NSArray arrayWithArray:actions];
 }

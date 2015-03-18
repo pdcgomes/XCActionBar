@@ -13,6 +13,7 @@
 		4228E3E81AB1B7D100918EAA /* PGSearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4228E3E71AB1B7D100918EAA /* PGSearchResultCell.xib */; };
 		4228E3EB1AB1B82A00918EAA /* PGSearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4228E3EA1AB1B82A00918EAA /* PGSearchResultCell.m */; };
 		422DB1BF1AB60134007D13F9 /* XCCodeSnippetProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 422DB1BE1AB60134007D13F9 /* XCCodeSnippetProvider.m */; };
+		426C325A1AB9A121005EFD11 /* XCSurroundWithSnippetAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 426C32591AB9A121005EFD11 /* XCSurroundWithSnippetAction.m */; };
 		42807D3F1AB0708A007988F3 /* PGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 42807D3E1AB0708A007988F3 /* PGUtils.m */; };
 		42807D421AB07D4B007988F3 /* PGInputValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = 42807D411AB07D4B007988F3 /* PGInputValidation.m */; };
 		429086531AB92AE800EC3F78 /* XCSurroundLineWithAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 429086521AB92AE800EC3F78 /* XCSurroundLineWithAction.m */; };
@@ -74,6 +75,8 @@
 		422DB1BE1AB60134007D13F9 /* XCCodeSnippetProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCCodeSnippetProvider.m; sourceTree = "<group>"; };
 		425C2DA01AB33B3600143A65 /* IDETestContainer-Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IDETestContainer-Protocol.h"; sourceTree = "<group>"; };
 		425D65C01AB3633700140766 /* DVTFilePath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DVTFilePath.h; sourceTree = "<group>"; };
+		426C32581AB9A121005EFD11 /* XCSurroundWithSnippetAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSurroundWithSnippetAction.h; sourceTree = "<group>"; };
+		426C32591AB9A121005EFD11 /* XCSurroundWithSnippetAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCSurroundWithSnippetAction.m; sourceTree = "<group>"; };
 		42807D3D1AB0708A007988F3 /* PGUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGUtils.h; sourceTree = "<group>"; };
 		42807D3E1AB0708A007988F3 /* PGUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGUtils.m; sourceTree = "<group>"; };
 		42807D401AB07D4B007988F3 /* PGInputValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGInputValidation.h; sourceTree = "<group>"; };
@@ -209,6 +212,8 @@
 				42A71F231AB714E4008B5B92 /* XCSurroundWithAction.h */,
 				42A71F241AB714E4008B5B92 /* XCSurroundWithAction.m */,
 				421D37071AB790D900FF8338 /* XCSurroundWithActions.plist */,
+				426C32581AB9A121005EFD11 /* XCSurroundWithSnippetAction.h */,
+				426C32591AB9A121005EFD11 /* XCSurroundWithSnippetAction.m */,
 			);
 			name = Custom;
 			sourceTree = "<group>";
@@ -520,6 +525,7 @@
 			files = (
 				42C1AD901AAF614500248A8D /* PGConstants.m in Sources */,
 				42BB07451AB6F82100F42EAE /* XCIDEHelper.m in Sources */,
+				426C325A1AB9A121005EFD11 /* XCSurroundWithSnippetAction.m in Sources */,
 				42A71F181AB710EB008B5B92 /* XCCustomActionProvider.m in Sources */,
 				42C1AD551AAF3E7F00248A8D /* XCActionBar.m in Sources */,
 				42FD3C0F1AB0ABE900F0A442 /* PGRoundCornerWindow.m in Sources */,
