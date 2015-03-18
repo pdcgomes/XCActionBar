@@ -79,12 +79,16 @@ typedef BOOL (^PGCommandHandler)(void);
     self.searchResultsTable.selectionHighlightStyle = NSTableViewSelectionHighlightStyleRegular;
     self.searchResultsTable.rowHeight               = 50.0;
     
+    self.searchResultsTable.target       = self;
+    self.searchResultsTable.doubleAction = @selector(processDoubleClickOnSearchResult:);
+    
     [self restoreWindowSize];
     [self.window setDelegate:self];
     [self.window makeFirstResponder:self.searchField];
 }
 
 #pragma mark - Event Handling
+
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -100,6 +104,13 @@ typedef BOOL (^PGCommandHandler)(void);
     TRLog(@"<KeyDown>, <event=%@>", theEvent);
     
     [super keyDown:theEvent];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)processDoubleClickOnSearchResult:(id)sender
+{
+    [self executeSelectedAction];
 }
 
 #pragma mark - NSWindowDelegate
