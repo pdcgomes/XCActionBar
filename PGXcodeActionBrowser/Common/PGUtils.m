@@ -52,3 +52,12 @@ void PGMethodSwizzle(Class class, SEL selector, SEL exchangeWithSelector)
         method_exchangeImplementations(method, exchangeWithMethod);
     }
 }
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+NSString *XCHashObject(id object)
+{
+    if(XCHashObject == nil) return nil;
+    
+    return [NSString stringWithFormat:@"%lx", (long)object];
+}
