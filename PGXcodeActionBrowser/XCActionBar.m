@@ -110,6 +110,16 @@ static XCActionBar *sharedPlugin;
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+- (void)presentOrDismissActionSearchBar
+{
+    if([[self.windowController window] isKeyWindow] == YES) {
+        [self.windowController close];
+    }
+    else [self presentActionSearchBar];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 - (void)presentActionSearchBar
 {
     if(self.windowController == nil) {
@@ -308,8 +318,76 @@ static XCActionBar *sharedPlugin;
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+#define NSFlagsChangedMaskOff (1 << 8) // need to figure out what values I actually need to get this
 - (void)registerObservers
 {
+    // 63 fn L
+    
+    // 55 cmd L
+    // 54 cmd R
+
+    // 58 opt L
+    // 61 opt R
+
+    // 59 ctrl L
+    // 56 shift L
+    // 60 shift R
+    
+//    NSAlphaShiftKeyMask         = 1 << 16,
+//    NSShiftKeyMask              = 1 << 17,
+//    NSControlKeyMask            = 1 << 18,
+//    NSAlternateKeyMask          = 1 << 19,
+//    NSCommandKeyMask            = 1 << 20,
+//    NSNumericPadKeyMask         = 1 << 21,
+//    NSHelpKeyMask               = 1 << 22,
+//    NSFunctionKeyMask           = 1 << 23,
+
+    NSArray *hotKeyCodes               = @[@(54), @(55)];
+    NSUInteger      requiredKeyPresses = 2;
+    NSTimeInterval  repeatInterval     = 0.100;
+    
+    __block NSUInteger hotKeyPressCount = 0;
+    __block NSTimeInterval keyDownTS    = 0;
+    __block BOOL hotKeyDepressed        = false;
+    
+    void(^ResetHotKeyState)(void) = ^ {
+        hotKeyDepressed  = false;
+        hotKeyPressCount = 0;
+        keyDownTS        = 0;
+    };
+    
+    [NSEvent addLocalMonitorForEventsMatchingMask:(NSFlagsChangedMask) handler:^NSEvent *(NSEvent *event) {
+//        TRLog(@"<EventMonitor>, <type=%@>, <keyCode=%@>, <e=%@>", @(event.type), @(event.keyCode), event);
+
+        BOOL hotKeyPressed = (event.keyCode == [hotKeyCodes[0] unsignedCharValue] ||
+                              event.keyCode == [hotKeyCodes[1] unsignedCharValue]);
+        if(hotKeyPressed == NO) {
+            // cancel hot key
+            TRLog(@"<cmd>");
+            ResetHotKeyState();
+            return event;
+        }
+        
+        if(event.modifierFlags == NSFlagsChangedMaskOff) {
+            hotKeyDepressed = false;
+            
+            NSTimeInterval interval = (event.timestamp - keyDownTS);
+            if(interval <= repeatInterval) hotKeyPressCount++;
+            else ResetHotKeyState();
+            
+            if(hotKeyPressCount >= requiredKeyPresses) {
+                ResetHotKeyState();
+                [self presentOrDismissActionSearchBar];
+            }
+            
+        }
+        else {
+//            TRLog(@"key up <ts=%@>", @(interval));
+            hotKeyDepressed = true;
+            keyDownTS = event.timestamp;
+        }
+        return event;
+    }];
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationListener:) name:nil object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleWorkspaceIndexingCompletedNotification:)
