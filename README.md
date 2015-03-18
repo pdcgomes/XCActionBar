@@ -9,7 +9,11 @@
 
 ###Demo:
 
+Sorting lines demo:
 ![image](demo.gif)
+
+Built-in __Add Prefix to Line(s)__ and __Add Suffix to Line(s)__ demo:
+![image](demo2.gif)
 
 ###Motivation:
 
@@ -95,6 +99,10 @@ I've bundled a few `XCSurroundLineWithAction` and `XCSurroundWithAction`S:
 * While `While(expression) { ... }`
 * Do/While `do { ... } while(expression)`
 
+There's also a very __meta__ action called `XCSurroundWithSnippetAction` that surrounds the selected block of the with a snippet from the library. There are some caveats though: 
+* the snippet will only show up on the list if it contains at least one `<# Token #>` (otherwise we wouldn't know what would be the prefix/suffix)
+* the **first** `<# Token #>` is replaced by the selected block of text
+
 Note: currently none of these perform any character escaping
 Some of the don't really make much sense when applied to **each line** so I might strip some out in the future
 
@@ -123,21 +131,22 @@ If you do choose to muck around and implement your own custom actions, the final
 ////////////////////////////////////////////////////////////////////////////////
 // Built-in Actions
 ////////////////////////////////////////////////////////////////////////////////
-NSMutableArray *textActions = @[
-                                // Duplicate/Delete Lines
-                                [[XCDeleteLineAction alloc] init],
-                                [[XCDuplicateLineAction alloc] init],
-                                
-                                // Sort Selection
-                                [[XCSortSelectionAction alloc] initWithSortOrder:NSOrderedAscending],
-                                [[XCSortSelectionAction alloc] initWithSortOrder:NSOrderedDescending],
-                                
-                                // Sort Contents
-                                [[XCSortContentsAction alloc] initWithSortOrder:NSOrderedAscending],
-                                [[XCSortContentsAction alloc] initWithSortOrder:NSOrderedDescending],
-                                
-                                // Add your custom action here
-                                ]
+NSMutableArray *textActions =
+    @[
+      // Duplicate/Delete Lines
+      [[XCDeleteLineAction alloc] init],
+      [[XCDuplicateLineAction alloc] init],
+      
+      // Sort Selection
+      [[XCSortSelectionAction alloc] initWithSortOrder:NSOrderedAscending],
+      [[XCSortSelectionAction alloc] initWithSortOrder:NSOrderedDescending],
+      
+      // Sort Contents
+      [[XCSortContentsAction alloc] initWithSortOrder:NSOrderedAscending],
+      [[XCSortContentsAction alloc] initWithSortOrder:NSOrderedDescending],
+      
+      // Add your custom action here
+      ];
 ```
 
 These actions don't yet show up in the menu bar, but they will get automatically indexed by the plugin. Soon you'll be able to manage custom actions and their groupings via an external property list file which will also be used to derive action groups under the menu bar, so stay tuned.
