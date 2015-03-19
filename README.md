@@ -67,7 +67,23 @@ Action search currently operates on a few data sets:
 
 The current searching strategy is very simple and naive but does the job quite effectively. While it doesn't yet support fuzzy matching, it's quite flexible in how it handles partial matches. Take a look at the examples above for a few examples. I'll be working on improving this very soon, but at this stage it does seem to be quite effective.
 
-To bring up the action bar, type in the default shortcut `CMD+SHIFT+8` and enter your search terms. After performing an action, you can repeat it by typing in the repeat command shortcut `CMD+ALT+7`.
+To bring up the action bar, type in the default shortcut `CMD+SHIFT+8` and enter your search terms. After performing an action, you can repeat it by typing in the repeat command shortcut `CMD+OPTION+7`.
+
+**UPDATED**:
+* You can now present/dismiss the acion bar by simply double pressing `CMD` quickly
+* You can now repeat the last executed action by simply double pressing `OPTION`
+
+The original shortcuts still work. I've also added a general configuration file `XCSurroundWithActions` which can be used to tweak these two shortcuts -- currently it only supports the following:
+
+```
+NSAlternateKeyMask
+NSCommandKeyMask
+NSControlKeyMask
+NSFunctionKeyMask
+NSShiftKeyMask    
+```
+
+This is all very much experimental so do expect changes.
 
 ### Actions
 
