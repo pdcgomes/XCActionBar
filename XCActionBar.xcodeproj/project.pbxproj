@@ -13,6 +13,8 @@
 		4228E3E81AB1B7D100918EAA /* PGSearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4228E3E71AB1B7D100918EAA /* PGSearchResultCell.xib */; };
 		4228E3EB1AB1B82A00918EAA /* PGSearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4228E3EA1AB1B82A00918EAA /* PGSearchResultCell.m */; };
 		422DB1BF1AB60134007D13F9 /* XCCodeSnippetProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 422DB1BE1AB60134007D13F9 /* XCCodeSnippetProvider.m */; };
+		426782E91ABA33C8006F4E53 /* XCHotKeyListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 426782E81ABA33C8006F4E53 /* XCHotKeyListener.m */; };
+		426782EB1ABA37E8006F4E53 /* XCActionBarConfiguration.plist in Resources */ = {isa = PBXBuildFile; fileRef = 426782EA1ABA37E8006F4E53 /* XCActionBarConfiguration.plist */; };
 		426C325A1AB9A121005EFD11 /* XCSurroundWithSnippetAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 426C32591AB9A121005EFD11 /* XCSurroundWithSnippetAction.m */; };
 		42807D3F1AB0708A007988F3 /* PGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 42807D3E1AB0708A007988F3 /* PGUtils.m */; };
 		42807D421AB07D4B007988F3 /* PGInputValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = 42807D411AB07D4B007988F3 /* PGInputValidation.m */; };
@@ -66,6 +68,9 @@
 		422DB1BE1AB60134007D13F9 /* XCCodeSnippetProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCCodeSnippetProvider.m; sourceTree = "<group>"; };
 		425C2DA01AB33B3600143A65 /* IDETestContainer-Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IDETestContainer-Protocol.h"; sourceTree = "<group>"; };
 		425D65C01AB3633700140766 /* DVTFilePath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DVTFilePath.h; sourceTree = "<group>"; };
+		426782E71ABA33C8006F4E53 /* XCHotKeyListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCHotKeyListener.h; sourceTree = "<group>"; };
+		426782E81ABA33C8006F4E53 /* XCHotKeyListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCHotKeyListener.m; sourceTree = "<group>"; };
+		426782EA1ABA37E8006F4E53 /* XCActionBarConfiguration.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = XCActionBarConfiguration.plist; sourceTree = "<group>"; };
 		426C32581AB9A121005EFD11 /* XCSurroundWithSnippetAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSurroundWithSnippetAction.h; sourceTree = "<group>"; };
 		426C32591AB9A121005EFD11 /* XCSurroundWithSnippetAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCSurroundWithSnippetAction.m; sourceTree = "<group>"; };
 		42807D3D1AB0708A007988F3 /* PGUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGUtils.h; sourceTree = "<group>"; };
@@ -151,6 +156,15 @@
 			name = IDEKit;
 			sourceTree = "<group>";
 		};
+		426782E61ABA33A1006F4E53 /* Hot Keys */ = {
+			isa = PBXGroup;
+			children = (
+				426782E71ABA33C8006F4E53 /* XCHotKeyListener.h */,
+				426782E81ABA33C8006F4E53 /* XCHotKeyListener.m */,
+			);
+			path = "Hot Keys";
+			sourceTree = "<group>";
+		};
 		42807D301AB05F4B007988F3 /* Plugin */ = {
 			isa = PBXGroup;
 			children = (
@@ -158,6 +172,7 @@
 				42C1AD541AAF3E7F00248A8D /* XCActionBar.m */,
 				42BB07461AB6FBBD00F42EAE /* XCIDEContext.h */,
 				42BB07471AB6FBBD00F42EAE /* XCIDEContext.m */,
+				426782EA1ABA37E8006F4E53 /* XCActionBarConfiguration.plist */,
 			);
 			path = Plugin;
 			sourceTree = "<group>";
@@ -316,6 +331,7 @@
 		42C1AD821AAF522A00248A8D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				426782E61ABA33A1006F4E53 /* Hot Keys */,
 				42A71F191AB7130F008B5B92 /* Actions */,
 				42C1AD891AAF5EE300248A8D /* Action Providers */,
 				42CEA4E81AB0ADC0006973B7 /* Search */,
@@ -459,6 +475,7 @@
 			files = (
 				42BD03481AB0880200FB7C07 /* XCActionBarWindowController.xib in Resources */,
 				421D37081AB790D900FF8338 /* XCSurroundWithActions.plist in Resources */,
+				426782EB1ABA37E8006F4E53 /* XCActionBarConfiguration.plist in Resources */,
 				4228E3E81AB1B7D100918EAA /* PGSearchResultCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -489,6 +506,7 @@
 				42807D3F1AB0708A007988F3 /* PGUtils.m in Sources */,
 				422DB1BF1AB60134007D13F9 /* XCCodeSnippetProvider.m in Sources */,
 				42A71F1C1AB71323008B5B92 /* XCCustomAction.m in Sources */,
+				426782E91ABA33C8006F4E53 /* XCHotKeyListener.m in Sources */,
 				421D370E1AB7982F00FF8338 /* XCAddSuffixToLinesAction.m in Sources */,
 				42FA5BCB1AB82F84007F24B8 /* XCDeleteLineAction.m in Sources */,
 				42FA5BC81AB82F79007F24B8 /* XCDuplicateLineAction.m in Sources */,

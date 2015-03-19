@@ -11,6 +11,7 @@
 #import "XCIDEHelper.h"
 
 #import "XCActionIndex.h"
+#import "XCHotKeyListener.h"
 #import "XCSearchService.h"
 
 #import "XCNSMenuActionProvider.h"
@@ -45,17 +46,20 @@ static XCActionBar *sharedPlugin;
 ////////////////////////////////////////////////////////////////////////////////
 @interface XCActionBar ()
 
-@property (nonatomic, strong, readwrite) NSBundle *bundle;
+@property (nonatomic) NSBundle     *bundle;
+@property (nonatomic) NSDictionary *configuration;
 
-@property (nonatomic, strong) XCIDEContext *context;
+@property (nonatomic) XCIDEContext *context;
 
-@property (nonatomic, strong) id<PGActionIndex  > actionIndex;
-@property (nonatomic, strong) id<XCSearchService> searchService;
+@property (nonatomic) id<PGActionIndex    > actionIndex;
+@property (nonatomic) id<XCSearchService> searchService;
 
-@property (nonatomic, strong) NSMutableDictionary *providersByWorkspace;
+@property (nonatomic) NSMutableDictionary *providersByWorkspace;
 
-@property (nonatomic, strong) XCActionBarWindowController *windowController;
-@property (nonatomic, strong) NSMenuItem *actionBarMenuItem;
+@property (nonatomic) XCActionBarWindowController *windowController;
+@property (nonatomic) NSMenuItem                  *actionBarMenuItem;
+
+@property (nonatomic) NSArray *hotKeyListeners;
 
 @end
 
@@ -110,6 +114,16 @@ static XCActionBar *sharedPlugin;
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+- (void)presentOrDismissActionSearchBar
+{
+    if([[self.windowController window] isKeyWindow] == YES) {
+        [self.windowController close];
+    }
+    else [self presentActionSearchBar];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 - (void)presentActionSearchBar
 {
     if(self.windowController == nil) {
@@ -139,6 +153,7 @@ static XCActionBar *sharedPlugin;
 ////////////////////////////////////////////////////////////////////////////////
 - (void)performInitialization
 {
+    self.configuration = [NSDictionary dictionaryWithContentsOfURL:[self.bundle URLForResource:@"XCActionBarConfiguration" withExtension:@"plist"]];
     self.context       = [[XCIDEContext alloc] init];
     self.actionIndex   = [[XCActionIndex alloc] init];
     self.searchService = [[XCSearchService alloc] initWithIndex:self.actionIndex
@@ -154,6 +169,7 @@ static XCActionBar *sharedPlugin;
         weakSelf.actionBarMenuItem.title   = @"Action Bar";
         weakSelf.actionBarMenuItem.enabled = YES;
         [weakSelf buildRepeatLastActionMenuItem];
+        [weakSelf setupHotKeys];
         TRLog(@"Indexing completed!");
     }];
 }
@@ -308,6 +324,39 @@ static XCActionBar *sharedPlugin;
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+- (void)setupHotKeys
+{
+    if(TRCheckContainsKey(self.configuration, @"Shortcuts") == NO) return;
+
+    NSMutableArray *hotKeyListeners = [NSMutableArray array];
+    NSDictionary   *shortcuts       = self.configuration[@"Shortcuts"];
+
+    BOOL (^XCSetupHotKeyListener)(NSDictionary *configuration, id target, SEL action) = ^(NSDictionary *configuration, id target, SEL action) {
+
+        NSError *error = nil;
+        if([XCHotKeyListener validateConfiguration:configuration error:&error] == NO) {
+            TRLog(@"[ERROR] <SetupHotKeys>, <failure>, <error=%@>", error);
+
+            return NO;
+        }
+
+        XCHotKeyListener *listener = [[XCHotKeyListener alloc] initWithConfiguration:configuration target:target action:action];
+        [hotKeyListeners addObject:listener];
+        
+        return YES;
+    };
+    
+    XCSetupHotKeyListener(shortcuts[@"XCActionBarHotKey"], self, @selector(presentOrDismissActionSearchBar));
+    XCSetupHotKeyListener(shortcuts[@"XCRepeatLastActionHotKey"], self, @selector(repeatLastAction));
+    
+    self.hotKeyListeners = hotKeyListeners.copy;
+    
+    [self.hotKeyListeners makeObjectsPerformSelector:@selector(startListening)];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+#define NSFlagsChangedMaskOff (1 << 8) // need to figure out what values I actually need to get this
 - (void)registerObservers
 {
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationListener:) name:nil object:nil];

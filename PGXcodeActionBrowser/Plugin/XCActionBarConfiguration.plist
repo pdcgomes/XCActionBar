@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Shortcuts</key>
+	<dict>
+		<key>XCActionBarHotKey</key>
+		<dict>
+			<key>XCHotKeyListenerHotKeyMask</key>
+			<integer>1048576</integer>
+			<key>XCHotKeyListenerRepeatCount</key>
+			<integer>2</integer>
+			<key>XCHotKeyListenerRepeatDelay</key>
+			<real>0.1</real>
+		</dict>
+		<key>XCActionBarMenuShortcut</key>
+		<dict>
+			<key>KeyCode</key>
+			<integer>0</integer>
+			<key>ModifierMask</key>
+			<integer>0</integer>
+		</dict>
+		<key>XCRepeatLastActionMenuShortcut</key>
+		<dict>
+			<key>KeyCode</key>
+			<integer>0</integer>
+			<key>ModifierMask</key>
+			<integer>0</integer>
+		</dict>
+		<key>XCRepeatLastActionHotKey</key>
+		<dict>
+			<key>XCHotKeyListenerHotKeyMask</key>
+			<integer>524288</integer>
+			<key>XCHotKeyListenerRepeatCount</key>
+			<integer>2</integer>
+			<key>XCHotKeyListenerRepeatDelay</key>
+			<real>0.1</real>
+		</dict>
+	</dict>
+</dict>
+</plist>
