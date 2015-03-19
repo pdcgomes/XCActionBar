@@ -305,7 +305,7 @@ static XCActionBar *sharedPlugin;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// Review: move to helper/category
+// Review: move to helper/category - also need to completely change the approach
 ////////////////////////////////////////////////////////////////////////////////
 - (void)centerWindowInScreen:(NSWindow *)window
 {
@@ -313,9 +313,11 @@ static XCActionBar *sharedPlugin;
     NSPoint screenCenter   = NSMakePoint(boundsForScreen.size.width / 2,
                                          boundsForScreen.size.height / 2);
     
-    NSRect frameForWindow         = window.frame;
+    NSRect frameForWindow = window.frame;
+    CGFloat offset        = (NSHeight(frameForWindow) - 42.0) / 2.0;
+    
     NSRect centeredFrameForWindow = NSMakeRect(screenCenter.x - (frameForWindow.size.width / 2),
-                                               screenCenter.y - (frameForWindow.size.height / 2) + (boundsForScreen.size.height / 4),
+                                               screenCenter.y - (frameForWindow.size.height / 2) + (boundsForScreen.size.height / 4) - offset,
                                                frameForWindow.size.width,
                                                frameForWindow.size.height);
     centeredFrameForWindow = NSOffsetRect(centeredFrameForWindow, boundsForScreen.origin.x, boundsForScreen.origin.y);
