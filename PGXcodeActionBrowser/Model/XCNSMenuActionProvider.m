@@ -193,9 +193,19 @@
         NSString *subtitle = [self buildSubtitleForMenu:menu];
         
         for(NSMenuItem *item in menu.itemArray) { @autoreleasepool {
+
+            // Do not index items representing submenus, but add them to the queue so we can process its subitems
+            if(item.submenu) {
+                [processingQueue addObject:item.submenu];
+                continue;
+            }
+            
+            // Build the action
+            BOOL buildHint = (item.image == nil &&
+                              TRCheckIsEmpty(item.keyEquivalent) == NO);
             XCBlockAction *action = [[XCBlockAction alloc] initWithTitle:item.title
                                                                 subtitle:subtitle
-                                                                    hint:(item.hasSubmenu ? @"" : [self buildHintForMenuItem:item])
+                                                                    hint:(buildHint ? [self buildHintForMenuItem:item] : @"")
                                                                   action:^(id<XCIDEContext> context) {
                                                                       NSUInteger index = [menu indexOfItem:item];
                                                                       [menu performActionForItemAtIndex:index];
@@ -218,6 +228,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (NSString *)buildHintForMenuItem:(NSMenuItem *)item
 {
+//    if([item.title.lowercaseString isEqualToString:@"always backlight"]) {
+//        NSLog(@"");
+//    }
     return [NSString stringWithFormat:@"%@%@",
             PGBuildModifierKeyMaskString(item.keyEquivalentModifierMask),
             item.keyEquivalent.uppercaseString];
