@@ -161,7 +161,7 @@ NSArray *XCKeyCodesFromModifierMask(NSEventModifierFlags flag)
 //        TRLog(@"<EventMonitor>, <type=%@>, <keyCode=%@>, <e=%@>", @(event.type), @(event.keyCode), event);
         
         BOOL hotKeyPressed = ((event.keyCode == [weakSelf.hotKeyCodes[0] unsignedCharValue]) ||
-                              (weakSelf.hotKeyCodes.lastObject != nil &&
+                              (weakSelf.hotKeyCodes.count > 1 &&
                                event.keyCode == [weakSelf.hotKeyCodes[1] unsignedCharValue]));
         if(hotKeyPressed == NO) {
             XCResetHotKeyState();
