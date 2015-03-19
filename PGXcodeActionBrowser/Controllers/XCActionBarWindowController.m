@@ -132,6 +132,7 @@ typedef BOOL (^PGCommandHandler)(void);
 - (void)windowDidResignKey:(NSNotification *)notification
 {
     [self close];
+    [self clearSearchResults];
     [self restoreWindowSize];
 }
 
@@ -329,10 +330,10 @@ typedef BOOL (^PGCommandHandler)(void);
         self.searchResultsTable.hidden = NO;
         self.searchResultsTableBottomConstraint.constant = 10.0;
         self.searchResultsTableHeightConstraint.constant = 250.0;
+        
+        [self.searchField layoutSubtreeIfNeeded];
     }
     else [self restoreWindowSize];
-    
-    [self.searchField layoutSubtreeIfNeeded];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
