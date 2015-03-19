@@ -210,7 +210,6 @@ static XCActionBar *sharedPlugin;
 
     [menuItem.submenu insertItem:repeatCommandMenuItem
                          atIndex:[menuItem.submenu indexOfItemWithTitle:@"Action Bar"]];
-
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -319,6 +318,7 @@ static XCActionBar *sharedPlugin;
                                                screenCenter.y - (frameForWindow.size.height / 2) + (boundsForScreen.size.height / 4),
                                                frameForWindow.size.width,
                                                frameForWindow.size.height);
+    centeredFrameForWindow = NSOffsetRect(centeredFrameForWindow, boundsForScreen.origin.x, boundsForScreen.origin.y);
     [window setFrame:centeredFrameForWindow display:YES];
 }
 
