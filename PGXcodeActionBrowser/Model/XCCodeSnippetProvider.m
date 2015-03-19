@@ -125,6 +125,16 @@
         XCSurroundWithSnippetAction *surroundWithSnippetAction = [XCSurroundWithSnippetAction actionWithSnippet:snippet];
         [actions addObject:surroundWithSnippetAction];
     }}
+
+    ////////////////////////////////////////////////////////////////////////////////
+    // Build custom SurroundWithPasteboardSnippetAction
+    ////////////////////////////////////////////////////////////////////////////////
+    [actions addObject:[[XCSurroundWithTextSnippetAction alloc] initWithSpec:
+                        @{XCSurroundWithActionIdentifierKey: @"SurroundWithPasteboardSnippetAction[%@]",
+                          XCSurroundWithActionTitleKey:      @"Surround text with pasteboard snippet",
+                          XCSurroundWithActionSummaryKey:    @"Surrounds selection with pasteboard \"Prefix <# token #> suffix\"",
+                          XCSurroundWithActionPrefixKey:     @"",
+                          XCSurroundWithActionSuffixKey:     @""}]];
     
     self.actions = [NSArray arrayWithArray:actions];
 }

@@ -19,3 +19,13 @@
 + (instancetype)actionWithSnippet:(IDECodeSnippet *)snippet;
 
 @end
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+@interface XCSurroundWithTextSnippetAction : XCSurroundWithAction
+
++ (BOOL)checkTextSnippetCompatibility:(NSString *)snippet;
+
+- (instancetype)initWithSpec:(NSDictionary *)spec;
+
+@end
