@@ -200,5 +200,17 @@
 		<string>
 			while(&lt;#Expression#&gt;)</string>
 	</dict>
+	<dict>
+		<key>XCSurroundWithActionIdentifier</key>
+		<string>XCSurroundWithTypeCommentBlock</string>
+		<key>XCSurroundWithActionTitle</key>
+		<string>Comment block</string>
+		<key>XCSurroundWithActionSummary</key>
+		<string>/* ... */</string>
+		<key>XCSurroundWithActionPrefix</key>
+		<string>/* </string>
+		<key>XCSurroundWithActionSuffix</key>
+		<string> */</string>
+	</dict>
 </array>
 </plist>
