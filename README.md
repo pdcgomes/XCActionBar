@@ -122,6 +122,10 @@ There's also a very __meta__ action called `XCSurroundWithSnippetAction` that su
 * the snippet will only show up on the list if it contains at least one `<# Token #>` (otherwise we wouldn't know what would be the prefix/suffix)
 * the **first** `<# Token #>` is replaced by the selected block of text
 
+Similarly, you use `XCSurroundWithTextSnippetAction` to perform the same action as above, with the difference that it uses a text snippet from the pasteboard, meaning you can do ad-hoc surround operations without having to create a new snippet.
+
+Just type `surr` in the action bar to get a list of all available actions.
+
 Note: currently none of these perform any character escaping
 Some of the don't really make much sense when applied to **each line** so I might strip some out in the future
 
