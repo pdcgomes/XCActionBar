@@ -6,4 +6,4 @@
 //  Copyright (c) 2015 Pedro Gomes. All rights reserved.
 //
 
-#import "PGConstants.h"
+#import "XCConstants.h"

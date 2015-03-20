@@ -8,11 +8,11 @@
 
 #import <objc/runtime.h>
 
-#import "PGUtils.h"
+#import "XCUtils.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-NSString *PGBuildModifierKeyMaskString(NSUInteger mask)
+NSString *XCBuildModifierKeyMaskString(NSUInteger mask)
 {
     static dispatch_once_t onceToken;
     static NSDictionary *flagsToStrMap = nil;
@@ -31,7 +31,7 @@ NSString *PGBuildModifierKeyMaskString(NSUInteger mask)
     
     NSMutableString *str = [[NSMutableString alloc] init];
     for(NSNumber *key in orderedKeys) {
-        if(TRCheckOption(mask, key.integerValue) == YES) {
+        if(XCCheckOption(mask, key.integerValue) == YES) {
             [str appendString:flagsToStrMap[key]];
         }
     }
@@ -40,7 +40,7 @@ NSString *PGBuildModifierKeyMaskString(NSUInteger mask)
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-void PGMethodSwizzle(Class class, SEL selector, SEL exchangeWithSelector)
+void XCMethodSwizzle(Class class, SEL selector, SEL exchangeWithSelector)
 {
     Method method             = nil;
     Method exchangeWithMethod = nil;

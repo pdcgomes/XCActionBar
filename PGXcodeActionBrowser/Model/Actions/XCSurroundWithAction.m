@@ -87,7 +87,7 @@ NSString *const XCSurroundWithActionSuffixKey     = @"XCSurroundWithActionSuffix
 - (BOOL)surroundTextSelectionInContext:(id<XCIDEContext>)context withPrefix:(NSString *)prefix andSuffix:(NSString *)suffix
 {
     NSMutableString *selection = [context retrieveTextSelection].mutableCopy;
-    TR_RETURN_FALSE_UNLESS(TRCheckIsEmpty(selection) == NO);
+    XCReturnFalseUnless(TRCheckIsEmpty(selection) == NO);
 
     [selection insertString:prefix atIndex:0];
     [selection appendString:suffix];

@@ -75,7 +75,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (void)prepareActionsOnQueue:(dispatch_queue_t)indexerQueue completionHandler:(PGGeneralCompletionHandler)completionHandler
 {
-    RTVDeclareWeakSelf(weakSelf);
+    XCDeclareWeakSelf(weakSelf);
     
     dispatch_async(indexerQueue, ^{
         [weakSelf buildAvailableActions];
@@ -87,7 +87,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (void)prepareActionsWithCompletionHandler:(PGGeneralCompletionHandler)completionHandler
 {
-    RTVDeclareWeakSelf(weakSelf);
+    XCDeclareWeakSelf(weakSelf);
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [weakSelf buildAvailableActions];
         if(completionHandler) completionHandler();
@@ -103,7 +103,7 @@
     NSMutableArray *actions = [NSMutableArray array];
 
     for(IDECodeSnippet *snippet in self.repository.codeSnippets) @autoreleasepool {{
-        TRLog(@"<CodeSnippet>, <id=%@, title=%@, shortcut=%@, scopes=%@>", snippet.identifier, snippet.title, snippet.completionPrefix, snippet.completionScopes);
+        XCLog(@"<CodeSnippet>, <id=%@, title=%@, shortcut=%@, scopes=%@>", snippet.identifier, snippet.title, snippet.completionPrefix, snippet.completionScopes);
         
         XCBlockAction *action = [[XCBlockAction alloc] initWithTitle:snippet.title
                                                             subtitle:snippet.summary

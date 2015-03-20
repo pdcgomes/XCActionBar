@@ -9,7 +9,7 @@
 #ifdef __OBJC__
 
 #import <Cocoa/Cocoa.h>
-#import "PGConstants.h"
-#import "PGInputValidation.h"
+#import "XCConstants.h"
+#import "XCInputValidation.h"
 
 #endif

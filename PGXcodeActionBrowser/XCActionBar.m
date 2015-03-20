@@ -76,7 +76,7 @@ static XCActionBar *sharedPlugin;
     if ([currentApplicationName isEqual:@"Xcode"]) {
         dispatch_once(&onceToken, ^{
             sharedPlugin = [[self alloc] initWithBundle:plugin];
-            TRLog(@"Pluging Loaded!");
+            XCLog(@"Pluging Loaded!");
         });
     }
 }
@@ -152,9 +152,9 @@ static XCActionBar *sharedPlugin;
     self.searchService = [[XCSearchService alloc] initWithIndex:self.actionIndex
                                                        strategy:nil];
     
-    RTVDeclareWeakSelf(weakSelf);
+    XCDeclareWeakSelf(weakSelf);
 
-    TRLog(@"Indexing actions ...");
+    XCLog(@"Indexing actions ...");
 
     [self builActionBarMenuItem];
     [self buildActionProviders];
@@ -163,7 +163,7 @@ static XCActionBar *sharedPlugin;
         weakSelf.actionBarMenuItem.enabled = YES;
         [weakSelf buildRepeatLastActionMenuItem];
         [weakSelf setupHotKeys];
-        TRLog(@"Indexing completed!");
+        XCLog(@"Indexing completed!");
     }];
 }
 
@@ -304,7 +304,7 @@ static XCActionBar *sharedPlugin;
     id token =
     [self.actionIndex registerProvider:provider];
     [self.actionIndex updateWithCompletionHandler:^{
-        TRLog(@"Index updated with %@", provider);
+        XCLog(@"Index updated with %@", provider);
     }];
     self.providersByWorkspace[XCIDEWorkspaceKey(workspace)] = token;
 }
@@ -349,7 +349,7 @@ static XCActionBar *sharedPlugin;
 
         NSError *error = nil;
         if([XCHotKeyListener validateConfiguration:configuration error:&error] == NO) {
-            TRLog(@"[ERROR] <SetupHotKeys>, <failure>, <error=%@>", error);
+            XCLog(@"[ERROR] <SetupHotKeys>, <failure>, <error=%@>", error);
 
             return NO;
         }
@@ -427,7 +427,7 @@ static XCActionBar *sharedPlugin;
         [self.actionIndex deregisterProvider:self.providersByWorkspace[workspaceKey]];
         [self.providersByWorkspace removeObjectForKey:workspaceKey];
         [self.actionIndex updateWithCompletionHandler:^{
-            TRLog(@"Index update post-removal completed");
+            XCLog(@"Index update post-removal completed");
         }];
     }
 }

@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Pedro Gomes. All rights reserved.
 //
 
-#import "PGUtils.h"
+#import "XCUtils.h"
 
 #import "XCActionProvider.h"
 #import "XCActionIndex.h"
@@ -79,7 +79,7 @@
     ////////////////////////////////////////////////////////////////////////////////
     // When done, collect all actions into our internal index
     ////////////////////////////////////////////////////////////////////////////////
-    RTVDeclareWeakSelf(weakSelf);
+    XCDeclareWeakSelf(weakSelf);
 
     dispatch_group_enter(group);
     dispatch_barrier_async(self.indexerQueue, ^{
@@ -195,9 +195,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (void)actionProviderDidNotifyOfIndexRebuildNeeded:(id<XCActionProvider>)provider
 {
-    TRLog(@"<IndexRebuildNeeded>, <provider=%@>", provider);
+    XCLog(@"<IndexRebuildNeeded>, <provider=%@>", provider);
     
-    RTVDeclareWeakSelf(weakSelf);
+    XCDeclareWeakSelf(weakSelf);
     
     void (^RegisterProviderDelegates)(id<XCActionProviderDelegate> delegate) = ^(id delegate){
         NSArray *providers = nil;
@@ -234,7 +234,7 @@
         NSArray  *actions         = [provider findAllActions];
 //        for(id action in actions) {
 //            NSString *hashForAction = XCHashObject(action);
-//            TRLog(@"<action=%@>, <hash=%@>", action, hashForAction);
+//            XCLog(@"<action=%@>, <hash=%@>", action, hashForAction);
 //        }
         
         [actionIndex addObjectsFromArray:actions];

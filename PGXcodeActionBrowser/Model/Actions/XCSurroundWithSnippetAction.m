@@ -32,8 +32,8 @@ BOOL XCCheckTextSnippetCompatibility(NSString *snippet)
 ////////////////////////////////////////////////////////////////////////////////
 BOOL XCParseSnippetAndExtractPrefixAndSuffix(NSString *snippet, NSString **outPrefix, NSString **outSuffix)
 {
-    TR_RETURN_FALSE_UNLESS(outPrefix != NULL);
-    TR_RETURN_FALSE_UNLESS(outSuffix != NULL);
+    XCReturnFalseUnless(outPrefix != NULL);
+    XCReturnFalseUnless(outSuffix != NULL);
 
     NSRegularExpression *expression = [[NSRegularExpression alloc] initWithPattern:XCExpandingTokenPattern options:0 error:nil];
     NSString *snippetContents = snippet;

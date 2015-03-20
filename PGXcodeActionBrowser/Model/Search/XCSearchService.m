@@ -44,7 +44,7 @@
     NSArray *results = [self.index lookup:expression];
     completionHandler(results ?: @[]);
     
-    TRLog(@"<PerformSearchWithQuery>, <query=%@>, <results=%@>", expression, results);
+    XCLog(@"<PerformSearchWithQuery>, <query=%@>, <results=%@>", expression, results);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

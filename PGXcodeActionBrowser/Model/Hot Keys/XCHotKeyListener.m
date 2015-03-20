@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 Pedro Gomes. All rights reserved.
 //
 
-#import "PGConstants.h"
 #import "XCHotKeyListener.h"
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -158,13 +157,13 @@ NSArray *XCKeyCodesFromModifierMask(NSEventModifierFlags flag)
 #define NSFlagsChangedMaskOff (1 << 8) // need to figure out what values I actually need to get this
 - (BOOL)startListening
 {
-    TR_RETURN_FALSE_UNLESS(self.eventMonitor == nil);
+    XCReturnFalseUnless(self.eventMonitor == nil);
 
     [self setupEventHandlers];
     
-    RTVDeclareWeakSelf(weakSelf);
+    XCDeclareWeakSelf(weakSelf);
     self.eventMonitor = [NSEvent addLocalMonitorForEventsMatchingMask:(NSFlagsChangedMask) handler:^NSEvent *(NSEvent *event) {
-//        TRLog(@"<EventMonitor>, <type=%@>, <keyCode=%@>, <e=%@>", @(event.type), @(event.keyCode), event);
+//        XCLog(@"<EventMonitor>, <type=%@>, <keyCode=%@>, <e=%@>", @(event.type), @(event.keyCode), event);
         
         if(event.modifierFlags == NSFlagsChangedMaskOff) return event;
         
@@ -172,7 +171,7 @@ NSArray *XCKeyCodesFromModifierMask(NSEventModifierFlags flag)
                               (weakSelf.hotKeyCodes.count > 1 &&
                                event.keyCode == [weakSelf.hotKeyCodes[1] unsignedCharValue]));
         if(hotKeyPressed == NO) return event;
-        if(TRCheckOption(event.modifierFlags, self.hotKeyMask) == NO) return event;
+        if(XCCheckOption(event.modifierFlags, self.hotKeyMask) == NO) return event;
         
         dispatch_block_t handler = weakSelf.eventHandlers[weakSelf.keyPressCounter];
         handler();
@@ -187,7 +186,7 @@ NSArray *XCKeyCodesFromModifierMask(NSEventModifierFlags flag)
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)stopListening
 {
-    TR_RETURN_FALSE_UNLESS(self.eventMonitor != nil);
+    XCReturnFalseUnless(self.eventMonitor != nil);
 
     [NSEvent removeMonitor:self.eventMonitor];
 
@@ -226,7 +225,7 @@ NSArray *XCKeyCodesFromModifierMask(NSEventModifierFlags flag)
     // The first instruction is also starting a timer - if the timer fires before we
     // reach the end, we reset and start all over
     ////////////////////////////////////////////////////////////////////////////////
-    RTVDeclareWeakSelf(weakSelf);
+    XCDeclareWeakSelf(weakSelf);
 
     // setup first handler - starts the expiry timer and advances the cursor
     NSMutableArray *handlers = [NSMutableArray arrayWithObject:[^{

@@ -8,7 +8,7 @@
 
 #import "XCNSMenuActionProvider.h"
 #import "XCBlockAction.h"
-#import "PGUtils.h"
+#import "XCUtils.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -40,7 +40,7 @@
         self.actions = [NSMutableArray array];
         self.menu    = menu;
         
-        TRLog(@"<menu=%@, items=%@>", menu.title, menu.itemArray);
+        XCLog(@"<menu=%@, items=%@>", menu.title, menu.itemArray);
     }
     return self;
 }
@@ -64,7 +64,7 @@
 - (void)prepareActionsOnQueue:(dispatch_queue_t)indexerQueue
             completionHandler:(PGGeneralCompletionHandler)completionHandler;
 {
-    RTVDeclareWeakSelf(weakSelf);
+    XCDeclareWeakSelf(weakSelf);
 
     dispatch_async(indexerQueue, ^{
         [weakSelf buildAvailableActions];
@@ -76,7 +76,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (void)prepareActionsWithCompletionHandler:(PGGeneralCompletionHandler)completionHandler
 {
-    RTVDeclareWeakSelf(weakSelf);
+    XCDeclareWeakSelf(weakSelf);
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [weakSelf buildAvailableActions];
         if(completionHandler) completionHandler();
@@ -171,7 +171,7 @@
 //        if(TRCheckIsEmpty(subActions) == NO) {
 //            [actions addObjectsFromArray:subActions];
 //        }
-//        TRLog(@"<action:: title=%@, subtitle=%@, hint=%@>", action.title, action.subtitle, action.hint);
+//        XCLog(@"<action:: title=%@, subtitle=%@, hint=%@>", action.title, action.subtitle, action.hint);
 //    }}
 //    
 //    return [NSArray arrayWithArray:actions];
@@ -217,7 +217,7 @@
             
             if(item.submenu) [processingQueue addObject:item.submenu];
             
-//            TRLog(@"<action:: title=%@, subtitle=%@, hint=%@>", action.title, action.subtitle, action.hint);
+//            XCLog(@"<action:: title=%@, subtitle=%@, hint=%@>", action.title, action.subtitle, action.hint);
         }}
     }
     
@@ -232,7 +232,7 @@
 //        NSLog(@"");
 //    }
     return [NSString stringWithFormat:@"%@%@",
-            PGBuildModifierKeyMaskString(item.keyEquivalentModifierMask),
+            XCBuildModifierKeyMaskString(item.keyEquivalentModifierMask),
             item.keyEquivalent.uppercaseString];
 }
 

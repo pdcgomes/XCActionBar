@@ -77,7 +77,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (void)prepareActionsOnQueue:(dispatch_queue_t)indexerQueue completionHandler:(PGGeneralCompletionHandler)completionHandler
 {
-    RTVDeclareWeakSelf(weakSelf);
+    XCDeclareWeakSelf(weakSelf);
     
     dispatch_async(indexerQueue, ^{
         [weakSelf buildAvailableActions];
@@ -89,7 +89,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (void)prepareActionsWithCompletionHandler:(PGGeneralCompletionHandler)completionHandler
 {
-    RTVDeclareWeakSelf(weakSelf);
+    XCDeclareWeakSelf(weakSelf);
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [weakSelf buildAvailableActions];
         if(completionHandler) completionHandler();
@@ -115,11 +115,11 @@
             XCBlockAction *action = [[XCBlockAction alloc] initWithTitle:test.identifier
                                                                 subtitle:[(id<IDETestable>)test.testable name]
                                                                   action:^(id<XCIDEContext> context) {
-                                                                      TRLog(@"<RunUnitTestAction>, <test=%@>", test.identifier);
+                                                                      XCLog(@"<RunUnitTestAction>, <test=%@>", test.identifier);
             }];
             [actions addObject:action];
             
-            TRLog(@"<action:: title=%@, subtitle=%@, hint=%@>", action.title, action.subtitle, action.hint);
+            XCLog(@"<action:: title=%@, subtitle=%@, hint=%@>", action.title, action.subtitle, action.hint);
 
         }
     }

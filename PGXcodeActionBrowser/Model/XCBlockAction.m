@@ -73,7 +73,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)execute
 {
-    TR_RETURN_FALSE_UNLESS(self.enabled == YES && self.action != nil);
+    XCReturnFalseUnless(self.enabled == YES && self.action != nil);
 
     self.action(nil);
     
@@ -84,7 +84,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)executeWithContext:(id<XCIDEContext>)context
 {
-    TR_RETURN_FALSE_UNLESS(self.enabled == YES && self.action != nil);
+    XCReturnFalseUnless(self.enabled == YES && self.action != nil);
 
     self.action(context);
 

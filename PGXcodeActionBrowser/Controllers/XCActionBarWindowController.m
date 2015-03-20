@@ -63,7 +63,7 @@ typedef BOOL (^PGCommandHandler)(void);
 {
     [super windowDidLoad];
     
-    RTVDeclareWeakSelf(weakSelf);
+    XCDeclareWeakSelf(weakSelf);
     self.commandHandlers = @{
                              NSStringFromSelector(@selector(moveUp:)):       [^BOOL { return [weakSelf selectPreviousSearchResult]; } copy],
                              NSStringFromSelector(@selector(moveDown:)):     [^BOOL { return [weakSelf selectNextSearchResult]; } copy],
@@ -101,7 +101,7 @@ typedef BOOL (^PGCommandHandler)(void);
 //////////////////////////////////////////////////////////////////////////////
 - (void)keyDown:(NSEvent *)theEvent
 {
-    TRLog(@"<KeyDown>, <event=%@>", theEvent);
+    XCLog(@"<KeyDown>, <event=%@>", theEvent);
     
     [super keyDown:theEvent];
 }
@@ -144,7 +144,7 @@ typedef BOOL (^PGCommandHandler)(void);
 {
     NSTextField *textField = notification.object;
 
-//    TRLog(@"<SearchQueryChanged>, <query=%@>", textField.stringValue);
+//    XCLog(@"<SearchQueryChanged>, <query=%@>", textField.stringValue);
 
     // TODO: wait a bit before attempting to update search results - cancel previous update if any
     [self performSearchWithExpression:textField.stringValue];
@@ -155,7 +155,7 @@ typedef BOOL (^PGCommandHandler)(void);
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)command
 {
-    TRLog(@"<doCommandBySelector>, <cmd=%@>", NSStringFromSelector(command));
+    XCLog(@"<doCommandBySelector>, <cmd=%@>", NSStringFromSelector(command));
     
     NSString *commandKey = NSStringFromSelector(command);
     BOOL handleCommand   = (TRCheckContainsKey(self.commandHandlers, commandKey) == YES);
@@ -220,7 +220,7 @@ typedef BOOL (^PGCommandHandler)(void);
 ////////////////////////////////////////////////////////////////////////////////
 - (void)updateSearchResults:(NSArray *)results
 {
-    TRLog(@"<UpdatedSearchResults>, <results=%@>", results);
+    XCLog(@"<UpdatedSearchResults>, <results=%@>", results);
     
     self.searchResults = results;
     [self.searchResultsTable reloadData];
@@ -250,7 +250,7 @@ typedef BOOL (^PGCommandHandler)(void);
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)selectNextSearchResult
 {
-    TRLog(@"<selectNextSearchResult>");
+    XCLog(@"<selectNextSearchResult>");
     
     NSInteger rowCount      = [self.searchResultsTable numberOfRows];
     NSInteger selectedIndex = self.searchResultsTable.selectedRow;
@@ -265,7 +265,7 @@ typedef BOOL (^PGCommandHandler)(void);
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)selectPreviousSearchResult
 {
-    TRLog(@"<selectPreviousSearchResult>");
+    XCLog(@"<selectPreviousSearchResult>");
     
     NSInteger rowCount      = [self.searchResultsTable numberOfRows];
     NSInteger selectedIndex = self.searchResultsTable.selectedRow;
@@ -353,7 +353,7 @@ typedef BOOL (^PGCommandHandler)(void);
 ////////////////////////////////////////////////////////////////////////////////
 - (void)restoreLastSearchAndSelection
 {
-    TR_RETURN_UNLESS(TRCheckIsEmpty(self.searchField.stringValue) == NO);
+    XCReturnUnless(TRCheckIsEmpty(self.searchField.stringValue) == NO);
     
     [self performSearchWithExpression:self.searchField.stringValue];
 }
@@ -362,7 +362,7 @@ typedef BOOL (^PGCommandHandler)(void);
 ////////////////////////////////////////////////////////////////////////////////
 - (void)performSearchWithExpression:(NSString *)expression
 {
-    RTVDeclareWeakSelf(weakSelf);
+    XCDeclareWeakSelf(weakSelf);
     
     [self.searchService performSearchWithQuery:expression
                              completionHandler:^(NSArray *results) {
