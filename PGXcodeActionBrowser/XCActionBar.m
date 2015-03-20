@@ -7,6 +7,7 @@
 //
 
 #import "XCActionBar.h"
+#import "XCActionBarConfiguration.h"
 #import "XCIDEContext.h"
 #import "XCIDEHelper.h"
 
@@ -40,7 +41,7 @@ static XCActionBar *sharedPlugin;
 @interface XCActionBar ()
 
 @property (nonatomic) NSBundle     *bundle;
-@property (nonatomic) NSDictionary *configuration;
+@property (nonatomic) id<XCActionBarConfiguration> configuration;
 
 @property (nonatomic) XCIDEContext *context;
 
@@ -146,7 +147,8 @@ static XCActionBar *sharedPlugin;
 ////////////////////////////////////////////////////////////////////////////////
 - (void)performInitialization
 {
-    self.configuration = [NSDictionary dictionaryWithContentsOfURL:[self.bundle URLForResource:@"XCActionBarConfiguration" withExtension:@"plist"]];
+    NSDictionary *configuration = [NSDictionary dictionaryWithContentsOfURL:[self.bundle URLForResource:@"XCActionBarConfiguration" withExtension:@"plist"]];
+    self.configuration = [[XCActionBarConfiguration alloc] initWithDictionary:configuration];
     self.context       = [[XCIDEContext alloc] init];
     self.actionIndex   = [[XCActionIndex alloc] init];
     self.searchService = [[XCSearchService alloc] initWithIndex:self.actionIndex
@@ -283,10 +285,7 @@ static XCActionBar *sharedPlugin;
     [textActions addObject:[[XCCopyActiveDocumentDirectoryAction alloc] initWithFormat:XCDocumentFilePathFormatTerminal]];
     [textActions addObject:[[XCCopyActiveDocumentDirectoryAction alloc] initWithFormat:XCDocumentFilePathFormatURL]];
     
-    if(TRCheckContainsKey(self.configuration, @"XCSupportedTerminalApplications")) {
-        NSArray *supportedTerminalAppsList = self.configuration[@"XCSupportedTerminalApplications"];
-        [textActions addObject:[[XCOpenActiveDocumentPathInTerminalAction alloc] initWithPrioritizedTerminalApplicationList:supportedTerminalAppsList]];
-    }
+    [textActions addObject:[[XCOpenActiveDocumentPathInTerminalAction alloc] initWithPrioritizedTerminalApplicationList:self.configuration.supportedTerminalApplications]];
     
     XCCustomActionProvider *builtInTextActionsProvider = [[XCCustomActionProvider alloc] initWithCategory:@"Built-in"
                                                                                                     group:@"Text"
@@ -340,10 +339,10 @@ static XCActionBar *sharedPlugin;
 ////////////////////////////////////////////////////////////////////////////////
 - (void)setupHotKeys
 {
-    if(TRCheckContainsKey(self.configuration, @"Shortcuts") == NO) return;
-
+    if(TRCheckIsEmpty(self.configuration.shortcuts) == YES) return;
+    
     NSMutableArray *hotKeyListeners = [NSMutableArray array];
-    NSDictionary   *shortcuts       = self.configuration[@"Shortcuts"];
+    NSDictionary   *shortcuts       = self.configuration.shortcuts;
 
     BOOL (^XCSetupHotKeyListener)(NSDictionary *configuration, id target, SEL action) = ^(NSDictionary *configuration, id target, SEL action) {
 
@@ -443,6 +442,7 @@ static XCActionBar *sharedPlugin;
 ////////////////////////////////////////////////////////////////////////////////
 - (void)updateContext
 {
+    self.context.configuration      = self.configuration;
     self.context.editorDocument     = [XCIDEHelper currentDocument];
     self.context.workspaceDocument  = [XCIDEHelper currentWorkspaceDocument];
     self.context.sourceCodeDocument = [XCIDEHelper currentSourceCodeDocument];
