@@ -45,8 +45,15 @@
     
     NSURL *fileURL         = [context sourceCodeDocument].fileURL;
     NSString *formattedURL = [self formatURL:fileURL format:self.format];
-    
-    return [context copyContentsToPasteboard:formattedURL];
+
+    BOOL success =[context copyContentsToPasteboard:formattedURL];
+    if(success) {
+        [context sendActionExecutionConfirmationWithInfo:@{XCActionInfoTitleKey:    @"Document's path copied to clipboard",
+                                                           XCActionInfoSubtitleKey: @"",
+                                                           XCActionInfoSummaryKey:  @""}];
+    }
+
+    return success;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

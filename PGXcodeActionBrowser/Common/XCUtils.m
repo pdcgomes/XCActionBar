@@ -82,3 +82,17 @@ NSString *XCEscapedTerminalPOSIXPath(NSString *path)
     }
     return escapedPath.copy;
 }
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+void XCSendUserNotification(NSString *title, NSString *subtitle, NSString *text, NSDictionary *userInfo)
+{
+    NSUserNotification *notification = [[NSUserNotification alloc] init];
+    notification.title           = title;
+    notification.subtitle        = subtitle;
+    notification.informativeText = text;
+    notification.userInfo        = userInfo;
+    
+    NSUserNotificationCenter *notificationCenter = [NSUserNotificationCenter defaultUserNotificationCenter];
+    [notificationCenter scheduleNotification:notification];
+}

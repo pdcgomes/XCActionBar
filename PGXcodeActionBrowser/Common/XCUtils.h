@@ -15,3 +15,5 @@ FOUNDATION_EXPORT void XCMethodSwizzle(Class class, SEL selector, SEL exchangeWi
 FOUNDATION_EXPORT NSString *XCHashObject(id object);
 
 FOUNDATION_EXPORT NSString *XCEscapedTerminalPOSIXPath(NSString *path);
+
+FOUNDATION_EXPORT void XCSendUserNotification(NSString *title, NSString *subtitle, NSString *text, NSDictionary *userInfo);

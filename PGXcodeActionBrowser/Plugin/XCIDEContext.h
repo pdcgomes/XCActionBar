@@ -9,6 +9,13 @@
 #import <Foundation/Foundation.h>
 
 ////////////////////////////////////////////////////////////////////////////////
+// REVIEW: not sure about this yet
+////////////////////////////////////////////////////////////////////////////////
+FOUNDATION_EXPORT NSString *const XCActionInfoTitleKey;
+FOUNDATION_EXPORT NSString *const XCActionInfoSubtitleKey;
+FOUNDATION_EXPORT NSString *const XCActionInfoSummaryKey;
+
+////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @class IDEEditorDocument, IDEWorkspaceDocument, IDESourceCodeDocument, NSTextView;
 @protocol XCIDEContext <NSObject>
@@ -25,6 +32,9 @@
 - (NSString *)retrievePasteboardTextContents;
 
 - (BOOL)copyContentsToPasteboard:(id<NSPasteboardWriting>)contents;
+
+// REVIEW: not sure about this here yet... (@pedrogomes 20.03.2015)
+- (BOOL)sendActionExecutionConfirmationWithInfo:(NSDictionary *)info;
 
 @end
 

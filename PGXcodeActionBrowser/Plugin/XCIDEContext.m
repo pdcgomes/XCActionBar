@@ -6,7 +6,20 @@
 //  Copyright (c) 2015 Pedro Gomes. All rights reserved.
 //
 
+#import "XCUtils.h"
 #import "XCIDEContext.h"
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+NSString *const XCActionInfoTitleKey    = @"XCActionTitle";
+NSString *const XCActionInfoSubtitleKey = @"XCActionSubtitle";
+NSString *const XCActionInfoSummaryKey  = @"XCActionSummary";
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+@interface XCIDEContext () <NSUserNotificationCenterDelegate>
+
+@end
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -53,6 +66,33 @@
 
     [[NSPasteboard generalPasteboard] clearContents];
     return [[NSPasteboard generalPasteboard] writeObjects:@[contents]];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)sendActionExecutionConfirmationWithInfo:(NSDictionary *)info
+{
+    NSUserNotification *notification = [[NSUserNotification alloc] init];
+    notification.title           = info[XCActionInfoTitleKey];
+    notification.subtitle        = info[XCActionInfoSubtitleKey];
+    notification.informativeText = info[XCActionInfoSummaryKey];
+    notification.userInfo        = nil;
+
+    NSUserNotificationCenter *notificationCenter = [NSUserNotificationCenter defaultUserNotificationCenter];
+    notificationCenter.delegate = self;
+    
+    [notificationCenter scheduleNotification:notification];
+
+    return YES;
+}
+
+#pragma mark - NSUserNotificationCenterDelegate
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification
+{
+    return YES;
 }
 
 @end
