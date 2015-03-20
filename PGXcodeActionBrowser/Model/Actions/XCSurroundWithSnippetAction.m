@@ -137,7 +137,7 @@ BOOL XCParseSnippetAndExtractPrefixAndSuffix(NSString *snippet, NSString **outPr
     mergedSpec[XCSurroundWithActionSuffixKey] = @"";
     
     if((self = [super initWithSpec:spec])) {
-        self.title    = [NSString stringWithFormat:@"Surround text with pasteboard snippet %@", spec[XCSurroundWithActionTitleKey]];
+        self.title    = spec[XCSurroundWithActionTitleKey];
         self.subtitle = @"Surrounds selection with pasteboard \"Prefix <# token #> suffix\"";
     }
     return self;
