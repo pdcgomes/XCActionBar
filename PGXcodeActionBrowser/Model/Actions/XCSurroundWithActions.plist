@@ -212,5 +212,17 @@
 		<key>XCSurroundWithActionSuffix</key>
 		<string> */</string>
 	</dict>
+	<dict>
+		<key>XCSurroundWithActionIdentifier</key>
+		<string>XCSurroundWithTypeNSStringWithFormat</string>
+		<key>XCSurroundWithActionTitle</key>
+		<string>NSString with format</string>
+		<key>XCSurroundWithActionSummary</key>
+		<string>[NSString stringWithFormat: ... ]</string>
+		<key>XCSurroundWithActionPrefix</key>
+		<string>[NSString stringWithFormat:</string>
+		<key>XCSurroundWithActionSuffix</key>
+		<string>]</string>
+	</dict>
 </array>
 </plist>
