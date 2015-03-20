@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Pedro Gomes. All rights reserved.
 //
 
+#import "XCActionBarConfiguration.h"
 #import "XCUtils.h"
 #import "XCIDEContext.h"
 
@@ -25,7 +26,7 @@ NSString *const XCActionInfoSummaryKey  = @"XCActionSummary";
 ////////////////////////////////////////////////////////////////////////////////
 @implementation XCIDEContext
 
-@synthesize editorDocument, workspaceDocument, sourceCodeDocument, sourceCodeTextView;
+@synthesize configuration, editorDocument, workspaceDocument, sourceCodeDocument, sourceCodeTextView;
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -72,6 +73,9 @@ NSString *const XCActionInfoSummaryKey  = @"XCActionSummary";
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)sendActionExecutionConfirmationWithInfo:(NSDictionary *)info
 {
+    XCReturnFalseUnless(self.configuration.userAlertsEnabledGlobally);
+    XCReturnFalseUnless(self.configuration.userAlertsEnabledForActions);
+    
     NSUserNotification *notification = [[NSUserNotification alloc] init];
     notification.title           = info[XCActionInfoTitleKey];
     notification.subtitle        = info[XCActionInfoSubtitleKey];
