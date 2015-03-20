@@ -37,6 +37,13 @@
 			<real>0.3</real>
 		</dict>
 	</dict>
+	<key>XCUserAlerts</key>
+	<dict>
+		<key>XCUserAlertsEnabledGlobally</key>
+		<false/>
+		<key>XCUserAlertsEnabledForActions</key>
+		<false/>
+	</dict>
 	<key>XCSupportedTerminalApplications</key>
 	<array>
 		<string>iTerm.app</string>

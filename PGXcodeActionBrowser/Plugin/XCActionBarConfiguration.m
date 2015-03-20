@@ -32,6 +32,8 @@
     if((self = [super init])) {
         self.shortcuts = configuration[@"Shortcuts"];
         self.supportedTerminalApplications = configuration[@"XCSupportedTerminalApplications"];
+        self.userAlertsEnabledGlobally     = [configuration[@"XCUserAlertsEnabledGlobally"] boolValue];
+        self.userAlertsEnabledForActions   = [configuration[@"XCUserAlertsEnabledForActions"] boolValue];
     }
     return self;
 }
