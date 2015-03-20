@@ -94,11 +94,15 @@ As mentioned above, the plugin comes bundled with a few custom actions. Followin
 
 * `XCAddPrefixToLinesAction` **prepends** the string contents of the pasteboard to each selected line
 * `XCAddSuffixToLinesAction` **appends** the string contents of the pasteboard to each selected line
+* `XCCopyActiveDocumentFilePathAction` *copies* the active file path to the pasteboard. Supports `file://`, `POSIX` and `POSIX escaped` (useful for copying to the terminal)
+* `XCCopyActiveDocumentDirectoryAction` *copies* the active file directory to the pasteboard. Supports `file://`, `POSIX` and `POSIX escaped` (useful for copying to the terminal)
+* `XCDeleteBlankLinesAction` **deletes** all empty strings in the selected range
 * `XCDeleteLineAction` deletes the line the carret is currently positioned in
 * `XCDuplicateLineAction` duplicates the line the carret is currently positioned in, or the selected lines
 * `XCSortSelectionAction` performs line sorting (ascending or descending) of the selected lines
 * `XCSurroundWithAction` surrounds the selected text block with an arbitrary prefix/suffix
 * `XCSurroundLineWithAction` surrounds each selected line with an arbitrary prefix/suffix
+* `XCTrimWhitespaceAction` trims whitespace for each selected line (supports leading; trailing or both)
 
 I've bundled a few `XCSurroundLineWithAction` and `XCSurroundWithAction`S:
 
@@ -109,6 +113,7 @@ I've bundled a few `XCSurroundLineWithAction` and `XCSurroundWithAction`S:
 * NSLog `NSLog(@" ... ")`
 * NSNumber `@( ... )`
 * NSString `@" ... "`
+* NSStringWithFormat `[NSString stringWithFormat:...]`
 * Parenthesis `( ... )`
 * Audit Non-null region `NS_ASSUME_NONNULL_BEGIN ... NS_ASSUME_NONNULL_END`
 * Pragma diagnostic region
