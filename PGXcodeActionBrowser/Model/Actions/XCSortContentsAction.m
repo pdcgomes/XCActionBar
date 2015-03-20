@@ -28,6 +28,7 @@
         self.sortOrder = sortOrder;
         self.title     = @"Sorts the contents";
         self.subtitle  = @"Sorts known literals (NSString; NSNumber, etc.)";
+        self.enabled   = YES;
     }
     return self;
 }

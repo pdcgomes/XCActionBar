@@ -28,6 +28,7 @@
     if((self = [super init])) {
         self.title    = @"Duplicate Line(s)";
         self.subtitle = @"";
+        self.enabled  = YES;
     }
     return self;
 }

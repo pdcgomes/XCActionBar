@@ -28,6 +28,7 @@
     if((self = [super init])) {
         self.title    = @"Delete Line(s)";
         self.subtitle = @"";
+        self.enabled  = YES;
     }
     return self;
 }

@@ -32,7 +32,7 @@
         self.sortOrder = sortOrder;
         self.subtitle  = @"Sorts the selected text";
         self.title     = [NSString stringWithFormat:@"Sort selection (%@)", sortOrder == NSOrderedDescending ? @"descending" : @"ascending"];
-        
+        self.enabled   = YES;
         NSComparator compareFunction  = (self.sortOrder == NSOrderedAscending ?
                                          ^(NSString *str1, NSString *str2) {
                                              NSString *trimmedStr1 = [str1 stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];

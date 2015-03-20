@@ -24,6 +24,7 @@ NSString *const XCEmptyLinePattern = @"^\\s*\\n";
     if((self = [super init])) {
         self.title    = @"Delete empty lines";
         self.subtitle = @"";
+        self.enabled  = YES;
     }
     return self;
 }
