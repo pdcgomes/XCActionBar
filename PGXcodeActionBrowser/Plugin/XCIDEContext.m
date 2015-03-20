@@ -45,4 +45,14 @@
     return items.firstObject;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)copyContentsToPasteboard:(id<NSPasteboardWriting>)contents
+{
+    if(contents == nil) return NO;
+
+    [[NSPasteboard generalPasteboard] clearContents];
+    return [[NSPasteboard generalPasteboard] writeObjects:@[contents]];
+}
+
 @end

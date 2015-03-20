@@ -9,6 +9,8 @@
 #import "XCAddPrefixToLinesAction.h"
 #import "XCAddSuffixToLinesAction.h"
 #import "XCBlockAction.h"
+#import "XCCopyActiveDocumentDirectoryAction.h"
+#import "XCCopyActiveDocumentPathAction.h"
 #import "XCDeleteLineAction.h"
 #import "XCDeleteBlankLinesAction.h"
 #import "XCDuplicateLineAction.h"

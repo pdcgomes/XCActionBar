@@ -23,6 +23,8 @@
 
 - (NSString *)retrievePasteboardTextContents;
 
+- (BOOL)copyContentsToPasteboard:(id<NSPasteboardWriting>)contents;
+
 @end
 
 ////////////////////////////////////////////////////////////////////////////////

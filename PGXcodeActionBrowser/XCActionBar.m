@@ -275,6 +275,14 @@ static XCActionBar *sharedPlugin;
         [textActions addObject:[[XCSurroundLineWithAction alloc] initWithSpec:spec]];
     }
     
+    [textActions addObject:[[XCCopyActiveDocumentPathAction alloc] initWithFormat:XCDocumentFilePathFormatPOSIX]];
+    [textActions addObject:[[XCCopyActiveDocumentPathAction alloc] initWithFormat:XCDocumentFilePathFormatTerminal]];
+    [textActions addObject:[[XCCopyActiveDocumentPathAction alloc] initWithFormat:XCDocumentFilePathFormatURL]];
+    
+    [textActions addObject:[[XCCopyActiveDocumentDirectoryAction alloc] initWithFormat:XCDocumentFilePathFormatPOSIX]];
+    [textActions addObject:[[XCCopyActiveDocumentDirectoryAction alloc] initWithFormat:XCDocumentFilePathFormatTerminal]];
+    [textActions addObject:[[XCCopyActiveDocumentDirectoryAction alloc] initWithFormat:XCDocumentFilePathFormatURL]];
+    
     XCCustomActionProvider *builtInTextActionsProvider = [[XCCustomActionProvider alloc] initWithCategory:@"Built-in"
                                                                                                     group:@"Text"
                                                                                                   actions:textActions.copy

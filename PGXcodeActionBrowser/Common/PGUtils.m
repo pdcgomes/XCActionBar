@@ -61,3 +61,24 @@ NSString *XCHashObject(id object)
     
     return [NSString stringWithFormat:@"%lx", (long)object];
 }
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+NSString *XCEscapedTerminalPOSIXPath(NSString *path)
+{
+    NSMutableCharacterSet *escapeCharacterSet = [[NSCharacterSet alphanumericCharacterSet] invertedSet].mutableCopy;
+    [escapeCharacterSet removeCharactersInString:@"/"];
+    
+    NSMutableString *escapedPath = [path mutableCopy];
+    
+    NSRange rangeOfScan  = NSMakeRange(0, path.length);
+    NSRange rangeOfMatch = [path rangeOfCharacterFromSet:escapeCharacterSet options:NSBackwardsSearch range:rangeOfScan];
+    
+    while(rangeOfMatch.location != NSNotFound) {
+        [escapedPath insertString:@"\\" atIndex:rangeOfMatch.location];
+        
+        rangeOfScan  = NSMakeRange(0, rangeOfMatch.location);
+        rangeOfMatch = [path rangeOfCharacterFromSet:escapeCharacterSet options:NSBackwardsSearch range:rangeOfScan];
+    }
+    return escapedPath.copy;
+}
