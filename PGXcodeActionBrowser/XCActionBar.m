@@ -283,6 +283,11 @@ static XCActionBar *sharedPlugin;
     [textActions addObject:[[XCCopyActiveDocumentDirectoryAction alloc] initWithFormat:XCDocumentFilePathFormatTerminal]];
     [textActions addObject:[[XCCopyActiveDocumentDirectoryAction alloc] initWithFormat:XCDocumentFilePathFormatURL]];
     
+    if(TRCheckContainsKey(self.configuration, @"XCSupportedTerminalApplications")) {
+        NSArray *supportedTerminalAppsList = self.configuration[@"XCSupportedTerminalApplications"];
+        [textActions addObject:[[XCOpenActiveDocumentPathInTerminalAction alloc] initWithPrioritizedTerminalApplicationList:supportedTerminalAppsList]];
+    }
+    
     XCCustomActionProvider *builtInTextActionsProvider = [[XCCustomActionProvider alloc] initWithCategory:@"Built-in"
                                                                                                     group:@"Text"
                                                                                                   actions:textActions.copy
@@ -438,6 +443,7 @@ static XCActionBar *sharedPlugin;
 ////////////////////////////////////////////////////////////////////////////////
 - (void)updateContext
 {
+    self.context.editorDocument     = [XCIDEHelper currentDocument];
     self.context.workspaceDocument  = [XCIDEHelper currentWorkspaceDocument];
     self.context.sourceCodeDocument = [XCIDEHelper currentSourceCodeDocument];
     self.context.sourceCodeTextView = [XCIDEHelper currentSourceCodeTextView];

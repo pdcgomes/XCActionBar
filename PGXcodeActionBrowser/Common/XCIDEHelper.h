@@ -86,6 +86,9 @@
 - (NSUndoManager *)undoManager;
 @end
 
+@interface IDEEditorDocument : NSDocument
+@end
+
 @interface IDESourceCodeComparisonEditor : NSObject
 @property (readonly) NSTextView *keyTextView;
 @property (retain) NSDocument *primaryDocument;
@@ -124,6 +127,7 @@
 
 + (IDEWorkspaceDocument *)currentWorkspaceDocument;
 + (IDESourceCodeDocument *)currentSourceCodeDocument;
++ (IDEEditorDocument *)currentDocument;
 + (NSTextView *)currentSourceCodeTextView;
 + (NSArray *)selectedObjCFileNavigableItems;
 

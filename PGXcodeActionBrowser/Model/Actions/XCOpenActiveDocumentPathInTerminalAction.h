@@ -12,4 +12,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 @interface XCOpenActiveDocumentPathInTerminalAction : XCCustomAction
 
+- (instancetype)initWithPrioritizedTerminalApplicationList:(NSArray *)applicationList;
+
 @end

@@ -37,5 +37,10 @@
 			<real>0.3</real>
 		</dict>
 	</dict>
+	<key>XCSupportedTerminalApplications</key>
+	<array>
+		<string>iTerm.app</string>
+		<string>Terminal.app</string>
+	</array>
 </dict>
 </plist>

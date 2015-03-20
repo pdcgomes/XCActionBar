@@ -10,11 +10,12 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@class IDEWorkspaceDocument, IDESourceCodeDocument, NSTextView;
+@class IDEEditorDocument, IDEWorkspaceDocument, IDESourceCodeDocument, NSTextView;
 @protocol XCIDEContext <NSObject>
 
 @property (nonatomic,   weak) IDEWorkspaceDocument  *workspaceDocument;
 @property (nonatomic,   weak) IDESourceCodeDocument *sourceCodeDocument;
+@property (nonatomic,   weak) IDEEditorDocument     *editorDocument;
 @property (nonatomic, assign) NSTextView            *sourceCodeTextView; // does not support weak references
 
 // Convenience API
