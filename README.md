@@ -174,20 +174,45 @@ NSMutableArray *textActions =
 
 These actions don't yet show up in the menu bar, but they will get automatically indexed by the plugin. Soon you'll be able to manage custom actions and their groupings via an external property list file which will also be used to derive action groups under the menu bar, so stay tuned.
 
-### Setup - Using custom Hotkey
+### Setup - Using custom shortcuts
 
 The default hotkey to bring up Action Bar is `CMD+SHIFT+8`.
 You can change this hotkey via the _Keyboard Shortcuts_ Panel in the System Preferences.
 
-* Open the System Preferences
+* Open System Preferences
 * Go to `Keyboard`
-* Switch to the `Shortcuts` Tab
+* Switch to the `Shortcuts` tab
 * Select `App Shortcuts` and click the `+` Button. 
     * Select `Xcode.app`
     * Enter `Action Bar` as Menu Title
     * Enter the Shortcut you want
 
 ![image](custom_hotkey.png)
+
+Alternatively you can use (my preferred) shortcuts:
+* Double press the `CMD` key to present/dismiss the bar
+* Double press the `OPTION` key to repeat the last action
+
+These can also be customized but required a slightly more involved (but simple) process:
+* Find and open the file `XCActionBarConfiguration.plist` under the plugin installation folder (`Library/Application Support/Developer/Shared/Xcode/Plug-ins/XCActionBar.xcplugin/Contents/Resources`)
+* Under the `Shortcuts` key you'll find `XCActionBarHotKey` and `XCRepeatLastActionHotKey`
+* Tweak the values to your preferences
+
+Here's a quick explanation of the configuration keys:
+
+* `XCHotKeyListenerHotKeyMask` specifies the modifier key mask. Possible values are (declared in `NSEvent.h`):
+    * `NSAlternateKeyMask`
+    * `NSCommandKeyMask`
+    * `NSControlKeyMask`
+    * `NSFunctionKeyMask`
+    * `NSShiftKeyMask`
+
+Just use the enum's value (for example `NSCommandKeyMask = 1 << 20`, so you'd use `1048576`)
+Please note that while these are bitmasks, **XCActionBar** currently only supports the definition of **one** key, so attempting to setup something like `NSAlternateKeyMask | NSCommandKeyMask` **won't work**.
+
+* `XCHotKeyListenerRepeatCount` specifies the number of required key presses (currently only supports `2` or `3`)
+* `XCHotKeyListenerRepeatDelay` specifies the maximum delay that can occur between the keypresses for the shortcut to trigger - tweak this if you feel the defaults are too sensitive for you
+
 
 Feedback is greatly appreciated -- love it? hate it? suggestions? I'd love to hear about it!
 
