@@ -60,11 +60,15 @@ NSArray *XCKeyCodesFromModifierMask(NSEventModifierFlags flag)
 
 @property (nonatomic,   copy) XCHotKeyListenerHandler handler;
 
-@property (nonatomic        ) id eventMonitor;
+@property (nonatomic        ) id        eventMonitor;
+@property (nonatomic        ) NSArray   *eventHandlers;
 
-@property (nonatomic        ) NSArray        *hotKeyCodes;
-@property (nonatomic, assign) NSUInteger     repeatCount;
-@property (nonatomic, assign) NSTimeInterval repeatDelay;
+@property (nonatomic        ) NSArray           *hotKeyCodes;
+@property (nonatomic, assign) NSUInteger        repeatCount;
+@property (nonatomic, assign) NSTimeInterval    repeatDelay;
+
+@property (nonatomic        ) NSTimer           *timer;
+@property (nonatomic, assign) NSUInteger        keyPressCounter;
 
 @end
 
@@ -96,6 +100,13 @@ NSArray *XCKeyCodesFromModifierMask(NSEventModifierFlags flag)
     }
 
     return YES;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)dealloc
+{
+    [self stopListening];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -145,45 +156,22 @@ NSArray *XCKeyCodesFromModifierMask(NSEventModifierFlags flag)
 {
     TR_RETURN_FALSE_UNLESS(self.eventMonitor == nil);
 
+    [self setupEventHandlers];
+    
     RTVDeclareWeakSelf(weakSelf);
-
-    __block NSUInteger hotKeyPressCount = 0;
-    __block NSTimeInterval keyDownTS    = 0;
-    __block BOOL hotKeyDepressed        = false;
-
-    void(^XCResetHotKeyState)(void) = ^ {
-        hotKeyDepressed  = false;
-        hotKeyPressCount = 0;
-        keyDownTS        = 0;
-    };
-
-    [NSEvent addLocalMonitorForEventsMatchingMask:(NSFlagsChangedMask) handler:^NSEvent *(NSEvent *event) {
-//        TRLog(@"<EventMonitor>, <type=%@>, <keyCode=%@>, <e=%@>", @(event.type), @(event.keyCode), event);
+    self.eventMonitor = [NSEvent addLocalMonitorForEventsMatchingMask:(NSFlagsChangedMask) handler:^NSEvent *(NSEvent *event) {
+        //        TRLog(@"<EventMonitor>, <type=%@>, <keyCode=%@>, <e=%@>", @(event.type), @(event.keyCode), event);
+        
+        if(event.modifierFlags == NSFlagsChangedMaskOff) return event;
         
         BOOL hotKeyPressed = ((event.keyCode == [weakSelf.hotKeyCodes[0] unsignedCharValue]) ||
                               (weakSelf.hotKeyCodes.count > 1 &&
                                event.keyCode == [weakSelf.hotKeyCodes[1] unsignedCharValue]));
-        if(hotKeyPressed == NO) {
-            XCResetHotKeyState();
-            return event;
-        }
+        if(hotKeyPressed == NO) return event;
         
-        if(event.modifierFlags == NSFlagsChangedMaskOff) {
-            hotKeyDepressed = false;
-            
-            NSTimeInterval interval = (event.timestamp - keyDownTS);
-            if(interval <= weakSelf.repeatDelay) hotKeyPressCount++;
-            else XCResetHotKeyState();
-            
-            if(hotKeyPressCount >= weakSelf.repeatCount) {
-                XCResetHotKeyState();
-                [self notifyListener];
-            }
-        }
-        else {
-            hotKeyDepressed = true;
-            keyDownTS = event.timestamp;
-        }
+        dispatch_block_t handler = weakSelf.eventHandlers[weakSelf.keyPressCounter];
+        handler();
+        
         return event;
     }];
 
@@ -195,6 +183,12 @@ NSArray *XCKeyCodesFromModifierMask(NSEventModifierFlags flag)
 - (BOOL)stopListening
 {
     TR_RETURN_FALSE_UNLESS(self.eventMonitor != nil);
+
+    [NSEvent removeMonitor:self.eventMonitor];
+
+    [self stopKeyPressEventExpiryTimer];
+    [self setEventHandlers:nil];
+    [self setEventMonitor:nil];
     
     return YES;
 }
@@ -212,6 +206,66 @@ NSArray *XCKeyCodesFromModifierMask(NSEventModifierFlags flag)
 #pragma clang diagnostic pop
     }
     else self.handler();
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)setupEventHandlers
+{
+    ////////////////////////////////////////////////////////////////////////////////
+    // To minimize state management we do the following:
+    // * setup a table with handlers
+    // * each keypress advances the cursor and the next handler is invoked
+    // * this continues until we hit the final instruction
+    //
+    // The first instruction is also starting a timer - if the timer fires before we
+    // reach the end, we reset and start all over
+    ////////////////////////////////////////////////////////////////////////////////
+    RTVDeclareWeakSelf(weakSelf);
+
+    // setup first handler - starts the expiry timer and advances the cursor
+    NSMutableArray *handlers = [NSMutableArray arrayWithObject:[^{
+        weakSelf.keyPressCounter++;
+        [weakSelf startKeyPressEventExpiryTimer];
+    } copy]];
+    
+    // doesn't apply for double presses, only 3 or more
+    for(int i = 1; i < self.repeatCount - 1; i++) {
+        [handlers addObject:[^{ weakSelf.keyPressCounter++; } copy]];
+    }
+
+    // final instruction, only hit if the timer hasn't expired first
+    // notify listener and reset the cursor
+    [handlers addObject:[^{
+        [weakSelf stopKeyPressEventExpiryTimer];
+        [weakSelf notifyListener];
+        weakSelf.keyPressCounter = 0;
+    } copy]];
+    
+    self.eventHandlers = handlers.copy;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)startKeyPressEventExpiryTimer
+{
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:self.repeatDelay target:self selector:@selector(timerExpired) userInfo:nil repeats:NO];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)stopKeyPressEventExpiryTimer
+{
+    [self.timer invalidate];
+    [self setTimer:nil];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)timerExpired
+{
+    [self stopKeyPressEventExpiryTimer];
+    self.keyPressCounter = 0;
 }
 
 @end
