@@ -15,6 +15,9 @@ Sorting lines demo:
 Built-in __Add Prefix to Line(s)__ and __Add Suffix to Line(s)__ demo:
 ![image](demo2.gif)
 
+Built-in __Surround With NSNumber Literal__ and __Surround With NSString Literal__ demo:
+![image](demo3.gif)
+
 ###Motivation:
 
 I always try to accomplish as much as I possibly can without ever moving my hands away from the keyboard, there's simply no other means of input that feels quite as natural or efficient.
