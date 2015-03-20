@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Pedro Gomes. All rights reserved.
 //
 
+#import "PGConstants.h"
 #import "XCHotKeyListener.h"
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -63,9 +64,10 @@ NSArray *XCKeyCodesFromModifierMask(NSEventModifierFlags flag)
 @property (nonatomic        ) id        eventMonitor;
 @property (nonatomic        ) NSArray   *eventHandlers;
 
-@property (nonatomic        ) NSArray           *hotKeyCodes;
-@property (nonatomic, assign) NSUInteger        repeatCount;
-@property (nonatomic, assign) NSTimeInterval    repeatDelay;
+@property (nonatomic        ) NSArray              *hotKeyCodes;
+@property (nonatomic, assign) NSEventModifierFlags hotKeyMask;
+@property (nonatomic, assign) NSUInteger           repeatCount;
+@property (nonatomic, assign) NSTimeInterval       repeatDelay;
 
 @property (nonatomic        ) NSTimer           *timer;
 @property (nonatomic, assign) NSUInteger        keyPressCounter;
@@ -120,7 +122,8 @@ NSArray *XCKeyCodesFromModifierMask(NSEventModifierFlags flag)
     if((self = [super init])) {
         self.handler = handler;
         
-        self.hotKeyCodes = XCKeyCodesFromModifierMask([configuration[XCHotKeyListenerHotKeyMaskKey] unsignedIntegerValue]);
+        self.hotKeyMask  = [configuration[XCHotKeyListenerHotKeyMaskKey] unsignedIntegerValue];
+        self.hotKeyCodes = XCKeyCodesFromModifierMask(self.hotKeyMask);
         self.repeatCount = [configuration[XCHotKeyListenerRepeatCountKey] integerValue];
         self.repeatDelay = [configuration[XCHotKeyListenerRepeatDelayKey] doubleValue];
     }
@@ -140,7 +143,8 @@ NSArray *XCKeyCodesFromModifierMask(NSEventModifierFlags flag)
         self.target = target;
         self.action = action;
         
-        self.hotKeyCodes = XCKeyCodesFromModifierMask([configuration[XCHotKeyListenerHotKeyMaskKey] unsignedIntegerValue]);
+        self.hotKeyMask  = [configuration[XCHotKeyListenerHotKeyMaskKey] unsignedIntegerValue];
+        self.hotKeyCodes = XCKeyCodesFromModifierMask(self.hotKeyMask);
         self.repeatCount = [configuration[XCHotKeyListenerRepeatCountKey] integerValue];
         self.repeatDelay = [configuration[XCHotKeyListenerRepeatDelayKey] doubleValue];
     }
@@ -160,7 +164,7 @@ NSArray *XCKeyCodesFromModifierMask(NSEventModifierFlags flag)
     
     RTVDeclareWeakSelf(weakSelf);
     self.eventMonitor = [NSEvent addLocalMonitorForEventsMatchingMask:(NSFlagsChangedMask) handler:^NSEvent *(NSEvent *event) {
-        //        TRLog(@"<EventMonitor>, <type=%@>, <keyCode=%@>, <e=%@>", @(event.type), @(event.keyCode), event);
+//        TRLog(@"<EventMonitor>, <type=%@>, <keyCode=%@>, <e=%@>", @(event.type), @(event.keyCode), event);
         
         if(event.modifierFlags == NSFlagsChangedMaskOff) return event;
         
@@ -168,6 +172,7 @@ NSArray *XCKeyCodesFromModifierMask(NSEventModifierFlags flag)
                               (weakSelf.hotKeyCodes.count > 1 &&
                                event.keyCode == [weakSelf.hotKeyCodes[1] unsignedCharValue]));
         if(hotKeyPressed == NO) return event;
+        if(TRCheckOption(event.modifierFlags, self.hotKeyMask) == NO) return event;
         
         dispatch_block_t handler = weakSelf.eventHandlers[weakSelf.keyPressCounter];
         handler();
