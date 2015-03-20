@@ -174,6 +174,21 @@ NSMutableArray *textActions =
 
 These actions don't yet show up in the menu bar, but they will get automatically indexed by the plugin. Soon you'll be able to manage custom actions and their groupings via an external property list file which will also be used to derive action groups under the menu bar, so stay tuned.
 
+### Setup - Using custom Hotkey
+
+The default hotkey to bring up Action Bar is `CMD+SHIFT+8`.
+You can change this hotkey via the _Keyboard Shortcuts_ Panel in the System Preferences.
+
+* Open the System Preferences
+* Go to `Keyboard`
+* Switch to the `Shortcuts` Tab
+* Select `App Shortcuts` and click the `+` Button. 
+    * Select `Xcode.app`
+    * Enter `Action Bar` as Menu Title
+    * Enter the Shortcut you want
+
+![image](custom_hotkey.png)
+
 Feedback is greatly appreciated -- love it? hate it? suggestions? I'd love to hear about it!
 
 Cheers,
