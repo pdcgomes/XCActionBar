@@ -261,6 +261,11 @@ static XCActionBar *sharedPlugin;
                                     [[XCSortContentsAction alloc] initWithSortOrder:NSOrderedAscending],
                                     [[XCSortContentsAction alloc] initWithSortOrder:NSOrderedDescending],
                                     
+                                    // Trim Operations
+                                    [[XCTrimWhitespaceAction alloc] initWithBehavior:XCTrimWhitespaceBehaviorLeading],
+                                    [[XCTrimWhitespaceAction alloc] initWithBehavior:XCTrimWhitespaceBehaviorTrailing],
+                                    [[XCTrimWhitespaceAction alloc] initWithBehavior:XCTrimWhitespaceBehaviorLeadingAndTrailing],
+                                    
                                     ].mutableCopy;
 
     NSArray *surroundWithActionSpecs = [NSArray arrayWithContentsOfURL:[self.bundle URLForResource:@"XCSurroundWithActions" withExtension:@"plist"]];

@@ -1,0 +1,25 @@
+//
+//  XCTrimWhitespaceAction.h
+//  XCActionBar
+//
+//  Created by Pedro Gomes on 20/03/2015.
+//  Copyright (c) 2015 Pedro Gomes. All rights reserved.
+//
+
+#import "XCCustomAction.h"
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+typedef NS_ENUM(NSUInteger, XCTrimWhitespaceBehavior) {
+    XCTrimWhitespaceBehaviorLeading = 0,
+    XCTrimWhitespaceBehaviorTrailing,
+    XCTrimWhitespaceBehaviorLeadingAndTrailing,
+};
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+@interface XCTrimWhitespaceAction : XCCustomAction
+
+- (instancetype)initWithBehavior:(XCTrimWhitespaceBehavior)behavior;
+
+@end

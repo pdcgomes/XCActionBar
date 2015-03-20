@@ -17,3 +17,4 @@
 #import "XCSortSelectionAction.h"
 #import "XCSurroundLineWithAction.h"
 #import "XCSurroundWithAction.h"
+#import "XCTrimWhitespaceAction.h"
