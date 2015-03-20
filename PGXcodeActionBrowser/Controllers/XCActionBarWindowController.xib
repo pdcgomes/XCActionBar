@@ -52,7 +52,7 @@
                                     <tableViewGridLines key="gridStyleMask" dashed="YES"/>
                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                     <tableColumns>
-                                        <tableColumn identifier="PGSearchResultCell" width="457" minWidth="40" maxWidth="1000" id="9ij-ym-eaJ">
+                                        <tableColumn identifier="XCSearchResultCell" width="457" minWidth="40" maxWidth="1000" id="9ij-ym-eaJ">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
