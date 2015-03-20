@@ -19,14 +19,7 @@
 #import "XCCodeSnippetProvider.h"
 #import "XCCustomActionProvider.h"
 
-#import "XCAddPrefixToLinesAction.h"
-#import "XCAddSuffixToLinesAction.h"
-#import "XCDeleteLineAction.h"
-#import "XCDuplicateLineAction.h"
-#import "XCSortContentsAction.h"
-#import "XCSortSelectionAction.h"
-#import "XCSurroundWithAction.h"
-#import "XCSurroundLineWithAction.h"
+#import "XCActions.h"
 
 #import "XCActionBarWindowController.h"
 
@@ -256,6 +249,7 @@ static XCActionBar *sharedPlugin;
                                     [[XCAddPrefixToLinesAction alloc] init],
                                     [[XCAddSuffixToLinesAction alloc] init],
                                     // Duplicate/Delete Lines
+                                    [[XCDeleteBlankLinesAction alloc] init],
                                     [[XCDeleteLineAction alloc] init],
                                     [[XCDuplicateLineAction alloc] init],
                                     

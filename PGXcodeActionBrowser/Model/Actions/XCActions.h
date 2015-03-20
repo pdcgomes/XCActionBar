@@ -6,8 +6,14 @@
 //  Copyright (c) 2015 Pedro Gomes. All rights reserved.
 //
 
-#ifndef XCActionBar_XCActions_h
-#define XCActionBar_XCActions_h
-
-
-#endif
+#import "XCAddPrefixToLinesAction.h"
+#import "XCAddSuffixToLinesAction.h"
+#import "XCBlockAction.h"
+#import "XCDeleteLineAction.h"
+#import "XCDeleteBlankLinesAction.h"
+#import "XCDuplicateLineAction.h"
+#import "XCSortContentsAction.h"
+#import "XCSortContentsAction.h"
+#import "XCSortSelectionAction.h"
+#import "XCSurroundLineWithAction.h"
+#import "XCSurroundWithAction.h"
