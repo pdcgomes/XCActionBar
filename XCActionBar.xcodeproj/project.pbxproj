@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		42135EA61ABC992A0092E97C /* XCActionBarConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 42135EA51ABC992A0092E97C /* XCActionBarConfiguration.m */; };
 		421D37081AB790D900FF8338 /* XCSurroundWithActions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 421D37071AB790D900FF8338 /* XCSurroundWithActions.plist */; };
 		421D370B1AB7982300FF8338 /* XCAddPrefixToLinesAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 421D370A1AB7982300FF8338 /* XCAddPrefixToLinesAction.m */; };
 		421D370E1AB7982F00FF8338 /* XCAddSuffixToLinesAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 421D370D1AB7982F00FF8338 /* XCAddSuffixToLinesAction.m */; };
@@ -51,6 +52,8 @@
 /* Begin PBXFileReference section */
 		42066D251AB3284800131861 /* IDETestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDETestManager.h; sourceTree = "<group>"; };
 		42066D291AB32F5300131861 /* _IDEOCUnitTestRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _IDEOCUnitTestRecord.h; sourceTree = "<group>"; };
+		42135EA41ABC992A0092E97C /* XCActionBarConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCActionBarConfiguration.h; sourceTree = "<group>"; };
+		42135EA51ABC992A0092E97C /* XCActionBarConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCActionBarConfiguration.m; sourceTree = "<group>"; };
 		421D37071AB790D900FF8338 /* XCSurroundWithActions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = XCSurroundWithActions.plist; sourceTree = "<group>"; };
 		421D37091AB7982300FF8338 /* XCAddPrefixToLinesAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = XCAddPrefixToLinesAction.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		421D370A1AB7982300FF8338 /* XCAddPrefixToLinesAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCAddPrefixToLinesAction.m; sourceTree = "<group>"; };
@@ -232,6 +235,8 @@
 				42BB07461AB6FBBD00F42EAE /* XCIDEContext.h */,
 				42BB07471AB6FBBD00F42EAE /* XCIDEContext.m */,
 				426782EA1ABA37E8006F4E53 /* XCActionBarConfiguration.plist */,
+				42135EA41ABC992A0092E97C /* XCActionBarConfiguration.h */,
+				42135EA51ABC992A0092E97C /* XCActionBarConfiguration.m */,
 			);
 			path = Plugin;
 			sourceTree = "<group>";
@@ -557,6 +562,7 @@
 				42FA5BC81AB82F79007F24B8 /* XCDuplicateLineAction.m in Sources */,
 				42BD03491AB0880200FB7C07 /* XCActionBarWindowController.m in Sources */,
 				42CEA4EB1AB0ADDA006973B7 /* XCSearchService.m in Sources */,
+				42135EA61ABC992A0092E97C /* XCActionBarConfiguration.m in Sources */,
 				4228E3EB1AB1B82A00918EAA /* XCSearchResultCell.m in Sources */,
 				42C1AD931AAF632700248A8D /* XCWorkspaceUnitTestsActionProvider.m in Sources */,
 				42807D421AB07D4B007988F3 /* XCInputValidation.m in Sources */,
