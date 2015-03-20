@@ -1,5 +1,5 @@
 //
-//  PGActionBrowserWindowController.m
+//  XCActionBrowserWindowController.m
 //  XCActionBar
 //
 //  Created by Pedro Gomes on 11/03/2015.
@@ -10,7 +10,7 @@
 #import "XCActionInterface.h"
 #import "XCSearchService.h"
 
-#import "PGSearchResultCell.h"
+#import "XCSearchResultCell.h"
 
 #import "XCIDEContext.h"
 #import "XCIDEHelper.h"
@@ -188,7 +188,7 @@ typedef BOOL (^PGCommandHandler)(void);
 ////////////////////////////////////////////////////////////////////////////////
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
-    PGSearchResultCell *cell = [tableView makeViewWithIdentifier:NSStringFromClass([PGSearchResultCell class]) owner:self];
+    XCSearchResultCell *cell = [tableView makeViewWithIdentifier:NSStringFromClass([XCSearchResultCell class]) owner:self];
     
     id<XCActionInterface> action = self.searchResults[row];
     

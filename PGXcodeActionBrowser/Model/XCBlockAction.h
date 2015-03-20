@@ -1,5 +1,5 @@
 //
-//  PGBlockAction.h
+//  XCBlockAction.h
 //  XCActionBar
 //
 //  Created by Pedro Gomes on 10/03/2015.

@@ -1,16 +1,16 @@
 //
-//  PGSearchResultCell.m
+//  XCSearchResultCell.m
 //  XCActionBar
 //
 //  Created by Pedro Gomes on 12/03/2015.
 //  Copyright (c) 2015 Pedro Gomes. All rights reserved.
 //
 
-#import "PGSearchResultCell.h"
+#import "XCSearchResultCell.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@interface PGSearchResultCell ()
+@interface XCSearchResultCell ()
 
 //@property (weak) IBOutlet NSTextField *hintTextField;
 //@property (weak) IBOutlet NSTextField *subtitleTextField;
@@ -19,6 +19,6 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@implementation PGSearchResultCell
+@implementation XCSearchResultCell
 
 @end

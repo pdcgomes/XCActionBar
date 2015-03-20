@@ -1,5 +1,5 @@
 //
-//  PGActionBrowserProvider.h
+//  XCActionBrowserProvider.h
 //  XCActionBar
 //
 //  Created by Pedro Gomes on 10/03/2015.

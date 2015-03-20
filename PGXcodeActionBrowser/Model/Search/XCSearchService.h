@@ -1,5 +1,5 @@
 //
-//  PGSearchService.h
+//  XCSearchService.h
 //  XCActionBar
 //
 //  Created by Pedro Gomes on 11/03/2015.

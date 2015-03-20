@@ -1,6 +1,6 @@
 //
 //  XCDuplicateLineAction.m
-//  PGXcodeActionBrowser
+//  XCXcodeActionBrowser
 //
 //  Created by Pedro Gomes on 17/03/2015.
 //  Copyright (c) 2015 Pedro Gomes. All rights reserved.
