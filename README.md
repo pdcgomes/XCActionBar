@@ -104,6 +104,8 @@ As mentioned above, the plugin comes bundled with a few custom actions. Followin
 * `XCSurroundLineWithAction` surrounds each selected line with an arbitrary prefix/suffix
 * `XCTrimWhitespaceAction` trims whitespace for each selected line (supports leading; trailing or both)
 
+* `XCOpenActiveDocumentPathInTerminalAction` opens the active document's directory in the terminal app (currently supports `iTerm.app` and `Terminal.app` but more can be added in `XCActionBarConfiguration.plist` under `XCSupportedTerminalApplications`
+
 I've bundled a few `XCSurroundLineWithAction` and `XCSurroundWithAction`S:
 
 * Autorelease pool `@autoreleasepool { ... }`
