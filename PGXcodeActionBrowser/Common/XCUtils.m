@@ -68,6 +68,7 @@ NSString *XCEscapedTerminalPOSIXPath(NSString *path)
 {
     NSMutableCharacterSet *escapeCharacterSet = [[NSCharacterSet alphanumericCharacterSet] invertedSet].mutableCopy;
     [escapeCharacterSet removeCharactersInString:@"/"];
+    [escapeCharacterSet removeCharactersInString:@"."];
     
     NSMutableString *escapedPath = [path mutableCopy];
     
