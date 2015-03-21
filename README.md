@@ -37,7 +37,7 @@ Example #1: Built in actions
 2. Double tap `CMD` or press `CMD+SHIFT+8`
 3. Type `m l u`
 4. Return
-5. Double tap `OPT` or press `CMD+OPT+7` to repeat the last action as many times as you'd like (this works for any action)
+5. Double tap `ALT` or press `CMD+ALT+7` to repeat the last action as many times as you'd like (this works for any action)
 
 Example #2: Custom actions
 
@@ -70,11 +70,11 @@ Action search currently operates on a few data sets:
 
 The current searching strategy is very simple and naive but does the job quite effectively. While it doesn't yet support fuzzy matching, it's quite flexible in how it handles partial matches. Take a look at the examples above for a few examples. I'll be working on improving this very soon, but at this stage it does seem to be quite effective.
 
-To bring up the action bar, type in the default shortcut `CMD+SHIFT+8` and enter your search terms. After performing an action, you can repeat it by typing in the repeat command shortcut `CMD+OPTION+7`.
+To bring up the action bar, type in the default shortcut `CMD+SHIFT+8` and enter your search terms. After performing an action, you can repeat it by typing in the repeat command shortcut `CMD+ALT+7`.
 
 **UPDATED**:
 * You can now present/dismiss the acion bar by simply double pressing `CMD` quickly
-* You can now repeat the last executed action by simply double pressing `OPTION`
+* You can now repeat the last executed action by simply double pressing `ALT`
 
 The original shortcuts still work. I've also added a general configuration file `XCSurroundWithActions` which can be used to tweak these two shortcuts -- currently it only supports the following:
 
@@ -198,7 +198,7 @@ You can change this hotkey via the _Keyboard Shortcuts_ Panel in the System Pref
 
 Alternatively you can use (my preferred) shortcuts:
 * Double press the `CMD` key to present/dismiss the bar
-* Double press the `OPTION` key to repeat the last action
+* Double press the `ALT` key to repeat the last action
 
 These can also be customized but required a slightly more involved (but simple) process:
 * Find and open the file `XCActionBarConfiguration.plist` under the plugin installation folder (`Library/Application Support/Developer/Shared/Xcode/Plug-ins/XCActionBar.xcplugin/Contents/Resources`)
