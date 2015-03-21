@@ -34,15 +34,15 @@ Here's the executive summary in three simple examples:
 Example #1: Built in actions
 
 1. Place the carret on the line you'd like to move up
-2. Type `CMD+SHIFT+8`
+2. Double tap `CMD` or press `CMD+SHIFT+8`
 3. Type `m l u`
 4. Return
-5. Type `CMD+OPT+7` to repeat the last action as many times as you'd like (this works for any action)
+5. Double tap `OPT` or press `CMD+OPT+7` to repeat the last action as many times as you'd like (this works for any action)
 
 Example #2: Custom actions
 
 1. Select a block of text
-2. Type `CMD+SHIFT+8`
+2. Double tap `CMD` or press `CMD+SHIFT+8`
 3. Type `nsl`
 4. Return
 
@@ -52,7 +52,7 @@ Hint: type `surround` for a list of available "Surround Text With" actions
 Example #3: Code snippets
 
 1. Place the carret where you'd like to expand the snippet
-2. Type `CMD+SHIFT+8`
+2. Double tap `CMD` or press `CMD+SHIFT+8`
 3. Type `inline`
 4. Select `C inline block as variable`
 5. [fuckingblocksyntax.com](fuckingblocksyntax.com) suddenly becomes less necessary
