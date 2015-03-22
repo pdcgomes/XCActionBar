@@ -74,10 +74,11 @@ typedef BOOL (^PGCommandHandler)(void);
     self.searchField.focusRingType = NSFocusRingTypeNone;
     self.searchField.delegate      = self;
     self.searchField.nextResponder = self;
-    
-    self.searchResultsTable.rowSizeStyle            = NSTableViewRowSizeStyleCustom;
-    self.searchResultsTable.selectionHighlightStyle = NSTableViewSelectionHighlightStyleRegular;
-    self.searchResultsTable.rowHeight               = 50.0;
+    self.searchField.layer.borderColor = [[NSColor controlColor] CGColor];
+    self.searchField.layer.borderWidth = 1.0;
+    self.searchField.layer.backgroundColor = [[NSColor whiteColor] CGColor];
+    self.searchField.layer.cornerRadius = 3.0;
+    self.searchField.layer.masksToBounds = YES;
     
     self.searchResultsTable.target       = self;
     self.searchResultsTable.doubleAction = @selector(processDoubleClickOnSearchResult:);
@@ -244,6 +245,12 @@ typedef BOOL (^PGCommandHandler)(void);
     [self.lastExecutedAction executeWithContext:self.context];
 }
 
+- (IBAction)clearSearchField:(id)sender
+{
+    self.searchField.stringValue = @"";
+    [self clearSearchResults];
+}
+
 #pragma mark - Event Action Handlers
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -328,8 +335,8 @@ typedef BOOL (^PGCommandHandler)(void);
         [[self.searchResultsTable animator] setAlphaValue:1.0];
         
         self.searchResultsTable.hidden = NO;
-        self.searchResultsTableBottomConstraint.constant = 10.0;
-        self.searchResultsTableHeightConstraint.constant = 250.0;
+        self.searchResultsTableBottomConstraint.constant = 0.0;
+        self.searchResultsTableHeightConstraint.constant = 360.0;
         
         [self.searchField layoutSubtreeIfNeeded];
     }
