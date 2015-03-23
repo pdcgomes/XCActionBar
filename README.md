@@ -34,15 +34,15 @@ Here's the executive summary in three simple examples:
 Example #1: Built in actions
 
 1. Place the carret on the line you'd like to move up
-2. Type `CMD+SHIFT+8`
+2. Double tap `CMD` or press `CMD+SHIFT+8`
 3. Type `m l u`
 4. Return
-5. Type `CMD+OPT+7` to repeat the last action as many times as you'd like (this works for any action)
+5. Double tap `ALT` or press `CMD+ALT+7` to repeat the last action as many times as you'd like (this works for any action)
 
 Example #2: Custom actions
 
 1. Select a block of text
-2. Type `CMD+SHIFT+8`
+2. Double tap `CMD` or press `CMD+SHIFT+8`
 3. Type `nsl`
 4. Return
 
@@ -52,7 +52,7 @@ Hint: type `surround` for a list of available "Surround Text With" actions
 Example #3: Code snippets
 
 1. Place the carret where you'd like to expand the snippet
-2. Type `CMD+SHIFT+8`
+2. Double tap `CMD` or press `CMD+SHIFT+8`
 3. Type `inline`
 4. Select `C inline block as variable`
 5. [fuckingblocksyntax.com](fuckingblocksyntax.com) suddenly becomes less necessary
@@ -70,11 +70,11 @@ Action search currently operates on a few data sets:
 
 The current searching strategy is very simple and naive but does the job quite effectively. While it doesn't yet support fuzzy matching, it's quite flexible in how it handles partial matches. Take a look at the examples above for a few examples. I'll be working on improving this very soon, but at this stage it does seem to be quite effective.
 
-To bring up the action bar, type in the default shortcut `CMD+SHIFT+8` and enter your search terms. After performing an action, you can repeat it by typing in the repeat command shortcut `CMD+OPTION+7`.
+To bring up the action bar, type in the default shortcut `CMD+SHIFT+8` and enter your search terms. After performing an action, you can repeat it by typing in the repeat command shortcut `CMD+ALT+7`.
 
 **UPDATED**:
 * You can now present/dismiss the acion bar by simply double pressing `CMD` quickly
-* You can now repeat the last executed action by simply double pressing `OPTION`
+* You can now repeat the last executed action by simply double pressing `ALT`
 
 The original shortcuts still work. I've also added a general configuration file `XCSurroundWithActions` which can be used to tweak these two shortcuts -- currently it only supports the following:
 
@@ -129,7 +129,7 @@ There's also a very __meta__ action called `XCSurroundWithSnippetAction` that su
 * the snippet will only show up on the list if it contains at least one `<# Token #>` (otherwise we wouldn't know what would be the prefix/suffix)
 * the **first** `<# Token #>` is replaced by the selected block of text
 
-Similarly, you use `XCSurroundWithTextSnippetAction` to perform the same action as above, with the difference that it uses a text snippet from the pasteboard, meaning you can do ad-hoc surround operations without having to create a new snippet.
+Similarly, you use `XCSurroundWithTextSnippetAction` to perform the same action as above, with the difference that it uses a text snippet from the pasteboard, meaning you can do ad-hoc surround operations without having to create a new snippet. You can also apply the substitution per-selected line by using `XCSurroundLineWithTextSnippetAction`.
 
 Just type `surr` in the action bar to get a list of all available actions.
 
@@ -198,10 +198,10 @@ You can change this hotkey via the _Keyboard Shortcuts_ Panel in the System Pref
 
 Alternatively you can use (my preferred) shortcuts:
 * Double press the `CMD` key to present/dismiss the bar
-* Double press the `OPTION` key to repeat the last action
+* Double press the `ALT` key to repeat the last action
 
 These can also be customized but required a slightly more involved (but simple) process:
-* Find and open the file `XCActionBarConfiguration.plist` under the plugin installation folder (`Library/Application Support/Developer/Shared/Xcode/Plug-ins/XCActionBar.xcplugin/Contents/Resources`)
+* Find and open the file [`XCActionBarConfiguration.plist`](../blob/master/PGXcodeActionBrowser/Plugin/XCActionBarConfiguration.plist)`XCActionBarConfiguration.plist` under the plugin installation folder (`Library/Application Support/Developer/Shared/Xcode/Plug-ins/XCActionBar.xcplugin/Contents/Resources`)
 * Under the `Shortcuts` key you'll find `XCActionBarHotKey` and `XCRepeatLastActionHotKey`
 * Tweak the values to your preferences
 
