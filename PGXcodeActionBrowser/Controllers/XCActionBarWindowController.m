@@ -336,7 +336,12 @@ typedef BOOL (^PGCommandHandler)(void);
         
         self.searchResultsTable.hidden = NO;
         self.searchResultsTableBottomConstraint.constant = 0.0;
-        self.searchResultsTableHeightConstraint.constant = 360.0;
+
+        if (self.searchResults.count > 6) {
+            self.searchResultsTableHeightConstraint.animator.constant = (self.searchResultsTable.rowHeight * 6);
+        } else {
+            self.searchResultsTableHeightConstraint.animator.constant = (self.searchResultsTable.rowHeight * self.searchResults.count);
+        }
         
         [self.searchField layoutSubtreeIfNeeded];
     }
