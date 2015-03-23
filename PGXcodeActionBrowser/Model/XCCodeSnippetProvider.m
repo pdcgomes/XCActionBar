@@ -114,7 +114,11 @@
         action.enabled = YES;
         action.group   = [self actionGroupName];
         action.representedObject = snippet;
-        
+
+        NSBundle *IDEKItBundle = [NSBundle bundleWithIdentifier:@"com.apple.dt.IDEKit"];
+        NSImage *snippetIcon = [IDEKItBundle imageForResource:@"CS_System"];
+        action.icon = snippetIcon;
+
         [actions addObject:action];
         
         ////////////////////////////////////////////////////////////////////////////////

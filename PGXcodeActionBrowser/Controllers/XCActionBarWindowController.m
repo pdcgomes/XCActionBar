@@ -36,6 +36,7 @@ typedef BOOL (^PGCommandHandler)(void);
 @property (weak) IBOutlet NSLayoutConstraint *searchFieldBottomConstraint;
 @property (weak) IBOutlet NSLayoutConstraint *searchResultsTableHeightConstraint;
 @property (weak) IBOutlet NSLayoutConstraint *searchResultsTableBottomConstraint;
+@property (strong) XCSearchResultCell *prototypeResultCell;
 
 @property (nonatomic) NSArray *searchResults;
 
@@ -190,29 +191,46 @@ typedef BOOL (^PGCommandHandler)(void);
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
     XCSearchResultCell *cell = [tableView makeViewWithIdentifier:NSStringFromClass([XCSearchResultCell class]) owner:self];
-    
+    [self configureCell:cell forRow:row];
+    return cell;
+}
+
+- (void)configureCell:(XCSearchResultCell *)cell forRow:(NSUInteger)row
+{
     id<XCActionInterface> action = self.searchResults[row];
-    
+
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:TRSafeString(action.title)];
-    
+
     [title addAttribute:NSForegroundColorAttributeName
                   value:(action.enabled ? [NSColor blackColor] : [NSColor darkGrayColor])
                   range:NSMakeRange(0, title.length)];
-    
+
     for(NSValue *rangeValue in action.searchQueryMatchRanges) {
         [title addAttributes:@{NSBackgroundColorAttributeName:[NSColor colorWithCalibratedRed:1.000 green:1.000 blue:0.519 alpha:0.250],
                                NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
                                NSUnderlineColorAttributeName: [NSColor yellowColor]}
                        range:rangeValue.rangeValue];
     }
-    
+
     cell.textField.allowsEditingTextAttributes = YES;
-    
+
     cell.textField.attributedStringValue = title;
     cell.hintTextField.stringValue       = TRSafeString(action.hint);
     cell.subtitleTextField.stringValue   = TRSafeString(action.subtitle);
+    cell.iconImageView.image = action.icon;
+}
+
+- (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row
+{
+    if (self.prototypeResultCell == nil)
+    {
+        self.prototypeResultCell = [self.searchResultsTable makeViewWithIdentifier:NSStringFromClass([XCSearchResultCell class]) owner:self];
+    }
+
+    [self configureCell:self.prototypeResultCell forRow:row];
+    [self.prototypeResultCell layoutSubtreeIfNeeded];
     
-    return cell;
+    return self.prototypeResultCell.fittingSize.height;
 }
 
 #pragma mark - Public Methods
@@ -332,18 +350,16 @@ typedef BOOL (^PGCommandHandler)(void);
 - (void)resizeWindowToAccomodateSearchResults
 {
     if(TRCheckIsEmpty(self.searchResults) == NO) {
-        [[self.searchResultsTable animator] setAlphaValue:1.0];
-        
         self.searchResultsTable.hidden = NO;
         self.searchResultsTableBottomConstraint.constant = 0.0;
 
-        if (self.searchResults.count > 6) {
-            self.searchResultsTableHeightConstraint.animator.constant = (self.searchResultsTable.rowHeight * 6);
-        } else {
-            self.searchResultsTableHeightConstraint.animator.constant = (self.searchResultsTable.rowHeight * self.searchResults.count);
-        }
-        
-        [self.searchField layoutSubtreeIfNeeded];
+        [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+            context.duration = 0.26;
+            self.searchResultsTable.animator.alphaValue = 1.0;
+            self.searchResultsTableHeightConstraint.animator.constant = MIN(self.searchResultsTable.rowHeight * self.searchResults.count, self.searchResultsTable.rowHeight * 6);
+
+            [self.searchField layoutSubtreeIfNeeded];
+        } completionHandler:nil];
     }
     else [self restoreWindowSize];
 }
@@ -352,13 +368,18 @@ typedef BOOL (^PGCommandHandler)(void);
 ////////////////////////////////////////////////////////////////////////////////
 - (void)restoreWindowSize
 {
-    [[self.searchResultsTable animator] setAlphaValue:0.0];
-    
-    self.searchResultsTable.hidden = YES;
-    self.searchResultsTableBottomConstraint.constant = 0.0;
-    self.searchResultsTableHeightConstraint.constant = 0.0;
-    
-    [self.window.contentView layoutSubtreeIfNeeded];
+    [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+        context.duration = 0.16;
+        self.searchResultsTable.animator.alphaValue = 0.0;
+        self.searchResultsTableHeightConstraint.constant = 0.0;
+        [self.window.contentView layoutSubtreeIfNeeded];
+
+    } completionHandler:^{
+        self.searchResultsTableBottomConstraint.constant = 0.0;
+        self.searchResultsTable.hidden = YES;
+
+        [self.window.contentView layoutSubtreeIfNeeded];
+    }];
 }
 
 ////////////////////////////////////////////////////////////////////////////////

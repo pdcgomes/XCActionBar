@@ -14,5 +14,6 @@
 
 @property (strong) IBOutlet NSTextField *hintTextField;
 @property (strong) IBOutlet NSTextField *subtitleTextField;
+@property (strong) IBOutlet NSImageView *iconImageView;
 
 @end
