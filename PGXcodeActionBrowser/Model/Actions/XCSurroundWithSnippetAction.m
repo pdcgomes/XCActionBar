@@ -26,6 +26,7 @@
 @interface XCSurroundLineWithAction ()
 
 - (BOOL)surroundLineSelectionInContext:(id<XCIDEContext>)context withPrefix:(NSString *)prefix andSuffix:(NSString *)suffix;
+- (BOOL)surroundLineSelectionInContext:(id<XCIDEContext>)context withPrefix:(NSString *)prefix andSuffix:(NSString *)suffix trimLines:(BOOL)trimLines;
 
 @end
 
@@ -177,7 +178,7 @@
         return NO;
     }
     
-    return [self surroundLineSelectionInContext:context withPrefix:prefix andSuffix:suffix];
+    return [self surroundLineSelectionInContext:context withPrefix:prefix andSuffix:suffix trimLines:YES];
 }
 
 @end
