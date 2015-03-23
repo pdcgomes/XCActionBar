@@ -256,6 +256,7 @@ static XCActionBar *sharedPlugin;
                                     [[XCDeleteLineAction alloc] init],
                                     [[XCDuplicateLineAction alloc] init],
                                     
+                                    [[XCSaveSelectionAction alloc] init],
                                     // Sort Selection
                                     [[XCSortSelectionAction alloc] initWithSortOrder:NSOrderedAscending],
                                     [[XCSortSelectionAction alloc] initWithSortOrder:NSOrderedDescending],
