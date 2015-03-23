@@ -136,7 +136,14 @@
                           XCSurroundWithActionSummaryKey:    @"Surrounds selection with pasteboard \"Prefix <# token #> suffix\"",
                           XCSurroundWithActionPrefixKey:     @"",
                           XCSurroundWithActionSuffixKey:     @""}]];
-    
+
+    [actions addObject:[[XCSurroundLineWithTextSnippetAction alloc] initWithSpec:
+                        @{XCSurroundWithActionIdentifierKey: @"SurroundLinesWithPasteboardSnippetAction[%@]",
+                          XCSurroundWithActionTitleKey:      @"Surround lines with pasteboard snippet",
+                          XCSurroundWithActionSummaryKey:    @"Surrounds lines with pasteboard \"Prefix <# token #> suffix\"",
+                          XCSurroundWithActionPrefixKey:     @"",
+                          XCSurroundWithActionSuffixKey:     @""}]];
+
     self.actions = [NSArray arrayWithArray:actions];
 }
 

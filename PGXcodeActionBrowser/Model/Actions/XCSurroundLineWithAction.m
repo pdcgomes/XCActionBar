@@ -45,6 +45,15 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)executeWithContext:(id<XCIDEContext>)context
 {
+    return [self surroundLineSelectionInContext:context withPrefix:self.prefix andSuffix:self.suffix];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// REVIEW: this is currently adding the prefix/suffix including existing leading/trailing whitespace
+//         it's almost definitely not what we want, so we should probably trim each line and re-indent them when done
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)surroundLineSelectionInContext:(id<XCIDEContext>)context withPrefix:(NSString *)prefix andSuffix:(NSString *)suffix
+{
     NSTextView *textView = context.sourceCodeTextView;
     
     NSRange rangeForSelectedText  = [context retrieveTextSelectionRange];
@@ -56,9 +65,9 @@
     NSMutableString *replacementString = [[NSMutableString alloc] init];
     
     for(NSString *line in lineComponents) {
-        [replacementString appendString:self.prefix];
+        [replacementString appendString:prefix];
         [replacementString appendString:line];
-        [replacementString appendString:self.suffix];
+        [replacementString appendString:suffix];
         [replacementString appendString:@"\n"];
     }
     
@@ -70,6 +79,9 @@
     
     [context.sourceCodeDocument.textStorage replaceCharactersInRange:rangeForSelectedText
                                                           withString:replacementString];
+    
+    [context.sourceCodeDocument.textStorage indentCharacterRange:rangeForSelectedText
+                                                     undoManager:context.sourceCodeDocument.undoManager];
     
     [textView.textStorage endEditing];
     

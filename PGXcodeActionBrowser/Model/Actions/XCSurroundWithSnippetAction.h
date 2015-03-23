@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Pedro Gomes. All rights reserved.
 //
 
+#import "XCSurroundLineWithAction.h"
 #import "XCSurroundWithAction.h"
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -29,3 +30,14 @@
 - (instancetype)initWithSpec:(NSDictionary *)spec;
 
 @end
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+@interface XCSurroundLineWithTextSnippetAction : XCSurroundLineWithAction
+
++ (BOOL)checkTextSnippetCompatibility:(NSString *)snippet;
+
+- (instancetype)initWithSpec:(NSDictionary *)spec;
+
+@end
+
