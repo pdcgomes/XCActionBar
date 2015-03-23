@@ -49,10 +49,15 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// REVIEW: this is currently adding the prefix/suffix including existing leading/trailing whitespace
-//         it's almost definitely not what we want, so we should probably trim each line and re-indent them when done
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)surroundLineSelectionInContext:(id<XCIDEContext>)context withPrefix:(NSString *)prefix andSuffix:(NSString *)suffix
+{
+    return [self surroundLineSelectionInContext:context withPrefix:prefix andSuffix:suffix trimLines:NO];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)surroundLineSelectionInContext:(id<XCIDEContext>)context withPrefix:(NSString *)prefix andSuffix:(NSString *)suffix trimLines:(BOOL)trimLines
 {
     NSTextView *textView = context.sourceCodeTextView;
     
@@ -62,14 +67,15 @@
     NSMutableArray *lineComponents = [[textView.string substringWithRange:lineRangeForSelection] componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]].mutableCopy;
     [lineComponents removeLastObject];
     
+    NSCharacterSet *characterSet = trimLines ? [NSCharacterSet whitespaceCharacterSet] : nil;
     NSMutableString *replacementString = [[NSMutableString alloc] init];
-    
-    for(NSString *line in lineComponents) {
+
+    for(NSString *line in lineComponents) { @autoreleasepool {
         [replacementString appendString:prefix];
-        [replacementString appendString:line];
+        [replacementString appendString:(trimLines ? [line stringByTrimmingCharactersInSet:characterSet] : line)];
         [replacementString appendString:suffix];
         [replacementString appendString:@"\n"];
-    }
+    }}
     
     if([textView shouldChangeTextInRange:rangeForSelectedText replacementString:replacementString] == NO) {
         return NO;
