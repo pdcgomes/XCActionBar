@@ -129,7 +129,7 @@ There's also a very __meta__ action called `XCSurroundWithSnippetAction` that su
 * the snippet will only show up on the list if it contains at least one `<# Token #>` (otherwise we wouldn't know what would be the prefix/suffix)
 * the **first** `<# Token #>` is replaced by the selected block of text
 
-Similarly, you use `XCSurroundWithTextSnippetAction` to perform the same action as above, with the difference that it uses a text snippet from the pasteboard, meaning you can do ad-hoc surround operations without having to create a new snippet.
+Similarly, you use `XCSurroundWithTextSnippetAction` to perform the same action as above, with the difference that it uses a text snippet from the pasteboard, meaning you can do ad-hoc surround operations without having to create a new snippet. You can also apply the substitution per-selected line by using `XCSurroundLineWithTextSnippetAction`.
 
 Just type `surr` in the action bar to get a list of all available actions.
 
@@ -201,7 +201,7 @@ Alternatively you can use (my preferred) shortcuts:
 * Double press the `ALT` key to repeat the last action
 
 These can also be customized but required a slightly more involved (but simple) process:
-* Find and open the file `XCActionBarConfiguration.plist` under the plugin installation folder (`Library/Application Support/Developer/Shared/Xcode/Plug-ins/XCActionBar.xcplugin/Contents/Resources`)
+* Find and open the file [`XCActionBarConfiguration.plist`](../blob/master/PGXcodeActionBrowser/Plugin/XCActionBarConfiguration.plist)`XCActionBarConfiguration.plist` under the plugin installation folder (`Library/Application Support/Developer/Shared/Xcode/Plug-ins/XCActionBar.xcplugin/Contents/Resources`)
 * Under the `Shortcuts` key you'll find `XCActionBarHotKey` and `XCRepeatLastActionHotKey`
 * Tweak the values to your preferences
 
