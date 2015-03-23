@@ -26,7 +26,15 @@
 @property (nonatomic, strong) id representedObject;
 @property (nonatomic, strong) NSArray *searchQueryMatchRanges; // REVIEW:  this elsewhere
 
-- (BOOL)execute;
 - (BOOL)executeWithContext:(id<XCIDEContext>)context;
+- (BOOL)executeWithContext:(id<XCIDEContext>)context arguments:(NSArray *)arguments;
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Arguments
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)acceptsArguments;
+
+- (NSUInteger)requiredArgumentCount;
 
 @end
