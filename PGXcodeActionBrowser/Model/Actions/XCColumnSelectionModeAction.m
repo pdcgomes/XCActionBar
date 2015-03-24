@@ -8,6 +8,7 @@
 
 #import "XCColumnSelectionModeAction.h"
 
+#import "XCInputValidation.h"
 #import "XCIDEContext.h"
 #import "XCIDEHelper.h"
 
@@ -86,6 +87,13 @@
     return self.textViewDelegate;
 }
 
+typedef NS_ENUM(NSUInteger, XCTextSelectionType) {
+    XCTextSelectionTypeColumn   = 1 << 0,
+    XCTextSelectionTypeRow      = 1 << 1,
+    XCTextSelectionTypeExpand   = 1 << 2,
+    XCTextSelectionTypeContract = 1 << 3
+};
+
 //1/////////////////////////////////////////////////////////////////////////////
 //2/////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -95,8 +103,35 @@
     NSLog(@"<oldRanges=%@>, <newRanges=%@>", oldSelectedCharRanges, newSelectedCharRanges);
 
     // FIXME: only supporting downstream selections for now, but shouldn't be to hard to support upstream
-    NSRange newSelectedCharRange = [newSelectedCharRanges.lastObject rangeValue];
-//
+//    NSRange newSelectedCharRange = [newSelectedCharRanges.lastObject rangeValue];
+////
+//    NSString *fullText = textView.string;
+//    NSString *textEnclosedBySelection = [fullText substringWithRange:newSelectedCharRange];
+//    
+//    __block NSUInteger lineCount = 0;
+//    [textEnclosedBySelection enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
+//        lineCount++;
+//    }];
+//    
+//    NSLog(@"<lines=%zd>", lineCount);
+    
+    XCTextSelectionType selectionType = [self detectSelectionChangeTypeInTextView:textView fromCharacterRanges:oldSelectedCharRanges toCharacterRanges:newSelectedCharRanges];
+
+    if(XCCheckOption(selectionType, XCTextSelectionTypeRow)) {
+        return [self processRowSelectionForTextView:textView
+                                fromCharacterRanges:oldSelectedCharRanges
+                                  toCharacterRanges:newSelectedCharRanges];
+    }
+    return [self processColumnSelectionForTextView:textView
+                               fromCharacterRanges:oldSelectedCharRanges
+                                 toCharacterRanges:newSelectedCharRanges];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (XCTextSelectionType)detectSelectionChangeTypeInTextView:(NSTextView *)textView fromCharacterRanges:(NSArray *)oldSelectedCharRanges toCharacterRanges:(NSArray *)toSelectedCharRanges
+{
+    NSRange newSelectedCharRange = [toSelectedCharRanges.lastObject rangeValue];
     NSString *fullText = textView.string;
     NSString *textEnclosedBySelection = [fullText substringWithRange:newSelectedCharRange];
     
@@ -104,43 +139,67 @@
     [textEnclosedBySelection enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
         lineCount++;
     }];
-    
+
     NSLog(@"<lines=%zd>", lineCount);
     
-    if(lineCount < 2) return newSelectedCharRanges;
-
-    NSRange firstLineSelection    = [oldSelectedCharRanges.lastObject rangeValue];
-    NSRange lineRangeForSelection = [fullText lineRangeForRange:firstLineSelection];
-    NSArray *lineComponents       = [[fullText substringWithRange:lineRangeForSelection] componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-    NSUInteger firstLineLength    = [lineComponents.firstObject length];
-    
-    NSUInteger lineStart;
-    NSUInteger lineEnd;
-    NSUInteger contentsEnd;
-    
-    [fullText getLineStart:&lineStart end:&lineEnd contentsEnd:&contentsEnd forRange:newSelectedCharRange];
-    
-    NSUInteger leadingOffset = (firstLineSelection.location - lineRangeForSelection.location);
-    NSUInteger nextLineStart = (lineStart +  firstLineLength + 1);
-    
-    // FIXME: account for prior zero length selection
-    NSRange nextLineColSelection = NSMakeRange(nextLineStart + leadingOffset, firstLineSelection.length);
-
-    NSMutableArray *columnSelectionRanges = newSelectedCharRanges.mutableCopy;
-    [columnSelectionRanges removeLastObject];
-    
-    [columnSelectionRanges addObject:[NSValue valueWithRange:firstLineSelection]];
-    [columnSelectionRanges addObject:[NSValue valueWithRange:nextLineColSelection]];
-
-    return columnSelectionRanges;
+    return (lineCount > 1 ?
+            XCTextSelectionTypeRow : 
+            XCTextSelectionTypeColumn);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (NSRange)textView:(NSTextView *)textView willChangeSelectionFromCharacterRange:(NSRange)oldSelectedCharRange toCharacterRange:(NSRange)newSelectedCharRange
+- (NSArray *)processColumnSelectionForTextView:(NSTextView *)textView fromCharacterRanges:(NSArray *)oldSelectedCharRanges toCharacterRanges:(NSArray *)toSelectedCharRanges
 {
+    return toSelectedCharRanges;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (NSArray *)processRowSelectionForTextView:(NSTextView *)textView fromCharacterRanges:(NSArray *)oldSelectedCharRanges toCharacterRanges:(NSArray *)toSelectedCharRanges
+{
+    NSString *fullText = textView.string;
     
-    return newSelectedCharRange;
+
+    NSRange newSelectedCharRange = [toSelectedCharRanges.lastObject rangeValue];
+
+    if(oldSelectedCharRanges.count > 1) {
+        NSRange lastRange = [oldSelectedCharRanges.lastObject rangeValue];
+        newSelectedCharRange.location = lastRange.location;
+    }
+    
+    NSRange referenceLineRange    = [oldSelectedCharRanges.lastObject rangeValue];
+    NSRange lineRangeForSelection = [fullText lineRangeForRange:referenceLineRange];
+    
+    NSUInteger lineStart;
+    NSUInteger lineEnd;
+    
+    [fullText getLineStart:&lineStart end:&lineEnd contentsEnd:NULL forRange:newSelectedCharRange];
+
+    NSUInteger leadingOffset   = (referenceLineRange.location - lineRangeForSelection.location);
+//    NSUInteger nextLineStart   = (lineStart + firstLineLength + 1) * (oldSelectedCharRanges.count);
+    NSUInteger selectionWidth  = (referenceLineRange.length);
+
+    NSRange dummyRangeForLastLine = (NSRange){
+        .location = (newSelectedCharRange.location + newSelectedCharRange.length - 1),
+        .length = 1
+    };
+    NSRange rangeForLastLine = [fullText lineRangeForRange:dummyRangeForLastLine];
+    
+    NSRange nextLineColSelection = NSMakeRange(rangeForLastLine.location + leadingOffset, selectionWidth);
+    
+    // FIXME: account for prior zero length selection
+//    NSRange nextLineColSelection = NSMakeRange(nextLineStart + leadingOffset, firstLineSelection.length);
+    
+    NSMutableArray *columnSelectionRanges = oldSelectedCharRanges.mutableCopy;
+    if(oldSelectedCharRanges.count == 1) {
+        [columnSelectionRanges removeLastObject];
+        [columnSelectionRanges addObject:[NSValue valueWithRange:referenceLineRange]];
+    }
+    [columnSelectionRanges addObject:[NSValue valueWithRange:nextLineColSelection]];
+    
+    return columnSelectionRanges;
+    
 }
 
 @end
