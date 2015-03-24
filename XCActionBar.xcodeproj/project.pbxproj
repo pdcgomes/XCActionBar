@@ -189,6 +189,8 @@
 			children = (
 				423986F91AC0DEB300559D29 /* XCTextSelectionStorage.h */,
 				423986FA1AC0DEB300559D29 /* XCTextSelectionStorage.m */,
+				42A360BA1AC05FC00027B223 /* XCTextSnippetHelper.h */,
+				42A360BB1AC05FC00027B223 /* XCTextSnippetHelper.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -234,8 +236,6 @@
 				424504AC1ABC50940054DC61 /* XCOpenActiveDocumentPathInTerminalAction.m */,
 				425500EB1ABC594D0029C533 /* XCCopyActiveDocumentDirectoryAction.h */,
 				425500EC1ABC594D0029C533 /* XCCopyActiveDocumentDirectoryAction.m */,
-				42A360BA1AC05FC00027B223 /* XCTextSnippetHelper.h */,
-				42A360BB1AC05FC00027B223 /* XCTextSnippetHelper.m */,
 			);
 			name = "File Operations";
 			sourceTree = "<group>";
