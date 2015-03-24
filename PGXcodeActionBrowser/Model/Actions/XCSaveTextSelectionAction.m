@@ -135,7 +135,7 @@
     ////////////////////////////////////////////////////////////////////////////////
     [self.textSelectionStorage saveSelection:updatedSavedSelections.copy withIdentifier:documentIdentifier];
 
-    [textView setSelectedRanges:updatedSavedSelections affinity:NSSelectionAffinityDownstream stillSelecting:YES];
+//    [textView setSelectedRanges:updatedSavedSelections affinity:NSSelectionAffinityDownstream stillSelecting:YES];
     
     return YES;
 }
