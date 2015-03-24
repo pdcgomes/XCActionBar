@@ -18,6 +18,8 @@ Built-in __Add Prefix to Line(s)__ and __Add Suffix to Line(s)__ demo:
 Built-in __Surround With NSNumber Literal__ and __Surround With NSString Literal__ demo:
 ![image](demo3.gif)
 
+For more demos, please check out this [page](https://github.com/pdcgomes/XCActionBar/wiki/Demos), we'll be updating it over time.
+
 ###Motivation:
 
 I always try to accomplish as much as I possibly can without ever moving my hands away from the keyboard, there's simply no other means of input that feels quite as natural or efficient.
@@ -105,6 +107,15 @@ As mentioned above, the plugin comes bundled with a few custom actions. Followin
 * `XCTrimWhitespaceAction` trims whitespace for each selected line (supports leading; trailing or both)
 
 * `XCOpenActiveDocumentPathInTerminalAction` opens the active document's directory in the terminal app (currently supports `iTerm.app` and `Terminal.app` but more can be added in `XCActionBarConfiguration.plist` under `XCSupportedTerminalApplications`
+
+There are also a few actions that deal with text selections:
+
+* `XCSaveTextSelection`
+* `XCLoadTextSelection`
+* `XCClearTextSelection`
+
+These allow you to select non-contiguous text selections using only your keyboard by selecting a chunk of text (as you would), but with the difference that you can then `save` the selection -- this will mark the text in orange (color will be customizable soon), you can then proceed and make additional selections. When you're done, just `load selection` which will cause the marked text to be fully selected. You can then apply any text action as you would for normal selections.
+Two more things: at the time of writing, the marked text will not automatically _unmark_ itself, so you need to `clear selection`. Also, you can undo marking/unmarking of the text, which is pretty cool.
 
 I've bundled a few `XCSurroundLineWithAction` and `XCSurroundWithAction`S:
 
