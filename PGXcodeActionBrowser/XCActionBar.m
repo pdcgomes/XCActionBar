@@ -21,6 +21,7 @@
 #import "XCCustomActionProvider.h"
 
 #import "XCActions.h"
+#import "XCTextSelectionStorage.h"
 
 #import "XCActionBarWindowController.h"
 
@@ -247,6 +248,8 @@ static XCActionBar *sharedPlugin;
     // Built-in Actions
     // TODO: build menu items for custom actions and bind them to the provider
     ////////////////////////////////////////////////////////////////////////////////
+    XCTextSelectionStorage *textSelectionStorage = [[XCTextSelectionStorage alloc] init];
+    
     NSMutableArray *textActions = @[
                                     // Prefix/Suffix
                                     [[XCAddPrefixToLinesAction alloc] init],
@@ -256,7 +259,9 @@ static XCActionBar *sharedPlugin;
                                     [[XCDeleteLineAction alloc] init],
                                     [[XCDuplicateLineAction alloc] init],
                                     
-                                    [[XCSaveSelectionAction alloc] init],
+                                    [[XCSaveSelectionAction alloc] initWithTextSelectionStorage:textSelectionStorage],
+                                    [[XCLoadSelectionAction alloc] initWithTextSelectionStorage:textSelectionStorage],
+                                    [[XCClearSelectionAction alloc] initWithTextSelectionStorage:textSelectionStorage],
                                     // Sort Selection
                                     [[XCSortSelectionAction alloc] initWithSortOrder:NSOrderedAscending],
                                     [[XCSortSelectionAction alloc] initWithSortOrder:NSOrderedDescending],

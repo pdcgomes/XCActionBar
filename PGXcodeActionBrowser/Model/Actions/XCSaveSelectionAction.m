@@ -7,6 +7,7 @@
 //
 
 #import "XCSaveSelectionAction.h"
+#import "XCTextSelectionStorage.h"
 
 #import "XCIDEContext.h"
 #import "XCIDEHelper.h"
@@ -14,9 +15,26 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@interface XCSaveSelectionAction ()
+@interface XCTextSelectionAction ()
 
-@property (nonatomic) NSMutableArray *savedSelections;
+@property (nonatomic) id<XCTextSelectionStorage> textSelectionStorage;
+
+@end
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+@implementation XCTextSelectionAction
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (instancetype)initWithTextSelectionStorage:(id<XCTextSelectionStorage>)textSelectionStorage
+{
+    if((self = [super init])) {
+        self.textSelectionStorage = textSelectionStorage;
+        self.enabled = YES;
+    }
+    return self;
+}
 
 @end
 
@@ -26,13 +44,11 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (instancetype)init
+- (instancetype)initWithTextSelectionStorage:(id<XCTextSelectionStorage>)textSelectionStorage
 {
-    if((self = [super init])) {
+    if((self = [super initWithTextSelectionStorage:textSelectionStorage])) {
         self.title           = NSLocalizedString(@"Save selection", @"");
         self.subtitle        = NSLocalizedString(@"Save non-contiguous blocks of selected text", @"");
-        self.enabled         = YES;
-        self.savedSelections = [NSMutableArray array];
     }
     return self;
 }
@@ -59,15 +75,23 @@
         [selectedTextBlocks addObject:selectedText];
     }
 
-    [self.savedSelections addObjectsFromArray:selectedTextRanges];
-    [self.savedSelections sortUsingComparator:^NSComparisonResult(NSValue *r1, NSValue *r2) {
+    ////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
+    NSString *documentIdentifier = [[context.sourceCodeDocument fileURL] absoluteString];
+
+    NSMutableArray *savedSelections = [self.textSelectionStorage loadSelectionWithIdentifier:documentIdentifier].mutableCopy;
+    
+    [savedSelections addObjectsFromArray:selectedTextRanges];
+    [savedSelections sortUsingComparator:^NSComparisonResult(NSValue *r1, NSValue *r2) {
         if(r1.rangeValue.location < r2.rangeValue.location) return NSOrderedAscending;
         if(r1.rangeValue.location > r2.rangeValue.location) return NSOrderedDescending;
         return NSOrderedSame;
     }];
-    [self mergeOverlappingRanges:self.savedSelections];
+    [self mergeOverlappingRanges:savedSelections];
+    
+    [self.textSelectionStorage saveSelection:savedSelections.copy withIdentifier:documentIdentifier];
 
-    [textView setSelectedRanges:self.savedSelections affinity:NSSelectionAffinityDownstream stillSelecting:YES];
+    [textView setSelectedRanges:savedSelections affinity:NSSelectionAffinityDownstream stillSelecting:YES];
     
     return YES;
 }
@@ -89,6 +113,82 @@
             [ranges removeObjectAtIndex:cursor];
         }
     }
+}
+
+@end
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+@implementation XCLoadSelectionAction
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (instancetype)initWithTextSelectionStorage:(id<XCTextSelectionStorage>)textSelectionStorage
+{
+    if((self = [super initWithTextSelectionStorage:textSelectionStorage])) {
+        self.title           = NSLocalizedString(@"Load selection", @"");
+        self.subtitle        = NSLocalizedString(@"Loads saved selection (marked text)", @"");
+    }
+    return self;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)executeWithContext:(id<XCIDEContext>)context
+{
+    NSTextView *textView        = context.sourceCodeTextView;
+    NSTextStorage *textStorage  = textView.textStorage;
+    
+    ////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
+    NSString *documentIdentifier = [[context.sourceCodeDocument fileURL] absoluteString];
+    
+    NSMutableArray *savedSelections = [self.textSelectionStorage loadSelectionWithIdentifier:documentIdentifier].mutableCopy;
+    
+    [textView setSelectedRanges:savedSelections affinity:NSSelectionAffinityDownstream stillSelecting:YES];
+    
+    return YES;
+}
+
+@end
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+@implementation XCClearSelectionAction
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (instancetype)initWithTextSelectionStorage:(id<XCTextSelectionStorage>)textSelectionStorage
+{
+    if((self = [super initWithTextSelectionStorage:textSelectionStorage])) {
+        self.title           = NSLocalizedString(@"Clear selection", @"");
+        self.subtitle        = NSLocalizedString(@"Clear the saved selection (marked text)", @"");
+    }
+    return self;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)executeWithContext:(id<XCIDEContext>)context
+{
+    NSTextView *textView        = context.sourceCodeTextView;
+    NSTextStorage *textStorage  = textView.textStorage;
+    
+    ////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
+    NSString *documentIdentifier = [[context.sourceCodeDocument fileURL] absoluteString];
+    
+    NSMutableArray *savedSelections = [self.textSelectionStorage loadSelectionWithIdentifier:documentIdentifier].mutableCopy;
+    
+    for(NSValue *selectedTextRangeValue in savedSelections) {
+        NSRange selectedTextRange = [selectedTextRangeValue rangeValue];
+
+        [textStorage removeAttribute:NSBackgroundColorAttributeName range:selectedTextRange];
+    }
+
+    [self.textSelectionStorage deleteSelectionWithIdentifier:documentIdentifier];
+    
+    return YES;
 }
 
 @end
