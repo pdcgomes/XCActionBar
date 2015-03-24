@@ -13,11 +13,15 @@
 #import "XCIDEHelper.h"
 #import "XCInputValidation.h"
 
+#define XCSavedSelectionTextColor() ([[NSColor orangeColor] colorWithAlphaComponent:0.3])
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @interface XCTextSelectionAction ()
 
 @property (nonatomic) id<XCTextSelectionStorage> textSelectionStorage;
+
+- (void)undoAction:(NSDictionary *)info;
 
 @end
 
@@ -34,6 +38,32 @@
         self.enabled = YES;
     }
     return self;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)undoAction:(NSDictionary *)info
+{
+    NSTextView *textView         = info[@"TextView"];
+    NSString *documentIdentifier = info[@"DocumentIdentifier"];
+    NSArray *oldSelectionRanges  = info[@"OldSelectionRanges"];
+    NSArray *newSelectionRanges  = info[@"NewSelectionRanges"];
+    
+    NSTextStorage *textStorage = textView.textStorage;
+    
+    for(NSValue *newRangeValue in newSelectionRanges) {
+        NSRange newRange = [newRangeValue rangeValue];
+        [textStorage removeAttribute:NSBackgroundColorAttributeName range:newRange];
+    }
+    for(NSValue *oldRangeValue in oldSelectionRanges) {
+        NSRange oldRange = [oldRangeValue rangeValue];
+        
+        [textStorage addAttribute:NSBackgroundColorAttributeName
+                            value:XCSavedSelectionTextColor()
+                            range:oldRange];
+    }
+    
+    [self.textSelectionStorage saveSelection:oldSelectionRanges withIdentifier:documentIdentifier];
 }
 
 @end
@@ -57,7 +87,6 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-#define XCSavedSelectionTextColor() ([[NSColor orangeColor] colorWithAlphaComponent:0.3])
 - (BOOL)executeWithContext:(id<XCIDEContext>)context
 {
     NSTextView *textView        = context.sourceCodeTextView;
@@ -81,19 +110,32 @@
     ////////////////////////////////////////////////////////////////////////////////
     NSString *documentIdentifier = [[context.sourceCodeDocument fileURL] absoluteString];
 
-    NSMutableArray *savedSelections = [self.textSelectionStorage loadSelectionWithIdentifier:documentIdentifier].mutableCopy;
+    NSArray *savedSelections = [self.textSelectionStorage loadSelectionWithIdentifier:documentIdentifier];
+    NSMutableArray *updatedSavedSelections = savedSelections.mutableCopy;
     
-    [savedSelections addObjectsFromArray:selectedTextRanges];
-    [savedSelections sortUsingComparator:^NSComparisonResult(NSValue *r1, NSValue *r2) {
+    [updatedSavedSelections addObjectsFromArray:selectedTextRanges];
+    [updatedSavedSelections sortUsingComparator:^NSComparisonResult(NSValue *r1, NSValue *r2) {
         if(r1.rangeValue.location < r2.rangeValue.location) return NSOrderedAscending;
         if(r1.rangeValue.location > r2.rangeValue.location) return NSOrderedDescending;
         return NSOrderedSame;
     }];
-    [self mergeOverlappingRanges:savedSelections];
+    [self mergeOverlappingRanges:updatedSavedSelections];
     
-    [self.textSelectionStorage saveSelection:savedSelections.copy withIdentifier:documentIdentifier];
+    ////////////////////////////////////////////////////////////////////////////////
+    // Undo support
+    ////////////////////////////////////////////////////////////////////////////////
+    NSUndoManager *undo = textView.undoManager;
+    [undo registerUndoWithTarget:self selector:@selector(undoAction:) object:@{@"TextView": textView,
+                                                                               @"DocumentIdentifier": documentIdentifier,
+                                                                               @"OldSelectionRanges": savedSelections,
+                                                                               @"NewSelectionRanges": updatedSavedSelections}];
 
-    [textView setSelectedRanges:savedSelections affinity:NSSelectionAffinityDownstream stillSelecting:YES];
+    ////////////////////////////////////////////////////////////////////////////////
+    // Save selection
+    ////////////////////////////////////////////////////////////////////////////////
+    [self.textSelectionStorage saveSelection:updatedSavedSelections.copy withIdentifier:documentIdentifier];
+
+    [textView setSelectedRanges:updatedSavedSelections affinity:NSSelectionAffinityDownstream stillSelecting:YES];
     
     return YES;
 }
@@ -140,7 +182,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)executeWithContext:(id<XCIDEContext>)context
 {
-    NSTextView *textView        = context.sourceCodeTextView;
+    NSTextView *textView = context.sourceCodeTextView;
     
     ////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////
@@ -184,13 +226,22 @@
     ////////////////////////////////////////////////////////////////////////////////
     NSString *documentIdentifier = [[context.sourceCodeDocument fileURL] absoluteString];
     
-    NSMutableArray *savedSelections = [self.textSelectionStorage loadSelectionWithIdentifier:documentIdentifier].mutableCopy;
+    NSArray *savedSelections = [self.textSelectionStorage loadSelectionWithIdentifier:documentIdentifier];
     
     for(NSValue *selectedTextRangeValue in savedSelections) {
         NSRange selectedTextRange = [selectedTextRangeValue rangeValue];
 
         [textStorage removeAttribute:NSBackgroundColorAttributeName range:selectedTextRange];
     }
+
+    ////////////////////////////////////////////////////////////////////////////////
+    // Undo support
+    ////////////////////////////////////////////////////////////////////////////////
+    NSUndoManager *undo = textView.undoManager;
+    [undo registerUndoWithTarget:self selector:@selector(undoAction:) object:@{@"TextView": textView,
+                                                                               @"DocumentIdentifier": documentIdentifier,
+                                                                               @"OldSelectionRanges": savedSelections,
+                                                                               @"NewSelectionRanges": @[]}];
 
     [self.textSelectionStorage deleteSelectionWithIdentifier:documentIdentifier];
     
