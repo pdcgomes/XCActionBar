@@ -259,9 +259,9 @@ static XCActionBar *sharedPlugin;
                                     [[XCDeleteLineAction alloc] init],
                                     [[XCDuplicateLineAction alloc] init],
                                     
-                                    [[XCSaveSelectionAction alloc] initWithTextSelectionStorage:textSelectionStorage],
-                                    [[XCLoadSelectionAction alloc] initWithTextSelectionStorage:textSelectionStorage],
-                                    [[XCClearSelectionAction alloc] initWithTextSelectionStorage:textSelectionStorage],
+                                    [[XCSaveTextSelectionAction alloc] initWithTextSelectionStorage:textSelectionStorage],
+                                    [[XCLoadTextSelectionAction alloc] initWithTextSelectionStorage:textSelectionStorage],
+                                    [[XCClearTextSelectionAction alloc] initWithTextSelectionStorage:textSelectionStorage],
                                     // Sort Selection
                                     [[XCSortSelectionAction alloc] initWithSortOrder:NSOrderedAscending],
                                     [[XCSortSelectionAction alloc] initWithSortOrder:NSOrderedDescending],

@@ -15,7 +15,7 @@
 #import "XCDeleteBlankLinesAction.h"
 #import "XCDuplicateLineAction.h"
 #import "XCOpenActiveDocumentPathInTerminalAction.h"
-#import "XCSaveSelectionAction.h"
+#import "XCSaveTextSelectionAction.h"
 #import "XCSortContentsAction.h"
 #import "XCSortContentsAction.h"
 #import "XCSortSelectionAction.h"
