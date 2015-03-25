@@ -14,13 +14,33 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+typedef NS_ENUM(NSUInteger, XCTextSelectionCursorMode) {
+    XCTextSelectionCursorModeColumn = 0,
+    XCTextSelectionCursorModeRow,
+    XCTextSelectionCursorModeUndefined,
+};
+
+typedef NS_ENUM(NSUInteger, XCTextSelectionResizingMode) {
+    XCTextSelectionResizingModeExpanding   = 0,
+    XCTextSelectionResizingModeContracting,
+    XCTextSelectionResizingModeUndefined,
+};
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 @interface XCColumnSelectionModeAction () <NSTextViewDelegate>
 
 @property (nonatomic, strong) NSColor *insertionPointColor;
-@property (nonatomic, assign) BOOL columnSelectionEnabled;
-@property (nonatomic,   weak) id textViewDelegate;
+@property (nonatomic, assign) BOOL    columnSelectionEnabled;
+@property (nonatomic,   weak) id      textViewDelegate;
+
+//@property (nonatomic) NSMutableDictionary *selectionTypeByTextView;
+// FIXME: need to support this per text view
+@property (nonatomic, readwrite) XCTextSelectionCursorMode   cursorMode;
+@property (nonatomic, readwrite) XCTextSelectionResizingMode resizingMode;
 
 @end
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @implementation XCColumnSelectionModeAction
@@ -43,6 +63,8 @@
 {
     NSTextView *textView = context.sourceCodeTextView;
 
+    self.cursorMode             = XCTextSelectionCursorModeUndefined;
+    self.resizingMode           = XCTextSelectionResizingModeUndefined;
     self.columnSelectionEnabled = !self.columnSelectionEnabled;
     
     if(self.columnSelectionEnabled == NO) {
@@ -87,13 +109,6 @@
     return self.textViewDelegate;
 }
 
-typedef NS_ENUM(NSUInteger, XCTextSelectionType) {
-    XCTextSelectionTypeColumn   = 1 << 0,
-    XCTextSelectionTypeRow      = 1 << 1,
-    XCTextSelectionTypeExpand   = 1 << 2,
-    XCTextSelectionTypeContract = 1 << 3
-};
-
 //1/////////////////////////////////////////////////////////////////////////////
 //2/////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -102,22 +117,14 @@ typedef NS_ENUM(NSUInteger, XCTextSelectionType) {
 {
     NSLog(@"<oldRanges=%@>, <newRanges=%@>", oldSelectedCharRanges, newSelectedCharRanges);
 
-    // FIXME: only supporting downstream selections for now, but shouldn't be to hard to support upstream
-//    NSRange newSelectedCharRange = [newSelectedCharRanges.lastObject rangeValue];
-////
-//    NSString *fullText = textView.string;
-//    NSString *textEnclosedBySelection = [fullText substringWithRange:newSelectedCharRange];
-//    
-//    __block NSUInteger lineCount = 0;
-//    [textEnclosedBySelection enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
-//        lineCount++;
-//    }];
-//    
-//    NSLog(@"<lines=%zd>", lineCount);
-    
-    XCTextSelectionType selectionType = [self detectSelectionChangeTypeInTextView:textView fromCharacterRanges:oldSelectedCharRanges toCharacterRanges:newSelectedCharRanges];
+    XCTextSelectionCursorMode cursorMode = [self detectSelectionChangeTypeInTextView:textView fromCharacterRanges:oldSelectedCharRanges toCharacterRanges:newSelectedCharRanges];
 
-    if(XCCheckOption(selectionType, XCTextSelectionTypeRow)) {
+    if(self.cursorMode != cursorMode) {
+        self.resizingMode = XCTextSelectionResizingModeUndefined;
+    }
+    self.cursorMode = cursorMode;
+    
+    if(self.cursorMode == XCTextSelectionCursorModeRow) {
         return [self processRowSelectionForTextView:textView
                                 fromCharacterRanges:oldSelectedCharRanges
                                   toCharacterRanges:newSelectedCharRanges];
@@ -129,7 +136,7 @@ typedef NS_ENUM(NSUInteger, XCTextSelectionType) {
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (XCTextSelectionType)detectSelectionChangeTypeInTextView:(NSTextView *)textView fromCharacterRanges:(NSArray *)oldSelectedCharRanges toCharacterRanges:(NSArray *)toSelectedCharRanges
+- (XCTextSelectionCursorMode)detectSelectionChangeTypeInTextView:(NSTextView *)textView fromCharacterRanges:(NSArray *)oldSelectedCharRanges toCharacterRanges:(NSArray *)toSelectedCharRanges
 {
     NSRange newSelectedCharRange = [toSelectedCharRanges.lastObject rangeValue];
     NSString *fullText = textView.string;
@@ -143,15 +150,76 @@ typedef NS_ENUM(NSUInteger, XCTextSelectionType) {
     NSLog(@"<lines=%zd>", lineCount);
     
     return (lineCount > 1 ?
-            XCTextSelectionTypeRow : 
-            XCTextSelectionTypeColumn);
+            XCTextSelectionCursorModeRow :
+            XCTextSelectionCursorModeColumn);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (NSArray *)processColumnSelectionForTextView:(NSTextView *)textView fromCharacterRanges:(NSArray *)oldSelectedCharRanges toCharacterRanges:(NSArray *)toSelectedCharRanges
 {
-    return toSelectedCharRanges;
+    if(oldSelectedCharRanges.count == 1)    return toSelectedCharRanges;
+
+    NSRange firstRowRange  = [oldSelectedCharRanges.firstObject rangeValue];
+    NSRange oldColumnRange = [oldSelectedCharRanges.lastObject rangeValue];
+    NSRange newColumnRange = [toSelectedCharRanges.lastObject rangeValue];
+
+    // deselected by just moving the cursor without pressing any modifier key
+    BOOL deselected = (
+                       (newColumnRange.length == 0) ||
+                       (toSelectedCharRanges.count  == 1 &&
+                       (newColumnRange.location == oldColumnRange.location + oldColumnRange.length))
+                       );
+    if(deselected == YES) return toSelectedCharRanges;
+
+    NSInteger selectionLeadOffsetModifier = 0;
+    NSInteger selectionWidthModifier      = 0;
+    if(newColumnRange.location  == oldColumnRange.location &&
+       newColumnRange.length    == oldColumnRange.length + 1) {
+        selectionWidthModifier = 1;
+
+//        if(self.resizingMode == XCTextSelectionResizingModeUndefined) self.resizingMode = XCTextSelectionResizingModeExpanding;
+//
+//        selectionWidthModifier = 1;
+//        if(self.resizingMode == XCTextSelectionResizingModeExpanding) selectionWidthModifier = 1;
+//        else {
+//            selectionWidthModifier      = 1;
+//            selectionLeadOffsetModifier = 1;
+//        }
+    }
+    else if(newColumnRange.location == oldColumnRange.location &&
+            newColumnRange.length   == oldColumnRange.length - 1) {
+        selectionWidthModifier = -1;
+    }
+    else if(newColumnRange.location == firstRowRange.location &&
+            newColumnRange.length == 1 &&
+            toSelectedCharRanges.count > 1) {
+        selectionWidthModifier      = 1;
+        selectionLeadOffsetModifier = oldColumnRange.length + 1;
+    }
+    else if(/* newColumnRange.location == firstRowRange.location && */
+            newColumnRange.length == 1 &&
+            toSelectedCharRanges.count == 1) {
+        selectionWidthModifier      = 1;
+        selectionLeadOffsetModifier = 1;
+    }
+    else if(newColumnRange.location == oldColumnRange.location &&
+            newColumnRange.length    < oldColumnRange.length) {
+        selectionWidthModifier      = 1;
+        selectionLeadOffsetModifier = 1;
+    }
+    
+    NSMutableArray *resizedCharRanges = oldSelectedCharRanges.mutableCopy;
+    for(int i = 0; i < resizedCharRanges.count; i++) {
+        NSRange range = [resizedCharRanges[i] rangeValue];
+        range.location -= selectionLeadOffsetModifier;
+        range.length   += selectionWidthModifier;
+        resizedCharRanges[i] = [NSValue valueWithRange:range];
+    }
+    
+    NSLog(@"<resizedRanges=%@>", resizedCharRanges);
+
+    return resizedCharRanges;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -159,7 +227,6 @@ typedef NS_ENUM(NSUInteger, XCTextSelectionType) {
 - (NSArray *)processRowSelectionForTextView:(NSTextView *)textView fromCharacterRanges:(NSArray *)oldSelectedCharRanges toCharacterRanges:(NSArray *)toSelectedCharRanges
 {
     NSString *fullText = textView.string;
-    
 
     NSRange newSelectedCharRange = [toSelectedCharRanges.lastObject rangeValue];
 
@@ -177,7 +244,6 @@ typedef NS_ENUM(NSUInteger, XCTextSelectionType) {
     [fullText getLineStart:&lineStart end:&lineEnd contentsEnd:NULL forRange:newSelectedCharRange];
 
     NSUInteger leadingOffset   = (referenceLineRange.location - lineRangeForSelection.location);
-//    NSUInteger nextLineStart   = (lineStart + firstLineLength + 1) * (oldSelectedCharRanges.count);
     NSUInteger selectionWidth  = (referenceLineRange.length);
 
     NSRange dummyRangeForLastLine = (NSRange){
