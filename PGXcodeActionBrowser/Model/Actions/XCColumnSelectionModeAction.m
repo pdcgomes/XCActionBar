@@ -21,9 +21,13 @@ typedef NS_ENUM(NSUInteger, XCTextSelectionCursorMode) {
 };
 
 typedef NS_ENUM(NSUInteger, XCTextSelectionResizingMode) {
-    XCTextSelectionResizingModeExpanding   = 0,
-    XCTextSelectionResizingModeContracting,
-    XCTextSelectionResizingModeUndefined,
+    XCTextSelectionResizingModeUndefined   = 0,
+    
+    XCTextSelectionResizingModeExpanding   = 1 << 0,
+    XCTextSelectionResizingModeContracting = 1 << 1,
+    
+    XCTextSelectionResizingModeForwards  = 1 << 2,
+    XCTextSelectionResizingModeBackwards = 1 << 3,
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -176,20 +180,19 @@ typedef NS_ENUM(NSUInteger, XCTextSelectionResizingMode) {
     NSInteger selectionWidthModifier      = 0;
     if(newColumnRange.location  == oldColumnRange.location &&
        newColumnRange.length    == oldColumnRange.length + 1) {
+        
+        if(self.resizingMode == XCTextSelectionResizingModeUndefined) {
+            self.resizingMode = (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeForwards);
+        }
         selectionWidthModifier = 1;
-
-//        if(self.resizingMode == XCTextSelectionResizingModeUndefined) self.resizingMode = XCTextSelectionResizingModeExpanding;
-//
-//        selectionWidthModifier = 1;
-//        if(self.resizingMode == XCTextSelectionResizingModeExpanding) selectionWidthModifier = 1;
-//        else {
-//            selectionWidthModifier      = 1;
-//            selectionLeadOffsetModifier = 1;
-//        }
     }
     else if(newColumnRange.location == oldColumnRange.location &&
             newColumnRange.length   == oldColumnRange.length - 1) {
-        selectionWidthModifier = -1;
+        if(XCCheckOption(self.resizingMode, (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeBackwards))) {
+            selectionWidthModifier      = 1;
+            selectionLeadOffsetModifier = 1;
+        }
+        else selectionWidthModifier = -1;
     }
     else if(newColumnRange.location == firstRowRange.location &&
             newColumnRange.length == 1 &&
@@ -199,14 +202,20 @@ typedef NS_ENUM(NSUInteger, XCTextSelectionResizingMode) {
     }
     else if(/* newColumnRange.location == firstRowRange.location && */
             newColumnRange.length == 1 &&
-            toSelectedCharRanges.count == 1) {
+            toSelectedCharRanges.count >= 1) {
+        //
         selectionWidthModifier      = 1;
         selectionLeadOffsetModifier = 1;
+        
+        self.resizingMode = (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeBackwards);
     }
     else if(newColumnRange.location == oldColumnRange.location &&
             newColumnRange.length    < oldColumnRange.length) {
         selectionWidthModifier      = 1;
         selectionLeadOffsetModifier = 1;
+    }
+    else {
+        assert(false); // not reached
     }
     
     NSMutableArray *resizedCharRanges = oldSelectedCharRanges.mutableCopy;
