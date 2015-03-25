@@ -184,7 +184,21 @@ typedef NS_ENUM(NSUInteger, XCTextSelectionResizingMode) {
         if(self.resizingMode == XCTextSelectionResizingModeUndefined) {
             self.resizingMode = (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeForwards);
         }
-        selectionWidthModifier = 1;
+        if(XCCheckOption(self.resizingMode, (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeForwards))) {
+            selectionWidthModifier = 1;
+        }
+        else {
+            if(oldColumnRange.length > 1) {
+                selectionWidthModifier      = -1;
+                selectionLeadOffsetModifier = -1;
+                
+                self.resizingMode = (XCTextSelectionResizingModeContracting | XCTextSelectionResizingModeForwards);
+            }
+            else {
+                self.resizingMode = (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeForwards);
+                selectionWidthModifier = 1;
+            }
+        }
     }
     else if(newColumnRange.location == oldColumnRange.location &&
             newColumnRange.length   == oldColumnRange.length - 1) {
