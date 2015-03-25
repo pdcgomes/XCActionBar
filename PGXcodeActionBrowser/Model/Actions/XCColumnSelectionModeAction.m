@@ -41,7 +41,8 @@ typedef NS_ENUM(NSUInteger, XCTextSelectionResizingMode) {
 //@property (nonatomic) NSMutableDictionary *selectionTypeByTextView;
 // FIXME: need to support this per text view
 @property (nonatomic, readwrite) XCTextSelectionCursorMode   cursorMode;
-@property (nonatomic, readwrite) XCTextSelectionResizingMode resizingMode;
+@property (nonatomic, readwrite) XCTextSelectionResizingMode columnResizingMode;
+@property (nonatomic, readwrite) XCTextSelectionResizingMode rowResizingMode;
 
 @end
 
@@ -68,7 +69,9 @@ typedef NS_ENUM(NSUInteger, XCTextSelectionResizingMode) {
     NSTextView *textView = context.sourceCodeTextView;
 
     self.cursorMode             = XCTextSelectionCursorModeUndefined;
-    self.resizingMode           = XCTextSelectionResizingModeUndefined;
+    self.columnResizingMode     = XCTextSelectionResizingModeUndefined;
+    self.rowResizingMode        = XCTextSelectionResizingModeUndefined;
+    
     self.columnSelectionEnabled = !self.columnSelectionEnabled;
     
     if(self.columnSelectionEnabled == NO) {
@@ -124,7 +127,7 @@ typedef NS_ENUM(NSUInteger, XCTextSelectionResizingMode) {
     XCTextSelectionCursorMode cursorMode = [self detectSelectionChangeTypeInTextView:textView fromCharacterRanges:oldSelectedCharRanges toCharacterRanges:newSelectedCharRanges];
 
     if(self.cursorMode != cursorMode) {
-        self.resizingMode = XCTextSelectionResizingModeUndefined;
+        self.cursorMode = cursorMode;
     }
     self.cursorMode = cursorMode;
     
@@ -162,8 +165,6 @@ typedef NS_ENUM(NSUInteger, XCTextSelectionResizingMode) {
 ////////////////////////////////////////////////////////////////////////////////
 - (NSArray *)processColumnSelectionForTextView:(NSTextView *)textView fromCharacterRanges:(NSArray *)oldSelectedCharRanges toCharacterRanges:(NSArray *)toSelectedCharRanges
 {
-    if(oldSelectedCharRanges.count == 1)    return toSelectedCharRanges;
-
     NSRange firstRowRange  = [oldSelectedCharRanges.firstObject rangeValue];
     NSRange oldColumnRange = [oldSelectedCharRanges.lastObject rangeValue];
     NSRange newColumnRange = [toSelectedCharRanges.lastObject rangeValue];
@@ -174,17 +175,27 @@ typedef NS_ENUM(NSUInteger, XCTextSelectionResizingMode) {
                        (toSelectedCharRanges.count  == 1 &&
                        (newColumnRange.location == oldColumnRange.location + oldColumnRange.length))
                        );
-    if(deselected == YES) return toSelectedCharRanges;
+    if(deselected == YES) {
+        self.columnResizingMode = XCTextSelectionResizingModeUndefined;
+        return toSelectedCharRanges;
+    };
+
+    if(oldSelectedCharRanges.count == 1) {
+        self.columnResizingMode = (newColumnRange.location == oldColumnRange.location ?
+                             (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeForwards) :
+                             (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeBackwards));
+        return toSelectedCharRanges;
+    }
 
     NSInteger selectionLeadOffsetModifier = 0;
     NSInteger selectionWidthModifier      = 0;
     if(newColumnRange.location  == oldColumnRange.location &&
        newColumnRange.length    == oldColumnRange.length + 1) {
         
-        if(self.resizingMode == XCTextSelectionResizingModeUndefined) {
-            self.resizingMode = (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeForwards);
+        if(self.columnResizingMode == XCTextSelectionResizingModeUndefined) {
+            self.columnResizingMode = (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeForwards);
         }
-        if(XCCheckOption(self.resizingMode, (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeForwards))) {
+        if(XCCheckOption(self.columnResizingMode, (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeForwards))) {
             selectionWidthModifier = 1;
         }
         else {
@@ -192,17 +203,23 @@ typedef NS_ENUM(NSUInteger, XCTextSelectionResizingMode) {
                 selectionWidthModifier      = -1;
                 selectionLeadOffsetModifier = -1;
                 
-                self.resizingMode = (XCTextSelectionResizingModeContracting | XCTextSelectionResizingModeForwards);
+                self.columnResizingMode = (XCTextSelectionResizingModeContracting | XCTextSelectionResizingModeForwards);
             }
             else {
-                self.resizingMode = (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeForwards);
+                self.columnResizingMode = (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeForwards);
                 selectionWidthModifier = 1;
             }
         }
     }
     else if(newColumnRange.location == oldColumnRange.location &&
             newColumnRange.length   == oldColumnRange.length - 1) {
-        if(XCCheckOption(self.resizingMode, (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeBackwards))) {
+        if(self.columnResizingMode == XCTextSelectionResizingModeUndefined) {
+            self.columnResizingMode = (oldColumnRange.length > 1 ?
+                                 (XCTextSelectionResizingModeContracting | XCTextSelectionResizingModeBackwards) :
+                                 (XCTextSelectionResizingModeExpanding   | XCTextSelectionResizingModeBackwards));
+//            self.resizingMode = (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeBackwards);
+        }
+        if(XCCheckOption(self.columnResizingMode, (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeBackwards))) {
             selectionWidthModifier      = 1;
             selectionLeadOffsetModifier = 1;
         }
@@ -221,7 +238,7 @@ typedef NS_ENUM(NSUInteger, XCTextSelectionResizingMode) {
         selectionWidthModifier      = 1;
         selectionLeadOffsetModifier = 1;
         
-        self.resizingMode = (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeBackwards);
+        self.columnResizingMode = (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeBackwards);
     }
     else if(newColumnRange.location == oldColumnRange.location &&
             newColumnRange.length    < oldColumnRange.length) {
