@@ -222,12 +222,6 @@ typedef NS_ENUM(NSUInteger, XCTextSelectionResizingMode) {
 //            self.resizingMode = (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeBackwards);
         }
         if(XCCheckOption(self.columnResizingMode, (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeBackwards))) {
-            NSUInteger lineStart = 0;
-            NSUInteger lineEnd   = 0;
-            [fullText getLineStart:&lineStart end:&lineEnd contentsEnd:NULL forRange:newColumnRange];
-
-            if(newColumnRange.location == lineStart) return oldSelectedCharRanges;
-            
             selectionWidthModifier      = 1;
             selectionLeadOffsetModifier = 1;
         }
@@ -256,18 +250,45 @@ typedef NS_ENUM(NSUInteger, XCTextSelectionResizingMode) {
     else {
         assert(false); // not reached
     }
-    
+
+    BOOL resize = YES;
+
     NSMutableArray *resizedCharRanges = oldSelectedCharRanges.mutableCopy;
     for(int i = 0; i < resizedCharRanges.count; i++) {
         NSRange range = [resizedCharRanges[i] rangeValue];
-        range.location -= selectionLeadOffsetModifier;
-        range.length   += selectionWidthModifier;
-        resizedCharRanges[i] = [NSValue valueWithRange:range];
+        
+        if(XCCheckOption(self.columnResizingMode, XCTextSelectionResizingModeExpanding)) {
+            NSUInteger lineStart = 0;
+            NSUInteger lineEnd   = 0;
+
+            if(XCCheckOption(self.columnResizingMode, XCTextSelectionResizingModeBackwards)) {
+                [fullText getLineStart:&lineStart end:&lineEnd contentsEnd:NULL forRange:newColumnRange];
+
+                // Check if we're at the beginning of the line
+                resize = (newColumnRange.location != lineStart);
+            }
+            else if(XCCheckOption(self.columnResizingMode, XCTextSelectionResizingModeForwards)) {
+                [fullText getLineStart:&lineStart end:&lineEnd contentsEnd:NULL forRange:range];
+
+                // check if we're at the end of the line
+                resize = (range.location + newColumnRange.length < lineEnd);
+            }
+        }
+        
+        if(resize == YES) {
+            range.location -= selectionLeadOffsetModifier;
+            range.length   += selectionWidthModifier;
+            resizedCharRanges[i] = [NSValue valueWithRange:range];
+        }
+        else break;
     }
     
     NSLog(@"<resizedRanges=%@>", resizedCharRanges);
 
-    return resizedCharRanges;
+    return (resize ?
+            resizedCharRanges :
+            oldSelectedCharRanges);
+//    return resizedCharRanges;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
