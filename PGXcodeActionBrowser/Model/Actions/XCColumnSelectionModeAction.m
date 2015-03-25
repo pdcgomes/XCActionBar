@@ -187,6 +187,8 @@ typedef NS_ENUM(NSUInteger, XCTextSelectionResizingMode) {
         return toSelectedCharRanges;
     }
 
+    NSString *fullText = textView.string;
+
     NSInteger selectionLeadOffsetModifier = 0;
     NSInteger selectionWidthModifier      = 0;
     if(newColumnRange.location  == oldColumnRange.location &&
@@ -220,6 +222,12 @@ typedef NS_ENUM(NSUInteger, XCTextSelectionResizingMode) {
 //            self.resizingMode = (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeBackwards);
         }
         if(XCCheckOption(self.columnResizingMode, (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeBackwards))) {
+            NSUInteger lineStart = 0;
+            NSUInteger lineEnd   = 0;
+            [fullText getLineStart:&lineStart end:&lineEnd contentsEnd:NULL forRange:newColumnRange];
+
+            if(newColumnRange.location == lineStart) return oldSelectedCharRanges;
+            
             selectionWidthModifier      = 1;
             selectionLeadOffsetModifier = 1;
         }
@@ -288,7 +296,7 @@ typedef NS_ENUM(NSUInteger, XCTextSelectionResizingMode) {
 
     NSRange dummyRangeForLastLine = (NSRange){
         .location = (newSelectedCharRange.location + newSelectedCharRange.length - 1),
-        .length = 1
+        .length   = 1
     };
     NSRange rangeForLastLine = [fullText lineRangeForRange:dummyRangeForLastLine];
     
