@@ -119,7 +119,7 @@
             }];
             [actions addObject:action];
             
-            XCLog(@"<action:: title=%@, subtitle=%@, hint=%@>", action.title, action.subtitle, action.hint);
+//            XCLog(@"<action:: title=%@, subtitle=%@, hint=%@>", action.title, action.subtitle, action.hint);
 
         }
     }

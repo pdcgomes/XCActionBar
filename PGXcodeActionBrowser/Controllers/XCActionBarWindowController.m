@@ -220,7 +220,7 @@ typedef BOOL (^PGCommandHandler)(void);
 ////////////////////////////////////////////////////////////////////////////////
 - (void)updateSearchResults:(NSArray *)results
 {
-    XCLog(@"<UpdatedSearchResults>, <results=%@>", results);
+//    XCLog(@"<UpdatedSearchResults>, <results=%@>", results);
     
     self.searchResults = results;
     [self.searchResultsTable reloadData];
@@ -250,7 +250,7 @@ typedef BOOL (^PGCommandHandler)(void);
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)selectNextSearchResult
 {
-    XCLog(@"<selectNextSearchResult>");
+//    XCLog(@"<selectNextSearchResult>");
     
     NSInteger rowCount      = [self.searchResultsTable numberOfRows];
     NSInteger selectedIndex = self.searchResultsTable.selectedRow;
@@ -265,7 +265,7 @@ typedef BOOL (^PGCommandHandler)(void);
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)selectPreviousSearchResult
 {
-    XCLog(@"<selectPreviousSearchResult>");
+//    XCLog(@"<selectPreviousSearchResult>");
     
     NSInteger rowCount      = [self.searchResultsTable numberOfRows];
     NSInteger selectedIndex = self.searchResultsTable.selectedRow;
