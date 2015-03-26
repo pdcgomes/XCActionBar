@@ -198,14 +198,21 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
         return toSelectedCharRanges;
     };
 
+    NSString *fullText = textView.string;
+
     if(oldSelectedCharRanges.count == 1) {
         self.columnResizingMode = (newColumnRange.location == oldColumnRange.location ?
                              (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeForwards) :
                              (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeBackwards));
+        
+        if(self.columnResizingMode == (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeForwards)) {
+            XCLineRange lineRange = XCGetLineRangeForText(fullText, oldColumnRange);
+            BOOL resize = (oldColumnRange.location + newColumnRange.length < lineRange.end);
+
+            if(resize == NO) return oldSelectedCharRanges;
+        }
         return toSelectedCharRanges;
     }
-
-    NSString *fullText = textView.string;
 
     NSInteger selectionLeadOffsetModifier = 0;
     NSInteger selectionWidthModifier      = 0;
