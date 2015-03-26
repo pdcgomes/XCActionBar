@@ -30,6 +30,24 @@ typedef NS_ENUM(NSUInteger, XCTextSelectionResizingMode) {
     XCTextSelectionResizingModeBackwards = 1 << 3,
 };
 
+// REVIEW: move this elsewhere
+typedef struct XCLineRange {
+    NSInteger start;
+    NSInteger end;
+} XCLineRange;
+
+XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
+{
+    NSUInteger lineStart;
+    NSUInteger lineEnd;
+    
+    [text getLineStart:&lineStart end:&lineEnd contentsEnd:NULL forRange:scannedRange];
+    
+    return (XCLineRange){
+        .start = lineStart,
+        .end   = lineEnd};
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @interface XCColumnSelectionModeAction () <NSTextViewDelegate>
@@ -258,20 +276,14 @@ typedef NS_ENUM(NSUInteger, XCTextSelectionResizingMode) {
         NSRange range = [resizedCharRanges[i] rangeValue];
         
         if(XCCheckOption(self.columnResizingMode, XCTextSelectionResizingModeExpanding)) {
-            NSUInteger lineStart = 0;
-            NSUInteger lineEnd   = 0;
 
             if(XCCheckOption(self.columnResizingMode, XCTextSelectionResizingModeBackwards)) {
-                [fullText getLineStart:&lineStart end:&lineEnd contentsEnd:NULL forRange:newColumnRange];
-
-                // Check if we're at the beginning of the line
-                resize = (newColumnRange.location != lineStart);
+                XCLineRange lineRange = XCGetLineRangeForText(fullText, newColumnRange);
+                resize = (newColumnRange.location != lineRange.start);
             }
             else if(XCCheckOption(self.columnResizingMode, XCTextSelectionResizingModeForwards)) {
-                [fullText getLineStart:&lineStart end:&lineEnd contentsEnd:NULL forRange:range];
-
-                // check if we're at the end of the line
-                resize = (range.location + newColumnRange.length < lineEnd);
+                XCLineRange lineRange = XCGetLineRangeForText(fullText, range);
+                resize = (range.location + newColumnRange.length < lineRange.end);
             }
         }
         
@@ -288,7 +300,6 @@ typedef NS_ENUM(NSUInteger, XCTextSelectionResizingMode) {
     return (resize ?
             resizedCharRanges :
             oldSelectedCharRanges);
-//    return resizedCharRanges;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -307,13 +318,10 @@ typedef NS_ENUM(NSUInteger, XCTextSelectionResizingMode) {
     NSRange referenceLineRange    = [oldSelectedCharRanges.lastObject rangeValue];
     NSRange lineRangeForSelection = [fullText lineRangeForRange:referenceLineRange];
     
-    NSUInteger lineStart;
-    NSUInteger lineEnd;
+//    XCLineRange lineRange = XCGetLineRangeForText(fullText, newSelectedCharRange);
     
-    [fullText getLineStart:&lineStart end:&lineEnd contentsEnd:NULL forRange:newSelectedCharRange];
-
-    NSUInteger leadingOffset   = (referenceLineRange.location - lineRangeForSelection.location);
-    NSUInteger selectionWidth  = (referenceLineRange.length);
+    NSUInteger selectionLeadOffsetModifier = (referenceLineRange.location - lineRangeForSelection.location);
+    NSUInteger selectionWidthModifier      = (referenceLineRange.length);
 
     NSRange dummyRangeForLastLine = (NSRange){
         .location = (newSelectedCharRange.location + newSelectedCharRange.length - 1),
@@ -321,7 +329,7 @@ typedef NS_ENUM(NSUInteger, XCTextSelectionResizingMode) {
     };
     NSRange rangeForLastLine = [fullText lineRangeForRange:dummyRangeForLastLine];
     
-    NSRange nextLineColSelection = NSMakeRange(rangeForLastLine.location + leadingOffset, selectionWidth);
+    NSRange nextLineColSelection = NSMakeRange(rangeForLastLine.location + selectionLeadOffsetModifier, selectionWidthModifier);
     
     // FIXME: account for prior zero length selection
 //    NSRange nextLineColSelection = NSMakeRange(nextLineStart + leadingOffset, firstLineSelection.length);
