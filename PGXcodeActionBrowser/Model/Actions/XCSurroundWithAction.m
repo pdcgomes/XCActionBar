@@ -81,9 +81,11 @@ NSString *const XCSurroundWithActionSuffixKey     = @"XCSurroundWithActionSuffix
             return;
         }
 
+        NSRange rangeWithSubstitution = NSMakeRange(range.location, range.length + (prefix.length + suffix.length));
+        
         [context.sourceCodeDocument.textStorage replaceCharactersInRange:range
                                                               withString:textSelectionSubstitution];
-        [context.sourceCodeDocument.textStorage indentCharacterRange:range
+        [context.sourceCodeDocument.textStorage indentCharacterRange:rangeWithSubstitution
                                                          undoManager:context.sourceCodeDocument.undoManager];
     }];
     
