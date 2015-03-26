@@ -406,7 +406,7 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
 {
     NSString *fullText = textView.string;
     
-    NSRange referenceLineRange    = [oldSelectedCharRanges.lastObject rangeValue];
+    NSRange referenceLineRange    = [oldSelectedCharRanges.firstObject rangeValue];
     NSRange lineRangeForSelection = [fullText lineRangeForRange:referenceLineRange];
     
     NSUInteger selectionLeadOffsetModifier = (referenceLineRange.location - lineRangeForSelection.location);
