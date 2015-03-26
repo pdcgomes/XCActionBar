@@ -28,6 +28,15 @@ typedef NS_ENUM(NSUInteger, XCTextSelectionResizingMode) {
     
     XCTextSelectionResizingModeForwards  = 1 << 2,
     XCTextSelectionResizingModeBackwards = 1 << 3,
+    
+    // aliases
+    XCTextSelectionResizingModeDown = XCTextSelectionResizingModeForwards,
+    XCTextSelectionResizingModeUp   = XCTextSelectionResizingModeBackwards,
+    
+    XCTextSelectionResizingExpandingUp     = (XCTextSelectionResizingModeExpanding      | XCTextSelectionResizingModeUp),
+    XCTextSelectionResizingExpandingDown   = (XCTextSelectionResizingModeExpanding      | XCTextSelectionResizingModeDown),
+    XCTextSelectionResizingContractingUp   = (XCTextSelectionResizingModeContracting    | XCTextSelectionResizingModeUp),
+    XCTextSelectionResizingContractingDown = (XCTextSelectionResizingModeContracting    | XCTextSelectionResizingModeDown),
 };
 
 // REVIEW: move this elsewhere
@@ -179,6 +188,8 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
             XCTextSelectionCursorModeColumn);
 }
 
+#pragma mark - Column Selection
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (NSArray *)processColumnSelectionForTextView:(NSTextView *)textView fromCharacterRanges:(NSArray *)oldSelectedCharRanges toCharacterRanges:(NSArray *)toSelectedCharRanges
@@ -309,47 +320,144 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
             oldSelectedCharRanges);
 }
 
+#pragma mark - Row Selection
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (NSArray *)processRowSelectionForTextView:(NSTextView *)textView fromCharacterRanges:(NSArray *)oldSelectedCharRanges toCharacterRanges:(NSArray *)toSelectedCharRanges
 {
     NSString *fullText = textView.string;
-
+    
     NSRange newSelectedCharRange = [toSelectedCharRanges.lastObject rangeValue];
-
-    if(oldSelectedCharRanges.count > 1) {
-        NSRange lastRange = [oldSelectedCharRanges.lastObject rangeValue];
-        newSelectedCharRange.location = lastRange.location;
-    }
     
     NSRange referenceLineRange    = [oldSelectedCharRanges.lastObject rangeValue];
     NSRange lineRangeForSelection = [fullText lineRangeForRange:referenceLineRange];
     
-//    XCLineRange lineRange = XCGetLineRangeForText(fullText, newSelectedCharRange);
+    if(self.rowResizingMode == XCTextSelectionResizingModeUndefined) {
+        self.rowResizingMode = XCTextSelectionResizingModeExpanding;
+        self.rowResizingMode |= (newSelectedCharRange.location < referenceLineRange.location ?
+                                 XCTextSelectionResizingModeUp :
+                                 XCTextSelectionResizingModeDown);
+    }
+
+    // FIXME: need to ensure we're looking into the correct old/new object index (some cases may need the first, others the last)
+    if(self.rowResizingMode == (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeDown)) {
+        referenceLineRange = [oldSelectedCharRanges.firstObject rangeValue];
+        lineRangeForSelection = [fullText lineRangeForRange:referenceLineRange];
+
+        if(newSelectedCharRange.location < referenceLineRange.location) {
+            self.rowResizingMode = (XCTextSelectionResizingModeContracting | XCTextSelectionResizingModeUp);
+        }
+    }
+    else if(self.rowResizingMode == (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeUp)) {
+        referenceLineRange    = [oldSelectedCharRanges.firstObject rangeValue];
+        lineRangeForSelection = [fullText lineRangeForRange:referenceLineRange];
+        
+        if(newSelectedCharRange.location > referenceLineRange.location) {
+            self.rowResizingMode = (XCTextSelectionResizingModeContracting | XCTextSelectionResizingModeDown);
+        }
+    }
+    else if(self.rowResizingMode == (XCTextSelectionResizingModeContracting | XCTextSelectionResizingModeUp)) {
+        referenceLineRange    = [oldSelectedCharRanges.firstObject rangeValue];
+        lineRangeForSelection = [fullText lineRangeForRange:referenceLineRange];
+
+        // TODO: look for the crossover point
+        if(newSelectedCharRange.location > referenceLineRange.location) {
+            self.rowResizingMode = (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeDown);
+        }
+    }
+    else if(self.rowResizingMode == (XCTextSelectionResizingModeContracting | XCTextSelectionResizingModeDown)) {
+        referenceLineRange    = [oldSelectedCharRanges.firstObject rangeValue];
+        lineRangeForSelection = [fullText lineRangeForRange:referenceLineRange];
+
+        // TODO: look for the crossover point
+        if(newSelectedCharRange.location < referenceLineRange.location) {
+            self.rowResizingMode = (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeUp);
+        }
+    }
+    else {
+        assert(false); // never reached
+    }
     
+    switch(self.rowResizingMode) {
+        case (XCTextSelectionResizingExpandingUp):
+            return [self expandRowSelectionByMovingUp:textView fromCharacterRanges:oldSelectedCharRanges toCharacterRanges:toSelectedCharRanges];
+            
+        case (XCTextSelectionResizingExpandingDown):
+            return [self expandRowSelectionByMovingDown:textView fromCharacterRanges:oldSelectedCharRanges toCharacterRanges:toSelectedCharRanges];
+            
+        case (XCTextSelectionResizingContractingUp):
+            return [self contractSelectionByMovingUp:textView fromCharacterRanges:oldSelectedCharRanges toCharacterRanges:toSelectedCharRanges];
+            
+        case (XCTextSelectionResizingContractingDown):
+            return [self contractSelectionByMovingDown:textView fromCharacterRanges:oldSelectedCharRanges toCharacterRanges:toSelectedCharRanges];
+            
+        default: assert(false); // not reached
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (NSArray *)expandRowSelectionByMovingUp:(NSTextView *)textView fromCharacterRanges:(NSArray *)oldSelectedCharRanges toCharacterRanges:(NSArray *)toSelectedCharRanges
+{
+    return @[];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (NSArray *)expandRowSelectionByMovingDown:(NSTextView *)textView fromCharacterRanges:(NSArray *)oldSelectedCharRanges toCharacterRanges:(NSArray *)toSelectedCharRanges
+{
+    NSString *fullText = textView.string;
+
+    NSRange referenceLineRange    = [oldSelectedCharRanges.lastObject rangeValue];
+    NSRange lineRangeForSelection = [fullText lineRangeForRange:referenceLineRange];
+
     NSUInteger selectionLeadOffsetModifier = (referenceLineRange.location - lineRangeForSelection.location);
     NSUInteger selectionWidthModifier      = (referenceLineRange.length);
 
-    NSRange dummyRangeForLastLine = (NSRange){
-        .location = (newSelectedCharRange.location + newSelectedCharRange.length - 1),
-        .length   = 1
-    };
-    NSRange rangeForLastLine = [fullText lineRangeForRange:dummyRangeForLastLine];
+    BOOL selectNextLine = NO;
+    NSRange rangeForNextLine = lineRangeForSelection;
     
-    NSRange nextLineColSelection = NSMakeRange(rangeForLastLine.location + selectionLeadOffsetModifier, selectionWidthModifier);
+    do {
+        NSRange dummyRangeForLastLine = (NSRange){
+            .location = (rangeForNextLine.location + rangeForNextLine.length),
+            .length   = 1
+        };
+        rangeForNextLine = [fullText lineRangeForRange:dummyRangeForLastLine];
+        selectNextLine   = ((rangeForNextLine.location + rangeForNextLine.length) >= (rangeForNextLine.location + selectionLeadOffsetModifier + selectionWidthModifier));
+        
+    } while(selectNextLine == NO);
     
-    // FIXME: account for prior zero length selection
-//    NSRange nextLineColSelection = NSMakeRange(nextLineStart + leadingOffset, firstLineSelection.length);
-    
+    NSRange nextLineSelection = NSMakeRange(rangeForNextLine.location + selectionLeadOffsetModifier, selectionWidthModifier);
+
     NSMutableArray *columnSelectionRanges = oldSelectedCharRanges.mutableCopy;
     if(oldSelectedCharRanges.count == 1) {
         [columnSelectionRanges removeLastObject];
         [columnSelectionRanges addObject:[NSValue valueWithRange:referenceLineRange]];
     }
-    [columnSelectionRanges addObject:[NSValue valueWithRange:nextLineColSelection]];
+    [columnSelectionRanges addObject:[NSValue valueWithRange:nextLineSelection]];
     
     return columnSelectionRanges;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (NSArray *)contractSelectionByMovingUp:(NSTextView *)textView fromCharacterRanges:(NSArray *)oldSelectedCharRanges toCharacterRanges:(NSArray *)toSelectedCharRanges
+{
+    NSMutableArray *resizedRanges = oldSelectedCharRanges.mutableCopy;
+    [resizedRanges removeLastObject];
     
+    return resizedRanges;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (NSArray *)contractSelectionByMovingDown:(NSTextView *)textView fromCharacterRanges:(NSArray *)oldSelectedCharRanges toCharacterRanges:(NSArray *)toSelectedCharRanges
+{
+    NSMutableArray *resizedRanges = oldSelectedCharRanges.mutableCopy;
+    [resizedRanges removeObjectAtIndex:0];
+    
+    return resizedRanges;
 }
 
 @end
