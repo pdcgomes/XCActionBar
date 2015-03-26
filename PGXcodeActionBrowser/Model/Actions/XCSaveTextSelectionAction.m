@@ -15,6 +15,8 @@
 
 #define XCSavedSelectionTextColor() ([[NSColor orangeColor] colorWithAlphaComponent:0.3])
 
+NSString *XCTextSelectionMarkerAttributeName = @"XCTextSelectionMarker";
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @interface XCTextSelectionAction ()
@@ -54,13 +56,14 @@
     for(NSValue *newRangeValue in newSelectionRanges) {
         NSRange newRange = [newRangeValue rangeValue];
         [textStorage removeAttribute:NSBackgroundColorAttributeName range:newRange];
+        [textStorage removeAttribute:XCTextSelectionMarkerAttributeName range:newRange];
     }
     for(NSValue *oldRangeValue in oldSelectionRanges) {
         NSRange oldRange = [oldRangeValue rangeValue];
         
-        [textStorage addAttribute:NSBackgroundColorAttributeName
-                            value:XCSavedSelectionTextColor()
-                            range:oldRange];
+        [textStorage addAttributes:@{NSBackgroundColorAttributeName: XCSavedSelectionTextColor(),
+                                     XCTextSelectionMarkerAttributeName: @(YES)}
+                             range:oldRange];
     }
     
     [self.textSelectionStorage saveSelection:oldSelectionRanges withIdentifier:documentIdentifier];
@@ -98,9 +101,9 @@
     for(NSValue *selectedTextRangeValue in selectedTextRanges) {
         NSRange selectedTextRange = [selectedTextRangeValue rangeValue];
         
-        [textStorage addAttribute:NSBackgroundColorAttributeName
-                            value:XCSavedSelectionTextColor()
-                            range:selectedTextRange];
+        [textStorage addAttributes:@{NSBackgroundColorAttributeName: XCSavedSelectionTextColor(),
+                                     XCTextSelectionMarkerAttributeName: @(YES)}
+                             range:selectedTextRange];
 
         NSString *selectedText = [textStorage.string substringWithRange:selectedTextRange];
         [selectedTextBlocks addObject:selectedText];
@@ -134,8 +137,6 @@
     // Save selection
     ////////////////////////////////////////////////////////////////////////////////
     [self.textSelectionStorage saveSelection:updatedSavedSelections.copy withIdentifier:documentIdentifier];
-
-//    [textView setSelectedRanges:updatedSavedSelections affinity:NSSelectionAffinityDownstream stillSelecting:YES];
     
     return YES;
 }
@@ -188,12 +189,68 @@
     ////////////////////////////////////////////////////////////////////////////////
     NSString *documentIdentifier = [[context.sourceCodeDocument fileURL] absoluteString];
     
-    NSMutableArray *savedSelections = [self.textSelectionStorage loadSelectionWithIdentifier:documentIdentifier].mutableCopy;
+    NSArray *savedSelections = [self.textSelectionStorage loadSelectionWithIdentifier:documentIdentifier];
     if(TRCheckIsEmpty(savedSelections) == YES) return NO;
     
+    if([self validateSavedSelectionsInContext:context documentIdentifier:documentIdentifier] == NO) {
+        [self recomputeAndSaveSelectionsInContext:context documentIdentifier:documentIdentifier];
+
+        savedSelections = [self.textSelectionStorage loadSelectionWithIdentifier:documentIdentifier];
+    }
+
     [textView setSelectedRanges:savedSelections affinity:NSSelectionAffinityDownstream stillSelecting:YES];
-    
+
     return YES;
+}
+////////////////////////////////////////////////////////////////////////////////
+// Checks if the saved ranges are still valid (the user may have edited the document
+// in the meantime - if all attributes match up, we're good to go, otherwise
+// we need to re-scan the document for the appropriate strings
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)validateSavedSelectionsInContext:(id<XCIDEContext>)context documentIdentifier:(NSString *)documentIdentifier
+{
+    BOOL savedSelectionStillValid = YES;
+
+    NSAttributedString *textView = context.sourceCodeTextView.textStorage;
+    NSArray *savedSelections     = [self.textSelectionStorage loadSelectionWithIdentifier:documentIdentifier];
+
+    @try {
+        for(NSValue *value in savedSelections) {
+            NSRange savedRange  = value.rangeValue;
+            NSRange actualRange = {0, 0};
+            
+            id attribute = [textView attribute:XCTextSelectionMarkerAttributeName
+                                       atIndex:savedRange.location
+                         longestEffectiveRange:&actualRange
+                                       inRange:value.rangeValue];
+            BOOL validExpectation = (attribute != nil && NSEqualRanges(savedRange, actualRange));
+            
+            if(validExpectation == NO) {
+                savedSelectionStillValid = NO;
+                break;
+            }
+        }
+    }
+    @catch (NSException *exception) {
+        savedSelectionStillValid = NO;
+    }
+    return savedSelectionStillValid;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)recomputeAndSaveSelectionsInContext:(id<XCIDEContext>)context documentIdentifier:(NSString *)documentIdentifier
+{
+    NSAttributedString *fullText = context.sourceCodeTextView.textStorage;
+
+    NSMutableArray *ranges = [NSMutableArray array];
+    [fullText enumerateAttribute:XCTextSelectionMarkerAttributeName inRange:NSMakeRange(0, fullText.length) options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired usingBlock:^(id value, NSRange range, BOOL *stop) {
+        if([fullText attribute:XCTextSelectionMarkerAttributeName atIndex:range.location effectiveRange:NULL]) {
+            [ranges addObject:[NSValue valueWithRange:range]];
+        }
+    }];
+    
+    return [self.textSelectionStorage saveSelection:ranges withIdentifier:documentIdentifier];
 }
 
 @end
@@ -232,6 +289,7 @@
         NSRange selectedTextRange = [selectedTextRangeValue rangeValue];
 
         [textStorage removeAttribute:NSBackgroundColorAttributeName range:selectedTextRange];
+        [textStorage removeAttribute:XCTextSelectionMarkerAttributeName range:selectedTextRange];
     }
 
     ////////////////////////////////////////////////////////////////////////////////
