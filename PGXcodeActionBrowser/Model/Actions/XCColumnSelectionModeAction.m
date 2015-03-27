@@ -28,8 +28,14 @@ typedef NS_ENUM(NSUInteger, XCTextSelectionResizingMode) {
     
     XCTextSelectionResizingModeForwards  = 1 << 2,
     XCTextSelectionResizingModeBackwards = 1 << 3,
+
+    // Column Selection Mode Aliases
+    XCTextSelectionResizingModeExpandingForwards    = (XCTextSelectionResizingModeExpanding     | XCTextSelectionResizingModeForwards),
+    XCTextSelectionResizingModeExpandingBackwards   = (XCTextSelectionResizingModeExpanding     | XCTextSelectionResizingModeBackwards),
+    XCTextSelectionResizingModeContractingForwards  = (XCTextSelectionResizingModeContracting   | XCTextSelectionResizingModeForwards),
+    XCTextSelectionResizingModeContractingBackwards = (XCTextSelectionResizingModeContracting   | XCTextSelectionResizingModeBackwards),
     
-    // aliases
+    // Row Selection Mode Aliases
     XCTextSelectionResizingModeDown = XCTextSelectionResizingModeForwards,
     XCTextSelectionResizingModeUp   = XCTextSelectionResizingModeBackwards,
     
@@ -213,10 +219,11 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
 
     if(oldSelectedCharRanges.count == 1) {
         self.columnResizingMode = (newColumnRange.location == oldColumnRange.location ?
-                             (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeForwards) :
-                             (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeBackwards));
+                             (XCTextSelectionResizingModeExpandingForwards) :
+                             (XCTextSelectionResizingModeExpandingBackwards));
         
-        if(self.columnResizingMode == (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeForwards)) {
+        // Prevent warping at the end of the line
+        if(self.columnResizingMode == (XCTextSelectionResizingModeExpandingForwards)) {
             XCLineRange lineRange = XCGetLineRangeForText(fullText, oldColumnRange);
             BOOL resize = (oldColumnRange.location + newColumnRange.length < lineRange.end);
 
@@ -231,9 +238,9 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
        newColumnRange.length    == oldColumnRange.length + 1) {
         
         if(self.columnResizingMode == XCTextSelectionResizingModeUndefined) {
-            self.columnResizingMode = (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeForwards);
+            self.columnResizingMode = (XCTextSelectionResizingModeExpandingForwards);
         }
-        if(XCCheckOption(self.columnResizingMode, (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeForwards))) {
+        if(XCCheckOption(self.columnResizingMode, (XCTextSelectionResizingModeExpandingForwards))) {
             selectionWidthModifier = 1;
         }
         else {
@@ -241,10 +248,10 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
                 selectionWidthModifier      = -1;
                 selectionLeadOffsetModifier = -1;
                 
-                self.columnResizingMode = (XCTextSelectionResizingModeContracting | XCTextSelectionResizingModeForwards);
+                self.columnResizingMode = (XCTextSelectionResizingModeContractingForwards);
             }
             else {
-                self.columnResizingMode = (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeForwards);
+                self.columnResizingMode = (XCTextSelectionResizingModeExpandingForwards);
                 selectionWidthModifier = 1;
             }
         }
@@ -253,11 +260,11 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
             newColumnRange.length   == oldColumnRange.length - 1) {
         if(self.columnResizingMode == XCTextSelectionResizingModeUndefined) {
             self.columnResizingMode = (oldColumnRange.length > 1 ?
-                                 (XCTextSelectionResizingModeContracting | XCTextSelectionResizingModeBackwards) :
-                                 (XCTextSelectionResizingModeExpanding   | XCTextSelectionResizingModeBackwards));
+                                 (XCTextSelectionResizingModeContractingBackwards) :
+                                 (XCTextSelectionResizingModeExpandingBackwards));
 //            self.resizingMode = (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeBackwards);
         }
-        if(XCCheckOption(self.columnResizingMode, (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeBackwards))) {
+        if(XCCheckOption(self.columnResizingMode, (XCTextSelectionResizingModeExpandingBackwards))) {
             selectionWidthModifier      = 1;
             selectionLeadOffsetModifier = 1;
         }
@@ -276,7 +283,7 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
         selectionWidthModifier      = 1;
         selectionLeadOffsetModifier = 1;
         
-        self.columnResizingMode = (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeBackwards);
+        self.columnResizingMode = (XCTextSelectionResizingModeExpandingBackwards);
     }
     else if(newColumnRange.location == oldColumnRange.location &&
             newColumnRange.length    < oldColumnRange.length) {
@@ -340,12 +347,13 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
                                  XCTextSelectionResizingModeDown);
     }
 
+    referenceLineRange = [oldSelectedCharRanges.firstObject rangeValue];
+    lineRangeForSelection = [fullText lineRangeForRange:referenceLineRange];
+
     // FIXME: need to ensure we're looking into the correct old/new object index (some cases may need the first, others the last)
     BOOL atCrossover = (oldSelectedCharRanges.count == 1 && toSelectedCharRanges.count == 1);
 
-    if(self.rowResizingMode == (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeDown)) {
-        referenceLineRange = [oldSelectedCharRanges.firstObject rangeValue];
-        lineRangeForSelection = [fullText lineRangeForRange:referenceLineRange];
+    if(self.rowResizingMode == (XCTextSelectionResizingModeExpandingDown)) {
 
         if(newSelectedCharRange.location < referenceLineRange.location) {
             self.rowResizingMode = (atCrossover ?
@@ -354,30 +362,30 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
         }
     }
     else if(self.rowResizingMode == (XCTextSelectionResizingModeExpandingUp)) {
-        referenceLineRange    = [oldSelectedCharRanges.firstObject rangeValue];
-        lineRangeForSelection = [fullText lineRangeForRange:referenceLineRange];
         
         if(newSelectedCharRange.location > referenceLineRange.location) {
-            self.rowResizingMode = (XCTextSelectionResizingModeContractingDown);
+            self.rowResizingMode = (atCrossover ?
+                                    XCTextSelectionResizingModeExpandingDown :
+                                    XCTextSelectionResizingModeContractingDown);
         }
     }
     else if(self.rowResizingMode == (XCTextSelectionResizingModeContractingUp)) {
-        referenceLineRange    = [oldSelectedCharRanges.firstObject rangeValue];
-        lineRangeForSelection = [fullText lineRangeForRange:referenceLineRange];
-
         // Crossover point
         if(atCrossover == YES && newSelectedCharRange.location < referenceLineRange.location) {
             self.rowResizingMode = (XCTextSelectionResizingModeExpandingUp);
         }
+        else if(newSelectedCharRange.location >= referenceLineRange.location) {
+            self.rowResizingMode = (XCTextSelectionResizingModeExpandingDown);
+        }
     }
     else if(self.rowResizingMode == (XCTextSelectionResizingModeContractingDown)) {
-        referenceLineRange    = [oldSelectedCharRanges.firstObject rangeValue];
-        lineRangeForSelection = [fullText lineRangeForRange:referenceLineRange];
 
-        // Crossover point
-//        if(newSelectedCharRange.location > referenceLineRange.location) {
-//            self.rowResizingMode = (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeDown);
-//        }
+        if(atCrossover == YES && newSelectedCharRange.location >= referenceLineRange.location) {
+            self.rowResizingMode = (XCTextSelectionResizingModeExpandingDown);
+        }
+        else if(newSelectedCharRange.location < referenceLineRange.location) {
+            self.rowResizingMode = (XCTextSelectionResizingModeExpandingUp);
+        }
     }
     else {
         assert(false); // never reached
