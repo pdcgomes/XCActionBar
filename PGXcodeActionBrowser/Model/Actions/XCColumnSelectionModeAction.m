@@ -273,16 +273,26 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
     else if(/* newColumnRange.location == firstRowRange.location && */
             newColumnRange.length == 1 &&
             toSelectedCharRanges.count >= 1) {
-        self.columnResizingMode = (XCTextSelectionResizingModeExpandingBackwards);
+        if(self.columnResizingMode == XCTextSelectionResizingModeContractingForwards) {
+            self.columnResizingMode = XCTextSelectionResizingModeExpandingForwards;
+        }
+        else self.columnResizingMode = (XCTextSelectionResizingModeExpandingBackwards);
     }
     else if(newColumnRange.location == oldColumnRange.location + 1) {
         if(self.columnResizingMode == XCTextSelectionResizingModeExpandingBackwards) {
             self.columnResizingMode = XCTextSelectionResizingModeContractingForwards;
         }
+        else if(self.columnResizingMode == XCTextSelectionResizingModeContractingBackwards) {
+            self.columnResizingMode = XCTextSelectionResizingModeExpandingForwards;
+        }
     }
     else if(newColumnRange.location == oldColumnRange.location - 1) {
         if(self.columnResizingMode == XCTextSelectionResizingModeExpandingForwards) {
             self.columnResizingMode = XCTextSelectionResizingModeContractingBackwards;
+        }
+        else if(self.columnResizingMode == XCTextSelectionResizingModeContractingBackwards &&
+                newColumnRange.length == 2 && oldColumnRange.length == 1) {
+            self.columnResizingMode = XCTextSelectionResizingModeExpandingBackwards;
         }
     }
     else {
