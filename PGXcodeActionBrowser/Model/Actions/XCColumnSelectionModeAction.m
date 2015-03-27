@@ -28,7 +28,7 @@ typedef NS_ENUM(NSUInteger, XCTextSelectionResizingMode) {
     
     XCTextSelectionResizingModeForwards  = 1 << 2,
     XCTextSelectionResizingModeBackwards = 1 << 3,
-
+    
     // Column Selection Mode Aliases
     XCTextSelectionResizingModeExpandingForwards    = (XCTextSelectionResizingModeExpanding     | XCTextSelectionResizingModeForwards),
     XCTextSelectionResizingModeExpandingBackwards   = (XCTextSelectionResizingModeExpanding     | XCTextSelectionResizingModeBackwards),
@@ -100,7 +100,7 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
 - (BOOL)executeWithContext:(id<XCIDEContext>)context
 {
     NSTextView *textView = context.sourceCodeTextView;
-
+    
     [self resetSelectionCursorAndResizingModes];
     
     self.columnSelectionEnabled = !self.columnSelectionEnabled;
@@ -127,8 +127,8 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)respondsToSelector:(SEL)aSelector
 {
-//    NSLog(@"<selector=%@", NSStringFromSelector(aSelector));
-
+    //    NSLog(@"<selector=%@", NSStringFromSelector(aSelector));
+    
     if(self.columnSelectionEnabled == NO) return NO;
     
     if(aSelector == @selector(textView:willChangeSelectionFromCharacterRanges:toCharacterRanges:)) {
@@ -153,10 +153,10 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
 ////////////////////////////////////////////////////////////////////////////////
 - (NSArray *)textView:(NSTextView *)textView willChangeSelectionFromCharacterRanges:(NSArray *)oldSelectedCharRanges toCharacterRanges:(NSArray *)newSelectedCharRanges
 {
-//    NSLog(@"<oldRanges=%@>, <newRanges=%@>", oldSelectedCharRanges, newSelectedCharRanges);
-
+    //    NSLog(@"<oldRanges=%@>, <newRanges=%@>", oldSelectedCharRanges, newSelectedCharRanges);
+    
     XCTextSelectionCursorMode cursorMode = [self detectSelectionChangeTypeInTextView:textView fromCharacterRanges:oldSelectedCharRanges toCharacterRanges:newSelectedCharRanges];
-
+    
     if(self.cursorMode != cursorMode) {
         self.cursorMode = cursorMode;
     }
@@ -192,8 +192,8 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
     [textEnclosedBySelection enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
         lineCount++;
     }];
-
-//    NSLog(@"<lines=%zd>", lineCount);
+    
+    //    NSLog(@"<lines=%zd>", lineCount);
     
     return (lineCount > 1 ?
             XCTextSelectionCursorModeRow :
@@ -209,35 +209,35 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
     NSRange firstRowRange  = [oldSelectedCharRanges.firstObject rangeValue];
     NSRange oldColumnRange = [oldSelectedCharRanges.lastObject rangeValue];
     NSRange newColumnRange = [toSelectedCharRanges.lastObject rangeValue];
-
+    
     // deselected by just moving the cursor without pressing any modifier key
     BOOL deselected = (
                        (newColumnRange.length == 0) ||
                        (toSelectedCharRanges.count  == 1 &&
-                       (newColumnRange.location == oldColumnRange.location + oldColumnRange.length))
+                        (newColumnRange.location == oldColumnRange.location + oldColumnRange.length))
                        );
     if(deselected == YES) {
         self.columnResizingMode = XCTextSelectionResizingModeUndefined;
         return toSelectedCharRanges;
     };
-
+    
     NSString *fullText = textView.string;
-
+    
     if(oldSelectedCharRanges.count == 1) {
         self.columnResizingMode = (newColumnRange.location == oldColumnRange.location ?
-                             (XCTextSelectionResizingModeExpandingForwards) :
-                             (XCTextSelectionResizingModeExpandingBackwards));
+                                   (XCTextSelectionResizingModeExpandingForwards) :
+                                   (XCTextSelectionResizingModeExpandingBackwards));
         
         // Prevent warping at the end of the line
         if(self.columnResizingMode == (XCTextSelectionResizingModeExpandingForwards)) {
             XCLineRange lineRange = XCGetLineRangeForText(fullText, oldColumnRange);
             BOOL resize = (oldColumnRange.location + newColumnRange.length < lineRange.end);
-
+            
             if(resize == NO) return oldSelectedCharRanges;
         }
         return toSelectedCharRanges;
     }
-
+    
     if(NSEqualRanges([toSelectedCharRanges.firstObject rangeValue], firstRowRange) == NO) {
         newColumnRange = [toSelectedCharRanges.firstObject rangeValue];
         oldColumnRange = [oldSelectedCharRanges.firstObject rangeValue];
@@ -252,7 +252,7 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
             self.columnResizingMode = (XCTextSelectionResizingModeExpandingForwards);
         }
         if(XCCheckOption(self.columnResizingMode, (XCTextSelectionResizingModeExpandingForwards))) {
-//            selectionWidthModifier = 1;
+            //            selectionWidthModifier = 1;
         }
         else {
             if(oldColumnRange.length > 1) {
@@ -267,8 +267,8 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
             newColumnRange.length   == oldColumnRange.length - 1) {
         if(self.columnResizingMode == XCTextSelectionResizingModeUndefined) {
             self.columnResizingMode = (oldColumnRange.length > 1 ?
-                                 (XCTextSelectionResizingModeContractingBackwards) :
-                                 (XCTextSelectionResizingModeExpandingBackwards));
+                                       (XCTextSelectionResizingModeContractingBackwards) :
+                                       (XCTextSelectionResizingModeExpandingBackwards));
         }
         else if(self.columnResizingMode == XCTextSelectionResizingModeExpandingForwards) {
             self.columnResizingMode = (oldColumnRange.length > 1 ?
@@ -304,7 +304,7 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
     else {
         assert(false); // not reached
     }
-
+    
     ////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////
     switch(self.columnResizingMode) {
@@ -328,19 +328,19 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
             
         default: assert(false); // not reached
     }
-
+    
     
     ////////////////////////////////////////////////////////////////////////////////
     // Apply resizing
     ////////////////////////////////////////////////////////////////////////////////
     BOOL resize = YES;
-
+    
     NSMutableArray *resizedCharRanges = oldSelectedCharRanges.mutableCopy;
     for(int i = 0; i < resizedCharRanges.count; i++) {
         NSRange range = [resizedCharRanges[i] rangeValue];
         
         if(XCCheckOption(self.columnResizingMode, XCTextSelectionResizingModeExpanding)) {
-
+            
             if(XCCheckOption(self.columnResizingMode, XCTextSelectionResizingModeBackwards)) {
                 XCLineRange lineRange = XCGetLineRangeForText(fullText, newColumnRange);
                 resize = (newColumnRange.location != lineRange.start);
@@ -359,8 +359,8 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
         else break;
     }
     
-//    NSLog(@"<resizedRanges=%@>", resizedCharRanges);
-
+    //    NSLog(@"<resizedRanges=%@>", resizedCharRanges);
+    
     return (resize ?
             resizedCharRanges :
             oldSelectedCharRanges);
@@ -385,15 +385,15 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
                                  XCTextSelectionResizingModeUp :
                                  XCTextSelectionResizingModeDown);
     }
-
+    
     referenceLineRange = [oldSelectedCharRanges.firstObject rangeValue];
     lineRangeForSelection = [fullText lineRangeForRange:referenceLineRange];
-
+    
     // FIXME: need to ensure we're looking into the correct old/new object index (some cases may need the first, others the last)
     BOOL atCrossover = (oldSelectedCharRanges.count == 1 && toSelectedCharRanges.count == 1);
-
+    
     if(self.rowResizingMode == (XCTextSelectionResizingModeExpandingDown)) {
-
+        
         if(newSelectedCharRange.location < referenceLineRange.location) {
             self.rowResizingMode = (atCrossover ?
                                     XCTextSelectionResizingModeExpandingUp :
@@ -418,7 +418,7 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
         }
     }
     else if(self.rowResizingMode == (XCTextSelectionResizingModeContractingDown)) {
-
+        
         if(atCrossover == YES && newSelectedCharRange.location >= referenceLineRange.location) {
             self.rowResizingMode = (XCTextSelectionResizingModeExpandingDown);
         }
@@ -489,13 +489,13 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
 - (NSArray *)expandRowSelectionByMovingDown:(NSTextView *)textView fromCharacterRanges:(NSArray *)oldSelectedCharRanges toCharacterRanges:(NSArray *)toSelectedCharRanges
 {
     NSString *fullText = textView.string;
-
+    
     NSRange referenceLineRange    = [oldSelectedCharRanges.lastObject rangeValue];
     NSRange lineRangeForSelection = [fullText lineRangeForRange:referenceLineRange];
-
+    
     NSUInteger selectionLeadOffsetModifier = (referenceLineRange.location - lineRangeForSelection.location);
     NSUInteger selectionWidthModifier      = (referenceLineRange.length);
-
+    
     BOOL selectNextLine = NO;
     NSRange rangeForNextLine = lineRangeForSelection;
     
@@ -510,7 +510,7 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
     } while(selectNextLine == NO);
     
     NSRange nextLineSelection = NSMakeRange(rangeForNextLine.location + selectionLeadOffsetModifier, selectionWidthModifier);
-
+    
     NSMutableArray *columnSelectionRanges = oldSelectedCharRanges.mutableCopy;
     if(oldSelectedCharRanges.count == 1) {
         [columnSelectionRanges removeLastObject];
