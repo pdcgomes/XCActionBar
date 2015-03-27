@@ -232,6 +232,11 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
         return toSelectedCharRanges;
     }
 
+    if(NSEqualRanges([toSelectedCharRanges.firstObject rangeValue], firstRowRange) == NO) {
+        newColumnRange = [toSelectedCharRanges.firstObject rangeValue];
+        oldColumnRange = [oldSelectedCharRanges.firstObject rangeValue];
+    }
+    
     NSInteger selectionLeadOffsetModifier = 0;
     NSInteger selectionWidthModifier      = 0;
     if(newColumnRange.location  == oldColumnRange.location &&
@@ -287,6 +292,13 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
     }
     else if(newColumnRange.location == oldColumnRange.location &&
             newColumnRange.length    < oldColumnRange.length) {
+        selectionWidthModifier      = 1;
+        selectionLeadOffsetModifier = 1;
+    }
+    else if(newColumnRange.location == oldColumnRange.location + 1) {
+        selectionWidthModifier      =  1;
+    }
+    else if(newColumnRange.location == oldColumnRange.location - 1) {
         selectionWidthModifier      = 1;
         selectionLeadOffsetModifier = 1;
     }
