@@ -42,6 +42,13 @@
     NSRange rangeForSelectedText  = [context retrieveTextSelectionRange];
     NSRange lineRangeForSelection = [textView.string lineRangeForRange:rangeForSelectedText];
 
+    __block NSUInteger lineCount = 0;
+    
+    NSString *selectedLineText = [textView.string substringWithRange:lineRangeForSelection];
+    [selectedLineText enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
+        lineCount++;
+    }];
+    
     [textView.textStorage beginEditing];
     
     NSString *stringToDuplicate = [[textView.textStorage string] substringWithRange:lineRangeForSelection];
@@ -49,8 +56,11 @@
     NSRange rangeOfDuplicatedText = NSMakeRange(lineRangeForSelection.location, lineRangeForSelection.length);
     [textView setSelectedRange:NSMakeRange(lineRangeForSelection.location, 0)];
     [textView insertText:stringToDuplicate];
-    [context.sourceCodeDocument.textStorage indentCharacterRange:rangeOfDuplicatedText
-                                                     undoManager:context.sourceCodeDocument.undoManager];
+    
+    XCExecuteIf(lineCount > 1, [textView setSelectedRange:rangeOfDuplicatedText]);
+    
+//    [context.sourceCodeDocument.textStorage indentCharacterRange:rangeOfDuplicatedText
+//                                                     undoManager:context.sourceCodeDocument.undoManager];
     
     [textView.textStorage endEditing];
     
