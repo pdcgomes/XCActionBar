@@ -265,35 +265,25 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
                                  (XCTextSelectionResizingModeExpandingBackwards));
         }
         else if(self.columnResizingMode == XCTextSelectionResizingModeExpandingForwards) {
-            self.columnResizingMode = XCTextSelectionResizingModeContractingBackwards;
+            self.columnResizingMode = (oldColumnRange.length > 1 ?
+                                       XCTextSelectionResizingModeContractingBackwards :
+                                       XCTextSelectionResizingModeExpandingBackwards);
         }
-    }
-    else if(newColumnRange.location == firstRowRange.location &&
-            newColumnRange.length == 1 &&
-            toSelectedCharRanges.count > 1) {
-        selectionWidthModifier      = 1;
-        selectionLeadOffsetModifier = oldColumnRange.length + 1;
     }
     else if(/* newColumnRange.location == firstRowRange.location && */
             newColumnRange.length == 1 &&
             toSelectedCharRanges.count >= 1) {
-        //
-        selectionWidthModifier      = 1;
-        selectionLeadOffsetModifier = 1;
-        
         self.columnResizingMode = (XCTextSelectionResizingModeExpandingBackwards);
     }
-    else if(newColumnRange.location == oldColumnRange.location &&
-            newColumnRange.length    < oldColumnRange.length) {
-        selectionWidthModifier      = 1;
-        selectionLeadOffsetModifier = 1;
-    }
     else if(newColumnRange.location == oldColumnRange.location + 1) {
-        selectionWidthModifier      =  1;
+        if(self.columnResizingMode == XCTextSelectionResizingModeExpandingBackwards) {
+            self.columnResizingMode = XCTextSelectionResizingModeContractingForwards;
+        }
     }
     else if(newColumnRange.location == oldColumnRange.location - 1) {
-        selectionWidthModifier      = 1;
-        selectionLeadOffsetModifier = 1;
+        if(self.columnResizingMode == XCTextSelectionResizingModeExpandingForwards) {
+            self.columnResizingMode = XCTextSelectionResizingModeContractingBackwards;
+        }
     }
     else {
         assert(false); // not reached
