@@ -335,6 +335,14 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
     ////////////////////////////////////////////////////////////////////////////////
     BOOL resize = YES;
     
+    NSRange rangeForLineWidthCapSizing;
+    if(XCCheckOption(self.rowResizingMode, XCTextSelectionResizingModeDown)) {
+        rangeForLineWidthCapSizing = newColumnRange;
+    }
+    else {
+        rangeForLineWidthCapSizing = [toSelectedCharRanges.firstObject rangeValue];
+    }
+    
     NSMutableArray *resizedCharRanges = oldSelectedCharRanges.mutableCopy;
     for(int i = 0; i < resizedCharRanges.count; i++) {
         NSRange range = [resizedCharRanges[i] rangeValue];
@@ -342,12 +350,17 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
         if(XCCheckOption(self.columnResizingMode, XCTextSelectionResizingModeExpanding)) {
             
             if(XCCheckOption(self.columnResizingMode, XCTextSelectionResizingModeBackwards)) {
-                XCLineRange lineRange = XCGetLineRangeForText(fullText, newColumnRange);
-                resize = (newColumnRange.location != lineRange.start);
+                XCLineRange lineRange = XCGetLineRangeForText(fullText, rangeForLineWidthCapSizing);
+                resize = (rangeForLineWidthCapSizing.location != lineRange.start);
             }
             else if(XCCheckOption(self.columnResizingMode, XCTextSelectionResizingModeForwards)) {
                 XCLineRange lineRange = XCGetLineRangeForText(fullText, range);
-                resize = (range.location + newColumnRange.length < lineRange.end);
+                NSRange resizedRange  = (NSRange){
+                    range.location - selectionLeadOffsetModifier,
+                    range.length + selectionWidthModifier
+                };
+//                resize = (range.location + rangeForLineWidthCapSizing.length < lineRange.end);
+                resize = (resizedRange.location + resizedRange.length < lineRange.end);
             }
         }
         
