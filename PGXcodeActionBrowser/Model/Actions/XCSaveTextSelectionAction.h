@@ -13,7 +13,13 @@
 @protocol XCTextSelectionStorage;
 @interface XCTextSelectionAction : XCCustomAction
 
+@property (nonatomic, readonly) id<XCTextSelectionStorage> textSelectionStorage;
+
 - (instancetype)initWithTextSelectionStorage:(id<XCTextSelectionStorage>)textSelectionStorage;
+
+- (void)undoAction:(NSDictionary *)info;
+- (BOOL)validateSavedSelectionsInContext:(id<XCIDEContext>)context documentIdentifier:(NSString *)documentIdentifier;
+- (BOOL)recomputeAndSaveSelectionsInContext:(id<XCIDEContext>)context documentIdentifier:(NSString *)documentIdentifier;
 
 @end
 
@@ -31,4 +37,3 @@
 ////////////////////////////////////////////////////////////////////////////////
 @interface XCClearTextSelectionAction : XCTextSelectionAction
 @end
-

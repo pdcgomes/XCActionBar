@@ -23,10 +23,6 @@ NSString *XCTextSelectionMarkerAttributeName = @"XCTextSelectionMarker";
 
 @property (nonatomic) id<XCTextSelectionStorage> textSelectionStorage;
 
-- (void)undoAction:(NSDictionary *)info;
-- (BOOL)validateSavedSelectionsInContext:(id<XCIDEContext>)context documentIdentifier:(NSString *)documentIdentifier;
-- (BOOL)recomputeAndSaveSelectionsInContext:(id<XCIDEContext>)context documentIdentifier:(NSString *)documentIdentifier;
-
 @end
 
 ////////////////////////////////////////////////////////////////////////////////
