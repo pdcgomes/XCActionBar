@@ -254,6 +254,10 @@ static XCActionBar *sharedPlugin;
                                     // Prefix/Suffix
                                     [[XCAddPrefixToLinesAction alloc] init],
                                     [[XCAddSuffixToLinesAction alloc] init],
+                                    
+                                    // Column selection mode
+                                    [[XCColumnSelectionModeAction alloc] init],
+                                    
                                     // Duplicate/Delete Lines
                                     [[XCDeleteBlankLinesAction alloc] init],
                                     [[XCDeleteLineAction alloc] init],
@@ -450,6 +454,7 @@ static XCActionBar *sharedPlugin;
 - (void)updateContext
 {
     self.context.configuration      = self.configuration;
+    self.context.sourceCodeEditor   = [XCIDEHelper currentEditor];
     self.context.editorDocument     = [XCIDEHelper currentDocument];
     self.context.workspaceDocument  = [XCIDEHelper currentWorkspaceDocument];
     self.context.sourceCodeDocument = [XCIDEHelper currentSourceCodeDocument];

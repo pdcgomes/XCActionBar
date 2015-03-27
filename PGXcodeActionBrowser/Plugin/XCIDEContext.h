@@ -18,11 +18,12 @@ FOUNDATION_EXPORT NSString *const XCActionInfoSummaryKey;
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @protocol XCActionBarConfiguration;
-@class IDEEditorDocument, IDEWorkspaceDocument, IDESourceCodeDocument, NSTextView;
+@class IDESourceCodeEditor, IDEEditorDocument, IDEWorkspaceDocument, IDESourceCodeDocument, NSTextView;
 @protocol XCIDEContext <NSObject>
 
 @property (nonatomic,   weak) id<XCActionBarConfiguration> configuration;
 
+@property (nonatomic,   weak) IDESourceCodeEditor   *sourceCodeEditor;
 @property (nonatomic,   weak) IDEWorkspaceDocument  *workspaceDocument;
 @property (nonatomic,   weak) IDESourceCodeDocument *sourceCodeDocument;
 @property (nonatomic,   weak) IDEEditorDocument     *editorDocument;

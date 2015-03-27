@@ -46,6 +46,7 @@
 		42C1AD901AAF614500248A8D /* XCConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD8F1AAF614500248A8D /* XCConstants.m */; };
 		42C1AD931AAF632700248A8D /* XCWorkspaceUnitTestsActionProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD921AAF632700248A8D /* XCWorkspaceUnitTestsActionProvider.m */; };
 		42CEA4EB1AB0ADDA006973B7 /* XCSearchService.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CEA4EA1AB0ADDA006973B7 /* XCSearchService.m */; };
+		42F3E2931AC1C48100D69E43 /* XCColumnSelectionModeAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F3E2921AC1C48100D69E43 /* XCColumnSelectionModeAction.m */; };
 		42F7294B1AC0C98800B99B7C /* XCSaveTextSelectionAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F7294A1AC0C98800B99B7C /* XCSaveTextSelectionAction.m */; };
 		42FA5BC81AB82F79007F24B8 /* XCDuplicateLineAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FA5BC71AB82F79007F24B8 /* XCDuplicateLineAction.m */; };
 		42FA5BCB1AB82F84007F24B8 /* XCDeleteLineAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FA5BCA1AB82F84007F24B8 /* XCDeleteLineAction.m */; };
@@ -145,6 +146,8 @@
 		42C1AD921AAF632700248A8D /* XCWorkspaceUnitTestsActionProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = XCWorkspaceUnitTestsActionProvider.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		42CEA4E91AB0ADDA006973B7 /* XCSearchService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSearchService.h; sourceTree = "<group>"; };
 		42CEA4EA1AB0ADDA006973B7 /* XCSearchService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = XCSearchService.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		42F3E2911AC1C48100D69E43 /* XCColumnSelectionModeAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCColumnSelectionModeAction.h; sourceTree = "<group>"; };
+		42F3E2921AC1C48100D69E43 /* XCColumnSelectionModeAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCColumnSelectionModeAction.m; sourceTree = "<group>"; };
 		42F729491AC0C98800B99B7C /* XCSaveTextSelectionAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSaveTextSelectionAction.h; sourceTree = "<group>"; };
 		42F7294A1AC0C98800B99B7C /* XCSaveTextSelectionAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCSaveTextSelectionAction.m; sourceTree = "<group>"; };
 		42FA5BC61AB82F79007F24B8 /* XCDuplicateLineAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCDuplicateLineAction.h; sourceTree = "<group>"; };
@@ -223,6 +226,8 @@
 				4284ADC81ABC26E400531C48 /* XCTrimWhitespaceAction.m */,
 				42F729491AC0C98800B99B7C /* XCSaveTextSelectionAction.h */,
 				42F7294A1AC0C98800B99B7C /* XCSaveTextSelectionAction.m */,
+				42F3E2911AC1C48100D69E43 /* XCColumnSelectionModeAction.h */,
+				42F3E2921AC1C48100D69E43 /* XCColumnSelectionModeAction.m */,
 			);
 			name = "Text Operations";
 			sourceTree = "<group>";
@@ -595,6 +600,7 @@
 				424504AD1ABC50940054DC61 /* XCOpenActiveDocumentPathInTerminalAction.m in Sources */,
 				42A71F251AB714E4008B5B92 /* XCSurroundWithAction.m in Sources */,
 				42F7294B1AC0C98800B99B7C /* XCSaveTextSelectionAction.m in Sources */,
+				42F3E2931AC1C48100D69E43 /* XCColumnSelectionModeAction.m in Sources */,
 				428672591ABC168C001BA586 /* XCDeleteBlankLinesAction.m in Sources */,
 				424504AA1ABC50150054DC61 /* XCCopyActiveDocumentPathAction.m in Sources */,
 				42A360BC1AC05FC00027B223 /* XCTextSnippetHelper.m in Sources */,

@@ -103,7 +103,7 @@
     NSMutableArray *actions = [NSMutableArray array];
 
     for(IDECodeSnippet *snippet in self.repository.codeSnippets) @autoreleasepool {{
-        XCLog(@"<CodeSnippet>, <id=%@, title=%@, shortcut=%@, scopes=%@>", snippet.identifier, snippet.title, snippet.completionPrefix, snippet.completionScopes);
+//        XCLog(@"<CodeSnippet>, <id=%@, title=%@, shortcut=%@, scopes=%@>", snippet.identifier, snippet.title, snippet.completionPrefix, snippet.completionScopes);
         
         XCBlockAction *action = [[XCBlockAction alloc] initWithTitle:snippet.title
                                                             subtitle:snippet.summary

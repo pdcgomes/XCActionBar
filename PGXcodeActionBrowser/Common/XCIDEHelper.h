@@ -125,6 +125,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 @interface XCIDEHelper : NSObject
 
++ (id)currentEditor;
 + (IDEWorkspaceDocument *)currentWorkspaceDocument;
 + (IDESourceCodeDocument *)currentSourceCodeDocument;
 + (IDEEditorDocument *)currentDocument;

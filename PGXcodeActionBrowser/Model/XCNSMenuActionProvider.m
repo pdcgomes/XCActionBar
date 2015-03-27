@@ -40,7 +40,7 @@
         self.actions = [NSMutableArray array];
         self.menu    = menu;
         
-        XCLog(@"<menu=%@, items=%@>", menu.title, menu.itemArray);
+//        XCLog(@"<menu=%@, items=%@>", menu.title, menu.itemArray);
     }
     return self;
 }
