@@ -492,7 +492,9 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
         rangeForNextLine = [fullText lineRangeForRange:dummyRangeForLastLine];
         selectNextLine   = ((rangeForNextLine.location + rangeForNextLine.length) >= (rangeForNextLine.location + selectionLeadOffsetModifier + selectionWidthModifier));
         
-    } while(selectNextLine == NO);
+    } while(selectNextLine == NO && rangeForNextLine.location > 0);
+    
+    if(selectNextLine == NO) return oldSelectedCharRanges;
     
     NSRange nextLineSelection = NSMakeRange(rangeForNextLine.location + selectionLeadOffsetModifier, selectionWidthModifier);
     
@@ -526,10 +528,17 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
             .location = (rangeForNextLine.location + rangeForNextLine.length),
             .length   = 1
         };
-        rangeForNextLine = [fullText lineRangeForRange:dummyRangeForLastLine];
+        @try { // raised when hittin the last line
+            rangeForNextLine = [fullText lineRangeForRange:dummyRangeForLastLine];
+        }
+        @catch(NSException *exception) {
+            break;
+        }
         selectNextLine   = ((rangeForNextLine.location + rangeForNextLine.length) >= (rangeForNextLine.location + selectionLeadOffsetModifier + selectionWidthModifier));
         
     } while(selectNextLine == NO);
+    
+    if(selectNextLine == NO) return oldSelectedCharRanges;
     
     NSRange nextLineSelection = NSMakeRange(rangeForNextLine.location + selectionLeadOffsetModifier, selectionWidthModifier);
     
