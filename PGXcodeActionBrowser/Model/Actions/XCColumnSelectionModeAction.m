@@ -101,9 +101,7 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
 {
     NSTextView *textView = context.sourceCodeTextView;
 
-    self.cursorMode             = XCTextSelectionCursorModeUndefined;
-    self.columnResizingMode     = XCTextSelectionResizingModeUndefined;
-    self.rowResizingMode        = XCTextSelectionResizingModeUndefined;
+    [self resetSelectionCursorAndResizingModes];
     
     self.columnSelectionEnabled = !self.columnSelectionEnabled;
     
@@ -164,6 +162,11 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
     }
     self.cursorMode = cursorMode;
     
+    if(self.cursorMode == XCTextSelectionCursorModeUndefined) {
+        [self resetSelectionCursorAndResizingModes];
+        return newSelectedCharRanges;
+    }
+    
     if(self.cursorMode == XCTextSelectionCursorModeRow) {
         return [self processRowSelectionForTextView:textView
                                 fromCharacterRanges:oldSelectedCharRanges
@@ -181,6 +184,9 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
     NSRange newSelectedCharRange = [toSelectedCharRanges.lastObject rangeValue];
     NSString *fullText = textView.string;
     NSString *textEnclosedBySelection = [fullText substringWithRange:newSelectedCharRange];
+    
+    BOOL deselected = (toSelectedCharRanges.count == 1 && newSelectedCharRange.length == 0);
+    if(deselected) return XCTextSelectionCursorModeUndefined;
     
     __block NSUInteger lineCount = 0;
     [textEnclosedBySelection enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
@@ -533,6 +539,15 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
     [resizedRanges removeObjectAtIndex:0];
     
     return resizedRanges;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)resetSelectionCursorAndResizingModes
+{
+    self.cursorMode             = XCTextSelectionCursorModeUndefined;
+    self.columnResizingMode     = XCTextSelectionResizingModeUndefined;
+    self.rowResizingMode        = XCTextSelectionResizingModeUndefined;
 }
 
 @end
