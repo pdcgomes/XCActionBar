@@ -246,18 +246,14 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
             self.columnResizingMode = (XCTextSelectionResizingModeExpandingForwards);
         }
         if(XCCheckOption(self.columnResizingMode, (XCTextSelectionResizingModeExpandingForwards))) {
-            selectionWidthModifier = 1;
+//            selectionWidthModifier = 1;
         }
         else {
             if(oldColumnRange.length > 1) {
-                selectionWidthModifier      = -1;
-                selectionLeadOffsetModifier = -1;
-                
                 self.columnResizingMode = (XCTextSelectionResizingModeContractingForwards);
             }
             else {
                 self.columnResizingMode = (XCTextSelectionResizingModeExpandingForwards);
-                selectionWidthModifier = 1;
             }
         }
     }
@@ -267,13 +263,10 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
             self.columnResizingMode = (oldColumnRange.length > 1 ?
                                  (XCTextSelectionResizingModeContractingBackwards) :
                                  (XCTextSelectionResizingModeExpandingBackwards));
-//            self.resizingMode = (XCTextSelectionResizingModeExpanding | XCTextSelectionResizingModeBackwards);
         }
-        if(XCCheckOption(self.columnResizingMode, (XCTextSelectionResizingModeExpandingBackwards))) {
-            selectionWidthModifier      = 1;
-            selectionLeadOffsetModifier = 1;
+        else if(self.columnResizingMode == XCTextSelectionResizingModeExpandingForwards) {
+            self.columnResizingMode = XCTextSelectionResizingModeContractingBackwards;
         }
-        else selectionWidthModifier = -1;
     }
     else if(newColumnRange.location == firstRowRange.location &&
             newColumnRange.length == 1 &&
@@ -306,6 +299,34 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
         assert(false); // not reached
     }
 
+    ////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
+    switch(self.columnResizingMode) {
+        case XCTextSelectionResizingModeExpandingForwards:
+            selectionWidthModifier = 1;
+            break;
+            
+        case XCTextSelectionResizingModeExpandingBackwards:
+            selectionWidthModifier      = 1;
+            selectionLeadOffsetModifier = 1;
+            break;
+            
+        case XCTextSelectionResizingModeContractingForwards:
+            selectionWidthModifier      = -1;
+            selectionLeadOffsetModifier = -1;
+            break;
+            
+        case XCTextSelectionResizingModeContractingBackwards:
+            selectionWidthModifier = -1;
+            break;
+            
+        default: assert(false); // not reached
+    }
+
+    
+    ////////////////////////////////////////////////////////////////////////////////
+    // Apply resizing
+    ////////////////////////////////////////////////////////////////////////////////
     BOOL resize = YES;
 
     NSMutableArray *resizedCharRanges = oldSelectedCharRanges.mutableCopy;
