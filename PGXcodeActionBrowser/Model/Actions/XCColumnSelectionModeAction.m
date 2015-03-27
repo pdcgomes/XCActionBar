@@ -518,6 +518,8 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
     }
     [columnSelectionRanges addObject:[NSValue valueWithRange:nextLineSelection]];
     
+    [textView scrollRangeToVisible:nextLineSelection];
+    
     return columnSelectionRanges;
 }
 
