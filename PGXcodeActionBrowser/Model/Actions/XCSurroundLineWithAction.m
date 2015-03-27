@@ -45,6 +45,20 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)executeWithContext:(id<XCIDEContext>)context
 {
+    return [self surroundLineSelectionInContext:context withPrefix:self.prefix andSuffix:self.suffix];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)surroundLineSelectionInContext:(id<XCIDEContext>)context withPrefix:(NSString *)prefix andSuffix:(NSString *)suffix
+{
+    return [self surroundLineSelectionInContext:context withPrefix:prefix andSuffix:suffix trimLines:NO];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)surroundLineSelectionInContext:(id<XCIDEContext>)context withPrefix:(NSString *)prefix andSuffix:(NSString *)suffix trimLines:(BOOL)trimLines
+{
     NSTextView *textView = context.sourceCodeTextView;
     
     NSRange rangeForSelectedText  = [context retrieveTextSelectionRange];
@@ -53,14 +67,15 @@
     NSMutableArray *lineComponents = [[textView.string substringWithRange:lineRangeForSelection] componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]].mutableCopy;
     [lineComponents removeLastObject];
     
+    NSCharacterSet *characterSet = trimLines ? [NSCharacterSet whitespaceCharacterSet] : nil;
     NSMutableString *replacementString = [[NSMutableString alloc] init];
-    
-    for(NSString *line in lineComponents) {
-        [replacementString appendString:self.prefix];
-        [replacementString appendString:line];
-        [replacementString appendString:self.suffix];
+
+    for(NSString *line in lineComponents) { @autoreleasepool {
+        [replacementString appendString:prefix];
+        [replacementString appendString:(trimLines ? [line stringByTrimmingCharactersInSet:characterSet] : line)];
+        [replacementString appendString:suffix];
         [replacementString appendString:@"\n"];
-    }
+    }}
     
     if([textView shouldChangeTextInRange:rangeForSelectedText replacementString:replacementString] == NO) {
         return NO;
@@ -70,6 +85,9 @@
     
     [context.sourceCodeDocument.textStorage replaceCharactersInRange:rangeForSelectedText
                                                           withString:replacementString];
+    
+    [context.sourceCodeDocument.textStorage indentCharacterRange:rangeForSelectedText
+                                                     undoManager:context.sourceCodeDocument.undoManager];
     
     [textView.textStorage endEditing];
     

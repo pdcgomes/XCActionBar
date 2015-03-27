@@ -30,6 +30,7 @@ FOUNDATION_EXPORT NSString *const XCActionInfoSummaryKey;
 
 // Convenience API
 - (NSRange)retrieveTextSelectionRange;
+- (NSArray *)retrieveTextSelectionRanges;
 - (NSString *)retrieveTextSelection;
 
 - (NSString *)retrievePasteboardTextContents;

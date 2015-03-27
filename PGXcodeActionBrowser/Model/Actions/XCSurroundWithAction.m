@@ -54,46 +54,44 @@ NSString *const XCSurroundWithActionSuffixKey     = @"XCSurroundWithActionSuffix
     return [self surroundTextSelectionInContext:context withPrefix:self.prefix andSuffix:self.suffix];
 }
 
-#pragma mark - Helpers
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-- (BOOL)replaceTextSelectionInContext:(id<XCIDEContext>)context withText:(NSString *)replacementText
-{
-    NSRange rangeForSelectedText = [context retrieveTextSelectionRange];
-    if(rangeForSelectedText.location == NSNotFound) return NO;
-    
-    NSTextView *textView = context.sourceCodeTextView;
-    if([textView shouldChangeTextInRange:rangeForSelectedText replacementString:replacementText] == NO) {
-        return NO;
-    }
-
-    NSRange rangeForSurroundedText = NSMakeRange(rangeForSelectedText.location, replacementText.length);
-
-    [textView.textStorage beginEditing];
-    
-    [context.sourceCodeDocument.textStorage replaceCharactersInRange:rangeForSelectedText
-                                                          withString:replacementText];
-    [context.sourceCodeDocument.textStorage indentCharacterRange:rangeForSurroundedText
-                                                     undoManager:context.sourceCodeDocument.undoManager];
-    
-    [textView.textStorage endEditing];
-
-    return YES;
-}
+#pragma mark - Internal
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)surroundTextSelectionInContext:(id<XCIDEContext>)context withPrefix:(NSString *)prefix andSuffix:(NSString *)suffix
 {
-    NSMutableString *selection = [context retrieveTextSelection].mutableCopy;
-    XCReturnFalseUnless(TRCheckIsEmpty(selection) == NO);
+    NSArray *textSelectionRanges = [context retrieveTextSelectionRanges];
+    XCReturnFalseUnless(TRCheckIsEmpty(textSelectionRanges) == NO);
+    
+    NSTextView *textView = context.sourceCodeTextView;
+    NSString *text       = [textView.textStorage string];
+    
+    [textView.textStorage beginEditing];
 
-    [selection insertString:prefix atIndex:0];
-    [selection appendString:suffix];
+    [textSelectionRanges enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSValue *value, NSUInteger idx, BOOL *stop) {
+        NSRange range = value.rangeValue;
 
-    BOOL success = [self replaceTextSelectionInContext:context withText:selection];
-    return success;
+        NSMutableString *textSelectionSubstitution = [text substringWithRange:range].mutableCopy;
+        if(TRCheckIsEmpty(textSelectionSubstitution) == YES) return;
+        
+        [textSelectionSubstitution insertString:prefix atIndex:0];
+        [textSelectionSubstitution appendString:suffix];
+
+        if([textView shouldChangeTextInRange:range replacementString:textSelectionSubstitution] == NO) {
+            return;
+        }
+
+        NSRange rangeWithSubstitution = NSMakeRange(range.location, range.length + (prefix.length + suffix.length));
+        
+        [context.sourceCodeDocument.textStorage replaceCharactersInRange:range
+                                                              withString:textSelectionSubstitution];
+        [context.sourceCodeDocument.textStorage indentCharacterRange:rangeWithSubstitution
+                                                         undoManager:context.sourceCodeDocument.undoManager];
+    }];
+    
+    [textView.textStorage endEditing];
+
+    return YES;
 }
 
 @end

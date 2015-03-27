@@ -18,6 +18,8 @@ Built-in __Add Prefix to Line(s)__ and __Add Suffix to Line(s)__ demo:
 Built-in __Surround With NSNumber Literal__ and __Surround With NSString Literal__ demo:
 ![image](demo3.gif)
 
+For more demos, please check out this [page](https://github.com/pdcgomes/XCActionBar/wiki/Demos), we'll be updating it over time.
+
 ###Motivation:
 
 I always try to accomplish as much as I possibly can without ever moving my hands away from the keyboard, there's simply no other means of input that feels quite as natural or efficient.
@@ -106,6 +108,15 @@ As mentioned above, the plugin comes bundled with a few custom actions. Followin
 
 * `XCOpenActiveDocumentPathInTerminalAction` opens the active document's directory in the terminal app (currently supports `iTerm.app` and `Terminal.app` but more can be added in `XCActionBarConfiguration.plist` under `XCSupportedTerminalApplications`
 
+There are also a few actions that deal with text selections:
+
+* `XCSaveTextSelection`
+* `XCLoadTextSelection`
+* `XCClearTextSelection`
+
+These allow you to select non-contiguous text selections using only your keyboard by selecting a chunk of text (as you would), but with the difference that you can then `save` the selection -- this will mark the text in orange (color will be customizable soon), you can then proceed and make additional selections. When you're done, just `load selection` which will cause the marked text to be fully selected. You can then apply any text action as you would for normal selections.
+Two more things: at the time of writing, the marked text will not automatically _unmark_ itself, so you need to `clear selection`. Also, you can undo marking/unmarking of the text, which is pretty cool.
+
 I've bundled a few `XCSurroundLineWithAction` and `XCSurroundWithAction`S:
 
 * Autorelease pool `@autoreleasepool { ... }`
@@ -129,7 +140,7 @@ There's also a very __meta__ action called `XCSurroundWithSnippetAction` that su
 * the snippet will only show up on the list if it contains at least one `<# Token #>` (otherwise we wouldn't know what would be the prefix/suffix)
 * the **first** `<# Token #>` is replaced by the selected block of text
 
-Similarly, you use `XCSurroundWithTextSnippetAction` to perform the same action as above, with the difference that it uses a text snippet from the pasteboard, meaning you can do ad-hoc surround operations without having to create a new snippet.
+Similarly, you use `XCSurroundWithTextSnippetAction` to perform the same action as above, with the difference that it uses a text snippet from the pasteboard, meaning you can do ad-hoc surround operations without having to create a new snippet. You can also apply the substitution per-selected line by using `XCSurroundLineWithTextSnippetAction`.
 
 Just type `surr` in the action bar to get a list of all available actions.
 
@@ -201,7 +212,7 @@ Alternatively you can use (my preferred) shortcuts:
 * Double press the `ALT` key to repeat the last action
 
 These can also be customized but required a slightly more involved (but simple) process:
-* Find and open the file `XCActionBarConfiguration.plist` under the plugin installation folder (`Library/Application Support/Developer/Shared/Xcode/Plug-ins/XCActionBar.xcplugin/Contents/Resources`)
+* Find and open the file [`XCActionBarConfiguration.plist`](../blob/master/PGXcodeActionBrowser/Plugin/XCActionBarConfiguration.plist)`XCActionBarConfiguration.plist` under the plugin installation folder (`Library/Application Support/Developer/Shared/Xcode/Plug-ins/XCActionBar.xcplugin/Contents/Resources`)
 * Under the `Shortcuts` key you'll find `XCActionBarHotKey` and `XCRepeatLastActionHotKey`
 * Tweak the values to your preferences
 

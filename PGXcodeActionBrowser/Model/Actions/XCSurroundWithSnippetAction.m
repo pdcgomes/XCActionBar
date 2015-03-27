@@ -10,46 +10,7 @@
 
 #import "IDECodeSnippet.h"
 #import "XCIDEContext.h"
-
-NSString *const XCExpandingTokenPattern = @"\\<\\#\\w*[^#]+\\#\\>";
-//                                           |                          |
-const NSUInteger XCPrefixCaptureGroupIndex = 1; //                      |
-const NSUInteger XCSuffixCaptureGroupIndex = 3; // <--------------------/
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-BOOL XCCheckTextSnippetCompatibility(NSString *snippet)
-{
-    NSError *error = nil;
-    NSRegularExpression *expression = [[NSRegularExpression alloc] initWithPattern:XCExpandingTokenPattern options:0 error:&error];
-    if(expression == nil) return NO;
-    
-    BOOL compatible = ([expression numberOfMatchesInString:snippet options:0 range:NSMakeRange(0, snippet.length)] > 0);
-    return compatible;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-BOOL XCParseSnippetAndExtractPrefixAndSuffix(NSString *snippet, NSString **outPrefix, NSString **outSuffix)
-{
-    XCReturnFalseUnless(outPrefix != NULL);
-    XCReturnFalseUnless(outSuffix != NULL);
-
-    NSRegularExpression *expression = [[NSRegularExpression alloc] initWithPattern:XCExpandingTokenPattern options:0 error:nil];
-    NSString *snippetContents = snippet;
-    
-    NSTextCheckingResult *result = [expression firstMatchInString:snippetContents options:0 range:NSMakeRange(0, snippetContents.length)];
-    NSCAssert(result.range.location != NSNotFound, @"No matches found!");
-    
-    NSUInteger endOfMatchLocation = (result.range.location + result.range.length);
-    NSString *prefix = (result.range.location > 0 ? [snippetContents substringToIndex:result.range.location] : @"");
-    NSString *suffix = (endOfMatchLocation < snippetContents.length ? [snippetContents substringFromIndex:endOfMatchLocation] : @"");
-    
-    *outPrefix = prefix;
-    *outSuffix = suffix;
-
-    return YES;
-}
+#import "XCTextSnippetHelper.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // REVIEW: move to internal/private header
@@ -57,6 +18,15 @@ BOOL XCParseSnippetAndExtractPrefixAndSuffix(NSString *snippet, NSString **outPr
 @interface XCSurroundWithAction ()
 
 - (BOOL)surroundTextSelectionInContext:(id<XCIDEContext>)context withPrefix:(NSString *)prefix andSuffix:(NSString *)suffix;
+
+@end
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+@interface XCSurroundLineWithAction ()
+
+- (BOOL)surroundLineSelectionInContext:(id<XCIDEContext>)context withPrefix:(NSString *)prefix andSuffix:(NSString *)suffix;
+- (BOOL)surroundLineSelectionInContext:(id<XCIDEContext>)context withPrefix:(NSString *)prefix andSuffix:(NSString *)suffix trimLines:(BOOL)trimLines;
 
 @end
 
@@ -161,6 +131,61 @@ BOOL XCParseSnippetAndExtractPrefixAndSuffix(NSString *snippet, NSString **outPr
     }
 
     return [self surroundTextSelectionInContext:context withPrefix:prefix andSuffix:suffix];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)executeWithContext:(id<XCIDEContext>)context arguments:(NSArray *)arguments
+{
+    return [self executeWithContext:context];
+}
+
+@end
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+@implementation XCSurroundLineWithTextSnippetAction
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
++ (BOOL)checkTextSnippetCompatibility:(NSString *)snippet
+{
+    return XCCheckTextSnippetCompatibility(snippet);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (instancetype)initWithSpec:(NSDictionary *)spec
+{
+    NSMutableDictionary *mergedSpec = spec.mutableCopy;
+    mergedSpec[XCSurroundWithActionPrefixKey] = @"";
+    mergedSpec[XCSurroundWithActionSuffixKey] = @"";
+    
+    if((self = [super initWithSpec:spec])) {
+        self.title    = spec[XCSurroundWithActionTitleKey];
+        self.subtitle = @"Surrounds lines with pasteboard \"Prefix <# token #> suffix\"";
+    }
+    return self;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)executeWithContext:(id<XCIDEContext>)context
+{
+    NSString *textContents = [context retrievePasteboardTextContents];
+    
+    if(XCCheckTextSnippetCompatibility(textContents) == NO) {
+        return NO;
+    }
+    
+    NSString *prefix = nil;
+    NSString *suffix = nil;
+    
+    if(XCParseSnippetAndExtractPrefixAndSuffix(textContents, &prefix, &suffix) == NO) {
+        return NO;
+    }
+    
+    return [self surroundLineSelectionInContext:context withPrefix:prefix andSuffix:suffix trimLines:YES];
 }
 
 @end
