@@ -18,6 +18,7 @@ typedef NS_ENUM(NSUInteger, XCTextSelectionCursorMode) {
     XCTextSelectionCursorModeColumn = 0,
     XCTextSelectionCursorModeRow,
     XCTextSelectionCursorModeUndefined,
+    XCTextSelectionCursorModeInitial,
 };
 
 typedef NS_ENUM(NSUInteger, XCTextSelectionResizingMode) {
@@ -166,6 +167,11 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
         [self resetSelectionCursorAndResizingModes];
         return newSelectedCharRanges;
     }
+    if(self.cursorMode == XCTextSelectionCursorModeInitial) {
+        return [self processCursorMovementWithNoPreviousSelection:textView
+                                              fromCharacterRanges:oldSelectedCharRanges
+                                                toCharacterRanges:newSelectedCharRanges];
+    }
     
     if(self.cursorMode == XCTextSelectionCursorModeRow) {
         return [self processRowSelectionForTextView:textView
@@ -181,12 +187,20 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
 ////////////////////////////////////////////////////////////////////////////////
 - (XCTextSelectionCursorMode)detectSelectionChangeTypeInTextView:(NSTextView *)textView fromCharacterRanges:(NSArray *)oldSelectedCharRanges toCharacterRanges:(NSArray *)toSelectedCharRanges
 {
+    NSRange oldSelectedCharRange = [oldSelectedCharRanges.lastObject rangeValue];
     NSRange newSelectedCharRange = [toSelectedCharRanges.lastObject rangeValue];
     NSString *fullText = textView.string;
     NSString *textEnclosedBySelection = [fullText substringWithRange:newSelectedCharRange];
     
     BOOL deselected = (toSelectedCharRanges.count == 1 && newSelectedCharRange.length == 0);
     if(deselected) return XCTextSelectionCursorModeUndefined;
+
+    // REVIEW: not ideal, as this is causing side effects, which would not be expected given this method if for 'detection'
+    BOOL initialSelection = (oldSelectedCharRanges.count == 1 && toSelectedCharRanges.count == 1 &&
+                             oldSelectedCharRange.length == 0 && newSelectedCharRange.length != 0);
+    if(initialSelection == YES) {
+        return XCTextSelectionCursorModeInitial;
+    }
     
     __block NSUInteger lineCount = 0;
     [textEnclosedBySelection enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
@@ -195,9 +209,29 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
     
     //    NSLog(@"<lines=%zd>", lineCount);
     
+    if(oldSelectedCharRanges.count > 1 && toSelectedCharRanges.count == 1) {
+        return XCTextSelectionCursorModeRow;
+    }
     return (lineCount > 1 ?
             XCTextSelectionCursorModeRow :
             XCTextSelectionCursorModeColumn);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (NSArray *)processCursorMovementWithNoPreviousSelection:(NSTextView *)textView fromCharacterRanges:(NSArray *)oldSelectedCharRanges toCharacterRanges:(NSArray *)toSelectedCharRanges
+{
+    NSRange oldSelectedCharRange = [oldSelectedCharRanges.lastObject rangeValue];
+    NSRange newSelectedCharRange = [toSelectedCharRanges.lastObject rangeValue];
+
+    self.cursorMode         = XCTextSelectionCursorModeColumn;
+    self.columnResizingMode = (XCTextSelectionResizingModeExpandingForwards);
+    self.rowResizingMode    = (newSelectedCharRange.location == oldSelectedCharRange.location ?
+                               XCTextSelectionResizingModeExpandingDown :
+                               XCTextSelectionResizingModeExpandingUp);
+    
+    NSRange range = NSMakeRange(oldSelectedCharRange.location, 1);
+    return @[[NSValue valueWithRange:range]];
 }
 
 #pragma mark - Column Selection
@@ -310,8 +344,12 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
             self.columnResizingMode = XCTextSelectionResizingModeExpandingBackwards;
         }
     }
+    else if(oldSelectedCharRanges.count > 1 && toSelectedCharRanges.count == 1) {
+        return oldSelectedCharRanges;
+        //assert(false); // not reached
+    }
     else {
-        assert(false); // not reached
+        XCLog(@"--> ZAP");
     }
     
     ////////////////////////////////////////////////////////////////////////////////
@@ -378,6 +416,8 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
             range.length   += selectionWidthModifier;
             resizedCharRanges[i] = [NSValue valueWithRange:range];
         }
+        // TODO: maybe temporarily highlight the offending line so the user understands why the selection stopped
+        // or just stop extending this particular range and cap it to its max. size?
         else break;
     }
     
