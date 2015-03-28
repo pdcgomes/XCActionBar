@@ -131,7 +131,6 @@ static XCActionBar *sharedPlugin;
     [self updateContext];
     [self centerWindowInScreen:[self.windowController window]];
     [self.windowController showWindow:self];
-    [self.windowController becomeFirstResponder];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
