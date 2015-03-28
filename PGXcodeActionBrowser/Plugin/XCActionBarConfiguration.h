@@ -13,9 +13,9 @@
 @protocol XCActionBarConfiguration <NSObject>
 
 // Interim representation while refactoring
-@property (nonatomic, readonly) NSDictionary *shortcuts;
+@property (nonatomic, copy, readonly) NSDictionary *shortcuts;
 
-@property (nonatomic, readonly) NSArray *supportedTerminalApplications;
+@property (nonatomic, copy, readonly) NSArray *supportedTerminalApplications;
 
 ////////////////////////////////////////////////////////////////////////////////
 // User Alerts
@@ -31,9 +31,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 @interface XCActionBarConfiguration : NSObject <XCActionBarConfiguration>
 
-@property (nonatomic) NSDictionary *shortcuts;
+@property (nonatomic, copy) NSDictionary *shortcuts;
 
-@property (nonatomic) NSArray *supportedTerminalApplications;
+@property (nonatomic, copy) NSArray *supportedTerminalApplications;
 
 ////////////////////////////////////////////////////////////////////////////////
 // User Alerts
