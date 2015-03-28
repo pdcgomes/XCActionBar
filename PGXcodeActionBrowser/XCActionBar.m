@@ -255,6 +255,9 @@ static XCActionBar *sharedPlugin;
                                     [[XCAddPrefixToLinesAction alloc] init],
                                     [[XCAddSuffixToLinesAction alloc] init],
                                     
+                                    [[XCAddPrefixToTextAction alloc] init],
+                                    [[XCAddSuffixToTextAction alloc] init],
+                                    
                                     // Column selection mode
                                     [[XCColumnSelectionModeAction alloc] init],
                                     

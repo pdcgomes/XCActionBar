@@ -7,7 +7,9 @@
 //
 
 #import "XCAddPrefixToLinesAction.h"
+#import "XCAddPrefixToTextAction.h"
 #import "XCAddSuffixToLinesAction.h"
+#import "XCAddSuffixToTextAction.h"
 #import "XCBlockAction.h"
 #import "XCColumnSelectionModeAction.h"
 #import "XCCopyActiveDocumentDirectoryAction.h"
