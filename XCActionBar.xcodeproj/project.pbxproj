@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		423E7FC81ACD4F0F00BFFC55 /* Cleanup */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 423E7FC91ACD4F0F00BFFC55 /* Build configuration list for PBXAggregateTarget "Cleanup" */;
+			buildPhases = (
+				423E7FCC1ACD4F2400BFFC55 /* Cleanup */,
+			);
+			dependencies = (
+			);
+			name = Cleanup;
+			productName = Cleanup;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		42135EA61ABC992A0092E97C /* XCActionBarConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 42135EA51ABC992A0092E97C /* XCActionBarConfiguration.m */; };
 		421D37081AB790D900FF8338 /* XCSurroundWithActions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 421D37071AB790D900FF8338 /* XCSurroundWithActions.plist */; };
@@ -55,6 +69,16 @@
 		42FA5BCB1AB82F84007F24B8 /* XCDeleteLineAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FA5BCA1AB82F84007F24B8 /* XCDeleteLineAction.m */; };
 		42FD3C0F1AB0ABE900F0A442 /* XCRoundCornerWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FD3C0E1AB0ABE900F0A442 /* XCRoundCornerWindow.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		423E7FCD1ACD4F7700BFFC55 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 42C1AD3F1AAF3E7F00248A8D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 423E7FC81ACD4F0F00BFFC55;
+			remoteInfo = Cleanup;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		42066D251AB3284800131861 /* IDETestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDETestManager.h; sourceTree = "<group>"; };
@@ -500,6 +524,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				423E7FCE1ACD4F7700BFFC55 /* PBXTargetDependency */,
 			);
 			name = XCActionBar;
 			productName = PGXcodeActionBrowser;
@@ -532,6 +557,9 @@
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "Pedro Gomes";
 				TargetAttributes = {
+					423E7FC81ACD4F0F00BFFC55 = {
+						CreatedOnToolsVersion = 6.2;
+					};
 					42C1AD461AAF3E7F00248A8D = {
 						CreatedOnToolsVersion = 6.1.1;
 					};
@@ -555,6 +583,7 @@
 			projectRoot = "";
 			targets = (
 				42C1AD461AAF3E7F00248A8D /* XCActionBar */,
+				423E7FC81ACD4F0F00BFFC55 /* Cleanup */,
 				42C1AD731AAF3EC000248A8D /* XcodeActionBrowserSimulatorTests */,
 			);
 		};
@@ -582,6 +611,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		423E7FCC1ACD4F2400BFFC55 /* Cleanup */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Cleanup;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"$PROJECT_DIR\"\nxcodebuild clean";
+			showEnvVarsInLog = 0;
+		};
 		42455FEF1ACD41D30040B5E8 /* Delete build directory */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -594,8 +638,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ -d \"$PLUGIN_BUILD_DIR\" ]; then\n    touch ${BUILT_PRODUCTS_DIR}\nfi\n\nPLUGIN_BUILD_DIR=\"$PROJECT_DIR/build/$CONFIGURATION\"\n\nif [ -d \"$PLUGIN_BUILD_DIR\" ]; then\n    rm -rf \"$PLUGIN_BUILD_DIR/*\"\nfi\n";
-			showEnvVarsInLog = 0;
+			shellScript = "if [ -d \"$BUILT_PRODUCTS_DIR\" ]; then\n    touch \"$BUILT_PRODUCTS_DIR\"\nfi\n\nPLUGIN_BUILD_DIR=\"$PROJECT_DIR/build/$CONFIGURATION\"\n\nif [ -d \"$PLUGIN_BUILD_DIR\" ]; then\n    rm -rf \"$PLUGIN_BUILD_DIR/*\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -657,7 +700,29 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		423E7FCE1ACD4F7700BFFC55 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 423E7FC81ACD4F0F00BFFC55 /* Cleanup */;
+			targetProxy = 423E7FCD1ACD4F7700BFFC55 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		423E7FCA1ACD4F0F00BFFC55 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		423E7FCB1ACD4F0F00BFFC55 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		42C1AD561AAF3E7F00248A8D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -801,6 +866,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		423E7FC91ACD4F0F00BFFC55 /* Build configuration list for PBXAggregateTarget "Cleanup" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				423E7FCA1ACD4F0F00BFFC55 /* Debug */,
+				423E7FCB1ACD4F0F00BFFC55 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		42C1AD421AAF3E7F00248A8D /* Build configuration list for PBXProject "XCActionBar" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
