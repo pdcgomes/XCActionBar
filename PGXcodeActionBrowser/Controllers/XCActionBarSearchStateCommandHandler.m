@@ -77,7 +77,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)handleEnterCommand
 {
-    return [self.commandProcessor executeSelectedAction];
+    id<XCActionInterface> selectedAction = [self.commandProcessor retrieveSelectedAction];
+    XCReturnFalseUnless(selectedAction != nil);
+    
+    return ([selectedAction requiresArguments] == NO ?
+            [self.commandProcessor executeSelectedAction] :
+            [self.commandProcessor enterActionArgumentState]);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
