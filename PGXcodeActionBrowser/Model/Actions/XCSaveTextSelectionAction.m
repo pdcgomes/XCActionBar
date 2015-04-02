@@ -15,7 +15,7 @@
 
 #define XCSavedSelectionTextColor() ([[NSColor orangeColor] colorWithAlphaComponent:0.3])
 
-NSString *XCTextSelectionMarkerAttributeName = @"XCTextSelectionMarker";
+NSString *const XCTextSelectionMarkerAttributeName = @"XCTextSelectionMarker";
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////

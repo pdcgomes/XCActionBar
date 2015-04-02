@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		421278DD1ACDEC5E0037B87A /* XCMoveSelectionHereAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 421278DC1ACDEC5E0037B87A /* XCMoveSelectionHereAction.m */; };
 		42135EA61ABC992A0092E97C /* XCActionBarConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 42135EA51ABC992A0092E97C /* XCActionBarConfiguration.m */; };
 		4214C9A01ACDC33A009FA602 /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4214C99F1ACDC33A009FA602 /* fontawesome-webfont.ttf */; };
 		421D37081AB790D900FF8338 /* XCSurroundWithActions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 421D37071AB790D900FF8338 /* XCSurroundWithActions.plist */; };
@@ -86,6 +87,8 @@
 /* Begin PBXFileReference section */
 		42066D251AB3284800131861 /* IDETestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDETestManager.h; sourceTree = "<group>"; };
 		42066D291AB32F5300131861 /* _IDEOCUnitTestRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _IDEOCUnitTestRecord.h; sourceTree = "<group>"; };
+		421278DB1ACDEC5E0037B87A /* XCMoveSelectionHereAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCMoveSelectionHereAction.h; sourceTree = "<group>"; };
+		421278DC1ACDEC5E0037B87A /* XCMoveSelectionHereAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCMoveSelectionHereAction.m; sourceTree = "<group>"; };
 		42135EA41ABC992A0092E97C /* XCActionBarConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCActionBarConfiguration.h; sourceTree = "<group>"; };
 		42135EA51ABC992A0092E97C /* XCActionBarConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCActionBarConfiguration.m; sourceTree = "<group>"; };
 		4214C99F1ACDC33A009FA602 /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
@@ -285,6 +288,8 @@
 				4284ADC81ABC26E400531C48 /* XCTrimWhitespaceAction.m */,
 				4270B2B31AC6E1F8004AF618 /* XCAddSuffixToTextAction.h */,
 				4270B2B41AC6E1F8004AF618 /* XCAddSuffixToTextAction.m */,
+				421278DB1ACDEC5E0037B87A /* XCMoveSelectionHereAction.h */,
+				421278DC1ACDEC5E0037B87A /* XCMoveSelectionHereAction.m */,
 			);
 			name = "Text Operations";
 			sourceTree = "<group>";
@@ -700,6 +705,7 @@
 				422DB1BF1AB60134007D13F9 /* XCCodeSnippetProvider.m in Sources */,
 				42A71F1C1AB71323008B5B92 /* XCCustomAction.m in Sources */,
 				426782E91ABA33C8006F4E53 /* XCHotKeyListener.m in Sources */,
+				421278DD1ACDEC5E0037B87A /* XCMoveSelectionHereAction.m in Sources */,
 				421D370E1AB7982F00FF8338 /* XCAddSuffixToLinesAction.m in Sources */,
 				42FA5BCB1AB82F84007F24B8 /* XCDeleteLineAction.m in Sources */,
 				42FA5BC81AB82F79007F24B8 /* XCDuplicateLineAction.m in Sources */,

@@ -261,6 +261,8 @@ static XCActionBar *sharedPlugin;
                                     // Column selection mode
                                     [[XCColumnSelectionModeAction alloc] init],
                                     
+                                    [[XCMoveSelectionHereAction alloc] initWithTextSelectionStorage:textSelectionStorage],
+                                    
                                     // Duplicate/Delete Lines
                                     [[XCDeleteBlankLinesAction alloc] init],
                                     [[XCDeleteLineAction alloc] init],

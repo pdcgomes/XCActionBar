@@ -8,6 +8,8 @@
 
 #import "XCCustomAction.h"
 
+FOUNDATION_EXPORT NSString *const XCTextSelectionMarkerAttributeName;
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @protocol XCTextSelectionStorage;
@@ -19,6 +21,7 @@
 
 - (void)undoAction:(NSDictionary *)info;
 - (BOOL)validateSavedSelectionsInContext:(id<XCIDEContext>)context documentIdentifier:(NSString *)documentIdentifier;
+- (NSArray *)validateAndLoadSavedSelectionsInContext:(id<XCIDEContext>)context documentIdentifier:(NSString *)documentIdentifier;
 - (BOOL)recomputeAndSaveSelectionsInContext:(id<XCIDEContext>)context documentIdentifier:(NSString *)documentIdentifier;
 
 @end
