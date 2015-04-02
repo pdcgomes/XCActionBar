@@ -26,9 +26,9 @@
 - (instancetype)init
 {
     if((self = [super init])) {
-        self.title        = @"Duplicate Line(s)";
+        self.title        = @"Duplicate Lines";
+        self.subtitle     = @"Duplicates the selected line(s)";
         self.argumentHint = @"Number of times to duplicate (number > 0)";
-        self.subtitle     = @"";
         self.enabled      = YES;
     }
     return self;
