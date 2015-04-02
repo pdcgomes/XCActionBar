@@ -334,7 +334,7 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (BOOL)executeSelectedActionWithArguments:(NSArray *)arguments
+- (BOOL)executeSelectedActionWithArguments:(NSString *)arguments
 {
     NSInteger selectedIndex = self.searchResultsTable.selectedRow;
     if(selectedIndex == -1) return NO;

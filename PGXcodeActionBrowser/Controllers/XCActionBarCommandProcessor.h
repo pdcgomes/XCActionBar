@@ -24,7 +24,7 @@
 - (BOOL)selectPreviousSearchResult;
 
 - (BOOL)executeSelectedAction;
-- (BOOL)executeSelectedActionWithArguments:(NSArray *)arguments;
+- (BOOL)executeSelectedActionWithArguments:(NSString *)arguments;
 
 // REVIEW: move to a separate protocol? this works for now
 - (id<XCActionInterface>)retrieveSelectedAction;

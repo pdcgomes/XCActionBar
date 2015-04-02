@@ -38,8 +38,8 @@
 
 - (BOOL)requiresArguments;
 
-- (BOOL)validateArgumentsWithContext:(id<XCIDEContext>)context arguments:(NSArray *)arguments;
+- (BOOL)validateArgumentsWithContext:(id<XCIDEContext>)context arguments:(NSString *)arguments;
 
-- (BOOL)executeWithContext:(id<XCIDEContext>)context arguments:(NSArray *)arguments;
+- (BOOL)executeWithContext:(id<XCIDEContext>)context arguments:(NSString *)arguments;
 
 @end
