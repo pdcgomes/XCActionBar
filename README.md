@@ -147,6 +147,18 @@ Just type `surr` in the action bar to get a list of all available actions.
 Note: currently none of these perform any character escaping
 Some of the don't really make much sense when applied to **each line** so I might strip some out in the future
 
+Also, some actions support optional user-defined input, which can come in handy. For example, lets say you specify the `XCDuplicateLineAction` but you actually want to duplicate it __ten__ times. You can hit `tab` with the `XCDuplicateLineAction` highlighted, and the input text field will change and ask you for the number of times you'd like to repeat the action. Just enter the number and hit `enter` - boom!
+
+Currently the following actions support optional user input:
+
+* `XCDuplicateLineAction`
+* `XCAddPrefixToLinesAction`
+* `XCAddSuffixToLinesAction`
+* `XCAddPrefixToTextAction`
+* `XCAddSuffixToTextAction`
+
+There's currently no visual hint to let you know if an action supports arguments or not but I intend to add this feature in the near future.
+
 Continue reading for more details on how to add your own custom actions.
 
 ### Extensibility
