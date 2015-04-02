@@ -111,6 +111,7 @@
 		428672571ABC168C001BA586 /* XCDeleteBlankLinesAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCDeleteBlankLinesAction.h; sourceTree = "<group>"; };
 		428672581ABC168C001BA586 /* XCDeleteBlankLinesAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCDeleteBlankLinesAction.m; sourceTree = "<group>"; };
 		4286725A1ABC18AF001BA586 /* XCActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCActions.h; sourceTree = "<group>"; };
+		428A1D051ACD99B100032F4A /* XCActionBarCommandProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCActionBarCommandProcessor.h; sourceTree = "<group>"; };
 		429086511AB92AE800EC3F78 /* XCSurroundLineWithAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSurroundLineWithAction.h; sourceTree = "<group>"; };
 		429086521AB92AE800EC3F78 /* XCSurroundLineWithAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCSurroundLineWithAction.m; sourceTree = "<group>"; };
 		4297454E1AC85AEF00E1875D /* XCActionBarSearchStateCommandHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCActionBarSearchStateCommandHandler.h; sourceTree = "<group>"; };
@@ -301,6 +302,7 @@
 				429745511AC85B0000E1875D /* XCActionBarArgumentInputStateCommandHandler.h */,
 				429745521AC85B0000E1875D /* XCActionBarArgumentInputStateCommandHandler.m */,
 				429745541AC85B7600E1875D /* XCActionBarCommandHandler.h */,
+				428A1D051ACD99B100032F4A /* XCActionBarCommandProcessor.h */,
 			);
 			name = "Action Search";
 			sourceTree = "<group>";
