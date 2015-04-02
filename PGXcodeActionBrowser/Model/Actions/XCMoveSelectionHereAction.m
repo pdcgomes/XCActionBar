@@ -33,8 +33,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)executeWithContext:(id<XCIDEContext>)context
 {
-    NSTextView    *textView    = context.sourceCodeTextView;
-    NSTextStorage *textStorage = textView.textStorage;
+    NSTextView           *textView    = context.sourceCodeTextView;
+    DVTSourceTextStorage *textStorage = context.sourceCodeDocument.textStorage;
     
     ////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////
@@ -49,29 +49,33 @@
     ////////////////////////////////////////////////////////////////////////////////
     // Undo support
     ////////////////////////////////////////////////////////////////////////////////
-    NSUndoManager *undo = textView.undoManager;
+    NSUndoManager *undo = context.sourceCodeDocument.undoManager;
+    [undo beginUndoGrouping];
+    [textStorage beginEditing];
+
     [undo registerUndoWithTarget:self selector:@selector(undoAction:) object:@{@"TextView": textView,
                                                                                @"DocumentIdentifier": documentIdentifier,
                                                                                @"OldSelectionRanges": savedSelections,
                                                                                @"NewSelectionRanges": @[]}];
-    [self.textSelectionStorage deleteSelectionWithIdentifier:documentIdentifier];
 
     ////////////////////////////////////////////////////////////////////////////////
     // Retrieve the sub-selections we want to move
     ////////////////////////////////////////////////////////////////////////////////
-    [textView.textStorage beginEditing];
-
     for(NSValue *selectedTextRangeValue in savedSelections) {
         NSRange selectedTextRange = [selectedTextRangeValue rangeValue];
 
         [textSelections addObject:[fullText substringWithRange:selectedTextRange]];
     }
-    
+
+    NSRange insertionLocation = NSMakeRange([context retrieveTextSelectionRange].location, 0);
+
     ////////////////////////////////////////////////////////////////////////////////
     // Insert them in reverse order
     ////////////////////////////////////////////////////////////////////////////////
     [textSelections enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSString *selection, NSUInteger idx, BOOL *stop) {
-        [textView insertText:selection];
+        [textStorage replaceCharactersInRange:insertionLocation
+                                   withString:selection
+                              withUndoManager:undo];
     }];
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -85,21 +89,19 @@
         [textStorage removeAttribute:NSBackgroundColorAttributeName     range:selectedTextRange];
         [textStorage removeAttribute:XCTextSelectionMarkerAttributeName range:selectedTextRange];
         
-        [textView replaceCharactersInRange:selectedTextRange withString:@""];
+        [textStorage replaceCharactersInRange:selectedTextRange
+                                   withString:@""
+                              withUndoManager:undo];
     }];
-
-    [textView.textStorage endEditing];
-
-//    ////////////////////////////////////////////////////////////////////////////////
-//    // Undo support
-//    ////////////////////////////////////////////////////////////////////////////////
-//    NSUndoManager *undo = textView.undoManager;
-//    [undo registerUndoWithTarget:self selector:@selector(undoAction:) object:@{@"TextView": textView,
-//                                                                               @"DocumentIdentifier": documentIdentifier,
-//                                                                               @"OldSelectionRanges": savedSelections,
-//                                                                               @"NewSelectionRanges": @[]}];
-//    [self.textSelectionStorage deleteSelectionWithIdentifier:documentIdentifier];
     
+    ////////////////////////////////////////////////////////////////////////////////
+    // Delete the selection
+    ////////////////////////////////////////////////////////////////////////////////
+    [self.textSelectionStorage deleteSelectionWithIdentifier:documentIdentifier];
+
+    [textStorage endEditing];
+    [undo endUndoGrouping];
+
     return YES;
 }
 
