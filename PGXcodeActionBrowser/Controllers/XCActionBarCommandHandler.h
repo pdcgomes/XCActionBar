@@ -12,6 +12,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 @protocol XCActionBarCommandHandler <NSObject>
 
+- (void)enterWithInputControl:(NSTextField *)field;
+- (void)exit;
+
 - (BOOL)handleCursorUpCommand;
 - (BOOL)handleCursorDownCommand;
 - (BOOL)handleEnterCommand;

@@ -10,6 +10,9 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+@protocol XCActionBarCommandProcessor;
 @interface XCActionBarSearchStateCommandHandler : NSObject <XCActionBarCommandHandler>
+
+- (instancetype)initWithCommandProcessor:(id<XCActionBarCommandProcessor>)processor;
 
 @end

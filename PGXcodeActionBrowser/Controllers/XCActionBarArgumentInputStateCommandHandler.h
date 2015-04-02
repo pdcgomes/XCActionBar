@@ -10,6 +10,9 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+@protocol XCActionBarCommandProcessor;
 @interface XCActionBarArgumentInputStateCommandHandler : NSObject <XCActionBarCommandHandler>
+
+- (instancetype)initWithCommandProcessor:(id<XCActionBarCommandProcessor>)processor;
 
 @end
