@@ -492,7 +492,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 42C1AD581AAF3E7F00248A8D /* Build configuration list for PBXNativeTarget "XCActionBar" */;
 			buildPhases = (
-				42455FEF1ACD41D30040B5E8 /* Delete Alcatraz XCActionBar build directory */,
+				42455FEF1ACD41D30040B5E8 /* Delete build directory */,
 				42C1AD431AAF3E7F00248A8D /* Sources */,
 				42C1AD441AAF3E7F00248A8D /* Resources */,
 				42C1AD451AAF3E7F00248A8D /* Frameworks */,
@@ -582,19 +582,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		42455FEF1ACD41D30040B5E8 /* Delete Alcatraz XCActionBar build directory */ = {
+		42455FEF1ACD41D30040B5E8 /* Delete build directory */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Delete Alcatraz XCActionBar build directory";
+			name = "Delete build directory";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "ALCATRAZ_BUILD_DIR=\"$USER_LIBRARY_DIR/Application Support/Alcatraz/Plug-ins/XCActionBar/build\"\n\nif [ -d \"$ALCATRAZ_BUILD_DIR\" ]; then\nrm -rf \"$ALCATRAZ_BUILD_DIR\"\nfi\n";
+			shellScript = "PLUGIN_BUILD_DIR=\"$PROJECT_DIR/build/$CONFIGURATION\"\n\nif [ -d \"$PLUGIN_BUILD_DIR\" ]; then\nrm -rf \"$PLUGIN_BUILD_DIR/*\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
