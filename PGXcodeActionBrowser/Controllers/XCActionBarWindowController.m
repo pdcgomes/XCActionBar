@@ -7,6 +7,10 @@
 //
 
 #import "XCActionBarWindowController.h"
+
+#import "XCActionBarArgumentInputStateCommandHandler.h"
+#import "XCActionBarSearchStateCommandHandler.h"
+#import "XCActionBarCommandProcessor.h"
 #import "XCActionInterface.h"
 #import "XCSearchService.h"
 
@@ -15,16 +19,11 @@
 #import "XCIDEContext.h"
 #import "XCIDEHelper.h"
 
-//NSUpArrowFunctionKey        = 0xF700,
-//NSDownArrowFunctionKey      = 0xF701,
-//NSLeftArrowFunctionKey      = 0xF702,
-//NSRightArrowFunctionKey     = 0xF703,
-
-typedef BOOL (^PGCommandHandler)(void);
+typedef BOOL (^XCCommandHandler)(void);
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@interface XCActionBarWindowController () <NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate, NSWindowDelegate>
+@interface XCActionBarWindowController () <XCActionBarCommandProcessor, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate, NSWindowDelegate>
 
 @property (nonatomic) NSRect frameForEmptySearchResults;
 @property (nonatomic) CGFloat searchFieldBottomConstraintConstant;
@@ -88,7 +87,6 @@ typedef BOOL (^PGCommandHandler)(void);
 }
 
 #pragma mark - Event Handling
-
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -160,7 +158,7 @@ typedef BOOL (^PGCommandHandler)(void);
     NSString *commandKey = NSStringFromSelector(command);
     BOOL handleCommand   = (TRCheckContainsKey(self.commandHandlers, commandKey) == YES);
     if(handleCommand == YES) {
-        PGCommandHandler commandHandler = self.commandHandlers[commandKey];
+        XCCommandHandler commandHandler = self.commandHandlers[commandKey];
         return commandHandler();
     }
     return handleCommand;
@@ -216,6 +214,7 @@ typedef BOOL (^PGCommandHandler)(void);
 
 #pragma mark - Public Methods
 
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (void)updateSearchResults:(NSArray *)results
@@ -245,6 +244,28 @@ typedef BOOL (^PGCommandHandler)(void);
 }
 
 #pragma mark - Event Action Handlers
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)enterActionSearchState
+{
+    return NO;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)enterActionArgumentState
+{
+    return NO;    
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)searchActionWithExpression:(NSString *)query
+{
+    [self performSearchWithExpression:query];
+    return YES;
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -292,6 +313,13 @@ typedef BOOL (^PGCommandHandler)(void);
     }
     
     return executed;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)executeSelectedActionWithArguments:(NSArray *)arguments
+{
+    return NO;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

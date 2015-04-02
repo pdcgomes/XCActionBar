@@ -35,7 +35,7 @@
 
 - (BOOL)acceptsArguments;
 
-- (BOOL)validateArguments:(id<XCIDEContext>)context arguments:(NSArray *)arguments;
+- (BOOL)validateArgumentsWithContext:(id<XCIDEContext>)context arguments:(NSArray *)arguments;
 
 - (BOOL)executeWithContext:(id<XCIDEContext>)context arguments:(NSArray *)arguments;
 
