@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Pedro Gomes. All rights reserved.
 //
 
+#import "XCActionInterface.h"
 #import "XCActionBarSearchStateCommandHandler.h"
 #import "XCActionBarCommandProcessor.h"
 
@@ -83,8 +84,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)handleTabCommand
 {
-    return [self.commandProcessor enterActionArgumentState];
-//    return [self.commandProcessor autoCompleteWithSelectedAction];
+    id<XCActionInterface> selectedAction = [self.commandProcessor retrieveSelectedAction];
+    XCReturnFalseUnless(selectedAction != nil);
+    
+    return ([selectedAction acceptsArguments] ?
+            [self.commandProcessor enterActionArgumentState] :
+            [self.commandProcessor autoCompleteWithSelectedAction]);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
