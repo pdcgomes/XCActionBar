@@ -197,7 +197,7 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
     XCSearchResultCell *cell = [tableView makeViewWithIdentifier:NSStringFromClass([XCSearchResultCell class]) owner:self];
     
     id<XCActionInterface> action = self.searchResults[row];
-    
+
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:TRSafeString(action.title)];
     
     [title addAttribute:NSForegroundColorAttributeName
@@ -215,7 +215,19 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
     
     cell.textField.attributedStringValue = title;
     cell.hintTextField.stringValue       = TRSafeString(action.hint);
-    cell.subtitleTextField.stringValue   = TRSafeString(action.subtitle);
+    
+    if([action acceptsArguments] == YES) {
+//        NSString *summaryWithMarker = [NSString stringWithFormat:@"%@ %@", @"\uf11c", TRSafeString(action.subtitle)];
+//        NSMutableAttributedString *summary = [[NSMutableAttributedString alloc] initWithString:summaryWithMarker];
+//        [summary addAttributes:@{NSFontAttributeName: XCFontAwesomeWithSize(12.0)}
+//                         range:NSMakeRange(0, 1)];
+//        cell.subtitleTextField.allowsEditingTextAttributes = YES;
+//        cell.subtitleTextField.attributedStringValue       = summary;
+        
+        cell.subtitleTextField.stringValue = [NSString stringWithFormat:@"%@ %@", @"\u21e5", TRSafeString(action.subtitle)];
+    }
+    else cell.subtitleTextField.stringValue   = TRSafeString(action.subtitle);
+    
     
     return cell;
 }
