@@ -25,7 +25,6 @@
 		421D37081AB790D900FF8338 /* XCSurroundWithActions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 421D37071AB790D900FF8338 /* XCSurroundWithActions.plist */; };
 		421D370B1AB7982300FF8338 /* XCAddPrefixToLinesAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 421D370A1AB7982300FF8338 /* XCAddPrefixToLinesAction.m */; };
 		421D370E1AB7982F00FF8338 /* XCAddSuffixToLinesAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 421D370D1AB7982F00FF8338 /* XCAddSuffixToLinesAction.m */; };
-		4228E3E81AB1B7D100918EAA /* XCSearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4228E3E71AB1B7D100918EAA /* XCSearchResultCell.xib */; };
 		4228E3EB1AB1B82A00918EAA /* XCSearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4228E3EA1AB1B82A00918EAA /* XCSearchResultCell.m */; };
 		422DB1BF1AB60134007D13F9 /* XCCodeSnippetProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 422DB1BE1AB60134007D13F9 /* XCCodeSnippetProvider.m */; };
 		423986FB1AC0DEB300559D29 /* XCTextSelectionStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 423986FA1AC0DEB300559D29 /* XCTextSelectionStorage.m */; };
@@ -100,7 +99,6 @@
 		421E215B1AB321DC000893ED /* _IDETestableState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _IDETestableState.h; sourceTree = "<group>"; };
 		421F53561AB9CFF600509103 /* XCSearchStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSearchStrategy.h; sourceTree = "<group>"; };
 		422781921AB05883003CDD79 /* XCActionBar-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "XCActionBar-Prefix.pch"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		4228E3E71AB1B7D100918EAA /* XCSearchResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XCSearchResultCell.xib; sourceTree = "<group>"; };
 		4228E3E91AB1B82A00918EAA /* XCSearchResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = XCSearchResultCell.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		4228E3EA1AB1B82A00918EAA /* XCSearchResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = XCSearchResultCell.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		422DB1BA1AB5FAF5007D13F9 /* IDECodeSnippet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDECodeSnippet.h; sourceTree = "<group>"; };
@@ -524,7 +522,6 @@
 			children = (
 				42FD3C0D1AB0ABE900F0A442 /* XCRoundCornerWindow.h */,
 				42FD3C0E1AB0ABE900F0A442 /* XCRoundCornerWindow.m */,
-				4228E3E71AB1B7D100918EAA /* XCSearchResultCell.xib */,
 				4228E3E91AB1B82A00918EAA /* XCSearchResultCell.h */,
 				4228E3EA1AB1B82A00918EAA /* XCSearchResultCell.m */,
 			);
@@ -619,7 +616,6 @@
 				42BD03481AB0880200FB7C07 /* XCActionBarWindowController.xib in Resources */,
 				421D37081AB790D900FF8338 /* XCSurroundWithActions.plist in Resources */,
 				426782EB1ABA37E8006F4E53 /* XCActionBarConfiguration.plist in Resources */,
-				4228E3E81AB1B7D100918EAA /* XCSearchResultCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

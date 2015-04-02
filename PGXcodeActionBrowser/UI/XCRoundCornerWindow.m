@@ -36,11 +36,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (void)setContentView:(NSView *)contentView
 {
-    contentView.wantsLayer          = YES;
-    contentView.layer.frame         = contentView.frame;
-    contentView.layer.cornerRadius  = 10.0;
+    contentView.wantsLayer = YES;
+    contentView.layer.frame = contentView.frame;
+    contentView.layer.cornerRadius = 3.0;
     contentView.layer.masksToBounds = YES;
-    
+
     [super setContentView:contentView];
 }
 
