@@ -22,6 +22,7 @@
 
 /* Begin PBXBuildFile section */
 		42135EA61ABC992A0092E97C /* XCActionBarConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 42135EA51ABC992A0092E97C /* XCActionBarConfiguration.m */; };
+		4214C9A01ACDC33A009FA602 /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4214C99F1ACDC33A009FA602 /* fontawesome-webfont.ttf */; };
 		421D37081AB790D900FF8338 /* XCSurroundWithActions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 421D37071AB790D900FF8338 /* XCSurroundWithActions.plist */; };
 		421D370B1AB7982300FF8338 /* XCAddPrefixToLinesAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 421D370A1AB7982300FF8338 /* XCAddPrefixToLinesAction.m */; };
 		421D370E1AB7982F00FF8338 /* XCAddSuffixToLinesAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 421D370D1AB7982F00FF8338 /* XCAddSuffixToLinesAction.m */; };
@@ -87,6 +88,7 @@
 		42066D291AB32F5300131861 /* _IDEOCUnitTestRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _IDEOCUnitTestRecord.h; sourceTree = "<group>"; };
 		42135EA41ABC992A0092E97C /* XCActionBarConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCActionBarConfiguration.h; sourceTree = "<group>"; };
 		42135EA51ABC992A0092E97C /* XCActionBarConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCActionBarConfiguration.m; sourceTree = "<group>"; };
+		4214C99F1ACDC33A009FA602 /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
 		421D37071AB790D900FF8338 /* XCSurroundWithActions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = XCSurroundWithActions.plist; sourceTree = "<group>"; };
 		421D37091AB7982300FF8338 /* XCAddPrefixToLinesAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = XCAddPrefixToLinesAction.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		421D370A1AB7982300FF8338 /* XCAddPrefixToLinesAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCAddPrefixToLinesAction.m; sourceTree = "<group>"; };
@@ -219,6 +221,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4214C99E1ACDC2DE009FA602 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4214C99F1ACDC33A009FA602 /* fontawesome-webfont.ttf */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		422DB1BB1AB5FB05007D13F9 /* IDEKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -432,6 +442,7 @@
 				42BD033C1AB0880200FB7C07 /* Controllers */,
 				42C1AD821AAF522A00248A8D /* Model */,
 				42807D301AB05F4B007988F3 /* Plugin */,
+				4214C99E1ACDC2DE009FA602 /* Resources */,
 				42C1AD4F1AAF3E7F00248A8D /* Supporting Files */,
 				42FD3C0C1AB0ABC700F0A442 /* UI */,
 				42BA258D1AB31267004220B4 /* Vendor */,
@@ -618,6 +629,7 @@
 			files = (
 				42BD03481AB0880200FB7C07 /* XCActionBarWindowController.xib in Resources */,
 				421D37081AB790D900FF8338 /* XCSurroundWithActions.plist in Resources */,
+				4214C9A01ACDC33A009FA602 /* fontawesome-webfont.ttf in Resources */,
 				426782EB1ABA37E8006F4E53 /* XCActionBarConfiguration.plist in Resources */,
 				4228E3E81AB1B7D100918EAA /* XCSearchResultCell.xib in Resources */,
 			);
@@ -661,6 +673,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ -d \"$BUILT_PRODUCTS_DIR\" ]; then\n    touch \"$BUILT_PRODUCTS_DIR\"\nfi\n\nPLUGIN_BUILD_DIR=\"$PROJECT_DIR/build/$CONFIGURATION\"\n\nif [ -d \"$PLUGIN_BUILD_DIR\" ]; then\n    rm -rf \"$PLUGIN_BUILD_DIR/*\"\nfi\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -897,6 +910,7 @@
 				423E7FCB1ACD4F0F00BFFC55 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		42C1AD421AAF3E7F00248A8D /* Build configuration list for PBXProject "XCActionBar" */ = {
 			isa = XCConfigurationList;
