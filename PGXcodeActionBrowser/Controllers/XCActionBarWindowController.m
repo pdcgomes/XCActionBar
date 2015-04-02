@@ -21,6 +21,9 @@
 
 typedef BOOL (^XCCommandHandler)(void);
 
+NSString *const XCSearchInputHandlerKey   = @"SearchHandler";
+NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @interface XCActionBarWindowController () <XCActionBarCommandProcessor, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate, NSWindowDelegate>
@@ -28,7 +31,9 @@ typedef BOOL (^XCCommandHandler)(void);
 @property (nonatomic) NSRect frameForEmptySearchResults;
 @property (nonatomic) CGFloat searchFieldBottomConstraintConstant;
 
-@property (nonatomic) NSDictionary *commandHandlers;
+@property (nonatomic      ) NSDictionary *eventHandlers;
+@property (nonatomic      ) NSDictionary *commandHandlers;
+@property (nonatomic, weak) id<XCActionBarCommandHandler> commandHandler;
 
 @property (weak) IBOutlet NSTextField *searchField;
 @property (weak) IBOutlet NSTableView *searchResultsTable;
@@ -63,13 +68,16 @@ typedef BOOL (^XCCommandHandler)(void);
     [super windowDidLoad];
     
     XCDeclareWeakSelf(weakSelf);
-    self.commandHandlers = @{
-                             NSStringFromSelector(@selector(moveUp:)):       [^BOOL { return [weakSelf selectPreviousSearchResult]; } copy],
-                             NSStringFromSelector(@selector(moveDown:)):     [^BOOL { return [weakSelf selectNextSearchResult]; } copy],
-                             NSStringFromSelector(@selector(insertNewline:)):[^BOOL { return [weakSelf executeSelectedAction]; } copy],
-                             NSStringFromSelector(@selector(insertTab:)):    [^BOOL { return [weakSelf autoCompleteWithSelectedAction]; } copy]
-                             };
-    
+    self.eventHandlers = @{
+                           NSStringFromSelector(@selector(moveUp:)):       [^BOOL { return [weakSelf.commandHandler handleCursorUpCommand]; } copy],
+                           NSStringFromSelector(@selector(moveDown:)):     [^BOOL { return [weakSelf.commandHandler handleCursorDownCommand]; } copy],
+                           NSStringFromSelector(@selector(insertNewline:)):[^BOOL { return [weakSelf.commandHandler handleEnterCommand]; } copy],
+                           NSStringFromSelector(@selector(insertTab:)):    [^BOOL { return [weakSelf.commandHandler handleTabCommand]; } copy]
+                           };
+
+    self.commandHandlers = @{XCSearchInputHandlerKey:   [[XCActionBarSearchStateCommandHandler alloc] initWithCommandProcessor:self],
+                             XCArgumentInputHandlerKey: [[XCActionBarArgumentInputStateCommandHandler alloc] initWithCommandProcessor:self]};
+
     self.searchField.focusRingType = NSFocusRingTypeNone;
     self.searchField.delegate      = self;
     self.searchField.nextResponder = self;
@@ -121,7 +129,8 @@ typedef BOOL (^XCCommandHandler)(void);
     self.frameForEmptySearchResults = self.window.frame;
     
     [self.window makeFirstResponder:self.searchField];
-    
+
+    [self enterActionSearchState];
     [self restoreLastSearchAndSelection];
 }
 
@@ -144,9 +153,7 @@ typedef BOOL (^XCCommandHandler)(void);
 
 //    XCLog(@"<SearchQueryChanged>, <query=%@>", textField.stringValue);
 
-    // TODO: wait a bit before attempting to update search results - cancel previous update if any
-    [self performSearchWithExpression:textField.stringValue];
-
+    [self.commandHandler handleTextInputCommand:textField.stringValue];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -156,9 +163,9 @@ typedef BOOL (^XCCommandHandler)(void);
     XCLog(@"<doCommandBySelector>, <cmd=%@>", NSStringFromSelector(command));
     
     NSString *commandKey = NSStringFromSelector(command);
-    BOOL handleCommand   = (TRCheckContainsKey(self.commandHandlers, commandKey) == YES);
+    BOOL handleCommand   = (TRCheckContainsKey(self.eventHandlers, commandKey) == YES);
     if(handleCommand == YES) {
-        XCCommandHandler commandHandler = self.commandHandlers[commandKey];
+        XCCommandHandler commandHandler = self.eventHandlers[commandKey];
         return commandHandler();
     }
     return handleCommand;
@@ -249,14 +256,24 @@ typedef BOOL (^XCCommandHandler)(void);
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)enterActionSearchState
 {
-    return NO;
+    [self.commandHandler exit];
+    
+    self.commandHandler = self.commandHandlers[XCSearchInputHandlerKey];
+    [self.commandHandler enterWithInputControl:self.searchField];
+    
+    return YES;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)enterActionArgumentState
 {
-    return NO;    
+    [self.commandHandler exit];
+
+    self.commandHandler = self.commandHandlers[XCArgumentInputHandlerKey];
+    [self.commandHandler enterWithInputControl:self.searchField];
+    
+    return YES;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -319,7 +336,20 @@ typedef BOOL (^XCCommandHandler)(void);
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)executeSelectedActionWithArguments:(NSArray *)arguments
 {
-    return NO;
+    NSInteger selectedIndex = self.searchResultsTable.selectedRow;
+    if(selectedIndex == -1) return NO;
+    
+    id<XCActionInterface> selectedAction = self.searchResults[selectedIndex];
+    BOOL validated = [selectedAction validateArgumentsWithContext:self.context arguments:arguments];
+    if(validated == NO) return NO;
+    
+    BOOL executed = [selectedAction executeWithContext:self.context arguments:arguments];
+    if(executed) {
+        [self close];
+        self.lastExecutedAction = selectedAction;
+    }
+    
+    return executed;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -334,6 +364,14 @@ typedef BOOL (^XCCommandHandler)(void);
     [self.searchField setStringValue:selectedAction.title];
     [self performSearchWithExpression:selectedAction.title];
     
+    return YES;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)cancel
+{
+    [self cancelOperation:self];
     return YES;
 }
 
