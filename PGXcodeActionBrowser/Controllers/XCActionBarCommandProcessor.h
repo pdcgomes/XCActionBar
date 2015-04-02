@@ -10,6 +10,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+@protocol XCActionInterface;
 @protocol XCActionBarCommandProcessor <NSObject>
 
 - (BOOL)enterActionSearchState;
@@ -24,5 +25,8 @@
 
 - (BOOL)executeSelectedAction;
 - (BOOL)executeSelectedActionWithArguments:(NSArray *)arguments;
+
+// REVIEW: move to a separate protocol? this works for now
+- (id<XCActionInterface>)retrieveSelectedAction;
 
 @end
