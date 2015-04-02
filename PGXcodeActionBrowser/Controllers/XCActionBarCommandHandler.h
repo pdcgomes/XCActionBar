@@ -15,10 +15,12 @@
 - (void)enterWithInputControl:(NSTextField *)field;
 - (void)exit;
 
+
+- (BOOL)handleCancelCommand;
 - (BOOL)handleCursorUpCommand;
 - (BOOL)handleCursorDownCommand;
 - (BOOL)handleEnterCommand;
 - (BOOL)handleTabCommand;
-- (BOOL)handleCancelCommand;
+- (BOOL)handleTextInputCommand:(NSString *)text;
 
 @end

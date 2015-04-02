@@ -7,11 +7,15 @@
 //
 
 #import "XCActionBarSearchStateCommandHandler.h"
+#import "XCActionBarCommandProcessor.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @interface XCActionBarSearchStateCommandHandler ()
 
+@property (nonatomic, copy) NSString *searchExpression;
+
+@property (nonatomic, weak) id<XCActionBarCommandProcessor> commandProcessor;
 @property (nonatomic, weak) NSTextField *inputField;
 
 @end
@@ -25,7 +29,7 @@
 - (instancetype)initWithCommandProcessor:(id<XCActionBarCommandProcessor>)processor
 {
     if((self = [super init])) {
-        
+        self.commandProcessor = processor;
     }
     return self;
 }
@@ -36,7 +40,15 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (void)enterWithInputControl:(NSTextField *)field
 {
+    self.inputField = field;
     
+    id delegate = self.inputField.delegate;
+    self.inputField.delegate = nil;
+    
+    self.inputField.stringValue       = (self.searchExpression ?: @"");
+    self.inputField.placeholderString = @"Action ...";
+
+    self.inputField.delegate = delegate;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -50,35 +62,45 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)handleCursorUpCommand
 {
-    return NO;
+    return [self.commandProcessor selectPreviousSearchResult];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)handleCursorDownCommand
 {
-    return NO;
+    return [self.commandProcessor selectNextSearchResult];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)handleEnterCommand
 {
-    return NO;
+    return [self.commandProcessor executeSelectedAction];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)handleTabCommand
 {
-    return NO;
+    return [self.commandProcessor enterActionArgumentState];
+//    return [self.commandProcessor autoCompleteWithSelectedAction];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)handleCancelCommand
 {
-    return NO;
+    return [self.commandProcessor cancel];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)handleTextInputCommand:(NSString *)text
+{
+    self.searchExpression = text;
+    
+    return [self.commandProcessor searchActionWithExpression:text];
 }
 
 @end

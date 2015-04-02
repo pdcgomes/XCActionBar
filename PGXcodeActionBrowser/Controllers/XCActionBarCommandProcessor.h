@@ -17,6 +17,7 @@
 
 - (BOOL)searchActionWithExpression:(NSString *)query;
 - (BOOL)autoCompleteWithSelectedAction;
+- (BOOL)cancel;
 
 - (BOOL)selectNextSearchResult;
 - (BOOL)selectPreviousSearchResult;
