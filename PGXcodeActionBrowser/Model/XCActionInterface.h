@@ -27,14 +27,16 @@
 @property (nonatomic, strong) NSArray *searchQueryMatchRanges; // REVIEW:  this elsewhere
 
 - (BOOL)executeWithContext:(id<XCIDEContext>)context;
-- (BOOL)executeWithContext:(id<XCIDEContext>)context arguments:(NSArray *)arguments;
-
 
 ////////////////////////////////////////////////////////////////////////////////
 // Arguments
 ////////////////////////////////////////////////////////////////////////////////
+@optional
+
 - (BOOL)acceptsArguments;
 
-- (NSUInteger)requiredArgumentCount;
+- (BOOL)validateArgumentsWithContext:(id<XCIDEContext>)context arguments:(NSArray *)arguments;
+
+- (BOOL)executeWithContext:(id<XCIDEContext>)context arguments:(NSArray *)arguments;
 
 @end
