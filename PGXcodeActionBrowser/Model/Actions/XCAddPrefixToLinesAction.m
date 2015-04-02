@@ -20,8 +20,10 @@
 - (instancetype)init
 {
     if((self = [super init])) {
-        self.title    = @"Add Prefix to Line(s)";
-        self.subtitle = @"Prepends pasteboard text contents to each selected line";
+        self.title        = @"Add Prefix to Line(s)";
+        self.subtitle     = @"Prepends pasteboard text contents to each selected line";
+        self.argumentHint = NSLocalizedString(@"Enter the prefix", @"");
+
         self.enabled  = YES;
     }
     return self;
@@ -33,8 +35,38 @@
 {
     NSString *prefix = [context retrievePasteboardTextContents];
 
-    if(TRCheckIsEmpty(prefix) == YES) return NO;
+    return [self addPrefixToLinesWithContext:context prefix:prefix];
+}
 
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)executeWithContext:(id<XCIDEContext>)context arguments:(NSString *)arguments
+{
+    return [self addPrefixToLinesWithContext:context prefix:arguments];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)acceptsArguments
+{
+    return YES;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)validateArgumentsWithContext:(id<XCIDEContext>)context arguments:(NSString *)arguments
+{
+    return (arguments.length > 0);
+}
+
+#pragma mark - Helpers
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)addPrefixToLinesWithContext:(id<XCIDEContext>)context prefix:(NSString *)prefix
+{
+    if(TRCheckIsEmpty(prefix) == YES) return NO;
+    
     NSTextView *textView = context.sourceCodeTextView;
     
     NSRange rangeForSelectedText  = [context retrieveTextSelectionRange];
@@ -42,9 +74,9 @@
     
     NSMutableArray *lineComponents = [[textView.string substringWithRange:lineRangeForSelection] componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]].mutableCopy;
     [lineComponents removeLastObject];
-
+    
     NSMutableString *replacementString = [[NSMutableString alloc] init];
-
+    
     for(NSString *line in lineComponents) {
         [replacementString appendString:prefix];
         [replacementString appendString:line];
