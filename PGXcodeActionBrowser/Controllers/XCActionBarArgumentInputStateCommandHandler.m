@@ -6,12 +6,15 @@
 //  Copyright (c) 2015 Pedro Gomes. All rights reserved.
 //
 
+#import "XCActionInterface.h"
 #import "XCActionBarArgumentInputStateCommandHandler.h"
 #import "XCActionBarCommandProcessor.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @interface XCActionBarArgumentInputStateCommandHandler ()
+
+@property (nonatomic, copy) NSString *arguments;
 
 @property (nonatomic, weak) id<XCActionBarCommandProcessor> commandProcessor;
 @property (nonatomic, weak) NSTextField *inputField;
@@ -38,13 +41,16 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (void)enterWithInputControl:(NSTextField *)field
 {
+    self.arguments  = nil;
     self.inputField = field;
     
     id delegate = self.inputField.delegate;
     self.inputField.delegate = nil;
     
+    id<XCActionInterface> selectedAction = [self.commandProcessor retrieveSelectedAction];
+    
     self.inputField.stringValue       = @"";
-    self.inputField.placeholderString = @"Enter arguments ...";
+    self.inputField.placeholderString = selectedAction.argumentHint;
     
     self.inputField.delegate = delegate;
 }
@@ -53,7 +59,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (void)exit
 {
-    
+    self.arguments = nil;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -61,7 +67,7 @@
 - (BOOL)handleCursorUpCommand
 {
     [self.commandProcessor enterActionSearchState];
-    [self.commandProcessor selectNextSearchResult];
+    [self.commandProcessor selectPreviousSearchResult];
     
     return YES;
 }
@@ -71,7 +77,7 @@
 - (BOOL)handleCursorDownCommand
 {
     [self.commandProcessor enterActionSearchState];
-    [self.commandProcessor selectPreviousSearchResult];
+    [self.commandProcessor selectNextSearchResult];
     
     return YES;
 }
@@ -101,6 +107,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)handleTextInputCommand:(NSString *)text
 {
+    self.arguments = text;
+    
     return YES;
 }
 
