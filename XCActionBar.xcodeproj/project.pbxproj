@@ -28,6 +28,8 @@
 		4284ADC91ABC26E400531C48 /* XCTrimWhitespaceAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4284ADC81ABC26E400531C48 /* XCTrimWhitespaceAction.m */; };
 		428672591ABC168C001BA586 /* XCDeleteBlankLinesAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 428672581ABC168C001BA586 /* XCDeleteBlankLinesAction.m */; };
 		429086531AB92AE800EC3F78 /* XCSurroundLineWithAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 429086521AB92AE800EC3F78 /* XCSurroundLineWithAction.m */; };
+		429745501AC85AEF00E1875D /* XCActionBarSearchStateCommandHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4297454F1AC85AEF00E1875D /* XCActionBarSearchStateCommandHandler.m */; };
+		429745531AC85B0000E1875D /* XCActionBarArgumentInputStateCommandHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 429745521AC85B0000E1875D /* XCActionBarArgumentInputStateCommandHandler.m */; };
 		42A360BC1AC05FC00027B223 /* XCTextSnippetHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A360BB1AC05FC00027B223 /* XCTextSnippetHelper.m */; };
 		42A647241AB0B666003803AE /* XCActionIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A647231AB0B666003803AE /* XCActionIndex.m */; };
 		42A71F181AB710EB008B5B92 /* XCCustomActionProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A71F171AB710EB008B5B92 /* XCCustomActionProvider.m */; };
@@ -111,6 +113,11 @@
 		4286725A1ABC18AF001BA586 /* XCActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCActions.h; sourceTree = "<group>"; };
 		429086511AB92AE800EC3F78 /* XCSurroundLineWithAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSurroundLineWithAction.h; sourceTree = "<group>"; };
 		429086521AB92AE800EC3F78 /* XCSurroundLineWithAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCSurroundLineWithAction.m; sourceTree = "<group>"; };
+		4297454E1AC85AEF00E1875D /* XCActionBarSearchStateCommandHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCActionBarSearchStateCommandHandler.h; sourceTree = "<group>"; };
+		4297454F1AC85AEF00E1875D /* XCActionBarSearchStateCommandHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCActionBarSearchStateCommandHandler.m; sourceTree = "<group>"; };
+		429745511AC85B0000E1875D /* XCActionBarArgumentInputStateCommandHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCActionBarArgumentInputStateCommandHandler.h; sourceTree = "<group>"; };
+		429745521AC85B0000E1875D /* XCActionBarArgumentInputStateCommandHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCActionBarArgumentInputStateCommandHandler.m; sourceTree = "<group>"; };
+		429745541AC85B7600E1875D /* XCActionBarCommandHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCActionBarCommandHandler.h; sourceTree = "<group>"; };
 		42A360BA1AC05FC00027B223 /* XCTextSnippetHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTextSnippetHelper.h; sourceTree = "<group>"; };
 		42A360BB1AC05FC00027B223 /* XCTextSnippetHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCTextSnippetHelper.m; sourceTree = "<group>"; };
 		42A647221AB0B666003803AE /* XCActionIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = XCActionIndex.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -283,6 +290,21 @@
 			path = Plugin;
 			sourceTree = "<group>";
 		};
+		429745551AC85C1300E1875D /* Action Search */ = {
+			isa = PBXGroup;
+			children = (
+				42BD03411AB0880200FB7C07 /* XCActionBarWindowController.h */,
+				42BD03421AB0880200FB7C07 /* XCActionBarWindowController.m */,
+				42BD03401AB0880200FB7C07 /* XCActionBarWindowController.xib */,
+				4297454E1AC85AEF00E1875D /* XCActionBarSearchStateCommandHandler.h */,
+				4297454F1AC85AEF00E1875D /* XCActionBarSearchStateCommandHandler.m */,
+				429745511AC85B0000E1875D /* XCActionBarArgumentInputStateCommandHandler.h */,
+				429745521AC85B0000E1875D /* XCActionBarArgumentInputStateCommandHandler.m */,
+				429745541AC85B7600E1875D /* XCActionBarCommandHandler.h */,
+			);
+			name = "Action Search";
+			sourceTree = "<group>";
+		};
 		42A71F191AB7130F008B5B92 /* Actions */ = {
 			isa = PBXGroup;
 			children = (
@@ -343,9 +365,7 @@
 		42BD033C1AB0880200FB7C07 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				42BD03411AB0880200FB7C07 /* XCActionBarWindowController.h */,
-				42BD03421AB0880200FB7C07 /* XCActionBarWindowController.m */,
-				42BD03401AB0880200FB7C07 /* XCActionBarWindowController.xib */,
+				429745551AC85C1300E1875D /* Action Search */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -492,6 +512,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 42C1AD581AAF3E7F00248A8D /* Build configuration list for PBXNativeTarget "XCActionBar" */;
 			buildPhases = (
+				42DEF63D1ACD3EA900EE0979 /* Clear Alcatraz XCActionBar build directory */,
 				42C1AD431AAF3E7F00248A8D /* Sources */,
 				42C1AD441AAF3E7F00248A8D /* Resources */,
 				42C1AD451AAF3E7F00248A8D /* Frameworks */,
@@ -580,12 +601,30 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		42DEF63D1ACD3EA900EE0979 /* Clear Alcatraz XCActionBar build directory */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Clear Alcatraz XCActionBar build directory";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "ALCATRAZ_BUILD_DIR=\"$USER_LIBRARY_DIR/Application Support/Alcatraz/Plug-ins/XCActionBar/build\"\n\nif [ -d \"$ALCATRAZ_BUILD_DIR\" ]; then\n    rm -rf \"$ALCATRAZ_BUILD_DIR\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		42C1AD431AAF3E7F00248A8D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				42C1AD901AAF614500248A8D /* XCConstants.m in Sources */,
+				429745531AC85B0000E1875D /* XCActionBarArgumentInputStateCommandHandler.m in Sources */,
 				42BB07451AB6F82100F42EAE /* XCIDEHelper.m in Sources */,
 				426C325A1AB9A121005EFD11 /* XCSurroundWithSnippetAction.m in Sources */,
 				4284ADC91ABC26E400531C48 /* XCTrimWhitespaceAction.m in Sources */,
@@ -612,6 +651,7 @@
 				42C1AD931AAF632700248A8D /* XCWorkspaceUnitTestsActionProvider.m in Sources */,
 				42807D421AB07D4B007988F3 /* XCInputValidation.m in Sources */,
 				427F93371AC6DFC30003D0F8 /* XCAddPrefixToTextAction.m in Sources */,
+				429745501AC85AEF00E1875D /* XCActionBarSearchStateCommandHandler.m in Sources */,
 				42C1AD8C1AAF5F2000248A8D /* XCBlockAction.m in Sources */,
 				42A71F1F1AB714AE008B5B92 /* XCSortSelectionAction.m in Sources */,
 				424504AD1ABC50940054DC61 /* XCOpenActiveDocumentPathInTerminalAction.m in Sources */,
