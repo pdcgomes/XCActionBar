@@ -35,8 +35,9 @@
                            XCSurroundWithActionPrefixKey: @"",
                            XCSurroundWithActionSuffixKey: @""};
     if((self = [super initWithSpec:spec])) {
-        self.title    = NSLocalizedString(@"Add suffix to text", @"");
-        self.subtitle = NSLocalizedString(@"Adds suffix from the pasteboard to the selected text", @"");
+        self.title        = NSLocalizedString(@"Add suffix to text", @"");
+        self.subtitle     = NSLocalizedString(@"Adds suffix from the pasteboard to the selected text", @"");
+        self.argumentHint = NSLocalizedString(@"Enter the suffix", @"");
     }
     return self;
 }
@@ -54,14 +55,21 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)executeWithContext:(id<XCIDEContext>)context arguments:(NSString *)arguments
 {
-    return NO;
+    return [self surroundTextSelectionInContext:context withPrefix:@"" andSuffix:arguments];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)acceptsArguments
+{
+    return YES;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)validateArgumentsWithContext:(id<XCIDEContext>)context arguments:(NSString *)arguments
 {
-    return NO;
+    return (arguments.length > 0);
 }
 
 @end
