@@ -20,6 +20,7 @@
 #import "XCIDEHelper.h"
 
 typedef BOOL (^XCCommandHandler)(void);
+typedef BOOL (^XCRepeatActionHandler)(void);
 
 NSString *const XCSearchInputHandlerKey   = @"SearchHandler";
 NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
@@ -43,7 +44,7 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
 
 @property (nonatomic) NSArray *searchResults;
 
-@property (weak) id<XCActionInterface> lastExecutedAction;
+@property (nonatomic, copy) XCRepeatActionHandler repeatActionHandler;
 
 @end
 
@@ -247,7 +248,7 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
 ////////////////////////////////////////////////////////////////////////////////
 - (void)executeLastAction
 {
-    [self.lastExecutedAction executeWithContext:self.context];
+    XCExecuteIf(self.repeatActionHandler, self.repeatActionHandler());
 }
 
 #pragma mark - Event Action Handlers
@@ -324,10 +325,12 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
     id<XCActionInterface> selectedAction = self.searchResults[selectedIndex];
     BOOL executed = [selectedAction executeWithContext:self.context];
 
-    if(executed) {
-        [self close];
-        self.lastExecutedAction = selectedAction;
-    }
+    XCReturnFalseUnless(executed);
+
+    XCDeclareWeakSelf(weakSelf);
+    [self close];
+    
+    self.repeatActionHandler = ^{ return [selectedAction executeWithContext:weakSelf.context]; };
     
     return executed;
 }
@@ -344,10 +347,14 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
     if(validated == NO) return NO;
     
     BOOL executed = [selectedAction executeWithContext:self.context arguments:arguments];
-    if(executed) {
-        [self close];
-        self.lastExecutedAction = selectedAction;
-    }
+    XCReturnFalseUnless(executed);
+
+    XCDeclareWeakSelf(weakSelf);
+    [self close];
+    
+    self.repeatActionHandler = ^{ return [selectedAction executeWithContext:weakSelf.context
+                                                                  arguments:arguments];
+    };
     
     return executed;
 }
