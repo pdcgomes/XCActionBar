@@ -594,7 +594,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "PLUGIN_BUILD_DIR=\"$PROJECT_DIR/build/$CONFIGURATION\"\n\nif [ -d \"$PLUGIN_BUILD_DIR\" ]; then\nrm -rf \"$PLUGIN_BUILD_DIR/*\"\nfi\n";
+			shellScript = "if [ -d \"$PLUGIN_BUILD_DIR\" ]; then\n    touch ${BUILT_PRODUCTS_DIR}\nfi\n\nPLUGIN_BUILD_DIR=\"$PROJECT_DIR/build/$CONFIGURATION\"\n\nif [ -d \"$PLUGIN_BUILD_DIR\" ]; then\n    rm -rf \"$PLUGIN_BUILD_DIR/*\"\nfi\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
