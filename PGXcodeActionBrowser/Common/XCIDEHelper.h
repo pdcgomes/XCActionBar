@@ -60,7 +60,7 @@
 @end
 
 @interface IDEStructureNavigator : NSObject
-@property (retain) NSArray *selectedObjects;
+@property (nonatomic, copy) NSArray *selectedObjects;
 @end
 
 @interface IDENavigableItemCoordinator : NSObject
