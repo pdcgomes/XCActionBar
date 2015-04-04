@@ -31,6 +31,7 @@
 		4228E3EB1AB1B82A00918EAA /* XCSearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4228E3EA1AB1B82A00918EAA /* XCSearchResultCell.m */; };
 		422DB1BF1AB60134007D13F9 /* XCCodeSnippetProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 422DB1BE1AB60134007D13F9 /* XCCodeSnippetProvider.m */; };
 		423986FB1AC0DEB300559D29 /* XCTextSelectionStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 423986FA1AC0DEB300559D29 /* XCTextSelectionStorage.m */; };
+		424414271AD00EAC0018D02A /* XCExpandCodeSnippetAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 424414261AD00EAC0018D02A /* XCExpandCodeSnippetAction.m */; };
 		424504AA1ABC50150054DC61 /* XCCopyActiveDocumentPathAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 424504A91ABC50150054DC61 /* XCCopyActiveDocumentPathAction.m */; };
 		424504AD1ABC50940054DC61 /* XCOpenActiveDocumentPathInTerminalAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 424504AC1ABC50940054DC61 /* XCOpenActiveDocumentPathInTerminalAction.m */; };
 		425500ED1ABC594D0029C533 /* XCCopyActiveDocumentDirectoryAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 425500EC1ABC594D0029C533 /* XCCopyActiveDocumentDirectoryAction.m */; };
@@ -114,6 +115,8 @@
 		422DB1BE1AB60134007D13F9 /* XCCodeSnippetProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = XCCodeSnippetProvider.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		423986F91AC0DEB300559D29 /* XCTextSelectionStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCTextSelectionStorage.h; sourceTree = "<group>"; };
 		423986FA1AC0DEB300559D29 /* XCTextSelectionStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCTextSelectionStorage.m; sourceTree = "<group>"; };
+		424414251AD00EAC0018D02A /* XCExpandCodeSnippetAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCExpandCodeSnippetAction.h; sourceTree = "<group>"; };
+		424414261AD00EAC0018D02A /* XCExpandCodeSnippetAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCExpandCodeSnippetAction.m; sourceTree = "<group>"; };
 		424504A81ABC50150054DC61 /* XCCopyActiveDocumentPathAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCCopyActiveDocumentPathAction.h; sourceTree = "<group>"; };
 		424504A91ABC50150054DC61 /* XCCopyActiveDocumentPathAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCCopyActiveDocumentPathAction.m; sourceTree = "<group>"; };
 		424504AB1ABC50940054DC61 /* XCOpenActiveDocumentPathInTerminalAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCOpenActiveDocumentPathInTerminalAction.h; sourceTree = "<group>"; };
@@ -252,6 +255,17 @@
 			name = Common;
 			sourceTree = "<group>";
 		};
+		424414241AD00E580018D02A /* Text Selection */ = {
+			isa = PBXGroup;
+			children = (
+				42F729491AC0C98800B99B7C /* XCSaveTextSelectionAction.h */,
+				42F7294A1AC0C98800B99B7C /* XCSaveTextSelectionAction.m */,
+				421278DB1ACDEC5E0037B87A /* XCMoveSelectionHereAction.h */,
+				421278DC1ACDEC5E0037B87A /* XCMoveSelectionHereAction.m */,
+			);
+			name = "Text Selection";
+			sourceTree = "<group>";
+		};
 		424504A61ABC4FBE0054DC61 /* Text Operations */ = {
 			isa = PBXGroup;
 			children = (
@@ -271,8 +285,6 @@
 				42FA5BC71AB82F79007F24B8 /* XCDuplicateLineAction.m */,
 				42F815561AC56F980028A004 /* XCReplaceSelectionAction.h */,
 				42F815571AC56F980028A004 /* XCReplaceSelectionAction.m */,
-				42F729491AC0C98800B99B7C /* XCSaveTextSelectionAction.h */,
-				42F7294A1AC0C98800B99B7C /* XCSaveTextSelectionAction.m */,
 				42A71F201AB714C2008B5B92 /* XCSortContentsAction.h */,
 				42A71F211AB714C2008B5B92 /* XCSortContentsAction.m */,
 				42A71F1D1AB714AE008B5B92 /* XCSortSelectionAction.h */,
@@ -288,8 +300,8 @@
 				4284ADC81ABC26E400531C48 /* XCTrimWhitespaceAction.m */,
 				4270B2B31AC6E1F8004AF618 /* XCAddSuffixToTextAction.h */,
 				4270B2B41AC6E1F8004AF618 /* XCAddSuffixToTextAction.m */,
-				421278DB1ACDEC5E0037B87A /* XCMoveSelectionHereAction.h */,
-				421278DC1ACDEC5E0037B87A /* XCMoveSelectionHereAction.m */,
+				424414251AD00EAC0018D02A /* XCExpandCodeSnippetAction.h */,
+				424414261AD00EAC0018D02A /* XCExpandCodeSnippetAction.m */,
 			);
 			name = "Text Operations";
 			sourceTree = "<group>";
@@ -366,6 +378,7 @@
 				423986F81AC0DEA300559D29 /* Common */,
 				424504A71ABC4FE50054DC61 /* File Operations */,
 				424504A61ABC4FBE0054DC61 /* Text Operations */,
+				424414241AD00E580018D02A /* Text Selection */,
 			);
 			name = Custom;
 			sourceTree = "<group>";
@@ -730,6 +743,7 @@
 				42BB07481AB6FBBD00F42EAE /* XCIDEContext.m in Sources */,
 				42A71F221AB714C2008B5B92 /* XCSortContentsAction.m in Sources */,
 				42A647241AB0B666003803AE /* XCActionIndex.m in Sources */,
+				424414271AD00EAC0018D02A /* XCExpandCodeSnippetAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
