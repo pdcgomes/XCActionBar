@@ -167,6 +167,21 @@ There's currently no visual hint to let you know if an action supports arguments
 
 Continue reading for more details on how to add your own custom actions.
 
+### Smarter Code Snippets
+
+Code snippets are great to save time, and while `<# tokens #>` already provide a great deal of flexibility, sometimes you just want to be able to dynamically expand some known token or even move the cursor to a specific location. This isn't new, and other apps such as TextExpander and Dash (and maybe others) do this already. In case you don't use any of those or you simply want to be able to have this capability built directly into Xcode, look no further!
+
+When defining a text snippet you can use the following macros:
+
+* `@author` automatically replaced by the current user's name
+* `@clipboard` automatically replaced by the clipboard's text contents (if any)
+* `@cursor` moves the cursor to this location after expanding the snippet
+* `@date` replaced by the current date (format will be user configurable soon)
+* `@time` replaced by the current time (format will be user configurable soon)
+* others coming soon -- if you have suggestions, send them along!
+
+__One caveat__: these expansions currently only work if you expand the snippets using XCActionBar. If you try to expand them via the default methods (either by just typing the snippet's name or by dragging it), they won't work. This will be probably be addressed in the future, but I don't think it's a big deal as most people would be expanding snippet via XCActionBar anyway.
+
 ### Extensibility
 
 There are quite a lot of ideas floating around regarding extensibility, but for a first-pass implementation there's at least a little bit you can play with, in the form of `SurroundWith` actions. These are currently managed by an external property list file named `XCSurroundWithActions.plist` which can be found in the plugin's resource folder.
