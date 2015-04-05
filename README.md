@@ -7,6 +7,9 @@
 
 **Else** Read along ... :)
 
+###Updates:
+If you'd like to keep up to date with the latest feature additions, keep an eye on the [changelog page](https://github.com/pdcgomes/XCActionBar/wiki/Changelog).
+
 ###Demo:
 
 For more demos, please check out this [page](https://github.com/pdcgomes/XCActionBar/wiki/Demos), we'll be updating it over time.
