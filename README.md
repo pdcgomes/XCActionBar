@@ -23,6 +23,20 @@ Built-in __Add Prefix to Line(s)__ and __Add Suffix to Line(s)__ demo:
 Built-in __Surround With NSNumber Literal__ and __Surround With NSString Literal__ demo:
 ![image](demo3.gif)
 
+###Installation:
+
+The recommended installation method (and also the simplest) is via the [Alcatraz](http://alcatraz.io) plugin manager. Just follow their installation instructions, search for `XCActionBar`, click install and you're done!
+
+Alternatively you can run the following command in your terminal:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/pdcgomes/XCActionBar/master/Scripts/install.sh | sh
+```
+
+A lot of people recommend __against__ blindly executing shell scripts (and rightly so!), so I'd make sure to open the script first and ensure it won't delete all of your files or worse - it's good practice. If you don't feel comfortable, there's one final option:
+
+Download or `git clone` XCActionBar, open the project in Xcode and simply `build` it. The plugin will be automatically installed. Just make sure to restart Xcode once you're done.
+
 ###Motivation:
 
 I always try to accomplish as much as I possibly can without ever moving my hands away from the keyboard, there's simply no other means of input that feels quite as natural or efficient.
