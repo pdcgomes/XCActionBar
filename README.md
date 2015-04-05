@@ -118,6 +118,8 @@ As mentioned above, the plugin comes bundled with a few custom actions. Followin
 * `XCDeleteBlankLinesAction` **deletes** all empty strings in the selected range
 * `XCDeleteLineAction` deletes the line the carret is currently positioned in
 * `XCDuplicateLineAction` duplicates the line the carret is currently positioned in, or the selected lines
+* `XCJoinLinesAction` joins the lines across the current selection. Lines are joined via a delimiter (default is `space` but can be user defined)
+* `XCSplitSelectionIntoLinesAction` splits the current selection(s) into lines by delimiter (default is `,` but can be user defined)
 * `XCSortSelectionAction` performs line sorting (ascending or descending) of the selected lines
 * `XCSurroundWithAction` surrounds the selected text block with an arbitrary prefix/suffix
 * `XCSurroundLineWithAction` surrounds each selected line with an arbitrary prefix/suffix
