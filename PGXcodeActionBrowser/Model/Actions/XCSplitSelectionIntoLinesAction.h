@@ -1,0 +1,15 @@
+//
+//  XCSplitSelectionIntoLinesAction.h
+//  XCActionBar
+//
+//  Created by Pedro Gomes on 05/04/2015.
+//  Copyright (c) 2015 Pedro Gomes. All rights reserved.
+//
+
+#import "XCCustomAction.h"
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+@interface XCSplitSelectionIntoLinesAction : XCCustomAction
+
+@end

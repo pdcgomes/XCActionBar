@@ -285,6 +285,10 @@ static XCActionBar *sharedPlugin;
                                     [[XCSortContentsAction alloc] initWithSortOrder:NSOrderedAscending],
                                     [[XCSortContentsAction alloc] initWithSortOrder:NSOrderedDescending],
                                     
+                                    // Split and Join
+                                    [[XCSplitSelectionIntoLinesAction alloc] init],
+                                    [[XCJoinLinesAction alloc] init],
+                                    
                                     // Trim Operations
                                     [[XCTrimWhitespaceAction alloc] initWithBehavior:XCTrimWhitespaceBehaviorLeading],
                                     [[XCTrimWhitespaceAction alloc] initWithBehavior:XCTrimWhitespaceBehaviorTrailing],

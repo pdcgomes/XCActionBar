@@ -34,7 +34,9 @@
 		424414271AD00EAC0018D02A /* XCExpandCodeSnippetAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 424414261AD00EAC0018D02A /* XCExpandCodeSnippetAction.m */; };
 		424504AA1ABC50150054DC61 /* XCCopyActiveDocumentPathAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 424504A91ABC50150054DC61 /* XCCopyActiveDocumentPathAction.m */; };
 		424504AD1ABC50940054DC61 /* XCOpenActiveDocumentPathInTerminalAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 424504AC1ABC50940054DC61 /* XCOpenActiveDocumentPathInTerminalAction.m */; };
+		4247AD821AD1BB08000C07B1 /* XCSplitSelectionIntoLinesAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4247AD811AD1BB08000C07B1 /* XCSplitSelectionIntoLinesAction.m */; };
 		425500ED1ABC594D0029C533 /* XCCopyActiveDocumentDirectoryAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 425500EC1ABC594D0029C533 /* XCCopyActiveDocumentDirectoryAction.m */; };
+		4264951E1AD1BE90007C69F1 /* XCJoinLinesAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4264951D1AD1BE90007C69F1 /* XCJoinLinesAction.m */; };
 		426782E91ABA33C8006F4E53 /* XCHotKeyListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 426782E81ABA33C8006F4E53 /* XCHotKeyListener.m */; };
 		426782EB1ABA37E8006F4E53 /* XCActionBarConfiguration.plist in Resources */ = {isa = PBXBuildFile; fileRef = 426782EA1ABA37E8006F4E53 /* XCActionBarConfiguration.plist */; };
 		426C325A1AB9A121005EFD11 /* XCSurroundWithSnippetAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 426C32591AB9A121005EFD11 /* XCSurroundWithSnippetAction.m */; };
@@ -121,10 +123,14 @@
 		424504A91ABC50150054DC61 /* XCCopyActiveDocumentPathAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCCopyActiveDocumentPathAction.m; sourceTree = "<group>"; };
 		424504AB1ABC50940054DC61 /* XCOpenActiveDocumentPathInTerminalAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCOpenActiveDocumentPathInTerminalAction.h; sourceTree = "<group>"; };
 		424504AC1ABC50940054DC61 /* XCOpenActiveDocumentPathInTerminalAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCOpenActiveDocumentPathInTerminalAction.m; sourceTree = "<group>"; };
+		4247AD801AD1BB08000C07B1 /* XCSplitSelectionIntoLinesAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSplitSelectionIntoLinesAction.h; sourceTree = "<group>"; };
+		4247AD811AD1BB08000C07B1 /* XCSplitSelectionIntoLinesAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCSplitSelectionIntoLinesAction.m; sourceTree = "<group>"; };
 		425500EB1ABC594D0029C533 /* XCCopyActiveDocumentDirectoryAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCCopyActiveDocumentDirectoryAction.h; sourceTree = "<group>"; };
 		425500EC1ABC594D0029C533 /* XCCopyActiveDocumentDirectoryAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCCopyActiveDocumentDirectoryAction.m; sourceTree = "<group>"; };
 		425C2DA01AB33B3600143A65 /* IDETestContainer-Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IDETestContainer-Protocol.h"; sourceTree = "<group>"; };
 		425D65C01AB3633700140766 /* DVTFilePath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DVTFilePath.h; sourceTree = "<group>"; };
+		4264951C1AD1BE90007C69F1 /* XCJoinLinesAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCJoinLinesAction.h; sourceTree = "<group>"; };
+		4264951D1AD1BE90007C69F1 /* XCJoinLinesAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCJoinLinesAction.m; sourceTree = "<group>"; };
 		426782E71ABA33C8006F4E53 /* XCHotKeyListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCHotKeyListener.h; sourceTree = "<group>"; };
 		426782E81ABA33C8006F4E53 /* XCHotKeyListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = XCHotKeyListener.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		426782EA1ABA37E8006F4E53 /* XCActionBarConfiguration.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = XCActionBarConfiguration.plist; sourceTree = "<group>"; };
@@ -275,6 +281,8 @@
 				427F93361AC6DFC30003D0F8 /* XCAddPrefixToTextAction.m */,
 				421D370C1AB7982F00FF8338 /* XCAddSuffixToLinesAction.h */,
 				421D370D1AB7982F00FF8338 /* XCAddSuffixToLinesAction.m */,
+				4270B2B31AC6E1F8004AF618 /* XCAddSuffixToTextAction.h */,
+				4270B2B41AC6E1F8004AF618 /* XCAddSuffixToTextAction.m */,
 				42F3E2911AC1C48100D69E43 /* XCColumnSelectionModeAction.h */,
 				42F3E2921AC1C48100D69E43 /* XCColumnSelectionModeAction.m */,
 				428672571ABC168C001BA586 /* XCDeleteBlankLinesAction.h */,
@@ -283,12 +291,16 @@
 				42FA5BCA1AB82F84007F24B8 /* XCDeleteLineAction.m */,
 				42FA5BC61AB82F79007F24B8 /* XCDuplicateLineAction.h */,
 				42FA5BC71AB82F79007F24B8 /* XCDuplicateLineAction.m */,
+				424414251AD00EAC0018D02A /* XCExpandCodeSnippetAction.h */,
+				424414261AD00EAC0018D02A /* XCExpandCodeSnippetAction.m */,
 				42F815561AC56F980028A004 /* XCReplaceSelectionAction.h */,
 				42F815571AC56F980028A004 /* XCReplaceSelectionAction.m */,
 				42A71F201AB714C2008B5B92 /* XCSortContentsAction.h */,
 				42A71F211AB714C2008B5B92 /* XCSortContentsAction.m */,
 				42A71F1D1AB714AE008B5B92 /* XCSortSelectionAction.h */,
 				42A71F1E1AB714AE008B5B92 /* XCSortSelectionAction.m */,
+				4247AD801AD1BB08000C07B1 /* XCSplitSelectionIntoLinesAction.h */,
+				4247AD811AD1BB08000C07B1 /* XCSplitSelectionIntoLinesAction.m */,
 				429086511AB92AE800EC3F78 /* XCSurroundLineWithAction.h */,
 				429086521AB92AE800EC3F78 /* XCSurroundLineWithAction.m */,
 				42A71F231AB714E4008B5B92 /* XCSurroundWithAction.h */,
@@ -298,10 +310,8 @@
 				426C32591AB9A121005EFD11 /* XCSurroundWithSnippetAction.m */,
 				4284ADC71ABC26E400531C48 /* XCTrimWhitespaceAction.h */,
 				4284ADC81ABC26E400531C48 /* XCTrimWhitespaceAction.m */,
-				4270B2B31AC6E1F8004AF618 /* XCAddSuffixToTextAction.h */,
-				4270B2B41AC6E1F8004AF618 /* XCAddSuffixToTextAction.m */,
-				424414251AD00EAC0018D02A /* XCExpandCodeSnippetAction.h */,
-				424414261AD00EAC0018D02A /* XCExpandCodeSnippetAction.m */,
+				4264951C1AD1BE90007C69F1 /* XCJoinLinesAction.h */,
+				4264951D1AD1BE90007C69F1 /* XCJoinLinesAction.m */,
 			);
 			name = "Text Operations";
 			sourceTree = "<group>";
@@ -710,6 +720,7 @@
 				423986FB1AC0DEB300559D29 /* XCTextSelectionStorage.m in Sources */,
 				42C1AD551AAF3E7F00248A8D /* XCActionBar.m in Sources */,
 				42FD3C0F1AB0ABE900F0A442 /* XCRoundCornerWindow.m in Sources */,
+				4264951E1AD1BE90007C69F1 /* XCJoinLinesAction.m in Sources */,
 				42C1AD861AAF534200248A8D /* XCNSMenuActionProvider.m in Sources */,
 				42F815581AC56F980028A004 /* XCReplaceSelectionAction.m in Sources */,
 				429086531AB92AE800EC3F78 /* XCSurroundLineWithAction.m in Sources */,
@@ -739,6 +750,7 @@
 				428672591ABC168C001BA586 /* XCDeleteBlankLinesAction.m in Sources */,
 				424504AA1ABC50150054DC61 /* XCCopyActiveDocumentPathAction.m in Sources */,
 				4270B2B51AC6E1F8004AF618 /* XCAddSuffixToTextAction.m in Sources */,
+				4247AD821AD1BB08000C07B1 /* XCSplitSelectionIntoLinesAction.m in Sources */,
 				42A360BC1AC05FC00027B223 /* XCTextSnippetHelper.m in Sources */,
 				42BB07481AB6FBBD00F42EAE /* XCIDEContext.m in Sources */,
 				42A71F221AB714C2008B5B92 /* XCSortContentsAction.m in Sources */,
