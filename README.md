@@ -23,6 +23,20 @@ Built-in __Add Prefix to Line(s)__ and __Add Suffix to Line(s)__ demo:
 Built-in __Surround With NSNumber Literal__ and __Surround With NSString Literal__ demo:
 ![image](demo3.gif)
 
+###Installation:
+
+The recommended installation method (and also the simplest) is via the [Alcatraz](http://alcatraz.io) plugin manager. Just follow their installation instructions, search for `XCActionBar`, click install and you're done!
+
+Alternatively you can run the following command in your terminal:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/pdcgomes/XCActionBar/master/Scripts/install.sh | sh
+```
+
+A lot of people recommend __against__ blindly executing shell scripts (and rightly so!), so I'd make sure to open the script first and ensure it won't delete all of your files or worse - it's good practice. If you don't feel comfortable, there's one final option:
+
+Download or `git clone` XCActionBar, open the project in Xcode and simply `build` it. The plugin will be automatically installed. Just make sure to restart Xcode once you're done.
+
 ###Motivation:
 
 I always try to accomplish as much as I possibly can without ever moving my hands away from the keyboard, there's simply no other means of input that feels quite as natural or efficient.
@@ -104,6 +118,8 @@ As mentioned above, the plugin comes bundled with a few custom actions. Followin
 * `XCDeleteBlankLinesAction` **deletes** all empty strings in the selected range
 * `XCDeleteLineAction` deletes the line the carret is currently positioned in
 * `XCDuplicateLineAction` duplicates the line the carret is currently positioned in, or the selected lines
+* `XCJoinLinesAction` joins the lines across the current selection. Lines are joined via a delimiter (default is `space` but can be user defined)
+* `XCSplitSelectionIntoLinesAction` splits the current selection(s) into lines by delimiter (default is `,` but can be user defined)
 * `XCSortSelectionAction` performs line sorting (ascending or descending) of the selected lines
 * `XCSurroundWithAction` surrounds the selected text block with an arbitrary prefix/suffix
 * `XCSurroundLineWithAction` surrounds each selected line with an arbitrary prefix/suffix
