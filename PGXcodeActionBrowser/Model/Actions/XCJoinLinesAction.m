@@ -20,9 +20,10 @@
 - (instancetype)init
 {
     if((self = [super init])) {
-        self.title    = @"Joins the selection's lines into one line";
-        self.subtitle = @"Default deliminter is space, can be optionally specified";
-        self.enabled  = YES;
+        self.title        = NSLocalizedString(@"Joins the selection's lines into one line", @"");
+        self.subtitle     = NSLocalizedString(@"Default deliminter is \" \", can be optionally specified", @"");
+        self.argumentHint = NSLocalizedString(@"", @"");
+        self.enabled      = YES;
     }
     return self;
 }
@@ -38,12 +39,28 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)validateArgumentsWithContext:(id<XCIDEContext>)context arguments:(NSString *)arguments
 {
-    return NO;
+    return YES;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)executeWithContext:(id<XCIDEContext>)context
+{
+    return [self joineLinesInContext:context delimiter:@" "];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)executeWithContext:(id<XCIDEContext>)context arguments:(NSString *)arguments
+{
+    return [self joineLinesInContext:context delimiter:arguments];
+}
+
+#pragma mark - Helpers
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)joineLinesInContext:(id<XCIDEContext>)context delimiter:(NSString *)delimiter
 {
     NSString *fullText           = [context.sourceCodeTextView string];
     NSArray  *rangesForSelection = [context retrieveTextSelectionRanges];
@@ -62,9 +79,9 @@
             NSString *trimmedLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
             [trimmedLines addObject:trimmedLine];
         }
-
-        NSString *joinedSelection = [trimmedLines componentsJoinedByString:@" "];
-
+        
+        NSString *joinedSelection = [trimmedLines componentsJoinedByString:delimiter];
+        
         [context.sourceCodeDocument.textStorage replaceCharactersInRange:range
                                                               withString:joinedSelection
                                                          withUndoManager:context.sourceCodeDocument.undoManager];
@@ -76,13 +93,7 @@
     [context.sourceCodeDocument.textStorage endEditing];
     
     return YES;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-- (BOOL)executeWithContext:(id<XCIDEContext>)context arguments:(NSString *)arguments
-{
-    return NO;
+    
 }
 
 @end
