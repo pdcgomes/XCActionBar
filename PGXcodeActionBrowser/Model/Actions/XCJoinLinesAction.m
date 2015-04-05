@@ -86,14 +86,13 @@
                                                               withString:joinedSelection
                                                          withUndoManager:context.sourceCodeDocument.undoManager];
         
-        [context.sourceCodeDocument.textStorage indentCharacterRange:range
+        [context.sourceCodeDocument.textStorage indentCharacterRange:NSMakeRange(range.location, joinedSelection.length)
                                                          undoManager:context.sourceCodeDocument.undoManager];
     }];
     
     [context.sourceCodeDocument.textStorage endEditing];
     
     return YES;
-    
 }
 
 @end

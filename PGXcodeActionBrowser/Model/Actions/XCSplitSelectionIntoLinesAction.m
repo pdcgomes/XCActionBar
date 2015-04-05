@@ -84,7 +84,7 @@
                                                               withString:textSelectionSplitByDelimiter
                                                          withUndoManager:context.sourceCodeDocument.undoManager];
         
-        [context.sourceCodeDocument.textStorage indentCharacterRange:range
+        [context.sourceCodeDocument.textStorage indentCharacterRange:NSMakeRange(range.location, textSelectionSplitByDelimiter.length)
                                                          undoManager:context.sourceCodeDocument.undoManager];
     }];
     
