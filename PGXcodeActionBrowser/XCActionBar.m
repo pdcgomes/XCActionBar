@@ -227,13 +227,19 @@ static XCActionBar *sharedPlugin;
                                 @"Source Control",
                                 @"Window",
                                 @"Help"];
+    NSArray *menuBarItemsSupportingIndexUpdates = @[@"Editor"];
+    
     NSMenu *mainMenu = [NSApp mainMenu];
     
     for(NSString *title in menuBarActions) {
         NSMenuItem *item = [mainMenu itemWithTitle:title];
         if(item == nil) continue;
         
-        [self.actionIndex registerProvider:[[XCNSMenuActionProvider alloc] initWithMenu:item.submenu]];
+        XCNSMenuActionProvider *provider = [[XCNSMenuActionProvider alloc] initWithMenu:item.submenu];
+        if([menuBarItemsSupportingIndexUpdates containsObject:title]) {
+            provider.respondToMenuChanges = YES;
+        }
+        [self.actionIndex registerProvider:provider];
     }
 
     ////////////////////////////////////////////////////////////////////////////////

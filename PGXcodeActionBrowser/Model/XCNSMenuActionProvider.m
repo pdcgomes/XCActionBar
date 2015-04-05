@@ -15,7 +15,8 @@
 @interface XCNSMenuActionProvider ()
 
 @property (nonatomic,   weak) NSMenu  *menu;
-@property (nonatomic, strong) NSArray *actions;
+@property (nonatomic        ) NSArray *actions;
+@property (nonatomic        ) NSTimer *notifyOfIndexRebuildRequiredTimer;
 
 @end
 
@@ -55,6 +56,8 @@
     _delegate = delegate;
     
     [self deregisterObservers];
+
+    XCReturnUnless(self.respondToMenuChanges == YES);
 
     if(TRCheckIsEmpty(delegate) == NO) [self registerObservers];
 }
@@ -146,7 +149,8 @@
     
     self.actions = [self recursivelyBuildAvailableActionsForMenu:self.menu];
 
-    [self registerObservers];
+    BOOL registerObservers = (self.respondToMenuChanges && self.delegate);
+    if(registerObservers) [self registerObservers];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -242,9 +246,9 @@
 {
     NSMutableString *title     = [[NSMutableString alloc] initWithString:menu.title];
     NSMutableArray *components = [NSMutableArray arrayWithObject:title];
-
+    
     NSMenu *parentMenu = menu.supermenu;
-while(parentMenu) {
+    while(parentMenu) {
         [components insertObject:[NSString stringWithFormat:@"%@ > ", parentMenu.title]
                          atIndex:0];
         parentMenu = parentMenu.supermenu;
@@ -257,9 +261,23 @@ while(parentMenu) {
 ////////////////////////////////////////////////////////////////////////////////
 - (void)notifyOfIndexRebuildRequired:(NSNotification *)notification
 {
-    if([self.delegate respondsToSelector:@selector(actionProviderDidNotifyOfIndexRebuildNeeded:)]) {
-        [self.delegate actionProviderDidNotifyOfIndexRebuildNeeded:self];
-    }
+//    XCLog(@"<notification=%@>", notification);
+    
+    XCReturnUnless([self.delegate respondsToSelector:@selector(actionProviderDidNotifyOfIndexRebuildNeeded:)]);
+    
+    [self.notifyOfIndexRebuildRequiredTimer invalidate];
+    self.notifyOfIndexRebuildRequiredTimer = [NSTimer scheduledTimerWithTimeInterval:0.3
+                                                                              target:self
+                                                                            selector:@selector(notifyOfIndexRebuildRequired)
+                                                                            userInfo:nil
+                                                                             repeats:NO];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)notifyOfIndexRebuildRequired
+{
+    [self.delegate actionProviderDidNotifyOfIndexRebuildNeeded:self];
 }
 
 @end
