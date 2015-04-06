@@ -27,7 +27,6 @@ typedef void(^XCBlockActionHandler)(id<XCIDEContext> context); // context can be
 @property (nonatomic, strong) NSImage *icon;
 
 @property (nonatomic, strong) id representedObject;
-@property (nonatomic, strong) NSArray *searchQueryMatchRanges; // REVIEW:  this elsewhere
 
 - (instancetype)initWithTitle:(NSString *)title
                        action:(XCBlockActionHandler)action;

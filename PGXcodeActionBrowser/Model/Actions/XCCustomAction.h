@@ -24,7 +24,5 @@
 @property (nonatomic, strong) NSImage *icon;
 
 @property (nonatomic, strong) id representedObject;
-@property (nonatomic, strong) NSArray *searchQueryMatchRanges; // REVIEW:  this elsewhere
-
 
 @end

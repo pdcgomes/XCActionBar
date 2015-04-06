@@ -12,8 +12,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 @interface XCSearchMatchEntry ()
 
-@property (nonatomic,       ) id<XCActionInterface> action;
-@property (nonatomic, assign) NSRange rangeForMatch;
+@property (nonatomic) id<XCActionInterface> action;
+@property (nonatomic) NSArray *rangesForMatch;
 
 @end
 
@@ -23,11 +23,11 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (instancetype)initWithAction:(id<XCActionInterface>)action rangeForMatch:(NSRange)rangeForMatch
+- (instancetype)initWithAction:(id<XCActionInterface>)action rangesForMatch:(NSArray *)rangesForMatch
 {
     if((self = [super init])) {
-        self.action        = action;
-        self.rangeForMatch = rangeForMatch;
+        self.action         = action;
+        self.rangesForMatch = rangesForMatch;
     }
     return self;
 }

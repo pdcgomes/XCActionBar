@@ -13,6 +13,7 @@
 #import "XCActionBarCommandProcessor.h"
 #import "XCActionInterface.h"
 #import "XCSearchService.h"
+#import "XCSearchMatchEntry.h"
 
 #import "XCSearchResultCell.h"
 
@@ -196,7 +197,8 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
 {
     XCSearchResultCell *cell = [tableView makeViewWithIdentifier:NSStringFromClass([XCSearchResultCell class]) owner:self];
     
-    id<XCActionInterface> action = self.searchResults[row];
+    id<XCSearchMatchEntry> searchMatch = self.searchResults[row];
+    id<XCActionInterface > action      = searchMatch.action;
 
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:TRSafeString(action.title)];
     
@@ -204,7 +206,7 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
                   value:(action.enabled ? [NSColor blackColor] : [NSColor darkGrayColor])
                   range:NSMakeRange(0, title.length)];
     
-    for(NSValue *rangeValue in action.searchQueryMatchRanges) {
+    for(NSValue *rangeValue in searchMatch.rangesForMatch) {
         [title addAttributes:@{NSBackgroundColorAttributeName:[NSColor colorWithCalibratedRed:1.000 green:1.000 blue:0.519 alpha:0.250],
                                NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
                                NSUnderlineColorAttributeName: [NSColor yellowColor]}
@@ -334,7 +336,8 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
     NSInteger selectedIndex = self.searchResultsTable.selectedRow;
     if(selectedIndex == -1) return NO;
     
-    id<XCActionInterface> selectedAction = self.searchResults[selectedIndex];
+    id<XCSearchMatchEntry> searchMatch    = self.searchResults[selectedIndex];
+    id<XCActionInterface > selectedAction = searchMatch.action;
     BOOL executed = [selectedAction executeWithContext:self.context];
 
     XCReturnFalseUnless(executed);
@@ -354,7 +357,8 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
     NSInteger selectedIndex = self.searchResultsTable.selectedRow;
     if(selectedIndex == -1) return NO;
     
-    id<XCActionInterface> selectedAction = self.searchResults[selectedIndex];
+    id<XCSearchMatchEntry> searchMatch    = self.searchResults[selectedIndex];
+    id<XCActionInterface > selectedAction = searchMatch.action;
     BOOL validated = [selectedAction validateArgumentsWithContext:self.context arguments:arguments];
     if(validated == NO) return NO;
     
@@ -401,7 +405,8 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
     NSInteger selectedIndex = self.searchResultsTable.selectedRow;
     if(selectedIndex == -1) return nil;
     
-    return self.searchResults[selectedIndex];
+    id<XCSearchMatchEntry> searchMatch = self.searchResults[selectedIndex];
+    return searchMatch.action;
 }
 
 #pragma mark - Helpers

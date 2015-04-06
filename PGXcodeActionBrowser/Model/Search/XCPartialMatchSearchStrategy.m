@@ -54,8 +54,8 @@
                                                  options:(NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch)
                                                    range:NSMakeRange(0, query.length)];
             if(range.location != NSNotFound) {
-                [matches addObject:action];
-                action.searchQueryMatchRanges = @[[NSValue valueWithRange:NSMakeRange(matchLocation, query.length)]];
+                [matches addObject:[[XCSearchMatchEntry alloc] initWithAction:action
+                                                               rangesForMatch:@[[NSValue valueWithRange:NSMakeRange(matchLocation, query.length)]]]];
                 foundMatch = YES;
                 break;
             }
@@ -102,8 +102,7 @@
         }
         
         if(foundPartialMatch == YES) {
-            action.searchQueryMatchRanges = ranges;
-            [matches addObject:action];
+            [matches addObject:[[XCSearchMatchEntry alloc] initWithAction:action rangesForMatch:ranges]];
             continue;
         }
         

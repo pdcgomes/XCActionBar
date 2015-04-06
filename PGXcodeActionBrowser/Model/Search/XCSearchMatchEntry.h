@@ -13,8 +13,8 @@
 @protocol XCActionInterface;
 @protocol XCSearchMatchEntry <NSObject>
 
-@property (nonatomic,         readonly) id<XCActionInterface> action;
-@property (nonatomic, assign, readonly) NSRange rangeForMatch;
+@property (nonatomic, readonly) id<XCActionInterface> action;
+@property (nonatomic, readonly) NSArray *rangesForMatch;
 
 @end
 
@@ -22,6 +22,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 @interface XCSearchMatchEntry : NSObject <XCSearchMatchEntry>
 
-- (instancetype)initWithAction:(id<XCActionInterface>)action rangeForMatch:(NSRange)rangeForMatch;
+- (instancetype)initWithAction:(id<XCActionInterface>)action rangesForMatch:(NSArray *)rangesForMatch;
 
 @end
