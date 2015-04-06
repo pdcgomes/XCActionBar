@@ -1,0 +1,15 @@
+//
+//  XCQuicksilverFuzzySearchStrategy.h
+//  XCActionBar
+//
+//  Created by Pedro Gomes on 06/04/2015.
+//  Copyright (c) 2015 Pedro Gomes. All rights reserved.
+//
+
+#import "XCSearchStrategy.h"
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+@interface XCFuzzySearchStrategy : NSObject <XCSearchStrategy>
+
+@end

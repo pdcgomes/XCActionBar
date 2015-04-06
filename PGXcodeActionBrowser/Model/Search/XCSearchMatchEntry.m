@@ -14,7 +14,7 @@
 
 @property (nonatomic) id<XCActionInterface> action;
 @property (nonatomic) NSArray *rangesForMatch;
-
+@property (nonatomic) NSNumber *score;
 @end
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -28,6 +28,18 @@
     if((self = [super init])) {
         self.action         = action;
         self.rangesForMatch = rangesForMatch;
+    }
+    return self;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (instancetype)initWithAction:(id<XCActionInterface>)action rangesForMatch:(NSArray *)rangesForMatch matchScore:(NSNumber *)score
+{
+    if((self = [super init])) {
+        self.action         = action;
+        self.rangesForMatch = rangesForMatch;
+        self.score          = score;
     }
     return self;
 }

@@ -15,6 +15,7 @@
 
 @property (nonatomic, readonly) id<XCActionInterface> action;
 @property (nonatomic, readonly) NSArray *rangesForMatch;
+@property (nonatomic, readonly) NSNumber *score;
 
 @end
 
@@ -23,5 +24,6 @@
 @interface XCSearchMatchEntry : NSObject <XCSearchMatchEntry>
 
 - (instancetype)initWithAction:(id<XCActionInterface>)action rangesForMatch:(NSArray *)rangesForMatch;
+- (instancetype)initWithAction:(id<XCActionInterface>)action rangesForMatch:(NSArray *)rangesForMatch matchScore:(NSNumber *)score;
 
 @end

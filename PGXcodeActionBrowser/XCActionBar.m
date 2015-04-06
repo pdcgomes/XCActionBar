@@ -15,6 +15,7 @@
 #import "XCHotKeyListener.h"
 #import "XCSearchService.h"
 #import "XCPartialMatchSearchStrategy.h"
+#import "XCFuzzySearchStrategy.h"
 
 #import "XCNSMenuActionProvider.h"
 #import "XCWorkspaceUnitTestsActionProvider.h"
@@ -145,6 +146,8 @@ static XCActionBar *sharedPlugin;
 
 #pragma mark - Helpers
 
+#define XCSearchStrategyClass XCFuzzySearchStrategy
+//#define XCSearchStrategyClass XCPartialMatchSearchStrategy
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (void)performInitialization
@@ -154,7 +157,7 @@ static XCActionBar *sharedPlugin;
     self.context       = [[XCIDEContext alloc] init];
     self.actionIndex   = [[XCActionIndex alloc] init];
     self.searchService = [[XCSearchService alloc] initWithIndex:self.actionIndex
-                                                       strategy:[[XCPartialMatchSearchStrategy alloc] init]];
+                                                       strategy:[[XCSearchStrategyClass alloc] init]];
     
     XCDeclareWeakSelf(weakSelf);
 
