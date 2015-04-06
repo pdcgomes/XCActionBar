@@ -146,8 +146,8 @@ static XCActionBar *sharedPlugin;
 
 #pragma mark - Helpers
 
-#define XCSearchStrategyClass XCFuzzySearchStrategy
-//#define XCSearchStrategyClass XCPartialMatchSearchStrategy
+//#define XCSearchStrategyClass XCFuzzySearchStrategy
+#define XCSearchStrategyClass XCPartialMatchSearchStrategy
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (void)performInitialization
