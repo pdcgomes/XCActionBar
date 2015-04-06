@@ -16,6 +16,7 @@
 @property (nonatomic,   copy) NSString *title;
 @property (nonatomic,   copy) NSString *subtitle;
 @property (nonatomic,   copy) NSString *hint;
+@property (nonatomic,   copy) NSString *argumentHint;
 
 @property (nonatomic,   copy) NSString *category;
 @property (nonatomic,   copy) NSString *group;
@@ -27,14 +28,18 @@
 @property (nonatomic, strong) NSArray *searchQueryMatchRanges; // REVIEW:  this elsewhere
 
 - (BOOL)executeWithContext:(id<XCIDEContext>)context;
-- (BOOL)executeWithContext:(id<XCIDEContext>)context arguments:(NSArray *)arguments;
-
 
 ////////////////////////////////////////////////////////////////////////////////
 // Arguments
 ////////////////////////////////////////////////////////////////////////////////
+@optional
+
 - (BOOL)acceptsArguments;
 
-- (NSUInteger)requiredArgumentCount;
+- (BOOL)requiresArguments;
+
+- (BOOL)validateArgumentsWithContext:(id<XCIDEContext>)context arguments:(NSString *)arguments;
+
+- (BOOL)executeWithContext:(id<XCIDEContext>)context arguments:(NSString *)arguments;
 
 @end

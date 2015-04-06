@@ -227,13 +227,19 @@ static XCActionBar *sharedPlugin;
                                 @"Source Control",
                                 @"Window",
                                 @"Help"];
+    NSArray *menuBarItemsSupportingIndexUpdates = @[@"Editor"];
+    
     NSMenu *mainMenu = [NSApp mainMenu];
     
     for(NSString *title in menuBarActions) {
         NSMenuItem *item = [mainMenu itemWithTitle:title];
         if(item == nil) continue;
         
-        [self.actionIndex registerProvider:[[XCNSMenuActionProvider alloc] initWithMenu:item.submenu]];
+        XCNSMenuActionProvider *provider = [[XCNSMenuActionProvider alloc] initWithMenu:item.submenu];
+        if([menuBarItemsSupportingIndexUpdates containsObject:title]) {
+            provider.respondToMenuChanges = YES;
+        }
+        [self.actionIndex registerProvider:provider];
     }
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -254,6 +260,15 @@ static XCActionBar *sharedPlugin;
                                     // Prefix/Suffix
                                     [[XCAddPrefixToLinesAction alloc] init],
                                     [[XCAddSuffixToLinesAction alloc] init],
+                                    
+                                    [[XCAddPrefixToTextAction alloc] init],
+                                    [[XCAddSuffixToTextAction alloc] init],
+                                    
+                                    // Column selection mode
+                                    [[XCColumnSelectionModeAction alloc] init],
+                                    
+                                    [[XCMoveSelectionHereAction alloc] initWithTextSelectionStorage:textSelectionStorage],
+                                    
                                     // Duplicate/Delete Lines
                                     [[XCDeleteBlankLinesAction alloc] init],
                                     [[XCDeleteLineAction alloc] init],
@@ -269,6 +284,10 @@ static XCActionBar *sharedPlugin;
                                     // Sort Contents
                                     [[XCSortContentsAction alloc] initWithSortOrder:NSOrderedAscending],
                                     [[XCSortContentsAction alloc] initWithSortOrder:NSOrderedDescending],
+                                    
+                                    // Split and Join
+                                    [[XCSplitSelectionIntoLinesAction alloc] init],
+                                    [[XCJoinLinesAction alloc] init],
                                     
                                     // Trim Operations
                                     [[XCTrimWhitespaceAction alloc] initWithBehavior:XCTrimWhitespaceBehaviorLeading],
@@ -450,6 +469,7 @@ static XCActionBar *sharedPlugin;
 - (void)updateContext
 {
     self.context.configuration      = self.configuration;
+    self.context.sourceCodeEditor   = [XCIDEHelper currentEditor];
     self.context.editorDocument     = [XCIDEHelper currentDocument];
     self.context.workspaceDocument  = [XCIDEHelper currentWorkspaceDocument];
     self.context.sourceCodeDocument = [XCIDEHelper currentSourceCodeDocument];

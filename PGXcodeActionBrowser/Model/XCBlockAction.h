@@ -18,6 +18,7 @@ typedef void(^XCBlockActionHandler)(id<XCIDEContext> context); // context can be
 @property (nonatomic,   copy) NSString *title;
 @property (nonatomic,   copy) NSString *subtitle;
 @property (nonatomic,   copy) NSString *hint;
+@property (nonatomic,   copy) NSString *argumentHint;
 
 @property (nonatomic,   copy) NSString *category;
 @property (nonatomic,   copy) NSString *group;

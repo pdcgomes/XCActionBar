@@ -20,11 +20,11 @@
 - (instancetype)init
 {
     if((self = [super init])) {
-        self.title    = @"Add Suffix to Line(s)";
-        self.subtitle = @"Appends pasteboard text contents to each selected line";
+        self.title        = @"Add Suffix to Line(s)";
+        self.subtitle     = @"Appends pasteboard text contents to each selected line";
+        self.argumentHint = NSLocalizedString(@"Enter the suffix", @"");
         
         self.enabled  = YES;
-        
     }
     return self;
 }
@@ -35,6 +35,36 @@
 {
     NSString *suffix = [context retrievePasteboardTextContents];
     
+    return [self addSuffixWithContext:context suffix:suffix];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)executeWithContext:(id<XCIDEContext>)context arguments:(NSString *)arguments
+{
+    return [self addSuffixWithContext:context suffix:arguments];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)acceptsArguments
+{
+    return YES;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)validateArgumentsWithContext:(id<XCIDEContext>)context arguments:(NSString *)arguments
+{
+    return (arguments.length > 0);
+}
+
+#pragma mark - Helpers
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)addSuffixWithContext:(id<XCIDEContext>)context suffix:(NSString *)suffix
+{
     if(TRCheckIsEmpty(suffix) == YES) return NO;
     
     NSTextView *textView = context.sourceCodeTextView;
@@ -67,5 +97,6 @@
     
     return YES;
 }
+
 
 @end

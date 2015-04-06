@@ -13,6 +13,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 @interface XCNSMenuActionProvider : NSObject <XCActionProvider>
 
+@property (nonatomic, assign) BOOL respondToMenuChanges; // generates index notification updates when this particular item (or chil-items change)
+
 - (instancetype)initWithMenu:(NSMenu *)menu;
 
 @end

@@ -7,7 +7,12 @@
 
 **Else** Read along ... :)
 
+###Updates:
+If you'd like to keep up to date with the latest feature additions, keep an eye on the [changelog page](https://github.com/pdcgomes/XCActionBar/wiki/Changelog).
+
 ###Demo:
+
+For more demos, please check out this [page](https://github.com/pdcgomes/XCActionBar/wiki/Demos), we'll be updating it over time.
 
 Sorting lines demo:
 ![image](demo.gif)
@@ -18,7 +23,19 @@ Built-in __Add Prefix to Line(s)__ and __Add Suffix to Line(s)__ demo:
 Built-in __Surround With NSNumber Literal__ and __Surround With NSString Literal__ demo:
 ![image](demo3.gif)
 
-For more demos, please check out this [page](https://github.com/pdcgomes/XCActionBar/wiki/Demos), we'll be updating it over time.
+###Installation:
+
+The recommended installation method (and also the simplest) is via the [Alcatraz](http://alcatraz.io) plugin manager. Just follow their installation instructions, search for `XCActionBar`, click install and you're done!
+
+Alternatively you can run the following command in your terminal:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/pdcgomes/XCActionBar/master/Scripts/install.sh | sh
+```
+
+A lot of people recommend __against__ blindly executing shell scripts (and rightly so!), so I'd make sure to open the script first and ensure it won't delete all of your files or worse - it's good practice. If you don't feel comfortable, there's one final option:
+
+Download or `git clone` XCActionBar, open the project in Xcode and simply `build` it. The plugin will be automatically installed. Just make sure to restart Xcode once you're done.
 
 ###Motivation:
 
@@ -101,6 +118,8 @@ As mentioned above, the plugin comes bundled with a few custom actions. Followin
 * `XCDeleteBlankLinesAction` **deletes** all empty strings in the selected range
 * `XCDeleteLineAction` deletes the line the carret is currently positioned in
 * `XCDuplicateLineAction` duplicates the line the carret is currently positioned in, or the selected lines
+* `XCJoinLinesAction` joins the lines across the current selection. Lines are joined via a delimiter (default is `space` but can be user defined)
+* `XCSplitSelectionIntoLinesAction` splits the current selection(s) into lines by delimiter (default is `,` but can be user defined)
 * `XCSortSelectionAction` performs line sorting (ascending or descending) of the selected lines
 * `XCSurroundWithAction` surrounds the selected text block with an arbitrary prefix/suffix
 * `XCSurroundLineWithAction` surrounds each selected line with an arbitrary prefix/suffix
@@ -108,14 +127,20 @@ As mentioned above, the plugin comes bundled with a few custom actions. Followin
 
 * `XCOpenActiveDocumentPathInTerminalAction` opens the active document's directory in the terminal app (currently supports `iTerm.app` and `Terminal.app` but more can be added in `XCActionBarConfiguration.plist` under `XCSupportedTerminalApplications`
 
+#### Text selection actions
 There are also a few actions that deal with text selections:
 
 * `XCSaveTextSelection`
 * `XCLoadTextSelection`
 * `XCClearTextSelection`
+* `XCMoveSelectionHere`
 
 These allow you to select non-contiguous text selections using only your keyboard by selecting a chunk of text (as you would), but with the difference that you can then `save` the selection -- this will mark the text in orange (color will be customizable soon), you can then proceed and make additional selections. When you're done, just `load selection` which will cause the marked text to be fully selected. You can then apply any text action as you would for normal selections.
 Two more things: at the time of writing, the marked text will not automatically _unmark_ itself, so you need to `clear selection`. Also, you can undo marking/unmarking of the text, which is pretty cool.
+
+`XCMoveSelectionHere` allows you to quickly collect chunks of text and then move them to one place in one swift action - no more clunky mouse selections or multiple {cut, copy}/paste trips.
+
+#### Surround With actions
 
 I've bundled a few `XCSurroundLineWithAction` and `XCSurroundWithAction`S:
 
@@ -147,7 +172,34 @@ Just type `surr` in the action bar to get a list of all available actions.
 Note: currently none of these perform any character escaping
 Some of the don't really make much sense when applied to **each line** so I might strip some out in the future
 
+Also, some actions support optional user-defined input, which can come in handy. For example, lets say you specify the `XCDuplicateLineAction` but you actually want to duplicate it __ten__ times. You can hit `tab` with the `XCDuplicateLineAction` highlighted, and the input text field will change and ask you for the number of times you'd like to repeat the action. Just enter the number and hit `enter` - boom!
+
+Currently the following actions support optional user input:
+
+* `XCDuplicateLineAction`
+* `XCAddPrefixToLinesAction`
+* `XCAddSuffixToLinesAction`
+* `XCAddPrefixToTextAction`
+* `XCAddSuffixToTextAction`
+
+There's currently no visual hint to let you know if an action supports arguments or not but I intend to add this feature in the near future.
+
 Continue reading for more details on how to add your own custom actions.
+
+### Smarter Code Snippets
+
+Code snippets are great to save time, and while `<# tokens #>` already provide a great deal of flexibility, sometimes you just want to be able to dynamically expand some known token or even move the cursor to a specific location. This isn't new, and other apps such as TextExpander and Dash (and maybe others) do this already. In case you don't use any of those or you simply want to be able to have this capability built directly into Xcode, look no further!
+
+When defining a text snippet you can use the following macros:
+
+* `@author` automatically replaced by the current user's name
+* `@clipboard` automatically replaced by the clipboard's text contents (if any)
+* `@cursor` moves the cursor to this location after expanding the snippet
+* `@date` replaced by the current date (format will be user configurable soon)
+* `@time` replaced by the current time (format will be user configurable soon)
+* others coming soon -- if you have suggestions, send them along!
+
+__One caveat__: these expansions currently only work if you expand the snippets using XCActionBar. If you try to expand them via the default methods (either by just typing the snippet's name or by dragging it), they won't work. This will be probably be addressed in the future, but I don't think it's a big deal as most people would be expanding snippet via XCActionBar anyway.
 
 ### Extensibility
 

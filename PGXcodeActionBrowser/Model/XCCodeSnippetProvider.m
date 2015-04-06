@@ -8,7 +8,7 @@
 
 #import "XCCodeSnippetProvider.h"
 
-#import "XCBlockAction.h"
+#import "XCExpandCodeSnippetAction.h"
 
 #import "XCIDEContext.h"
 #import "XCSurroundWithSnippetAction.h"
@@ -103,14 +103,10 @@
     NSMutableArray *actions = [NSMutableArray array];
 
     for(IDECodeSnippet *snippet in self.repository.codeSnippets) @autoreleasepool {{
-        XCLog(@"<CodeSnippet>, <id=%@, title=%@, shortcut=%@, scopes=%@>", snippet.identifier, snippet.title, snippet.completionPrefix, snippet.completionScopes);
+//        XCLog(@"<CodeSnippet>, <id=%@, title=%@, shortcut=%@, scopes=%@>", snippet.identifier, snippet.title, snippet.completionPrefix, snippet.completionScopes);
         
-        XCBlockAction *action = [[XCBlockAction alloc] initWithTitle:snippet.title
-                                                            subtitle:snippet.summary
-                                                                hint:snippet.completionPrefix
-                                                              action:^(id<XCIDEContext> context) {
-                                                                  [context.sourceCodeTextView insertText:snippet.contents];
-                                                              }];
+        XCExpandCodeSnippetAction *action = [[XCExpandCodeSnippetAction alloc] initWithCodeSnippet:snippet];
+        action.group = [self actionGroupName];
         action.enabled = YES;
         action.group   = [self actionGroupName];
         action.representedObject = snippet;

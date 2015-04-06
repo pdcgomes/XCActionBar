@@ -15,17 +15,13 @@
 
 #define XCSavedSelectionTextColor() ([[NSColor orangeColor] colorWithAlphaComponent:0.3])
 
-NSString *XCTextSelectionMarkerAttributeName = @"XCTextSelectionMarker";
+NSString *const XCTextSelectionMarkerAttributeName = @"XCTextSelectionMarker";
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @interface XCTextSelectionAction ()
 
 @property (nonatomic) id<XCTextSelectionStorage> textSelectionStorage;
-
-- (void)undoAction:(NSDictionary *)info;
-- (BOOL)validateSavedSelectionsInContext:(id<XCIDEContext>)context documentIdentifier:(NSString *)documentIdentifier;
-- (BOOL)recomputeAndSaveSelectionsInContext:(id<XCIDEContext>)context documentIdentifier:(NSString *)documentIdentifier;
 
 @end
 

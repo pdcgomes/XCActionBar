@@ -16,9 +16,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 @interface XCActionIndex () <XCActionProviderDelegate>
 
-@property (nonatomic, strong) dispatch_queue_t      indexerQueue;
-@property (nonatomic, strong) NSMutableDictionary   *providers;
-@property (nonatomic, strong) NSArray               *index;
+@property (nonatomic) dispatch_queue_t    indexerQueue;
+@property (nonatomic) NSMutableDictionary *providers;
+@property (nonatomic) NSMutableDictionary *actionsByProvider;
+@property (nonatomic) NSArray             *index;
 
 @end
 
@@ -31,8 +32,9 @@
 - (instancetype)init
 {
     if((self = [super init])) {
-        self.indexerQueue = dispatch_queue_create("org.pedrogomes.XCActionBar.ActionIndexer", DISPATCH_QUEUE_CONCURRENT);
-        self.providers    = [NSMutableDictionary dictionary];
+        self.indexerQueue      = dispatch_queue_create("org.pedrogomes.XCActionBar.ActionIndexer", DISPATCH_QUEUE_CONCURRENT);
+        self.providers         = [NSMutableDictionary dictionary];
+        self.actionsByProvider = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -44,6 +46,7 @@
     NSString *token = [[NSUUID UUID] UUIDString];
 
     @synchronized(self) {
+        provider.delegate = self;
         self.providers[token] = provider;
     }
     
@@ -195,25 +198,29 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (void)actionProviderDidNotifyOfIndexRebuildNeeded:(id<XCActionProvider>)provider
 {
-    XCLog(@"<IndexRebuildNeeded>, <provider=%@>", provider);
+    XCLog(@"<IndexRebuildNeeded>, <provider=%@>, <updating...>", provider);
     
     XCDeclareWeakSelf(weakSelf);
     
-    void (^RegisterProviderDelegates)(id<XCActionProviderDelegate> delegate) = ^(id delegate){
-        NSArray *providers = nil;
+    NSString *hashForProvider = XCHashObject(provider);
+    [provider prepareActionsOnQueue:self.indexerQueue completionHandler:^{
         @synchronized(self) {
-            providers = [[weakSelf.providers allValues] copy];
+            NSArray *oldActions = weakSelf.actionsByProvider[hashForProvider];
+            
+            NSMutableArray *index = weakSelf.index.mutableCopy;
+            [index removeObjectsInArray:oldActions];
+            
+            NSArray  *actions = [provider findAllActions];
+            [index addObjectsFromArray:actions];
+            
+            NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES];
+            [index sortUsingDescriptors:@[sortDescriptor]];
+            
+            weakSelf.index = [NSArray arrayWithArray:index];
+            weakSelf.actionsByProvider[hashForProvider] = actions;
         }
-
-        for(id<XCActionProvider> provider in providers) {
-            [provider setDelegate:delegate];
-        }
-    };
-    
-    RegisterProviderDelegates(nil);
-    
-    [self updateWithCompletionHandler:^{
-        RegisterProviderDelegates(weakSelf);
+        
+        XCLog(@"<IndexRebuildNeeded>, <provider=%@>, <complete>", provider);
     }];
 }
 
@@ -230,12 +237,10 @@
     
     NSMutableArray *actionIndex = [NSMutableArray array];
     for(id<XCActionProvider> provider in providers) { @autoreleasepool {
-//        NSString *hashForProvider = XCHashObject(provider);
+        NSString *hashForProvider = XCHashObject(provider);
         NSArray  *actions         = [provider findAllActions];
-//        for(id action in actions) {
-//            NSString *hashForAction = XCHashObject(action);
-//            XCLog(@"<action=%@>, <hash=%@>", action, hashForAction);
-//        }
+        
+        self.actionsByProvider[hashForProvider] = actions;
         
         [actionIndex addObjectsFromArray:actions];
     }}
