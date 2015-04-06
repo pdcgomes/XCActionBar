@@ -14,8 +14,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 @interface XCSearchService ()
 
-@property (nonatomic,   weak) id<PGActionIndex   > index;
-@property (nonatomic, strong) id<XCSearchStrategy> strategy;
+@property (nonatomic,   weak) id<XCActionIndex   > index;
+@property (nonatomic        ) id<XCSearchStrategy> strategy;
 
 @end
 
@@ -25,7 +25,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (instancetype)initWithIndex:(id<PGActionIndex>)index
+- (instancetype)initWithIndex:(id<XCActionIndex>)index
                      strategy:(id<XCSearchStrategy>)strategy
 {
     if((self = [super init])) {
@@ -37,14 +37,13 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (void)performSearchWithQuery:(NSString *)expression completionHandler:(PGSearchServiceCompletionHandler)completionHandler
+- (void)performSearchWithQuery:(NSString *)expression completionHandler:(XCSearchServiceCompletionHandler)completionHandler
 {
     NSParameterAssert(completionHandler);
-    
-    NSArray *results = [self.index lookup:expression];
-    completionHandler(results ?: @[]);
-    
-//    XCLog(@"<PerformSearchWithQuery>, <query=%@>, <results=%@>", expression, results);
+
+    //    XCLog(@"<PerformSearchWithQuery>, <query=%@>, <results=%@>", expression, results);
+
+    [self.strategy performSearchWithQuery:expression dataSet:self.index completionHandler:completionHandler];
 }
 
 ////////////////////////////////////////////////////////////////////////////////

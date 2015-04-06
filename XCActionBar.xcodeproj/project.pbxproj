@@ -41,6 +41,8 @@
 		426782EB1ABA37E8006F4E53 /* XCActionBarConfiguration.plist in Resources */ = {isa = PBXBuildFile; fileRef = 426782EA1ABA37E8006F4E53 /* XCActionBarConfiguration.plist */; };
 		426C325A1AB9A121005EFD11 /* XCSurroundWithSnippetAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 426C32591AB9A121005EFD11 /* XCSurroundWithSnippetAction.m */; };
 		4270B2B51AC6E1F8004AF618 /* XCAddSuffixToTextAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4270B2B41AC6E1F8004AF618 /* XCAddSuffixToTextAction.m */; };
+		4275F5C31AD2F59D005F3032 /* XCSearchMatchEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 4275F5C21AD2F59D005F3032 /* XCSearchMatchEntry.m */; };
+		4275F5C61AD2F6D5005F3032 /* XCPartialMatchSearchStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4275F5C51AD2F6D5005F3032 /* XCPartialMatchSearchStrategy.m */; };
 		427F93371AC6DFC30003D0F8 /* XCAddPrefixToTextAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 427F93361AC6DFC30003D0F8 /* XCAddPrefixToTextAction.m */; };
 		42807D3F1AB0708A007988F3 /* XCUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 42807D3E1AB0708A007988F3 /* XCUtils.m */; };
 		42807D421AB07D4B007988F3 /* XCInputValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = 42807D411AB07D4B007988F3 /* XCInputValidation.m */; };
@@ -138,6 +140,10 @@
 		426C32591AB9A121005EFD11 /* XCSurroundWithSnippetAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCSurroundWithSnippetAction.m; sourceTree = "<group>"; };
 		4270B2B31AC6E1F8004AF618 /* XCAddSuffixToTextAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCAddSuffixToTextAction.h; sourceTree = "<group>"; };
 		4270B2B41AC6E1F8004AF618 /* XCAddSuffixToTextAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCAddSuffixToTextAction.m; sourceTree = "<group>"; };
+		4275F5C11AD2F59D005F3032 /* XCSearchMatchEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSearchMatchEntry.h; sourceTree = "<group>"; };
+		4275F5C21AD2F59D005F3032 /* XCSearchMatchEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCSearchMatchEntry.m; sourceTree = "<group>"; };
+		4275F5C41AD2F6D5005F3032 /* XCPartialMatchSearchStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCPartialMatchSearchStrategy.h; sourceTree = "<group>"; };
+		4275F5C51AD2F6D5005F3032 /* XCPartialMatchSearchStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCPartialMatchSearchStrategy.m; sourceTree = "<group>"; };
 		427F93351AC6DFC30003D0F8 /* XCAddPrefixToTextAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCAddPrefixToTextAction.h; sourceTree = "<group>"; };
 		427F93361AC6DFC30003D0F8 /* XCAddPrefixToTextAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCAddPrefixToTextAction.m; sourceTree = "<group>"; };
 		42807D3D1AB0708A007988F3 /* XCUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCUtils.h; sourceTree = "<group>"; };
@@ -551,9 +557,13 @@
 			children = (
 				42A647221AB0B666003803AE /* XCActionIndex.h */,
 				42A647231AB0B666003803AE /* XCActionIndex.m */,
+				4275F5C11AD2F59D005F3032 /* XCSearchMatchEntry.h */,
+				4275F5C21AD2F59D005F3032 /* XCSearchMatchEntry.m */,
 				42CEA4E91AB0ADDA006973B7 /* XCSearchService.h */,
 				42CEA4EA1AB0ADDA006973B7 /* XCSearchService.m */,
 				421F53561AB9CFF600509103 /* XCSearchStrategy.h */,
+				4275F5C41AD2F6D5005F3032 /* XCPartialMatchSearchStrategy.h */,
+				4275F5C51AD2F6D5005F3032 /* XCPartialMatchSearchStrategy.m */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -717,8 +727,10 @@
 				4284ADC91ABC26E400531C48 /* XCTrimWhitespaceAction.m in Sources */,
 				425500ED1ABC594D0029C533 /* XCCopyActiveDocumentDirectoryAction.m in Sources */,
 				42A71F181AB710EB008B5B92 /* XCCustomActionProvider.m in Sources */,
+				4275F5C61AD2F6D5005F3032 /* XCPartialMatchSearchStrategy.m in Sources */,
 				423986FB1AC0DEB300559D29 /* XCTextSelectionStorage.m in Sources */,
 				42C1AD551AAF3E7F00248A8D /* XCActionBar.m in Sources */,
+				4275F5C31AD2F59D005F3032 /* XCSearchMatchEntry.m in Sources */,
 				42FD3C0F1AB0ABE900F0A442 /* XCRoundCornerWindow.m in Sources */,
 				4264951E1AD1BE90007C69F1 /* XCJoinLinesAction.m in Sources */,
 				42C1AD861AAF534200248A8D /* XCNSMenuActionProvider.m in Sources */,

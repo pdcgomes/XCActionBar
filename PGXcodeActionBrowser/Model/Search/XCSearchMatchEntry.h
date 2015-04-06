@@ -1,8 +1,8 @@
 //
-//  XCSearchStrategy.h
+//  XCSearchMatchEntry.h
 //  XCActionBar
 //
-//  Created by Pedro Gomes on 18/03/2015.
+//  Created by Pedro Gomes on 06/04/2015.
 //  Copyright (c) 2015 Pedro Gomes. All rights reserved.
 //
 
@@ -10,12 +10,18 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-typedef void (^XCSearchServiceCompletionHandler)(NSArray /* id<XCSearchMatchEntry> */ *results);
+@protocol XCActionInterface;
+@protocol XCSearchMatchEntry <NSObject>
+
+@property (nonatomic,         readonly) id<XCActionInterface> action;
+@property (nonatomic, assign, readonly) NSRange rangeForMatch;
+
+@end
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@protocol XCSearchStrategy <NSObject>
+@interface XCSearchMatchEntry : NSObject <XCSearchMatchEntry>
 
-- (void)performSearchWithQuery:(NSString *)expression dataSet:(id<NSFastEnumeration>)dataSet completionHandler:(XCSearchServiceCompletionHandler)completionHandler;
+- (instancetype)initWithAction:(id<XCActionInterface>)action rangeForMatch:(NSRange)rangeForMatch;
 
 @end

@@ -11,19 +11,17 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @protocol XCActionProvider;
-@protocol PGActionIndex <NSObject>
+@protocol XCActionIndex <NSObject, NSFastEnumeration>
 
 - (id<NSCopying>)registerProvider:(id<XCActionProvider>)provider;
 - (void)deregisterProvider:(id<NSCopying>)providerToken;
 
 - (void)updateWithCompletionHandler:(PGGeneralCompletionHandler)completionHandler;
 
-- (NSArray *)lookup:(NSString *)str;
-
 @end
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@interface XCActionIndex : NSObject <PGActionIndex>
+@interface XCActionIndex : NSObject <XCActionIndex>
 
 @end

@@ -14,6 +14,7 @@
 #import "XCActionIndex.h"
 #import "XCHotKeyListener.h"
 #import "XCSearchService.h"
+#import "XCPartialMatchSearchStrategy.h"
 
 #import "XCNSMenuActionProvider.h"
 #import "XCWorkspaceUnitTestsActionProvider.h"
@@ -46,7 +47,7 @@ static XCActionBar *sharedPlugin;
 
 @property (nonatomic) XCIDEContext *context;
 
-@property (nonatomic) id<PGActionIndex    > actionIndex;
+@property (nonatomic) id<XCActionIndex    > actionIndex;
 @property (nonatomic) id<XCSearchService> searchService;
 
 @property (nonatomic) NSMutableDictionary *providersByWorkspace;
@@ -153,7 +154,7 @@ static XCActionBar *sharedPlugin;
     self.context       = [[XCIDEContext alloc] init];
     self.actionIndex   = [[XCActionIndex alloc] init];
     self.searchService = [[XCSearchService alloc] initWithIndex:self.actionIndex
-                                                       strategy:nil];
+                                                       strategy:[[XCPartialMatchSearchStrategy alloc] init]];
     
     XCDeclareWeakSelf(weakSelf);
 

@@ -6,16 +6,14 @@
 //  Copyright (c) 2015 Pedro Gomes. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
-typedef void (^PGSearchServiceCompletionHandler)(NSArray *results);
+#import "XCSearchStrategy.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @protocol XCSearchService <NSObject>
 
 // Will automatically interrupt other search operations
-- (void)performSearchWithQuery:(NSString *)expression completionHandler:(PGSearchServiceCompletionHandler)completionHandler;
+- (void)performSearchWithQuery:(NSString *)expression completionHandler:(XCSearchServiceCompletionHandler)completionHandler;
 
 // Interrupts any inflight search operation
 - (void)interruptSearches;
@@ -27,11 +25,11 @@ typedef void (^PGSearchServiceCompletionHandler)(NSArray *results);
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@protocol PGActionIndex;
+@protocol XCActionIndex;
 @protocol XCSearchStrategy;
 @interface XCSearchService : NSObject <XCSearchService>
 
-- (instancetype)initWithIndex:(id<PGActionIndex>)index
+- (instancetype)initWithIndex:(id<XCActionIndex>)index
                      strategy:(id<XCSearchStrategy>)strategy;
 
 @end
