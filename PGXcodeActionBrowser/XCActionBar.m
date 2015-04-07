@@ -298,6 +298,9 @@ static XCActionBar *sharedPlugin;
                                     [[XCTrimWhitespaceAction alloc] initWithBehavior:XCTrimWhitespaceBehaviorTrailing],
                                     [[XCTrimWhitespaceAction alloc] initWithBehavior:XCTrimWhitespaceBehaviorLeadingAndTrailing],
                                     
+                                    // Generator Actions
+                                    [[XCGUIDGeneratorAction alloc] init],
+                                    
                                     ].mutableCopy;
 
     NSArray *surroundWithActionSpecs = [NSArray arrayWithContentsOfURL:[self.bundle URLForResource:@"XCSurroundWithActions" withExtension:@"plist"]];

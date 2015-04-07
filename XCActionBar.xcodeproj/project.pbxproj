@@ -81,6 +81,7 @@
 		42FA5BC81AB82F79007F24B8 /* XCDuplicateLineAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FA5BC71AB82F79007F24B8 /* XCDuplicateLineAction.m */; };
 		42FA5BCB1AB82F84007F24B8 /* XCDeleteLineAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FA5BCA1AB82F84007F24B8 /* XCDeleteLineAction.m */; };
 		42FD3C0F1AB0ABE900F0A442 /* XCRoundCornerWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FD3C0E1AB0ABE900F0A442 /* XCRoundCornerWindow.m */; };
+		42FE83C11AD4884E00F27F05 /* XCGUIDGeneratorAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FE83C01AD4884E00F27F05 /* XCGUIDGeneratorAction.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -229,6 +230,8 @@
 		42FA5BCA1AB82F84007F24B8 /* XCDeleteLineAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCDeleteLineAction.m; sourceTree = "<group>"; };
 		42FD3C0D1AB0ABE900F0A442 /* XCRoundCornerWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = XCRoundCornerWindow.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		42FD3C0E1AB0ABE900F0A442 /* XCRoundCornerWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = XCRoundCornerWindow.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		42FE83BF1AD4884E00F27F05 /* XCGUIDGeneratorAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCGUIDGeneratorAction.h; sourceTree = "<group>"; };
+		42FE83C01AD4884E00F27F05 /* XCGUIDGeneratorAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCGUIDGeneratorAction.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -418,6 +421,7 @@
 			children = (
 				423986F81AC0DEA300559D29 /* Common */,
 				424504A71ABC4FE50054DC61 /* File Operations */,
+				42FE83BE1AD4882100F27F05 /* Generators */,
 				424504A61ABC4FBE0054DC61 /* Text Operations */,
 				424414241AD00E580018D02A /* Text Selection */,
 			);
@@ -608,6 +612,15 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
+		42FE83BE1AD4882100F27F05 /* Generators */ = {
+			isa = PBXGroup;
+			children = (
+				42FE83BF1AD4884E00F27F05 /* XCGUIDGeneratorAction.h */,
+				42FE83C01AD4884E00F27F05 /* XCGUIDGeneratorAction.m */,
+			);
+			name = Generators;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -771,6 +784,7 @@
 				4275F5DC1AD328F3005F3032 /* QSense.m in Sources */,
 				422DB1BF1AB60134007D13F9 /* XCCodeSnippetProvider.m in Sources */,
 				42A71F1C1AB71323008B5B92 /* XCCustomAction.m in Sources */,
+				42FE83C11AD4884E00F27F05 /* XCGUIDGeneratorAction.m in Sources */,
 				426782E91ABA33C8006F4E53 /* XCHotKeyListener.m in Sources */,
 				421278DD1ACDEC5E0037B87A /* XCMoveSelectionHereAction.m in Sources */,
 				421D370E1AB7982F00FF8338 /* XCAddSuffixToLinesAction.m in Sources */,
