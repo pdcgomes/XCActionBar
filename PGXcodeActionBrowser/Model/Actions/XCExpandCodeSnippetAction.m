@@ -19,6 +19,7 @@ NSString *const XCExpansionMacroClipboard = @"@clipboard";
 NSString *const XCExpansionMacroCursor    = @"@cursor";
 NSString *const XCExpansionMacroDate      = @"@date";
 NSString *const XCExpansionMacroTime      = @"@time";
+NSString *const XCExpansionMacroUUID      = @"@uuid";
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -97,6 +98,7 @@ NSString *const XCExpansionMacroTime      = @"@time";
                                         XCExpansionMacroClipboard:  NSStringFromSelector(@selector(expandClipboardInContext:snippet:)),
                                         XCExpansionMacroDate:       NSStringFromSelector(@selector(expandDateInContext:snippet:)),
                                         XCExpansionMacroTime:       NSStringFromSelector(@selector(expandTimeInContext:snippet:)),
+                                        XCExpansionMacroUUID:       NSStringFromSelector(@selector(expandUUIDInContext:snippet:)),
                                         };
  
     for(NSString *macro in textMacros) {
@@ -164,6 +166,15 @@ NSString *const XCExpansionMacroTime      = @"@time";
     NSString *expansion = [self.timeFormatter stringFromDate:[NSDate date]];
     
     [string replaceOccurrencesOfString:XCExpansionMacroTime withString:expansion options:0 range:NSMakeRange(0, string.length)];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)expandUUIDInContext:(id<XCIDEContext>)context snippet:(NSMutableString *)string
+{
+    NSString *expansion = [[NSUUID UUID] UUIDString];
+    
+    [string replaceOccurrencesOfString:XCExpansionMacroUUID withString:expansion options:0 range:NSMakeRange(0, string.length)];
 }
 
 @end
