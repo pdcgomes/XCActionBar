@@ -75,6 +75,8 @@
 		42C1AD901AAF614500248A8D /* XCConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD8F1AAF614500248A8D /* XCConstants.m */; };
 		42C1AD931AAF632700248A8D /* XCWorkspaceUnitTestsActionProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C1AD921AAF632700248A8D /* XCWorkspaceUnitTestsActionProvider.m */; };
 		42CB73AC1AD6D61900082DCB /* XCActionPreset.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CB73AB1AD6D61900082DCB /* XCActionPreset.m */; };
+		42CB73AF1AD6D96800082DCB /* XCActionBarSearchDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CB73AE1AD6D96800082DCB /* XCActionBarSearchDataSource.m */; };
+		42CB73B21AD6D97500082DCB /* XCActionBarPresetDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CB73B11AD6D97500082DCB /* XCActionBarPresetDataSource.m */; };
 		42CEA4EB1AB0ADDA006973B7 /* XCSearchService.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CEA4EA1AB0ADDA006973B7 /* XCSearchService.m */; };
 		42F3E2931AC1C48100D69E43 /* XCColumnSelectionModeAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F3E2921AC1C48100D69E43 /* XCColumnSelectionModeAction.m */; };
 		42F7294B1AC0C98800B99B7C /* XCSaveTextSelectionAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F7294A1AC0C98800B99B7C /* XCSaveTextSelectionAction.m */; };
@@ -220,6 +222,10 @@
 		42CB73A91AD6D57700082DCB /* XCActionPresetSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCActionPresetSource.h; sourceTree = "<group>"; };
 		42CB73AA1AD6D61900082DCB /* XCActionPreset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCActionPreset.h; sourceTree = "<group>"; };
 		42CB73AB1AD6D61900082DCB /* XCActionPreset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCActionPreset.m; sourceTree = "<group>"; };
+		42CB73AD1AD6D96800082DCB /* XCActionBarSearchDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCActionBarSearchDataSource.h; sourceTree = "<group>"; };
+		42CB73AE1AD6D96800082DCB /* XCActionBarSearchDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCActionBarSearchDataSource.m; sourceTree = "<group>"; };
+		42CB73B01AD6D97500082DCB /* XCActionBarPresetDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCActionBarPresetDataSource.h; sourceTree = "<group>"; };
+		42CB73B11AD6D97500082DCB /* XCActionBarPresetDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCActionBarPresetDataSource.m; sourceTree = "<group>"; };
 		42CEA4E91AB0ADDA006973B7 /* XCSearchService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSearchService.h; sourceTree = "<group>"; };
 		42CEA4EA1AB0ADDA006973B7 /* XCSearchService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = XCSearchService.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		42F3E2911AC1C48100D69E43 /* XCColumnSelectionModeAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCColumnSelectionModeAction.h; sourceTree = "<group>"; };
@@ -393,6 +399,7 @@
 		429745551AC85C1300E1875D /* Action Search */ = {
 			isa = PBXGroup;
 			children = (
+				42CB73B31AD6DA2C00082DCB /* Data Sources */,
 				42BD03411AB0880200FB7C07 /* XCActionBarWindowController.h */,
 				42BD03421AB0880200FB7C07 /* XCActionBarWindowController.m */,
 				42BD03401AB0880200FB7C07 /* XCActionBarWindowController.xib */,
@@ -589,6 +596,17 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		42CB73B31AD6DA2C00082DCB /* Data Sources */ = {
+			isa = PBXGroup;
+			children = (
+				42CB73B01AD6D97500082DCB /* XCActionBarPresetDataSource.h */,
+				42CB73B11AD6D97500082DCB /* XCActionBarPresetDataSource.m */,
+				42CB73AD1AD6D96800082DCB /* XCActionBarSearchDataSource.h */,
+				42CB73AE1AD6D96800082DCB /* XCActionBarSearchDataSource.m */,
+			);
+			name = "Data Sources";
+			sourceTree = "<group>";
+		};
 		42CEA4E81AB0ADC0006973B7 /* Search */ = {
 			isa = PBXGroup;
 			children = (
@@ -777,6 +795,7 @@
 				4275F5D31AD32832005F3032 /* XCFuzzySearchStrategy.m in Sources */,
 				425500ED1ABC594D0029C533 /* XCCopyActiveDocumentDirectoryAction.m in Sources */,
 				42A71F181AB710EB008B5B92 /* XCCustomActionProvider.m in Sources */,
+				42CB73AF1AD6D96800082DCB /* XCActionBarSearchDataSource.m in Sources */,
 				4275F5C61AD2F6D5005F3032 /* XCPartialMatchSearchStrategy.m in Sources */,
 				423986FB1AC0DEB300559D29 /* XCTextSelectionStorage.m in Sources */,
 				42CB73AC1AD6D61900082DCB /* XCActionPreset.m in Sources */,
@@ -803,6 +822,7 @@
 				4275F5DB1AD328F3005F3032 /* NSString_Purification.m in Sources */,
 				42135EA61ABC992A0092E97C /* XCActionBarConfiguration.m in Sources */,
 				4228E3EB1AB1B82A00918EAA /* XCSearchResultCell.m in Sources */,
+				42CB73B21AD6D97500082DCB /* XCActionBarPresetDataSource.m in Sources */,
 				42C1AD931AAF632700248A8D /* XCWorkspaceUnitTestsActionProvider.m in Sources */,
 				42807D421AB07D4B007988F3 /* XCInputValidation.m in Sources */,
 				427F93371AC6DFC30003D0F8 /* XCAddPrefixToTextAction.m in Sources */,
