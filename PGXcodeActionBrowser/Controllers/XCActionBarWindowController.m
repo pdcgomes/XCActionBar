@@ -119,7 +119,7 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
 ////////////////////////////////////////////////////////////////////////////////
 - (void)processDoubleClickOnSearchResult:(id)sender
 {
-    [self executeSelectedAction];
+    [self.commandHandler handleDoubleClickCommand];
 }
 
 #pragma mark - NSWindowDelegate
