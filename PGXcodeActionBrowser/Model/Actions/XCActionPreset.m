@@ -1,0 +1,51 @@
+//
+//  XCActionPreset.m
+//  XCActionBar
+//
+//  Created by Pedro Gomes on 09/04/2015.
+//  Copyright (c) 2015 Pedro Gomes. All rights reserved.
+//
+
+#import "XCActionInterface.h"
+#import "XCActionPreset.h"
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+@interface XCActionPreset ()
+
+@property (nonatomic,   copy) NSString *title;
+@property (nonatomic,   copy) NSString *summary;
+
+@property (nonatomic,   weak) id<XCActionInterface> parent;
+@property (nonatomic, assign) SEL handler;
+
+@end
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+@implementation XCActionPreset
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (instancetype)initWithTitle:(NSString *)title
+                      summary:(NSString *)summary
+                       parent:(id<XCActionInterface>)parent
+                      handler:(SEL)handler
+{
+    if((self = [super init])) {
+        self.title   = title;
+        self.summary = summary;
+        self.parent  = parent;
+        self.handler = handler;
+    }
+    return self;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)executeWithContext:(id<XCIDEContext>)context
+{
+    return NO;
+}
+
+@end
