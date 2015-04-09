@@ -57,7 +57,7 @@ void XCMethodSwizzle(Class class, SEL selector, SEL exchangeWithSelector)
 ////////////////////////////////////////////////////////////////////////////////
 NSString *XCHashObject(id object)
 {
-    if(XCHashObject == nil) return nil;
+    if(object == nil) return nil;
     
     return [NSString stringWithFormat:@"%lx", (long)object];
 }
