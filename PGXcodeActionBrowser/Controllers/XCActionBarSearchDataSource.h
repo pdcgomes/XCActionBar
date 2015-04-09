@@ -12,7 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 @protocol XCSearchService;
 @protocol XCSearchMatchEntry;
-@interface XCActionBarSearchDataSource : NSObject
+@interface XCActionBarSearchDataSource : NSObject <NSTableViewDataSource, NSTableViewDelegate>
 
 @property (nonatomic, copy, readonly) NSString *searchQuery;
 

@@ -12,7 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 @protocol XCActionPreset;
 @protocol XCActionPresetSource;
-@interface XCActionBarPresetDataSource : NSObject
+@interface XCActionBarPresetDataSource : NSObject <NSTableViewDataSource, NSTableViewDelegate>
 
 - (void)updateWithPresetSource:(id<XCActionPresetSource>)presetSource;
 

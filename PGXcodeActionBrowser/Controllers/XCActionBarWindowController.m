@@ -11,6 +11,9 @@
 #import "XCActionBarArgumentInputStateCommandHandler.h"
 #import "XCActionBarSearchStateCommandHandler.h"
 #import "XCActionBarCommandProcessor.h"
+#import "XCActionBarPresetDataSource.h"
+#import "XCActionBarSearchDataSource.h"
+
 #import "XCActionInterface.h"
 #import "XCActionPreset.h"
 #import "XCSearchService.h"
@@ -29,7 +32,7 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@interface XCActionBarWindowController () <XCActionBarCommandProcessor, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate, NSWindowDelegate>
+@interface XCActionBarWindowController () <XCActionBarCommandProcessor, NSTextFieldDelegate, NSWindowDelegate>
 
 @property (nonatomic) NSRect frameForEmptySearchResults;
 @property (nonatomic) CGFloat searchFieldBottomConstraintConstant;
@@ -38,13 +41,14 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
 @property (nonatomic      ) NSDictionary *commandHandlers;
 @property (nonatomic, weak) id<XCActionBarCommandHandler> commandHandler;
 
+@property (nonatomic) XCActionBarPresetDataSource *presetDataSource;
+@property (nonatomic) XCActionBarSearchDataSource *searchDataSource;
+
 @property (weak) IBOutlet NSTextField *searchField;
 @property (weak) IBOutlet NSTableView *searchResultsTable;
 @property (weak) IBOutlet NSLayoutConstraint *searchFieldBottomConstraint;
 @property (weak) IBOutlet NSLayoutConstraint *searchResultsTableHeightConstraint;
 @property (weak) IBOutlet NSLayoutConstraint *searchResultsTableBottomConstraint;
-
-@property (nonatomic) NSArray *searchResults;
 
 @property (nonatomic, copy) XCRepeatActionHandler repeatActionHandler;
 
@@ -174,89 +178,13 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
     return handleCommand;
 }
 
-#pragma mark - NSTableViewDataSource
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView;
-{
-    return self.searchResults.count;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-- (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex
-{
-    return self.searchResults[rowIndex];
-}
-
-#pragma mark - NSTableViewDelegate
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-- (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
-{
-    XCSearchResultCell *cell = [tableView makeViewWithIdentifier:NSStringFromClass([XCSearchResultCell class]) owner:self];
-    
-    id<XCSearchMatchEntry> searchMatch = self.searchResults[row];
-    id<XCActionInterface > action      = searchMatch.action;
-
-    NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:TRSafeString(action.title)];
-    
-    [title addAttribute:NSForegroundColorAttributeName
-                  value:(action.enabled ? [NSColor blackColor] : [NSColor darkGrayColor])
-                  range:NSMakeRange(0, title.length)];
-    
-    for(NSValue *rangeValue in searchMatch.rangesForMatch) {
-        [title addAttributes:@{NSBackgroundColorAttributeName:[NSColor colorWithCalibratedRed:1.000 green:1.000 blue:0.519 alpha:0.250],
-                               NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
-                               NSUnderlineColorAttributeName: [NSColor yellowColor]}
-                       range:rangeValue.rangeValue];
-    }
-    
-    cell.textField.allowsEditingTextAttributes = YES;
-    
-    cell.textField.attributedStringValue = title;
-    cell.hintTextField.stringValue       = TRSafeString(action.hint);
-    
-    if([action acceptsArguments] == YES) {
-//        NSString *summaryWithMarker = [NSString stringWithFormat:@"%@ %@", @"\uf11c", TRSafeString(action.subtitle)];
-//        NSMutableAttributedString *summary = [[NSMutableAttributedString alloc] initWithString:summaryWithMarker];
-//        [summary addAttributes:@{NSFontAttributeName: XCFontAwesomeWithSize(12.0)}
-//                         range:NSMakeRange(0, 1)];
-//        cell.subtitleTextField.allowsEditingTextAttributes = YES;
-//        cell.subtitleTextField.attributedStringValue       = summary;
-        
-        cell.subtitleTextField.stringValue = [NSString stringWithFormat:@"%@ %@", @"\u21e5", TRSafeString(action.subtitle)];
-    }
-    else cell.subtitleTextField.stringValue   = TRSafeString(action.subtitle);
-    
-    
-    return cell;
-}
-
 #pragma mark - Public Methods
-
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-- (void)updateSearchResults:(NSArray *)results
-{
-//    XCLog(@"<UpdatedSearchResults>, <results=%@>", results);
-    
-    self.searchResults = results;
-    [self.searchResultsTable reloadData];
-    
-    if(TRCheckIsEmpty(self.searchResultsTable) == NO) {
-        [self selectSearchResultAtIndex:0];
-    }
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (void)clearSearchResults
 {
-    [self updateSearchResults:@[]];
+    [self.searchDataSource clearSearchResults];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -272,11 +200,16 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)enterActionSearchState
 {
-    [self.commandHandler exit];
+    self.searchDataSource = [[XCActionBarSearchDataSource alloc] initWithSearchService:self.searchService];
     
+    self.searchResultsTable.delegate   = self.searchDataSource;
+    self.searchResultsTable.dataSource = self.searchDataSource;
+
+    [self.commandHandler exit];
+
     self.commandHandler = self.commandHandlers[XCSearchInputHandlerKey];
     [self.commandHandler enterWithInputControl:self.searchField];
-    
+
     return YES;
 }
 
@@ -331,7 +264,7 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
     NSInteger rowCount      = [self.searchResultsTable numberOfRows];
     NSInteger selectedIndex = self.searchResultsTable.selectedRow;
     NSInteger indexToSelect = (selectedIndex == -1 ? rowCount - 1 : (selectedIndex - 1 >= 0 ? selectedIndex - 1 : rowCount - 1));
-    
+
     [self selectSearchResultAtIndex:indexToSelect];
 
     return YES;
@@ -344,7 +277,7 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
     NSInteger selectedIndex = self.searchResultsTable.selectedRow;
     if(selectedIndex == -1) return NO;
     
-    id<XCSearchMatchEntry> searchMatch    = self.searchResults[selectedIndex];
+    id<XCSearchMatchEntry> searchMatch    = [self.searchDataSource objectAtIndex:selectedIndex];
     id<XCActionInterface > selectedAction = searchMatch.action;
     BOOL executed = [selectedAction executeWithContext:self.context];
 
@@ -365,7 +298,7 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
     NSInteger selectedIndex = self.searchResultsTable.selectedRow;
     if(selectedIndex == -1) return NO;
     
-    id<XCSearchMatchEntry> searchMatch    = self.searchResults[selectedIndex];
+    id<XCSearchMatchEntry> searchMatch    = [self.searchDataSource objectAtIndex:selectedIndex];
     id<XCActionInterface > selectedAction = searchMatch.action;
     BOOL validated = [selectedAction validateArgumentsWithContext:self.context arguments:arguments];
     if(validated == NO) return NO;
@@ -405,7 +338,8 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
     NSInteger selectedIndex = self.searchResultsTable.selectedRow;
     if(selectedIndex == -1) return YES;
 
-    id<XCActionInterface> selectedAction = self.searchResults[selectedIndex];
+    id<XCSearchMatchEntry> searchMatch = [self.searchDataSource objectAtIndex:selectedIndex];
+    id<XCActionInterface> selectedAction = searchMatch.action;
 
     [self.searchField setStringValue:selectedAction.title];
     [self performSearchWithExpression:selectedAction.title];
@@ -428,7 +362,7 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
     NSInteger selectedIndex = self.searchResultsTable.selectedRow;
     if(selectedIndex == -1) return nil;
     
-    id<XCSearchMatchEntry> searchMatch = self.searchResults[selectedIndex];
+    id<XCSearchMatchEntry> searchMatch = [self.searchDataSource objectAtIndex:selectedIndex];
     return searchMatch.action;
 }
 
@@ -438,16 +372,18 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
 ////////////////////////////////////////////////////////////////////////////////
 - (void)selectSearchResultAtIndex:(NSInteger)indexToSelect
 {
+    [self.searchDataSource updateSelectedObjectIndex:indexToSelect];
     [self.searchResultsTable selectRowIndexes:[NSIndexSet indexSetWithIndex:indexToSelect]
                          byExtendingSelection:NO];
     [self.searchResultsTable scrollRowToVisible:indexToSelect];
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (void)resizeWindowToAccomodateSearchResults
 {
-    if(TRCheckIsEmpty(self.searchResults) == NO) {
+    if([self.searchDataSource numberOfResults] > 0) {
         [[self.searchResultsTable animator] setAlphaValue:1.0];
         
         self.searchResultsTable.hidden = NO;
@@ -485,13 +421,14 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
 ////////////////////////////////////////////////////////////////////////////////
 - (void)performSearchWithExpression:(NSString *)expression
 {
-    XCDeclareWeakSelf(weakSelf);
+    [self.searchDataSource updateSearchQuery:expression];
+    [self.searchResultsTable reloadData];
     
-    [self.searchService performSearchWithQuery:expression
-                             completionHandler:^(NSArray *results) {
-                                 [weakSelf updateSearchResults:results];
-                                 [weakSelf resizeWindowToAccomodateSearchResults];
-                             }];
+    [self resizeWindowToAccomodateSearchResults];
+    if(TRCheckIsEmpty(self.searchResultsTable) == NO) {
+        [self selectSearchResultAtIndex:0];
+        [self.searchDataSource updateSelectedObjectIndex:0];
+    }
 }
 
 @end

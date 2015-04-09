@@ -19,7 +19,7 @@
 
 - (id)initWithBundle:(NSBundle *)bundle searchService:(id<XCSearchService>)searchService;
 
-- (void)updateSearchResults:(NSArray *)results;
+//- (void)updateSearchResults:(NSArray *)results;
 - (void)clearSearchResults;
 - (void)executeLastAction;
 
