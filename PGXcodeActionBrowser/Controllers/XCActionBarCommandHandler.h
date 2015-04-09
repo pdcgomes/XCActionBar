@@ -19,6 +19,7 @@
 - (BOOL)handleCancelCommand;
 - (BOOL)handleCursorUpCommand;
 - (BOOL)handleCursorDownCommand;
+- (BOOL)handleDoubleClickCommand;
 - (BOOL)handleEnterCommand;
 - (BOOL)handleTabCommand;
 - (BOOL)handleTextInputCommand:(NSString *)text;
