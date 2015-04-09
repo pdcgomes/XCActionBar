@@ -17,7 +17,7 @@
 @property (nonatomic, weak) id<XCSearchService> searchService;
 @property (nonatomic, weak) id<XCIDEContext   > context;
 
-- (id)initWithBundle:(NSBundle *)bundle;
+- (id)initWithBundle:(NSBundle *)bundle searchService:(id<XCSearchService>)searchService;
 
 - (void)updateSearchResults:(NSArray *)results;
 - (void)clearSearchResults;

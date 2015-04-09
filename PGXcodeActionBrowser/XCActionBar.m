@@ -124,10 +124,9 @@ static XCActionBar *sharedPlugin;
 - (void)presentActionSearchBar
 {
     if(self.windowController == nil) {
-        self.windowController = [[XCActionBarWindowController alloc] initWithBundle:self.bundle];
-        // REVIEW: initWithBundle:searchService:
-        self.windowController.context       = self.context;
-        self.windowController.searchService = self.searchService;
+        self.windowController = [[XCActionBarWindowController alloc] initWithBundle:self.bundle
+                                                                      searchService:self.searchService];
+        self.windowController.context = self.context;
     }
     
     [self updateContext];

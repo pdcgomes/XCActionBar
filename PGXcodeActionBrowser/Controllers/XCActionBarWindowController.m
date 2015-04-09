@@ -56,10 +56,10 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (id)initWithBundle:(NSBundle *)bundle
+- (id)initWithBundle:(NSBundle *)bundle searchService:(id<XCSearchService>)searchService
 {
     if((self = [super initWithWindowNibName:NSStringFromClass([XCActionBarWindowController class])])) {
-        
+        self.searchService = searchService;
     }
     return self;
 }
