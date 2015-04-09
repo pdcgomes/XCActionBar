@@ -15,4 +15,7 @@
 - (NSUInteger)numberOfPresets;
 - (NSArray *)retrievePresets;
 
+- (void)loadPresets;
+- (void)unloadPresets;
+
 @end
