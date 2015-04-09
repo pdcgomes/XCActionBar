@@ -12,6 +12,7 @@
 #import "XCActionBarSearchStateCommandHandler.h"
 #import "XCActionBarCommandProcessor.h"
 #import "XCActionInterface.h"
+#import "XCActionPreset.h"
 #import "XCSearchService.h"
 #import "XCSearchMatchEntry.h"
 
@@ -293,6 +294,13 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+- (BOOL)enterActionTemplateState
+{
+    return NO;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 - (BOOL)searchActionWithExpression:(NSString *)query
 {
     [self performSearchWithExpression:query];
@@ -372,6 +380,21 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
                                                                   arguments:arguments];
     };
     
+    return executed;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)executeActionPreset:(id<XCActionPreset>)preset
+{
+    BOOL executed = [preset executeWithContext:self.context];
+    XCReturnFalseUnless(executed);
+
+    XCDeclareWeakSelf(weakSelf);
+    [self close];
+
+    self.repeatActionHandler = ^{ return [preset executeWithContext:weakSelf.context]; };
+
     return executed;
 }
 

@@ -11,10 +11,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @protocol XCActionInterface;
+@protocol XCActionPreset;
 @protocol XCActionBarCommandProcessor <NSObject>
 
 - (BOOL)enterActionSearchState;
 - (BOOL)enterActionArgumentState;
+- (BOOL)enterActionTemplateState;
 
 - (BOOL)searchActionWithExpression:(NSString *)query;
 - (BOOL)autoCompleteWithSelectedAction;
@@ -25,6 +27,9 @@
 
 - (BOOL)executeSelectedAction;
 - (BOOL)executeSelectedActionWithArguments:(NSString *)arguments;
+//- (BOOL)executeAction:(id)action;
+//- (BOOL)executeAction:(id)action withArguments:(NSString *)arguments;
+- (BOOL)executeActionPreset:(id<XCActionPreset>)preset;
 
 // REVIEW: move to a separate protocol? this works for now
 - (id<XCActionInterface>)retrieveSelectedAction;
