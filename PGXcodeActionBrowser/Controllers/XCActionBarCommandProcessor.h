@@ -30,10 +30,6 @@
 //- (BOOL)executeAction:(id)action withArguments:(NSString *)arguments;
 - (BOOL)executeActionPreset:(id<XCActionPreset>)preset;
 
-// REVIEW: move to a separate protocol? this works for now
-//- (id<XCActionInterface>)retrieveSelectedAction;
-- (id<XCActionPreset>)retrieveSelectedPreset;
-
 - (void)resizeWindowToAccomodateSearchResults;
 
 @end

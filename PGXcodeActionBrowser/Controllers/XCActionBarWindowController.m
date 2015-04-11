@@ -322,17 +322,6 @@ NSString *const XCSearchInputStateControllerKey   = @"SearchStateController";
     return YES;
 }
 
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-- (id<XCActionPreset>)retrieveSelectedPreset
-{
-    NSInteger selectedIndex = self.searchResultsTable.selectedRow;
-    if(selectedIndex == -1) return nil;
-    
-    id<XCActionPreset> preset = [self.presetDataSource objectAtIndex:selectedIndex];
-    return preset;
-}
-
 #pragma mark - Helpers
 
 ////////////////////////////////////////////////////////////////////////////////
