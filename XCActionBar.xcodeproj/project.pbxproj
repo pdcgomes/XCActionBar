@@ -35,6 +35,7 @@
 		424504AA1ABC50150054DC61 /* XCCopyActiveDocumentPathAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 424504A91ABC50150054DC61 /* XCCopyActiveDocumentPathAction.m */; };
 		424504AD1ABC50940054DC61 /* XCOpenActiveDocumentPathInTerminalAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 424504AC1ABC50940054DC61 /* XCOpenActiveDocumentPathInTerminalAction.m */; };
 		4247AD821AD1BB08000C07B1 /* XCSplitSelectionIntoLinesAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4247AD811AD1BB08000C07B1 /* XCSplitSelectionIntoLinesAction.m */; };
+		4249DCEF1AD9859B00855FE3 /* NSIndexSet+XCCircularIndexSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4249DCEE1AD9859B00855FE3 /* NSIndexSet+XCCircularIndexSet.m */; };
 		425500ED1ABC594D0029C533 /* XCCopyActiveDocumentDirectoryAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 425500EC1ABC594D0029C533 /* XCCopyActiveDocumentDirectoryAction.m */; };
 		4264951E1AD1BE90007C69F1 /* XCJoinLinesAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4264951D1AD1BE90007C69F1 /* XCJoinLinesAction.m */; };
 		426782E91ABA33C8006F4E53 /* XCHotKeyListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 426782E81ABA33C8006F4E53 /* XCHotKeyListener.m */; };
@@ -136,6 +137,8 @@
 		424504AC1ABC50940054DC61 /* XCOpenActiveDocumentPathInTerminalAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCOpenActiveDocumentPathInTerminalAction.m; sourceTree = "<group>"; };
 		4247AD801AD1BB08000C07B1 /* XCSplitSelectionIntoLinesAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSplitSelectionIntoLinesAction.h; sourceTree = "<group>"; };
 		4247AD811AD1BB08000C07B1 /* XCSplitSelectionIntoLinesAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCSplitSelectionIntoLinesAction.m; sourceTree = "<group>"; };
+		4249DCED1AD9859B00855FE3 /* NSIndexSet+XCCircularIndexSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexSet+XCCircularIndexSet.h"; sourceTree = "<group>"; };
+		4249DCEE1AD9859B00855FE3 /* NSIndexSet+XCCircularIndexSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+XCCircularIndexSet.m"; sourceTree = "<group>"; };
 		425500EB1ABC594D0029C533 /* XCCopyActiveDocumentDirectoryAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCCopyActiveDocumentDirectoryAction.h; sourceTree = "<group>"; };
 		425500EC1ABC594D0029C533 /* XCCopyActiveDocumentDirectoryAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCCopyActiveDocumentDirectoryAction.m; sourceTree = "<group>"; };
 		425C2DA01AB33B3600143A65 /* IDETestContainer-Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IDETestContainer-Protocol.h"; sourceTree = "<group>"; };
@@ -364,6 +367,15 @@
 			name = "File Operations";
 			sourceTree = "<group>";
 		};
+		4249DCE91AD9853B00855FE3 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				4249DCED1AD9859B00855FE3 /* NSIndexSet+XCCircularIndexSet.h */,
+				4249DCEE1AD9859B00855FE3 /* NSIndexSet+XCCircularIndexSet.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
 		426782E61ABA33A1006F4E53 /* Hot Keys */ = {
 			isa = PBXGroup;
 			children = (
@@ -470,13 +482,6 @@
 			path = Xcode;
 			sourceTree = "<group>";
 		};
-		42BA258F1AB31357004220B4 /* Categories */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Categories;
-			sourceTree = "<group>";
-		};
 		42BD033C1AB0880200FB7C07 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -516,7 +521,7 @@
 		42C1AD4E1AAF3E7F00248A8D /* PGXcodeActionBrowser */ = {
 			isa = PBXGroup;
 			children = (
-				42BA258F1AB31357004220B4 /* Categories */,
+				4249DCE91AD9853B00855FE3 /* Categories */,
 				42C1AD8D1AAF612A00248A8D /* Common */,
 				42BD033C1AB0880200FB7C07 /* Controllers */,
 				42C1AD821AAF522A00248A8D /* Model */,
@@ -858,6 +863,7 @@
 				42A71F221AB714C2008B5B92 /* XCSortContentsAction.m in Sources */,
 				42A647241AB0B666003803AE /* XCActionIndex.m in Sources */,
 				424414271AD00EAC0018D02A /* XCExpandCodeSnippetAction.m in Sources */,
+				4249DCEF1AD9859B00855FE3 /* NSIndexSet+XCCircularIndexSet.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
