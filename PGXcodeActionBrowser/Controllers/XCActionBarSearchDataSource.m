@@ -10,6 +10,7 @@
 #import "XCActionBarSearchDataSource.h"
 
 #import "XCActionInterface.h"
+#import "XCActionPresetSource.h"
 #import "XCSearchMatchEntry.h"
 #import "XCSearchResultCell.h"
 
@@ -152,7 +153,8 @@
     cell.textField.attributedStringValue = title;
     cell.hintTextField.stringValue       = TRSafeString(action.hint);
     
-    if([action acceptsArguments] == YES) {
+    if([action acceptsArguments] == YES ||
+       [action conformsToProtocol:@protocol(XCActionPresetSource)]) {
         //        NSString *summaryWithMarker = [NSString stringWithFormat:@"%@ %@", @"\uf11c", TRSafeString(action.subtitle)];
         //        NSMutableAttributedString *summary = [[NSMutableAttributedString alloc] initWithString:summaryWithMarker];
         //        [summary addAttributes:@{NSFontAttributeName: XCFontAwesomeWithSize(12.0)}
