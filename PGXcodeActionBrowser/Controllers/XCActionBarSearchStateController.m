@@ -7,6 +7,7 @@
 //
 
 #import "XCInputValidation.h"
+#import "NSIndexSet+XCCircularIndexSet.h"
 
 #import "XCActionBarCommandProcessor.h"
 #import "XCActionBarDataSource.h"
@@ -26,6 +27,8 @@
 
 @property (nonatomic, weak) NSTableView *tableView;
 @property (nonatomic, weak) NSTextField *inputField;
+
+@property (nonatomic) NSIndexSet *dataIndexSet;
 
 @end
 
@@ -82,11 +85,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)handleCursorUpCommand
 {
-    NSInteger rowCount      = [self.tableView numberOfRows];
-    NSInteger selectedIndex = self.tableView.selectedRow;
-    NSInteger indexToSelect = (selectedIndex == -1 ? rowCount - 1 : (selectedIndex - 1 >= 0 ? selectedIndex - 1 : rowCount - 1));
-    
-    [self selectSearchResultAtIndex:indexToSelect];
+    [self.dataIndexSet selectPreviousIndex];
+    [self selectSearchResultAtIndex:[self.dataIndexSet selectedIndex]];
     
     return YES;
 }
@@ -95,11 +95,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)handleCursorDownCommand
 {
-    NSInteger rowCount      = [self.tableView numberOfRows];
-    NSInteger selectedIndex = self.tableView.selectedRow;
-    NSInteger indexToSelect = (selectedIndex == -1 ? 0 : (selectedIndex + 1 < rowCount ? selectedIndex + 1 : 0));
-    
-    [self selectSearchResultAtIndex:indexToSelect];
+    [self.dataIndexSet selectNextIndex];
+    [self selectSearchResultAtIndex:[self.dataIndexSet selectedIndex]];
     
     return YES;
 }
@@ -178,6 +175,8 @@
     
     [self.searchDataSource updateSearchQuery:expression];
     [self.tableView reloadData];
+
+    [self updateDataIndexSet];
     
     [self.commandProcessor resizeWindowToAccomodateSearchResults];
     if(TRCheckIsEmpty(self.tableView) == NO) {
@@ -208,6 +207,14 @@
 {
     id<XCSearchMatchEntry> searchMatch = [self.searchDataSource selectedObject];
     return (searchMatch ? searchMatch.action : nil);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)updateDataIndexSet
+{
+    self.dataIndexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [self.searchDataSource numberOfObjects])];
+    [self.dataIndexSet setSelectedIndex:0];
 }
 
 @end
