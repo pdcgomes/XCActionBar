@@ -6,9 +6,11 @@
 //  Copyright (c) 2015 Pedro Gomes. All rights reserved.
 //
 
-#import "XCActionInterface.h"
 #import "XCActionBarArgumentInputStateController.h"
 #import "XCActionBarCommandProcessor.h"
+#import "XCActionInterface.h"
+#import "XCActionPreset.h"
+#import "XCActionPresetSource.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////

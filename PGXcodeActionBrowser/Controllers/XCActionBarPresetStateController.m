@@ -7,9 +7,11 @@
 //
 
 #import "XCActionBarCommandProcessor.h"
+#import "XCActionBarPresetDataSource.h"
 #import "XCActionBarPresetStateController.h"
 #import "XCActionInterface.h"
 #import "XCActionPreset.h"
+#import "XCActionPresetSource.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -18,6 +20,8 @@
 @property (nonatomic, copy) NSString *searchExpression;
 
 @property (nonatomic, weak) id<XCActionBarCommandProcessor> commandProcessor;
+@property (nonatomic      ) XCActionBarPresetDataSource *dataSource;
+
 @property (nonatomic, weak) NSTextField *inputField;
 @property (nonatomic, weak) NSTableView *tableView;
 
@@ -54,9 +58,10 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (void)enterWithAction:(id<XCActionInterface>)action
+- (void)enterWithAction:(id<XCActionInterface, XCActionPresetSource>)action
 {
-    self.action = action;
+    self.action     = action;
+    self.dataSource = [[XCActionBarPresetDataSource alloc] initWithPresetSource:action];
     
     id delegate = self.inputField.delegate;
     self.inputField.delegate = nil;
@@ -65,41 +70,59 @@
     self.inputField.placeholderString = NSLocalizedString(@"Choose a preset ...", @"");
     
     self.inputField.delegate = delegate;
+    
+    self.tableView.delegate   = self.dataSource;
+    self.tableView.dataSource = self.dataSource;
+    
+    [self.tableView reloadData];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (void)exit
 {
-    self.action = nil;
+    self.action     = nil;
+    self.dataSource = nil;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)handleCursorUpCommand
 {
-    return [self.commandProcessor selectPreviousSearchResult];
+    NSInteger rowCount      = [self.tableView numberOfRows];
+    NSInteger selectedIndex = self.tableView.selectedRow;
+    NSInteger indexToSelect = (selectedIndex == -1 ? rowCount - 1 : (selectedIndex - 1 >= 0 ? selectedIndex - 1 : rowCount - 1));
+    
+    [self selectSearchResultAtIndex:indexToSelect];
+    
+    return YES;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)handleCursorDownCommand
 {
-    return [self.commandProcessor selectNextSearchResult];
+    NSInteger rowCount      = [self.tableView numberOfRows];
+    NSInteger selectedIndex = self.tableView.selectedRow;
+    NSInteger indexToSelect = (selectedIndex == -1 ? 0 : (selectedIndex + 1 < rowCount ? selectedIndex + 1 : 0));
+    
+    [self selectSearchResultAtIndex:indexToSelect];
+    
+    return YES;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)handleDoubleClickCommand
 {
-    return [self.commandProcessor executeAction:nil];
+    return [self handleEnterCommand];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)handleEnterCommand
 {
-    id<XCActionPreset> selectedPreset = [self.commandProcessor retrieveSelectedPreset];
+    id<XCActionPreset> selectedPreset = [self retrieveSelectedPreset];
     XCReturnFalseUnless(selectedPreset != nil);
     
     return [self.commandProcessor executeActionPreset:selectedPreset];
@@ -127,6 +150,26 @@
     
     // maybe search the presets?
     return NO;
+}
+
+#pragma mark - Helpers
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)selectSearchResultAtIndex:(NSInteger)indexToSelect
+{
+    [self.dataSource updateSelectedObjectIndex:indexToSelect];
+    [self.tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:indexToSelect]
+                byExtendingSelection:NO];
+    [self.tableView scrollRowToVisible:indexToSelect];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (id<XCActionPreset>)retrieveSelectedPreset
+{
+    id<XCActionPreset> preset = [self.dataSource selectedObject];
+    return (preset ?: nil);
 }
 
 @end
