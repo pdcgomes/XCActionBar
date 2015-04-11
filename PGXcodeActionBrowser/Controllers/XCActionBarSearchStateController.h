@@ -13,6 +13,8 @@
 @protocol XCActionBarCommandProcessor;
 @interface XCActionBarSearchStateController : NSObject <XCActionBarStateController>
 
-- (instancetype)initWithCommandProcessor:(id<XCActionBarCommandProcessor>)processor;
+- (instancetype)initWithCommandProcessor:(id<XCActionBarCommandProcessor>)processor
+                               tableView:(NSTableView *)tableView
+                              inputField:(NSTextField *)inputField;
 
 @end

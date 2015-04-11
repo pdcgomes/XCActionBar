@@ -11,8 +11,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @protocol XCActionBarCommandProcessor;
-@interface XCActionBarPresetCommandHandler : NSObject <XCActionBarStateController>
+@interface XCActionBarPresetStateController : NSObject <XCActionBarStateController>
 
-- (instancetype)initWithCommandProcessor:(id<XCActionBarCommandProcessor>)processor;
+- (instancetype)initWithCommandProcessor:(id<XCActionBarCommandProcessor>)processor
+                               tableView:(NSTableView *)tableView
+                              inputField:(NSTextField *)inputField;
 
 @end

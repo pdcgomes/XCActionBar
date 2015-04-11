@@ -8,6 +8,7 @@
 
 #import "XCActionBarWindowController.h"
 
+#import "XCActionBarPresetStateController.h"
 #import "XCActionBarArgumentInputStateController.h"
 #import "XCActionBarSearchStateController.h"
 #import "XCActionBarCommandProcessor.h"
@@ -27,8 +28,9 @@
 typedef BOOL (^XCCommandHandler)(void);
 typedef BOOL (^XCRepeatActionHandler)(void);
 
-NSString *const XCSearchInputHandlerKey   = @"SearchHandler";
-NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
+NSString *const XCActionPresetStateControllerKey  = @"ActionPresetStateController";
+NSString *const XCArgumentInputStateControllerKey = @"ArgumentStateController";
+NSString *const XCSearchInputStateControllerKey   = @"SearchStateController";
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -82,8 +84,9 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
                            NSStringFromSelector(@selector(insertTab:)):    [^BOOL { return [weakSelf.stateController handleTabCommand]; } copy]
                            };
 
-    self.stateControllers = @{XCSearchInputHandlerKey:   [[XCActionBarSearchStateController alloc] initWithCommandProcessor:self],
-                             XCArgumentInputHandlerKey: [[XCActionBarArgumentInputStateController alloc] initWithCommandProcessor:self]};
+    self.stateControllers = @{XCActionPresetStateControllerKey: [[XCActionBarPresetStateController alloc] initWithCommandProcessor:self tableView:self.searchResultsTable inputField:self.searchField],
+                              XCSearchInputStateControllerKey:  [[XCActionBarSearchStateController alloc] initWithCommandProcessor:self tableView:self.searchResultsTable inputField:self.searchField],
+                              XCArgumentInputStateControllerKey:[[XCActionBarArgumentInputStateController alloc] initWithCommandProcessor:self tableView:self.searchResultsTable inputField:self.searchField]};
 
     self.searchField.focusRingType = NSFocusRingTypeNone;
     self.searchField.delegate      = self;
@@ -207,8 +210,8 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
 
     [self.stateController exit];
 
-    self.stateController = self.stateControllers[XCSearchInputHandlerKey];
-    [self.stateController enterWithInputControl:self.searchField];
+    self.stateController = self.stateControllers[XCSearchInputStateControllerKey];
+    [self.stateController enter];
 
     return YES;
 }
@@ -219,8 +222,8 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
 {
     [self.stateController exit];
 
-    self.stateController = self.stateControllers[XCArgumentInputHandlerKey];
-    [self.stateController enterWithInputControl:self.searchField];
+    self.stateController = self.stateControllers[XCArgumentInputStateControllerKey];
+    [self.stateController enter];
     
     return YES;
 }

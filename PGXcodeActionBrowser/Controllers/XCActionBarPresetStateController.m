@@ -7,31 +7,37 @@
 //
 
 #import "XCActionBarCommandProcessor.h"
-#import "XCActionBarPresetCommandHandler.h"
+#import "XCActionBarPresetStateController.h"
 #import "XCActionInterface.h"
 #import "XCActionPreset.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@interface XCActionBarPresetCommandHandler ()
+@interface XCActionBarPresetStateController ()
 
 @property (nonatomic, copy) NSString *searchExpression;
 
 @property (nonatomic, weak) id<XCActionBarCommandProcessor> commandProcessor;
 @property (nonatomic, weak) NSTextField *inputField;
+@property (nonatomic, weak) NSTableView *tableView;
 
 @end
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@implementation XCActionBarPresetCommandHandler
+@implementation XCActionBarPresetStateController
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (instancetype)initWithCommandProcessor:(id<XCActionBarCommandProcessor>)processor
+                               tableView:(NSTableView *)tableView
+                              inputField:(NSTextField *)inputField
+
 {
     if((self = [super init])) {
         self.commandProcessor = processor;
+        self.tableView        = tableView;
+        self.inputField       = inputField;
     }
     return self;
 }
@@ -40,10 +46,8 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (void)enterWithInputControl:(NSTextField *)field
+- (void)enter
 {
-    self.inputField = field;
-    
     id delegate = self.inputField.delegate;
     self.inputField.delegate = nil;
     

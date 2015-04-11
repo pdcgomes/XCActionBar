@@ -18,7 +18,7 @@
 
 @property (nonatomic, weak) id<XCActionBarCommandProcessor> commandProcessor;
 @property (nonatomic, weak) NSTextField *inputField;
-
+@property (nonatomic, weak) NSTableView *tableView;
 @end
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -28,9 +28,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (instancetype)initWithCommandProcessor:(id<XCActionBarCommandProcessor>)processor
+                               tableView:(NSTableView *)tableView
+                              inputField:(NSTextField *)inputField
 {
     if((self = [super init])) {
         self.commandProcessor = processor;
+        self.inputField       = inputField;
+        self.tableView        = tableView;
     }
     return self;
 }
@@ -39,10 +43,9 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (void)enterWithInputControl:(NSTextField *)field
+- (void)enter
 {
     self.arguments  = nil;
-    self.inputField = field;
     
     id delegate = self.inputField.delegate;
     self.inputField.delegate = nil;

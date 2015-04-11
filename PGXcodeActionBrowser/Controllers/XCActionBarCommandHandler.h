@@ -12,7 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 @protocol XCActionBarStateController <NSObject>
 
-- (void)enterWithInputControl:(NSTextField *)field;
+- (void)enter;
 - (void)exit;
 
 
