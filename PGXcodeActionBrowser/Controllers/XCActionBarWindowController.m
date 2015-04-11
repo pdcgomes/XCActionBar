@@ -245,13 +245,6 @@ NSString *const XCSearchInputStateControllerKey   = @"SearchStateController";
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (BOOL)searchActionWithExpression:(NSString *)query
-{
-    return YES;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
 - (BOOL)searchPresetWithExpression:(NSString *)query
 {
     [self.presetDataSource updateSearchQuery:query];
@@ -262,18 +255,14 @@ NSString *const XCSearchInputStateControllerKey   = @"SearchStateController";
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)selectNextSearchResult
 {
-    [self.stateController handleCursorDownCommand];
-
-    return YES;
+    return [self.stateController handleCursorDownCommand];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)selectPreviousSearchResult
 {
-    [self.stateController handleCursorUpCommand];
-
-    return YES;
+    return [self.stateController handleCursorUpCommand];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -371,17 +360,6 @@ NSString *const XCSearchInputStateControllerKey   = @"SearchStateController";
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (void)selectSearchResultAtIndex:(NSInteger)indexToSelect
-{
-    [self.searchDataSource updateSelectedObjectIndex:indexToSelect];
-    [self.searchResultsTable selectRowIndexes:[NSIndexSet indexSetWithIndex:indexToSelect]
-                         byExtendingSelection:NO];
-    [self.searchResultsTable scrollRowToVisible:indexToSelect];
-
-}
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
 - (void)resizeWindowToAccomodateSearchResults
 {
     if([self.searchDataSource numberOfResults] > 0) {
@@ -408,28 +386,5 @@ NSString *const XCSearchInputStateControllerKey   = @"SearchStateController";
     
     [self.window.contentView layoutSubtreeIfNeeded];
 }
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-//- (void)restoreLastSearchAndSelection
-//{
-//    XCReturnUnless(TRCheckIsEmpty(self.searchField.stringValue) == NO);
-//    
-//    [self performSearchWithExpression:self.searchField.stringValue];
-//}
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-//- (void)performSearchWithExpression:(NSString *)expression
-//{
-//    [self.searchDataSource updateSearchQuery:expression];
-//    [self.searchResultsTable reloadData];
-//    
-//    [self resizeWindowToAccomodateSearchResults];
-//    if(TRCheckIsEmpty(self.searchResultsTable) == NO) {
-//        [self selectSearchResultAtIndex:0];
-//        [self.searchDataSource updateSelectedObjectIndex:0];
-//    }
-//}
 
 @end

@@ -18,7 +18,6 @@
 - (BOOL)enterActionArgumentState;
 - (BOOL)enterActionPresetState;
 
-- (BOOL)searchActionWithExpression:(NSString *)query;
 - (BOOL)cancel;
 
 - (BOOL)selectNextSearchResult;

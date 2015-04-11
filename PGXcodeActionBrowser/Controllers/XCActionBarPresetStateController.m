@@ -115,7 +115,8 @@
 {
     self.searchExpression = text;
     
-    return [self.commandProcessor searchActionWithExpression:text];
+    // maybe search the presets?
+    return NO;
 }
 
 @end
