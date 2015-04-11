@@ -15,22 +15,23 @@
 @protocol XCActionBarCommandProcessor <NSObject>
 
 - (BOOL)enterActionSearchState;
-- (BOOL)enterActionArgumentState;
-- (BOOL)enterActionPresetState;
+- (BOOL)enterActionArgumentStateWithAction:(id<XCActionInterface>)action;
+- (BOOL)enterActionPresetStateWithAction:(id<XCActionInterface>)action;
 
 - (BOOL)cancel;
+- (void)close;
 
 - (BOOL)selectNextSearchResult;
 - (BOOL)selectPreviousSearchResult;
 
-- (BOOL)executeSelectedAction;
-- (BOOL)executeSelectedActionWithArguments:(NSString *)arguments;
+- (BOOL)executeAction:(id<XCActionInterface>)action;
+- (BOOL)executeAction:(id<XCActionInterface>)action withArguments:(NSString *)arguments;
 //- (BOOL)executeAction:(id)action;
 //- (BOOL)executeAction:(id)action withArguments:(NSString *)arguments;
 - (BOOL)executeActionPreset:(id<XCActionPreset>)preset;
 
 // REVIEW: move to a separate protocol? this works for now
-- (id<XCActionInterface>)retrieveSelectedAction;
+//- (id<XCActionInterface>)retrieveSelectedAction;
 - (id<XCActionPreset>)retrieveSelectedPreset;
 
 - (void)resizeWindowToAccomodateSearchResults;

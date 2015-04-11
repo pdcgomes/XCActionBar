@@ -19,6 +19,9 @@
 @property (nonatomic, weak) id<XCActionBarCommandProcessor> commandProcessor;
 @property (nonatomic, weak) NSTextField *inputField;
 @property (nonatomic, weak) NSTableView *tableView;
+
+@property (nonatomic, weak) id<XCActionInterface> action;
+
 @end
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -44,13 +47,17 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (void)enter
+{}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)enterWithAction:(id<XCActionInterface>)selectedAction
 {
-    self.arguments  = nil;
+    self.action    = selectedAction;
+    self.arguments = nil;
     
     id delegate = self.inputField.delegate;
     self.inputField.delegate = nil;
-    
-    id<XCActionInterface> selectedAction = [self.commandProcessor retrieveSelectedAction];
     
     self.inputField.stringValue       = @"";
     self.inputField.placeholderString = selectedAction.argumentHint;
@@ -62,6 +69,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (void)exit
 {
+    self.action    = nil;
     self.arguments = nil;
 }
 
@@ -89,14 +97,14 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)handleDoubleClickCommand
 {
-    return [self.commandProcessor executeSelectedAction];
+    return [self.commandProcessor executeAction:self.action];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)handleEnterCommand
 {
-    return [self.commandProcessor executeSelectedActionWithArguments:self.arguments];
+    return [self.commandProcessor executeAction:self.action withArguments:self.arguments];
 }
 
 ////////////////////////////////////////////////////////////////////////////////

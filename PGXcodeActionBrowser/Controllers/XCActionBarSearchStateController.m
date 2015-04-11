@@ -108,34 +108,37 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)handleDoubleClickCommand
 {
-    return [self.commandProcessor executeSelectedAction];
+    id<XCActionInterface> selectedAction = [self retrieveSelectedAction];
+    XCReturnFalseUnless(selectedAction != nil);
+
+    return [self.commandProcessor executeAction:selectedAction];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)handleEnterCommand
 {
-    id<XCActionInterface> selectedAction = [self.commandProcessor retrieveSelectedAction];
+    id<XCActionInterface> selectedAction = [self retrieveSelectedAction];
     XCReturnFalseUnless(selectedAction != nil);
     
     return ([selectedAction requiresArguments] == NO ?
-            [self.commandProcessor executeSelectedAction] :
-            [self.commandProcessor enterActionArgumentState]);
+            [self.commandProcessor executeAction:selectedAction] :
+            [self.commandProcessor enterActionArgumentStateWithAction:selectedAction]);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)handleTabCommand
 {
-    id<XCActionInterface> selectedAction = [self.commandProcessor retrieveSelectedAction];
+    id<XCActionInterface> selectedAction = [self retrieveSelectedAction];
     XCReturnFalseUnless(selectedAction != nil);
     
     if([selectedAction conformsToProtocol:@protocol(XCActionPresetSource)]) {
-        return [self.commandProcessor enterActionPresetState];
+        return [self.commandProcessor enterActionPresetStateWithAction:selectedAction];
     }
     
     return ([selectedAction acceptsArguments] ?
-            [self.commandProcessor enterActionArgumentState] :
+            [self.commandProcessor enterActionArgumentStateWithAction:selectedAction] :
             [self autoCompleteWithSelectedAction]);
 }
 
@@ -197,6 +200,14 @@
     [self performSearchWithExpression:selectedAction.title];
     
     return YES;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (id<XCActionInterface>)retrieveSelectedAction
+{
+    id<XCSearchMatchEntry> searchMatch = [self.searchDataSource selectedObject];
+    return (searchMatch ? searchMatch.action : nil);
 }
 
 @end

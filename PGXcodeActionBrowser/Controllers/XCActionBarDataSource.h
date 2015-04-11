@@ -14,7 +14,7 @@
 @protocol XCActionPresetSource;
 @protocol XCActionBarDataSource <NSTableViewDataSource, NSTableViewDelegate>
 
-@property (nonatomic, copy, readonly) NSString *searchQuery;
+@property (nonatomic,   copy, readonly) NSString   *searchQuery;
 
 - (void)updateSelectedObjectIndex:(NSUInteger)index;
 - (void)updateSearchQuery:(NSString *)query;

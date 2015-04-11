@@ -10,11 +10,11 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+@protocol XCActionInterface;
 @protocol XCActionBarStateController <NSObject>
 
 - (void)enter;
 - (void)exit;
-
 
 - (BOOL)handleCancelCommand;
 - (BOOL)handleCursorUpCommand;
@@ -23,5 +23,8 @@
 - (BOOL)handleEnterCommand;
 - (BOOL)handleTabCommand;
 - (BOOL)handleTextInputCommand:(NSString *)text;
+
+@optional
+- (void)enterWithAction:(id<XCActionInterface>)action;
 
 @end

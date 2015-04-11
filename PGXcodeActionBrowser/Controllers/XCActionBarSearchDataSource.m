@@ -102,6 +102,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (id<XCSearchMatchEntry>)selectedObject
 {
+    if(self.selectedObjectIndex < 0 ) return nil;
+    
     return self.searchResults[self.selectedObjectIndex];
 }
 

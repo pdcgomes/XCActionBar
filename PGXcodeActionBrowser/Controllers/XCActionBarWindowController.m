@@ -225,22 +225,28 @@ NSString *const XCSearchInputStateControllerKey   = @"SearchStateController";
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (BOOL)enterActionArgumentState
+- (BOOL)enterActionArgumentStateWithAction:(id<XCActionInterface>)action
 {
     [self.stateController exit];
 
     self.stateController = self.stateControllers[XCArgumentInputStateControllerKey];
     
-    [self.stateController enter];
+    [self.stateController enterWithAction:action];
     
     return YES;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (BOOL)enterActionPresetState
+- (BOOL)enterActionPresetStateWithAction:(id<XCActionInterface>)action
 {
-    return NO;
+    [self.stateController exit];
+    
+    self.stateController = self.stateControllers[XCActionPresetStateControllerKey];
+    
+    [self.stateController enter];
+    
+    return YES;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -267,45 +273,35 @@ NSString *const XCSearchInputStateControllerKey   = @"SearchStateController";
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (BOOL)executeSelectedAction
+- (BOOL)executeAction:(id<XCActionInterface>)action
 {
-    NSInteger selectedIndex = self.searchResultsTable.selectedRow;
-    if(selectedIndex == -1) return NO;
-    
-    id<XCSearchMatchEntry> searchMatch    = [self.searchDataSource objectAtIndex:selectedIndex];
-    id<XCActionInterface > selectedAction = searchMatch.action;
-    BOOL executed = [selectedAction executeWithContext:self.context];
+    BOOL executed = [action executeWithContext:self.context];
 
     XCReturnFalseUnless(executed);
 
     XCDeclareWeakSelf(weakSelf);
     [self close];
     
-    self.repeatActionHandler = ^{ return [selectedAction executeWithContext:weakSelf.context]; };
+    self.repeatActionHandler = ^{ return [action executeWithContext:weakSelf.context]; };
     
     return executed;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (BOOL)executeSelectedActionWithArguments:(NSString *)arguments
+- (BOOL)executeAction:(id<XCActionInterface>)action withArguments:(NSString *)arguments
 {
-    NSInteger selectedIndex = self.searchResultsTable.selectedRow;
-    if(selectedIndex == -1) return NO;
-    
-    id<XCSearchMatchEntry> searchMatch    = [self.searchDataSource objectAtIndex:selectedIndex];
-    id<XCActionInterface > selectedAction = searchMatch.action;
-    BOOL validated = [selectedAction validateArgumentsWithContext:self.context arguments:arguments];
+    BOOL validated = [action validateArgumentsWithContext:self.context arguments:arguments];
     if(validated == NO) return NO;
     
-    BOOL executed = [selectedAction executeWithContext:self.context arguments:arguments];
+    BOOL executed = [action executeWithContext:self.context arguments:arguments];
     XCReturnFalseUnless(executed);
 
     XCDeclareWeakSelf(weakSelf);
     [self close];
     
-    self.repeatActionHandler = ^{ return [selectedAction executeWithContext:weakSelf.context
-                                                                  arguments:arguments];
+    self.repeatActionHandler = ^{ return [action executeWithContext:weakSelf.context
+                                                          arguments:arguments];
     };
     
     return executed;
@@ -336,14 +332,14 @@ NSString *const XCSearchInputStateControllerKey   = @"SearchStateController";
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (id<XCActionInterface>)retrieveSelectedAction
-{
-    NSInteger selectedIndex = self.searchResultsTable.selectedRow;
-    if(selectedIndex == -1) return nil;
-    
-    id<XCSearchMatchEntry> searchMatch = [self.searchDataSource objectAtIndex:selectedIndex];
-    return searchMatch.action;
-}
+//- (id<XCActionInterface>)retrieveSelectedAction
+//{
+//    NSInteger selectedIndex = self.searchResultsTable.selectedRow;
+//    if(selectedIndex == -1) return nil;
+//    
+//    id<XCSearchMatchEntry> searchMatch = [self.searchDataSource objectAtIndex:selectedIndex];
+//    return searchMatch.action;
+//}
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
