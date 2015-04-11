@@ -107,12 +107,11 @@
     
     id<XCActionPreset> preset = [self objectAtIndex:row];
     
-    NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:TRSafeString(preset.title)];
-    
     cell.textField.allowsEditingTextAttributes = YES;
     
-    cell.textField.attributedStringValue = title;
+    cell.textField.attributedStringValue = [[NSMutableAttributedString alloc] initWithString:TRSafeString(preset.title)];
     cell.subtitleTextField.stringValue   = TRSafeString(preset.summary);
+    cell.hintTextField.stringValue       = @"";
     
     return cell;
 }
