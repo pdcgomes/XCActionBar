@@ -6,10 +6,14 @@
 //  Copyright (c) 2015 Pedro Gomes. All rights reserved.
 //
 
+#import "XCInputValidation.h"
+
+#import "XCActionBarCommandProcessor.h"
+#import "XCActionBarDataSource.h"
+#import "XCActionBarSearchStateController.h"
 #import "XCActionInterface.h"
 #import "XCActionPresetSource.h"
-#import "XCActionBarSearchStateController.h"
-#import "XCActionBarCommandProcessor.h"
+#import "XCSearchMatchEntry.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -18,6 +22,7 @@
 @property (nonatomic, copy) NSString *searchExpression;
 
 @property (nonatomic, weak) id<XCActionBarCommandProcessor> commandProcessor;
+@property (nonatomic, weak) id<XCActionBarDataSource      > searchDataSource;
 
 @property (nonatomic, weak) NSTableView *tableView;
 @property (nonatomic, weak) NSTextField *inputField;
@@ -31,11 +36,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (instancetype)initWithCommandProcessor:(id<XCActionBarCommandProcessor>)processor
+                        searchDataSource:(id<XCActionBarDataSource>)searchDataSource
                                tableView:(NSTableView *)tableView
                               inputField:(NSTextField *)inputField
 {
     if((self = [super init])) {
         self.commandProcessor = processor;
+        self.searchDataSource = searchDataSource;
         self.inputField       = inputField;
         self.tableView        = tableView;
     }
@@ -48,6 +55,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (void)enter
 {
+    self.tableView.delegate   = self.searchDataSource;
+    self.tableView.dataSource = self.searchDataSource;
+
     id delegate = self.inputField.delegate;
     self.inputField.delegate = nil;
     
@@ -55,6 +65,10 @@
     self.inputField.placeholderString = @"Action ...";
 
     self.inputField.delegate = delegate;
+    
+    XCReturnUnless(TRCheckIsEmpty(self.searchExpression) == NO);
+    
+    [self performSearchWithExpression:self.searchExpression];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -68,14 +82,26 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)handleCursorUpCommand
 {
-    return [self.commandProcessor selectPreviousSearchResult];
+    NSInteger rowCount      = [self.tableView numberOfRows];
+    NSInteger selectedIndex = self.tableView.selectedRow;
+    NSInteger indexToSelect = (selectedIndex == -1 ? rowCount - 1 : (selectedIndex - 1 >= 0 ? selectedIndex - 1 : rowCount - 1));
+    
+    [self selectSearchResultAtIndex:indexToSelect];
+    
+    return YES;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)handleCursorDownCommand
 {
-    return [self.commandProcessor selectNextSearchResult];
+    NSInteger rowCount      = [self.tableView numberOfRows];
+    NSInteger selectedIndex = self.tableView.selectedRow;
+    NSInteger indexToSelect = (selectedIndex == -1 ? 0 : (selectedIndex + 1 < rowCount ? selectedIndex + 1 : 0));
+    
+    [self selectSearchResultAtIndex:indexToSelect];
+    
+    return YES;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -110,7 +136,7 @@
     
     return ([selectedAction acceptsArguments] ?
             [self.commandProcessor enterActionArgumentState] :
-            [self.commandProcessor autoCompleteWithSelectedAction]);
+            [self autoCompleteWithSelectedAction]);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -124,9 +150,53 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)handleTextInputCommand:(NSString *)text
 {
-    self.searchExpression = text;
+    [self performSearchWithExpression:text];
     
-    return [self.commandProcessor searchActionWithExpression:text];
+    return YES;
+}
+
+#pragma mark - Helpers
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)selectSearchResultAtIndex:(NSInteger)indexToSelect
+{
+    [self.searchDataSource updateSelectedObjectIndex:indexToSelect];
+    [self.tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:indexToSelect]
+                byExtendingSelection:NO];
+    [self.tableView scrollRowToVisible:indexToSelect];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)performSearchWithExpression:(NSString *)expression
+{
+    self.searchExpression = expression;
+    
+    [self.searchDataSource updateSearchQuery:expression];
+    [self.tableView reloadData];
+    
+    [self.commandProcessor resizeWindowToAccomodateSearchResults];
+    if(TRCheckIsEmpty(self.tableView) == NO) {
+        [self selectSearchResultAtIndex:0];
+        [self.searchDataSource updateSelectedObjectIndex:0];
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)autoCompleteWithSelectedAction
+{
+    NSInteger selectedIndex = self.tableView.selectedRow;
+    if(selectedIndex == -1) return YES;
+    
+    id<XCSearchMatchEntry> searchMatch = [self.searchDataSource objectAtIndex:selectedIndex];
+    id<XCActionInterface> selectedAction = searchMatch.action;
+    
+    [self.inputField setStringValue:selectedAction.title];
+    [self performSearchWithExpression:selectedAction.title];
+    
+    return YES;
 }
 
 @end

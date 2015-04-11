@@ -6,13 +6,13 @@
 //  Copyright (c) 2015 Pedro Gomes. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "XCActionBarDataSource.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @protocol XCSearchService;
 @protocol XCSearchMatchEntry;
-@interface XCActionBarSearchDataSource : NSObject <NSTableViewDataSource, NSTableViewDelegate>
+@interface XCActionBarSearchDataSource : NSObject <XCActionBarDataSource>
 
 @property (nonatomic, copy, readonly) NSString *searchQuery;
 

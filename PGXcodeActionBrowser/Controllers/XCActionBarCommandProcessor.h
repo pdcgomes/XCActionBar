@@ -19,7 +19,6 @@
 - (BOOL)enterActionPresetState;
 
 - (BOOL)searchActionWithExpression:(NSString *)query;
-- (BOOL)autoCompleteWithSelectedAction;
 - (BOOL)cancel;
 
 - (BOOL)selectNextSearchResult;
@@ -34,5 +33,7 @@
 // REVIEW: move to a separate protocol? this works for now
 - (id<XCActionInterface>)retrieveSelectedAction;
 - (id<XCActionPreset>)retrieveSelectedPreset;
+
+- (void)resizeWindowToAccomodateSearchResults;
 
 @end

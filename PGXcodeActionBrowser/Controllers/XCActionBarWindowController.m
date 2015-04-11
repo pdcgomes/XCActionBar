@@ -77,16 +77,28 @@ NSString *const XCSearchInputStateControllerKey   = @"SearchStateController";
     [super windowDidLoad];
     
     XCDeclareWeakSelf(weakSelf);
-    self.eventHandlers = @{
-                           NSStringFromSelector(@selector(moveUp:)):       [^BOOL { return [weakSelf.stateController handleCursorUpCommand]; } copy],
-                           NSStringFromSelector(@selector(moveDown:)):     [^BOOL { return [weakSelf.stateController handleCursorDownCommand]; } copy],
-                           NSStringFromSelector(@selector(insertNewline:)):[^BOOL { return [weakSelf.stateController handleEnterCommand]; } copy],
-                           NSStringFromSelector(@selector(insertTab:)):    [^BOOL { return [weakSelf.stateController handleTabCommand]; } copy]
-                           };
+    self.eventHandlers =
+    @{
+      NSStringFromSelector(@selector(moveUp:)):       [^BOOL { return [weakSelf.stateController handleCursorUpCommand]; } copy],
+      NSStringFromSelector(@selector(moveDown:)):     [^BOOL { return [weakSelf.stateController handleCursorDownCommand]; } copy],
+      NSStringFromSelector(@selector(insertNewline:)):[^BOOL { return [weakSelf.stateController handleEnterCommand]; } copy],
+      NSStringFromSelector(@selector(insertTab:)):    [^BOOL { return [weakSelf.stateController handleTabCommand]; } copy]};
 
-    self.stateControllers = @{XCActionPresetStateControllerKey: [[XCActionBarPresetStateController alloc] initWithCommandProcessor:self tableView:self.searchResultsTable inputField:self.searchField],
-                              XCSearchInputStateControllerKey:  [[XCActionBarSearchStateController alloc] initWithCommandProcessor:self tableView:self.searchResultsTable inputField:self.searchField],
-                              XCArgumentInputStateControllerKey:[[XCActionBarArgumentInputStateController alloc] initWithCommandProcessor:self tableView:self.searchResultsTable inputField:self.searchField]};
+    self.searchDataSource = [[XCActionBarSearchDataSource alloc] initWithSearchService:self.searchService];
+
+    self.stateControllers =
+    @{XCActionPresetStateControllerKey: [[XCActionBarPresetStateController alloc] initWithCommandProcessor:self
+                                                                                                 tableView:self.searchResultsTable
+                                                                                                inputField:self.searchField],
+      
+      XCSearchInputStateControllerKey:  [[XCActionBarSearchStateController alloc] initWithCommandProcessor:self
+                                                                                          searchDataSource:self.searchDataSource
+                                                                                                 tableView:self.searchResultsTable
+                                                                                                inputField:self.searchField],
+      
+      XCArgumentInputStateControllerKey:[[XCActionBarArgumentInputStateController alloc] initWithCommandProcessor:self
+                                                                                                        tableView:self.searchResultsTable
+                                                                                                       inputField:self.searchField]};
 
     self.searchField.focusRingType = NSFocusRingTypeNone;
     self.searchField.delegate      = self;
@@ -141,7 +153,6 @@ NSString *const XCSearchInputStateControllerKey   = @"SearchStateController";
     [self.window makeFirstResponder:self.searchField];
 
     [self enterActionSearchState];
-    [self restoreLastSearchAndSelection];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -203,14 +214,10 @@ NSString *const XCSearchInputStateControllerKey   = @"SearchStateController";
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)enterActionSearchState
 {
-    self.searchDataSource = [[XCActionBarSearchDataSource alloc] initWithSearchService:self.searchService];
-    
-    self.searchResultsTable.delegate   = self.searchDataSource;
-    self.searchResultsTable.dataSource = self.searchDataSource;
-
     [self.stateController exit];
 
     self.stateController = self.stateControllers[XCSearchInputStateControllerKey];
+    
     [self.stateController enter];
 
     return YES;
@@ -223,6 +230,7 @@ NSString *const XCSearchInputStateControllerKey   = @"SearchStateController";
     [self.stateController exit];
 
     self.stateController = self.stateControllers[XCArgumentInputStateControllerKey];
+    
     [self.stateController enter];
     
     return YES;
@@ -239,7 +247,6 @@ NSString *const XCSearchInputStateControllerKey   = @"SearchStateController";
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)searchActionWithExpression:(NSString *)query
 {
-    [self performSearchWithExpression:query];
     return YES;
 }
 
@@ -255,13 +262,7 @@ NSString *const XCSearchInputStateControllerKey   = @"SearchStateController";
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)selectNextSearchResult
 {
-//    XCLog(@"<selectNextSearchResult>");
-    
-    NSInteger rowCount      = [self.searchResultsTable numberOfRows];
-    NSInteger selectedIndex = self.searchResultsTable.selectedRow;
-    NSInteger indexToSelect = (selectedIndex == -1 ? 0 : (selectedIndex + 1 < rowCount ? selectedIndex + 1 : 0));
-    
-    [self selectSearchResultAtIndex:indexToSelect];
+    [self.stateController handleCursorDownCommand];
 
     return YES;
 }
@@ -270,13 +271,7 @@ NSString *const XCSearchInputStateControllerKey   = @"SearchStateController";
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)selectPreviousSearchResult
 {
-//    XCLog(@"<selectPreviousSearchResult>");
-    
-    NSInteger rowCount      = [self.searchResultsTable numberOfRows];
-    NSInteger selectedIndex = self.searchResultsTable.selectedRow;
-    NSInteger indexToSelect = (selectedIndex == -1 ? rowCount - 1 : (selectedIndex - 1 >= 0 ? selectedIndex - 1 : rowCount - 1));
-
-    [self selectSearchResultAtIndex:indexToSelect];
+    [self.stateController handleCursorUpCommand];
 
     return YES;
 }
@@ -340,22 +335,6 @@ NSString *const XCSearchInputStateControllerKey   = @"SearchStateController";
     self.repeatActionHandler = ^{ return [preset executeWithContext:weakSelf.context]; };
 
     return executed;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-- (BOOL)autoCompleteWithSelectedAction
-{
-    NSInteger selectedIndex = self.searchResultsTable.selectedRow;
-    if(selectedIndex == -1) return YES;
-
-    id<XCSearchMatchEntry> searchMatch = [self.searchDataSource objectAtIndex:selectedIndex];
-    id<XCActionInterface> selectedAction = searchMatch.action;
-
-    [self.searchField setStringValue:selectedAction.title];
-    [self performSearchWithExpression:selectedAction.title];
-    
-    return YES;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -432,25 +411,25 @@ NSString *const XCSearchInputStateControllerKey   = @"SearchStateController";
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (void)restoreLastSearchAndSelection
-{
-    XCReturnUnless(TRCheckIsEmpty(self.searchField.stringValue) == NO);
-    
-    [self performSearchWithExpression:self.searchField.stringValue];
-}
+//- (void)restoreLastSearchAndSelection
+//{
+//    XCReturnUnless(TRCheckIsEmpty(self.searchField.stringValue) == NO);
+//    
+//    [self performSearchWithExpression:self.searchField.stringValue];
+//}
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (void)performSearchWithExpression:(NSString *)expression
-{
-    [self.searchDataSource updateSearchQuery:expression];
-    [self.searchResultsTable reloadData];
-    
-    [self resizeWindowToAccomodateSearchResults];
-    if(TRCheckIsEmpty(self.searchResultsTable) == NO) {
-        [self selectSearchResultAtIndex:0];
-        [self.searchDataSource updateSelectedObjectIndex:0];
-    }
-}
+//- (void)performSearchWithExpression:(NSString *)expression
+//{
+//    [self.searchDataSource updateSearchQuery:expression];
+//    [self.searchResultsTable reloadData];
+//    
+//    [self resizeWindowToAccomodateSearchResults];
+//    if(TRCheckIsEmpty(self.searchResultsTable) == NO) {
+//        [self selectSearchResultAtIndex:0];
+//        [self.searchDataSource updateSelectedObjectIndex:0];
+//    }
+//}
 
 @end

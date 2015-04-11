@@ -11,9 +11,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @protocol XCActionBarCommandProcessor;
+@protocol XCActionBarDataSource;
 @interface XCActionBarSearchStateController : NSObject <XCActionBarStateController>
 
 - (instancetype)initWithCommandProcessor:(id<XCActionBarCommandProcessor>)processor
+                        searchDataSource:(id<XCActionBarDataSource>)dataSource
                                tableView:(NSTableView *)tableView
                               inputField:(NSTextField *)inputField;
 
