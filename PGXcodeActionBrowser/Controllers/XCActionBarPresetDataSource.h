@@ -14,7 +14,7 @@
 @protocol XCActionPresetSource;
 @interface XCActionBarPresetDataSource : NSObject <XCActionBarDataSource>
 
-- (void)updateWithPresetSource:(id<XCActionPresetSource>)presetSource;
+- (instancetype)initWithPresetSource:(id<XCActionPresetSource>)presetSource;
 
 - (id<XCActionPreset>)objectAtIndex:(NSUInteger)index;
 - (id<XCActionPreset>)selectedObject;
