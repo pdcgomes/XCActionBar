@@ -12,10 +12,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 @protocol XCActionPresetSource <NSObject>
 
+@property (nonatomic, copy) NSString *presetSummary;
+
 - (NSUInteger)numberOfPresets;
 - (NSArray *)retrievePresets;
-
-- (void)loadPresets;
-- (void)unloadPresets;
 
 @end

@@ -300,6 +300,9 @@ static XCActionBar *sharedPlugin;
                                     // Generator Actions
                                     [[XCGUIDGeneratorAction alloc] init],
                                     
+                                    // Find Actions
+                                    [[XCFindWithExpressionAction alloc] init],
+                                    
                                     ].mutableCopy;
 
     NSArray *surroundWithActionSpecs = [NSArray arrayWithContentsOfURL:[self.bundle URLForResource:@"XCSurroundWithActions" withExtension:@"plist"]];
