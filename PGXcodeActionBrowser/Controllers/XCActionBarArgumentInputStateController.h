@@ -11,7 +11,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @protocol XCActionBarCommandProcessor;
-@interface XCActionBarArgumentInputStateCommandHandler : NSObject <XCActionBarCommandHandler>
+@interface XCActionBarArgumentInputStateController : NSObject <XCActionBarStateController>
 
 - (instancetype)initWithCommandProcessor:(id<XCActionBarCommandProcessor>)processor;
 

@@ -16,7 +16,7 @@
 
 - (BOOL)enterActionSearchState;
 - (BOOL)enterActionArgumentState;
-- (BOOL)enterActionTemplateState;
+- (BOOL)enterActionPresetState;
 
 - (BOOL)searchActionWithExpression:(NSString *)query;
 - (BOOL)autoCompleteWithSelectedAction;
@@ -33,5 +33,6 @@
 
 // REVIEW: move to a separate protocol? this works for now
 - (id<XCActionInterface>)retrieveSelectedAction;
+- (id<XCActionPreset>)retrieveSelectedPreset;
 
 @end

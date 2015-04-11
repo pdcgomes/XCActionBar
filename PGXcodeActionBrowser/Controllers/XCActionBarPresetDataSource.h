@@ -6,20 +6,15 @@
 //  Copyright (c) 2015 Pedro Gomes. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "XCActionBarDataSource.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @protocol XCActionPreset;
 @protocol XCActionPresetSource;
-@interface XCActionBarPresetDataSource : NSObject <NSTableViewDataSource, NSTableViewDelegate>
+@interface XCActionBarPresetDataSource : NSObject <XCActionBarDataSource>
 
 - (void)updateWithPresetSource:(id<XCActionPresetSource>)presetSource;
-
-- (void)updateSelectedObjectIndex:(NSUInteger)index;
-- (void)clearResults;
-
-- (NSUInteger)numberOfPresets;
 
 - (id<XCActionPreset>)objectAtIndex:(NSUInteger)index;
 - (id<XCActionPreset>)selectedObject;

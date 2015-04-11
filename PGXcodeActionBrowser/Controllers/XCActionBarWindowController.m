@@ -8,8 +8,8 @@
 
 #import "XCActionBarWindowController.h"
 
-#import "XCActionBarArgumentInputStateCommandHandler.h"
-#import "XCActionBarSearchStateCommandHandler.h"
+#import "XCActionBarArgumentInputStateController.h"
+#import "XCActionBarSearchStateController.h"
 #import "XCActionBarCommandProcessor.h"
 #import "XCActionBarPresetDataSource.h"
 #import "XCActionBarSearchDataSource.h"
@@ -38,8 +38,8 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
 @property (nonatomic) CGFloat searchFieldBottomConstraintConstant;
 
 @property (nonatomic      ) NSDictionary *eventHandlers;
-@property (nonatomic      ) NSDictionary *commandHandlers;
-@property (nonatomic, weak) id<XCActionBarCommandHandler> commandHandler;
+@property (nonatomic      ) NSDictionary *stateControllers;
+@property (nonatomic, weak) id<XCActionBarStateController> stateController;
 
 @property (nonatomic) XCActionBarPresetDataSource *presetDataSource;
 @property (nonatomic) XCActionBarSearchDataSource *searchDataSource;
@@ -76,14 +76,14 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
     
     XCDeclareWeakSelf(weakSelf);
     self.eventHandlers = @{
-                           NSStringFromSelector(@selector(moveUp:)):       [^BOOL { return [weakSelf.commandHandler handleCursorUpCommand]; } copy],
-                           NSStringFromSelector(@selector(moveDown:)):     [^BOOL { return [weakSelf.commandHandler handleCursorDownCommand]; } copy],
-                           NSStringFromSelector(@selector(insertNewline:)):[^BOOL { return [weakSelf.commandHandler handleEnterCommand]; } copy],
-                           NSStringFromSelector(@selector(insertTab:)):    [^BOOL { return [weakSelf.commandHandler handleTabCommand]; } copy]
+                           NSStringFromSelector(@selector(moveUp:)):       [^BOOL { return [weakSelf.stateController handleCursorUpCommand]; } copy],
+                           NSStringFromSelector(@selector(moveDown:)):     [^BOOL { return [weakSelf.stateController handleCursorDownCommand]; } copy],
+                           NSStringFromSelector(@selector(insertNewline:)):[^BOOL { return [weakSelf.stateController handleEnterCommand]; } copy],
+                           NSStringFromSelector(@selector(insertTab:)):    [^BOOL { return [weakSelf.stateController handleTabCommand]; } copy]
                            };
 
-    self.commandHandlers = @{XCSearchInputHandlerKey:   [[XCActionBarSearchStateCommandHandler alloc] initWithCommandProcessor:self],
-                             XCArgumentInputHandlerKey: [[XCActionBarArgumentInputStateCommandHandler alloc] initWithCommandProcessor:self]};
+    self.stateControllers = @{XCSearchInputHandlerKey:   [[XCActionBarSearchStateController alloc] initWithCommandProcessor:self],
+                             XCArgumentInputHandlerKey: [[XCActionBarArgumentInputStateController alloc] initWithCommandProcessor:self]};
 
     self.searchField.focusRingType = NSFocusRingTypeNone;
     self.searchField.delegate      = self;
@@ -123,7 +123,7 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
 ////////////////////////////////////////////////////////////////////////////////
 - (void)processDoubleClickOnSearchResult:(id)sender
 {
-    [self.commandHandler handleDoubleClickCommand];
+    [self.stateController handleDoubleClickCommand];
 }
 
 #pragma mark - NSWindowDelegate
@@ -160,7 +160,7 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
 
 //    XCLog(@"<SearchQueryChanged>, <query=%@>", textField.stringValue);
 
-    [self.commandHandler handleTextInputCommand:textField.stringValue];
+    [self.stateController handleTextInputCommand:textField.stringValue];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -205,10 +205,10 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
     self.searchResultsTable.delegate   = self.searchDataSource;
     self.searchResultsTable.dataSource = self.searchDataSource;
 
-    [self.commandHandler exit];
+    [self.stateController exit];
 
-    self.commandHandler = self.commandHandlers[XCSearchInputHandlerKey];
-    [self.commandHandler enterWithInputControl:self.searchField];
+    self.stateController = self.stateControllers[XCSearchInputHandlerKey];
+    [self.stateController enterWithInputControl:self.searchField];
 
     return YES;
 }
@@ -217,17 +217,17 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)enterActionArgumentState
 {
-    [self.commandHandler exit];
+    [self.stateController exit];
 
-    self.commandHandler = self.commandHandlers[XCArgumentInputHandlerKey];
-    [self.commandHandler enterWithInputControl:self.searchField];
+    self.stateController = self.stateControllers[XCArgumentInputHandlerKey];
+    [self.stateController enterWithInputControl:self.searchField];
     
     return YES;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (BOOL)enterActionTemplateState
+- (BOOL)enterActionPresetState
 {
     return NO;
 }
@@ -237,6 +237,14 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
 - (BOOL)searchActionWithExpression:(NSString *)query
 {
     [self performSearchWithExpression:query];
+    return YES;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)searchPresetWithExpression:(NSString *)query
+{
+    [self.presetDataSource updateSearchQuery:query];
     return YES;
 }
 
@@ -364,6 +372,17 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
     
     id<XCSearchMatchEntry> searchMatch = [self.searchDataSource objectAtIndex:selectedIndex];
     return searchMatch.action;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (id<XCActionPreset>)retrieveSelectedPreset
+{
+    NSInteger selectedIndex = self.searchResultsTable.selectedRow;
+    if(selectedIndex == -1) return nil;
+    
+    id<XCActionPreset> preset = [self.presetDataSource objectAtIndex:selectedIndex];
+    return preset;
 }
 
 #pragma mark - Helpers

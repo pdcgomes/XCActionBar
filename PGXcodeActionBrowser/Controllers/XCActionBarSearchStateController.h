@@ -11,7 +11,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @protocol XCActionBarCommandProcessor;
-@interface XCActionBarSearchStateCommandHandler : NSObject <XCActionBarCommandHandler>
+@interface XCActionBarSearchStateController : NSObject <XCActionBarStateController>
 
 - (instancetype)initWithCommandProcessor:(id<XCActionBarCommandProcessor>)processor;
 
