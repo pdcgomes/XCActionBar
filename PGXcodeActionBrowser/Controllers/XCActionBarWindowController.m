@@ -244,16 +244,8 @@ NSString *const XCSearchInputStateControllerKey   = @"SearchStateController";
     
     self.stateController = self.stateControllers[XCActionPresetStateControllerKey];
     
-    [self.stateController enter];
+    [self.stateController enterWithAction:action];
     
-    return YES;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-- (BOOL)searchPresetWithExpression:(NSString *)query
-{
-    [self.presetDataSource updateSearchQuery:query];
     return YES;
 }
 
@@ -329,17 +321,6 @@ NSString *const XCSearchInputStateControllerKey   = @"SearchStateController";
     [self cancelOperation:self];
     return YES;
 }
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-//- (id<XCActionInterface>)retrieveSelectedAction
-//{
-//    NSInteger selectedIndex = self.searchResultsTable.selectedRow;
-//    if(selectedIndex == -1) return nil;
-//    
-//    id<XCSearchMatchEntry> searchMatch = [self.searchDataSource objectAtIndex:selectedIndex];
-//    return searchMatch.action;
-//}
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
