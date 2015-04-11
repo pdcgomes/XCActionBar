@@ -83,7 +83,7 @@
 		42F815581AC56F980028A004 /* XCReplaceSelectionAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F815571AC56F980028A004 /* XCReplaceSelectionAction.m */; };
 		42FA5BC81AB82F79007F24B8 /* XCDuplicateLineAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FA5BC71AB82F79007F24B8 /* XCDuplicateLineAction.m */; };
 		42FA5BCB1AB82F84007F24B8 /* XCDeleteLineAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FA5BCA1AB82F84007F24B8 /* XCDeleteLineAction.m */; };
-		42FCAABE1AD7F9DD0036E561 /* XCActionBarPresetCommandHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FCAABD1AD7F9DD0036E561 /* XCActionBarPresetCommandHandler.m */; };
+		42FCAABE1AD7F9DD0036E561 /* XCActionBarPresetStateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FCAABD1AD7F9DD0036E561 /* XCActionBarPresetStateController.m */; };
 		42FD3C0F1AB0ABE900F0A442 /* XCRoundCornerWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FD3C0E1AB0ABE900F0A442 /* XCRoundCornerWindow.m */; };
 		42FE83C11AD4884E00F27F05 /* XCGUIDGeneratorAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FE83C01AD4884E00F27F05 /* XCGUIDGeneratorAction.m */; };
 /* End PBXBuildFile section */
@@ -239,8 +239,8 @@
 		42FA5BC71AB82F79007F24B8 /* XCDuplicateLineAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCDuplicateLineAction.m; sourceTree = "<group>"; };
 		42FA5BC91AB82F84007F24B8 /* XCDeleteLineAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCDeleteLineAction.h; sourceTree = "<group>"; };
 		42FA5BCA1AB82F84007F24B8 /* XCDeleteLineAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCDeleteLineAction.m; sourceTree = "<group>"; };
-		42FCAABC1AD7F9DD0036E561 /* XCActionBarPresetCommandHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCActionBarPresetCommandHandler.h; sourceTree = "<group>"; };
-		42FCAABD1AD7F9DD0036E561 /* XCActionBarPresetCommandHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCActionBarPresetCommandHandler.m; sourceTree = "<group>"; };
+		42FCAABC1AD7F9DD0036E561 /* XCActionBarPresetStateController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCActionBarPresetStateController.h; sourceTree = "<group>"; };
+		42FCAABD1AD7F9DD0036E561 /* XCActionBarPresetStateController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCActionBarPresetStateController.m; sourceTree = "<group>"; };
 		42FCAABF1AD7FC9E0036E561 /* XCActionBarDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCActionBarDataSource.h; sourceTree = "<group>"; };
 		42FD3C0D1AB0ABE900F0A442 /* XCRoundCornerWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = XCRoundCornerWindow.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		42FD3C0E1AB0ABE900F0A442 /* XCRoundCornerWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = XCRoundCornerWindow.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -634,8 +634,8 @@
 				4297454F1AC85AEF00E1875D /* XCActionBarSearchStateController.m */,
 				429745511AC85B0000E1875D /* XCActionBarArgumentInputStateController.h */,
 				429745521AC85B0000E1875D /* XCActionBarArgumentInputStateController.m */,
-				42FCAABC1AD7F9DD0036E561 /* XCActionBarPresetCommandHandler.h */,
-				42FCAABD1AD7F9DD0036E561 /* XCActionBarPresetCommandHandler.m */,
+				42FCAABC1AD7F9DD0036E561 /* XCActionBarPresetStateController.h */,
+				42FCAABD1AD7F9DD0036E561 /* XCActionBarPresetStateController.m */,
 			);
 			name = "State Controllers";
 			sourceTree = "<group>";
@@ -827,7 +827,7 @@
 				422DB1BF1AB60134007D13F9 /* XCCodeSnippetProvider.m in Sources */,
 				42A71F1C1AB71323008B5B92 /* XCCustomAction.m in Sources */,
 				42FE83C11AD4884E00F27F05 /* XCGUIDGeneratorAction.m in Sources */,
-				42FCAABE1AD7F9DD0036E561 /* XCActionBarPresetCommandHandler.m in Sources */,
+				42FCAABE1AD7F9DD0036E561 /* XCActionBarPresetStateController.m in Sources */,
 				426782E91ABA33C8006F4E53 /* XCHotKeyListener.m in Sources */,
 				421278DD1ACDEC5E0037B87A /* XCMoveSelectionHereAction.m in Sources */,
 				421D370E1AB7982F00FF8338 /* XCAddSuffixToLinesAction.m in Sources */,
