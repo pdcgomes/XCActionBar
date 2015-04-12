@@ -19,6 +19,8 @@
 - (BOOL)handleCancelCommand;
 - (BOOL)handleCursorUpCommand;
 - (BOOL)handleCursorDownCommand;
+- (BOOL)handleCursorLeftCommand;
+- (BOOL)handleCursorRightCommand;
 - (BOOL)handleDoubleClickCommand;
 - (BOOL)handleEnterCommand;
 - (BOOL)handleTabCommand;
