@@ -72,6 +72,7 @@
     XCReturnUnless(TRCheckIsEmpty(self.searchExpression) == NO);
     
     [self performSearchWithExpression:self.searchExpression];
+    [self selectSearchResultAtIndex:[self.dataIndexSet selectedIndex]];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -163,6 +164,7 @@
 - (BOOL)handleTextInputCommand:(NSString *)text
 {
     [self performSearchWithExpression:text];
+    [self resetDataIndexSet];
     
     return YES;
 }
@@ -188,8 +190,6 @@
     [self.searchDataSource updateSearchQuery:expression];
     [self.tableView reloadData];
 
-    [self updateDataIndexSet];
-    
     [self.commandProcessor resizeWindowToAccomodateSearchResults];
     if(TRCheckIsEmpty(self.tableView) == NO) {
         [self selectSearchResultAtIndex:0];
@@ -223,7 +223,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (void)updateDataIndexSet
+- (void)resetDataIndexSet
 {
     self.dataIndexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [self.searchDataSource numberOfObjects])];
     [self.dataIndexSet setSelectedIndex:0];
