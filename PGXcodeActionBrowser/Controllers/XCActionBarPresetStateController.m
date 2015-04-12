@@ -80,6 +80,9 @@
 
     self.dataIndexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [self.dataSource numberOfObjects])];
     [self.tableView reloadData];
+
+    [self.dataIndexSet setSelectedIndex:0];
+    [self selectSearchResultAtIndex:0];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
