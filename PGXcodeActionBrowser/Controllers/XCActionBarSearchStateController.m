@@ -113,7 +113,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (BOOL)handleCursorRightCommand;
 {
-    [self handleTabCommand];
     return YES;
 }
 
@@ -225,6 +224,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 - (void)resetDataIndexSet
 {
+    self.dataIndexSet = nil;
+    
+    XCReturnUnless([self.searchDataSource numberOfObjects] > 0);
+    
     self.dataIndexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [self.searchDataSource numberOfObjects])];
     [self.dataIndexSet setSelectedIndex:0];
 }
