@@ -15,10 +15,12 @@ const void *XCSelectedIndexKey = "SelectedIndex";
 ////////////////////////////////////////////////////////////////////////////////
 @implementation NSIndexSet (XCCircularIndexSet)
 
-////////////////////////////////////////////////////////////////////////////////
+
 ////////////////////////////////////////////////////////////////////////////////
 - (void)setSelectedIndex:(NSUInteger)index
 {
+    NSParameterAssert([self containsIndex:index]);
+    
     objc_setAssociatedObject(self, XCSelectedIndexKey, @(index), OBJC_ASSOCIATION_RETAIN);
 }
 
@@ -74,6 +76,8 @@ const void *XCSelectedIndexKey = "SelectedIndex";
 ////////////////////////////////////////////////////////////////////////////////
 - (void)ensureSelectedIndex
 {
+    NSAssert(self.count > 0, @"Cannot operate on an empty index set.");
+    
     NSNumber *selected = objc_getAssociatedObject(self, XCSelectedIndexKey);
     if(selected == nil) [self setSelectedIndex:[self firstIndex]];
 }
