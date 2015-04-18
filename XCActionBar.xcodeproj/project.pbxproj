@@ -55,6 +55,7 @@
 		4284ADC91ABC26E400531C48 /* XCTrimWhitespaceAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4284ADC81ABC26E400531C48 /* XCTrimWhitespaceAction.m */; };
 		428672591ABC168C001BA586 /* XCDeleteBlankLinesAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 428672581ABC168C001BA586 /* XCDeleteBlankLinesAction.m */; };
 		429086531AB92AE800EC3F78 /* XCSurroundLineWithAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 429086521AB92AE800EC3F78 /* XCSurroundLineWithAction.m */; };
+		4294B59E1AE275E500DBFA2B /* XCFindWithRegularExpressionAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4294B59D1AE275E500DBFA2B /* XCFindWithRegularExpressionAction.m */; };
 		429745501AC85AEF00E1875D /* XCActionBarSearchStateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4297454F1AC85AEF00E1875D /* XCActionBarSearchStateController.m */; };
 		429745531AC85B0000E1875D /* XCActionBarArgumentInputStateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 429745521AC85B0000E1875D /* XCActionBarArgumentInputStateController.m */; };
 		42A360BC1AC05FC00027B223 /* XCTextSnippetHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A360BB1AC05FC00027B223 /* XCTextSnippetHelper.m */; };
@@ -181,6 +182,8 @@
 		428A1D051ACD99B100032F4A /* XCActionBarCommandProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCActionBarCommandProcessor.h; sourceTree = "<group>"; };
 		429086511AB92AE800EC3F78 /* XCSurroundLineWithAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSurroundLineWithAction.h; sourceTree = "<group>"; };
 		429086521AB92AE800EC3F78 /* XCSurroundLineWithAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCSurroundLineWithAction.m; sourceTree = "<group>"; };
+		4294B59C1AE275E500DBFA2B /* XCFindWithRegularExpressionAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCFindWithRegularExpressionAction.h; sourceTree = "<group>"; };
+		4294B59D1AE275E500DBFA2B /* XCFindWithRegularExpressionAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCFindWithRegularExpressionAction.m; sourceTree = "<group>"; };
 		4297454E1AC85AEF00E1875D /* XCActionBarSearchStateController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCActionBarSearchStateController.h; sourceTree = "<group>"; };
 		4297454F1AC85AEF00E1875D /* XCActionBarSearchStateController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCActionBarSearchStateController.m; sourceTree = "<group>"; };
 		429745511AC85B0000E1875D /* XCActionBarArgumentInputStateController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCActionBarArgumentInputStateController.h; sourceTree = "<group>"; };
@@ -384,6 +387,8 @@
 			children = (
 				4249DCF11AD98D1800855FE3 /* XCFindWithExpressionAction.h */,
 				4249DCF21AD98D1800855FE3 /* XCFindWithExpressionAction.m */,
+				4294B59C1AE275E500DBFA2B /* XCFindWithRegularExpressionAction.h */,
+				4294B59D1AE275E500DBFA2B /* XCFindWithRegularExpressionAction.m */,
 			);
 			name = "Find Operations";
 			sourceTree = "<group>";
@@ -865,6 +870,7 @@
 				42C1AD8C1AAF5F2000248A8D /* XCBlockAction.m in Sources */,
 				42A71F1F1AB714AE008B5B92 /* XCSortSelectionAction.m in Sources */,
 				424504AD1ABC50940054DC61 /* XCOpenActiveDocumentPathInTerminalAction.m in Sources */,
+				4294B59E1AE275E500DBFA2B /* XCFindWithRegularExpressionAction.m in Sources */,
 				42A71F251AB714E4008B5B92 /* XCSurroundWithAction.m in Sources */,
 				42F7294B1AC0C98800B99B7C /* XCSaveTextSelectionAction.m in Sources */,
 				42F3E2931AC1C48100D69E43 /* XCColumnSelectionModeAction.m in Sources */,
