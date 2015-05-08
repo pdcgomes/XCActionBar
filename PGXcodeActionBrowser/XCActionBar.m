@@ -282,8 +282,14 @@ static XCActionBar *sharedPlugin;
                                     [[XCLoadTextSelectionAction alloc] initWithTextSelectionStorage:textSelectionStorage],
                                     [[XCClearTextSelectionAction alloc] initWithTextSelectionStorage:textSelectionStorage],
                                     // Sort Selection
-                                    [[XCSortSelectionAction alloc] initWithSortOrder:NSOrderedAscending],
-                                    [[XCSortSelectionAction alloc] initWithSortOrder:NSOrderedDescending],
+                                    [[XCSortSelectionAction alloc] initWithSortOrder:NSOrderedAscending
+                                                                       caseSensitive:NO],
+                                    [[XCSortSelectionAction alloc] initWithSortOrder:NSOrderedAscending
+                                                                       caseSensitive:YES],
+                                    [[XCSortSelectionAction alloc] initWithSortOrder:NSOrderedDescending
+                                                                       caseSensitive:NO],
+                                    [[XCSortSelectionAction alloc] initWithSortOrder:NSOrderedDescending
+                                                                       caseSensitive:YES],
                                     
                                     // Sort Contents
                                     [[XCSortContentsAction alloc] initWithSortOrder:NSOrderedAscending],
