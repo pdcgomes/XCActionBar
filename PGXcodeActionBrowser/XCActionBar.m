@@ -163,9 +163,9 @@ static XCActionBar *sharedPlugin;
 
     XCLog(@"Indexing actions ...");
 
-    [self builActionBarMenuItem];
     [self buildActionProviders];
     [self buildActionIndexWithCompletionHandler:^{
+        [weakSelf builActionBarMenuItem];
         weakSelf.actionBarMenuItem.title   = @"Action Bar";
         weakSelf.actionBarMenuItem.enabled = YES;
         [weakSelf buildRepeatLastActionMenuItem];
