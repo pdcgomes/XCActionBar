@@ -160,10 +160,10 @@ static XCActionBar *sharedPlugin;
     
     XCDeclareWeakSelf(weakSelf);
 
-    XCLog(@"Indexing actions ...");
-
-    [self buildActionProviders];
     [self buildActionIndexWithCompletionHandler:^{
+        XCLog(@"Indexing actions ...");
+
+        [weakSelf buildActionProviders];
         [weakSelf builActionBarMenuItem];
         weakSelf.actionBarMenuItem.title   = @"Action Bar";
         weakSelf.actionBarMenuItem.enabled = YES;
@@ -239,9 +239,8 @@ static XCActionBar *sharedPlugin;
         if(item == nil) continue;
         
         XCNSMenuActionProvider *provider = [[XCNSMenuActionProvider alloc] initWithMenu:item.submenu];
-        if([menuBarItemsSupportingIndexUpdates containsObject:title]) {
-            provider.respondToMenuChanges = YES;
-        }
+        // Automatically re-index if menu item changes
+        provider.respondToMenuChanges = ([menuBarItemsSupportingIndexUpdates containsObject:title] == YES);
         [self.actionIndex registerProvider:provider];
     }
 
@@ -425,7 +424,6 @@ static XCActionBar *sharedPlugin;
     //13/03/2015 13:54:01.412 Xcode[8198]:   Notification: IDENavigableItemCoordinatorDidForgetItemsNotification
     //13/03/2015 14:30:48.113 Xcode[8198]:   Notification: PBXProjectDidCloseNotification
     //13/03/2015 14:30:48.111 Xcode[8198]:   Notification: PBXProjectWillCloseNotification
-
 }
 
 ////////////////////////////////////////////////////////////////////////////////
