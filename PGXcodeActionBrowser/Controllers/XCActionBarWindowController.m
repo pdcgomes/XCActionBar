@@ -382,7 +382,8 @@ NSString *const XCArgumentInputHandlerKey = @"ArgumentHandler";
     NSInteger selectedIndex = self.searchResultsTable.selectedRow;
     if(selectedIndex == -1) return YES;
 
-    id<XCActionInterface> selectedAction = self.searchResults[selectedIndex];
+    id<XCSearchMatchEntry> searchMatch    = self.searchResults[selectedIndex];
+    id<XCActionInterface> selectedAction = searchMatch.action;
 
     [self.searchField setStringValue:selectedAction.title];
     [self performSearchWithExpression:selectedAction.title];
