@@ -24,33 +24,42 @@
 ////////////////////////////////////////////////////////////////////////////////
 @implementation XCSortSelectionAction
 
+static inline NSString * TrimmedString(NSString *string) {
+  NSCharacterSet *characterSet = [NSCharacterSet whitespaceCharacterSet];
+  return [string stringByTrimmingCharactersInSet:characterSet];
+}
+
+static NSComparator ComparatorWithOptions(BOOL ascending, BOOL caseSensitive) {
+  return ^(NSString *str1, NSString *str2) {
+    NSString *trimmedStr1 = TrimmedString(str1);
+    NSString *trimmedStr2 = TrimmedString(str2);
+    NSStringCompareOptions options = NSNumericSearch;
+    if (!caseSensitive) {
+      options |= NSCaseInsensitiveSearch;
+    }
+    NSString *left = ascending ? trimmedStr1 : trimmedStr2;
+    NSString *right = ascending ? trimmedStr2 : trimmedStr1;
+    return [left compare:right options:options];
+  };
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (instancetype)initWithSortOrder:(NSComparisonResult)sortOrder
+                    caseSensitive:(BOOL)caseSensitive
 {
+    BOOL ascending = (sortOrder == NSOrderedAscending);
+    NSString *sortOrderString = ascending ? @"ascending" : @"descending";
+    NSString *caseSensitiveString =
+        caseSensitive ? @"case-sensitive" : @"case-insensitive";
+
     if((self = [super init])) {
         self.sortOrder = sortOrder;
         self.subtitle  = @"Sorts the selected text";
-        self.title     = [NSString stringWithFormat:@"Sort selection (%@)", sortOrder == NSOrderedDescending ? @"descending" : @"ascending"];
+        self.title     = [NSString stringWithFormat:@"Sort selection (%@, %@)",
+                             sortOrderString, caseSensitiveString];
         self.enabled   = YES;
-        NSComparator compareFunction  = (self.sortOrder == NSOrderedAscending ?
-                                         ^(NSString *str1, NSString *str2) {
-                                             NSString *trimmedStr1 = [str1 stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-                                             NSString *trimmedStr2 = [str2 stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-                                             return [trimmedStr1 compare:trimmedStr2 options:NSNumericSearch];
-                                         } :
-                                         ^(NSString *str1, NSString *str2) {
-                                             NSString *trimmedStr1 = [str1 stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-                                             NSString *trimmedStr2 = [str2 stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-                                             
-                                             NSComparisonResult result = [trimmedStr1 compare:trimmedStr2 options:NSNumericSearch];
-                                             switch(result) {
-                                                 case NSOrderedAscending:   return NSOrderedDescending;
-                                                 case NSOrderedDescending:  return NSOrderedAscending;
-                                                 case NSOrderedSame:        return NSOrderedSame;
-                                             }
-                                         });
-        self.compareFunction = compareFunction;
+        self.compareFunction = ComparatorWithOptions(ascending, caseSensitive);
     }
     return self;
 }
