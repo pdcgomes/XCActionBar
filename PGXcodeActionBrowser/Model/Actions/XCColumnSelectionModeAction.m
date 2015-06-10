@@ -223,12 +223,16 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
     NSRange newSelectedCharRange = [toSelectedCharRanges.lastObject rangeValue];
 
     self.cursorMode         = XCTextSelectionCursorModeColumn;
-    self.columnResizingMode = (XCTextSelectionResizingModeExpandingForwards);
+    self.columnResizingMode = (newSelectedCharRange.location >= oldSelectedCharRange.location ?
+                               XCTextSelectionResizingModeExpandingForwards :
+                               XCTextSelectionResizingModeExpandingBackwards);
     self.rowResizingMode    = (newSelectedCharRange.location == oldSelectedCharRange.location ?
                                XCTextSelectionResizingModeExpandingDown :
                                XCTextSelectionResizingModeExpandingUp);
     
-    NSRange range = NSMakeRange(oldSelectedCharRange.location, 1);
+    NSRange range = (self.columnResizingMode == XCTextSelectionResizingModeExpandingForwards ?
+                     NSMakeRange(oldSelectedCharRange.location, 1) :
+                     NSMakeRange(oldSelectedCharRange.location - 1, 1));
     return @[[NSValue valueWithRange:range]];
 }
 
