@@ -148,8 +148,6 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
     return self.textViewDelegate;
 }
 
-//1/////////////////////////////////////////////////////////////////////////////
-//2/////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 - (NSArray *)textView:(NSTextView *)textView willChangeSelectionFromCharacterRanges:(NSArray *)oldSelectedCharRanges toCharacterRanges:(NSArray *)newSelectedCharRanges
@@ -158,9 +156,9 @@ XCLineRange XCGetLineRangeForText(NSString *text, NSRange scannedRange)
     
     XCTextSelectionCursorMode cursorMode = [self detectSelectionChangeTypeInTextView:textView fromCharacterRanges:oldSelectedCharRanges toCharacterRanges:newSelectedCharRanges];
     
-    if(self.cursorMode != cursorMode) {
-        self.cursorMode = cursorMode;
-    }
+//    if(self.cursorMode != cursorMode) {
+//        self.cursorMode = cursorMode;
+//    }
     self.cursorMode = cursorMode;
     
     if(self.cursorMode == XCTextSelectionCursorModeUndefined) {
