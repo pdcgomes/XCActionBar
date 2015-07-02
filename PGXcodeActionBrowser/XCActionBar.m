@@ -231,7 +231,7 @@ static XCActionBar *sharedPlugin;
                                 @"Source Control",
                                 @"Window",
                                 @"Help"];
-    NSArray *menuBarItemsSupportingIndexUpdates = @[@"Editor"];
+    NSArray *menuBarItemsSupportingIndexUpdates = @[@"Editor", @"Navigate"];
     
     NSMenu *mainMenu = [NSApp mainMenu];
     
