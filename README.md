@@ -54,7 +54,7 @@ Example #1: Built in actions
 
 1. Place the carret on the line you'd like to move up
 2. Double tap `CMD` or press `CMD+SHIFT+8`
-3. Type `m l u`
+3. Type `mlu` or `m l u`
 4. Return
 5. Double tap `ALT` or press `CMD+ALT+7` to repeat the last action as many times as you'd like (this works for any action)
 
