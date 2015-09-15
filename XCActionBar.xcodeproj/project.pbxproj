@@ -78,7 +78,6 @@
 		42CEA4EB1AB0ADDA006973B7 /* XCSearchService.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CEA4EA1AB0ADDA006973B7 /* XCSearchService.m */; };
 		42F3E2931AC1C48100D69E43 /* XCColumnSelectionModeAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F3E2921AC1C48100D69E43 /* XCColumnSelectionModeAction.m */; };
 		42F7294B1AC0C98800B99B7C /* XCSaveTextSelectionAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F7294A1AC0C98800B99B7C /* XCSaveTextSelectionAction.m */; };
-		42F815581AC56F980028A004 /* XCReplaceSelectionAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F815571AC56F980028A004 /* XCReplaceSelectionAction.m */; };
 		42FA5BC81AB82F79007F24B8 /* XCDuplicateLineAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FA5BC71AB82F79007F24B8 /* XCDuplicateLineAction.m */; };
 		42FA5BCB1AB82F84007F24B8 /* XCDeleteLineAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FA5BCA1AB82F84007F24B8 /* XCDeleteLineAction.m */; };
 		42FD3C0F1AB0ABE900F0A442 /* XCRoundCornerWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FD3C0E1AB0ABE900F0A442 /* XCRoundCornerWindow.m */; };
@@ -225,8 +224,6 @@
 		42F3E2921AC1C48100D69E43 /* XCColumnSelectionModeAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCColumnSelectionModeAction.m; sourceTree = "<group>"; };
 		42F729491AC0C98800B99B7C /* XCSaveTextSelectionAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSaveTextSelectionAction.h; sourceTree = "<group>"; };
 		42F7294A1AC0C98800B99B7C /* XCSaveTextSelectionAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCSaveTextSelectionAction.m; sourceTree = "<group>"; };
-		42F815561AC56F980028A004 /* XCReplaceSelectionAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCReplaceSelectionAction.h; sourceTree = "<group>"; };
-		42F815571AC56F980028A004 /* XCReplaceSelectionAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCReplaceSelectionAction.m; sourceTree = "<group>"; };
 		42FA5BC61AB82F79007F24B8 /* XCDuplicateLineAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCDuplicateLineAction.h; sourceTree = "<group>"; };
 		42FA5BC71AB82F79007F24B8 /* XCDuplicateLineAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCDuplicateLineAction.m; sourceTree = "<group>"; };
 		42FA5BC91AB82F84007F24B8 /* XCDeleteLineAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCDeleteLineAction.h; sourceTree = "<group>"; };
@@ -288,10 +285,10 @@
 		424414241AD00E580018D02A /* Text Selection */ = {
 			isa = PBXGroup;
 			children = (
-				42F729491AC0C98800B99B7C /* XCSaveTextSelectionAction.h */,
-				42F7294A1AC0C98800B99B7C /* XCSaveTextSelectionAction.m */,
 				421278DB1ACDEC5E0037B87A /* XCMoveSelectionHereAction.h */,
 				421278DC1ACDEC5E0037B87A /* XCMoveSelectionHereAction.m */,
+				42F729491AC0C98800B99B7C /* XCSaveTextSelectionAction.h */,
+				42F7294A1AC0C98800B99B7C /* XCSaveTextSelectionAction.m */,
 			);
 			name = "Text Selection";
 			sourceTree = "<group>";
@@ -317,8 +314,6 @@
 				42FA5BC71AB82F79007F24B8 /* XCDuplicateLineAction.m */,
 				424414251AD00EAC0018D02A /* XCExpandCodeSnippetAction.h */,
 				424414261AD00EAC0018D02A /* XCExpandCodeSnippetAction.m */,
-				42F815561AC56F980028A004 /* XCReplaceSelectionAction.h */,
-				42F815571AC56F980028A004 /* XCReplaceSelectionAction.m */,
 				42A71F201AB714C2008B5B92 /* XCSortContentsAction.h */,
 				42A71F211AB714C2008B5B92 /* XCSortContentsAction.m */,
 				42A71F1D1AB714AE008B5B92 /* XCSortSelectionAction.h */,
@@ -782,7 +777,6 @@
 				42FD3C0F1AB0ABE900F0A442 /* XCRoundCornerWindow.m in Sources */,
 				4264951E1AD1BE90007C69F1 /* XCJoinLinesAction.m in Sources */,
 				42C1AD861AAF534200248A8D /* XCNSMenuActionProvider.m in Sources */,
-				42F815581AC56F980028A004 /* XCReplaceSelectionAction.m in Sources */,
 				429086531AB92AE800EC3F78 /* XCSurroundLineWithAction.m in Sources */,
 				421D370B1AB7982300FF8338 /* XCAddPrefixToLinesAction.m in Sources */,
 				42807D3F1AB0708A007988F3 /* XCUtils.m in Sources */,
