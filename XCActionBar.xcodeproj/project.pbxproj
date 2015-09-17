@@ -24,6 +24,7 @@
 		421278DD1ACDEC5E0037B87A /* XCMoveSelectionHereAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 421278DC1ACDEC5E0037B87A /* XCMoveSelectionHereAction.m */; };
 		42135EA61ABC992A0092E97C /* XCActionBarConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 42135EA51ABC992A0092E97C /* XCActionBarConfiguration.m */; };
 		4214C9A01ACDC33A009FA602 /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4214C99F1ACDC33A009FA602 /* fontawesome-webfont.ttf */; };
+		421AAA001BAB631200226F67 /* NSString+XCExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 421AA9FF1BAB631200226F67 /* NSString+XCExtensions.m */; settings = {ASSET_TAGS = (); }; };
 		421D37081AB790D900FF8338 /* XCSurroundWithActions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 421D37071AB790D900FF8338 /* XCSurroundWithActions.plist */; };
 		421D370B1AB7982300FF8338 /* XCAddPrefixToLinesAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 421D370A1AB7982300FF8338 /* XCAddPrefixToLinesAction.m */; };
 		421D370E1AB7982F00FF8338 /* XCAddSuffixToLinesAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 421D370D1AB7982F00FF8338 /* XCAddSuffixToLinesAction.m */; };
@@ -37,6 +38,7 @@
 		4247AD821AD1BB08000C07B1 /* XCSplitSelectionIntoLinesAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4247AD811AD1BB08000C07B1 /* XCSplitSelectionIntoLinesAction.m */; };
 		4249DCEF1AD9859B00855FE3 /* NSIndexSet+XCCircularIndexSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4249DCEE1AD9859B00855FE3 /* NSIndexSet+XCCircularIndexSet.m */; };
 		4249DCF31AD98D1800855FE3 /* XCFindWithExpressionAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4249DCF21AD98D1800855FE3 /* XCFindWithExpressionAction.m */; };
+		42537DA81B9DE6220056A350 /* NSString+XCExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 42537DA71B9DE6220056A350 /* NSString+XCExtensions.m */; };
 		425500ED1ABC594D0029C533 /* XCCopyActiveDocumentDirectoryAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 425500EC1ABC594D0029C533 /* XCCopyActiveDocumentDirectoryAction.m */; };
 		4264951E1AD1BE90007C69F1 /* XCJoinLinesAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4264951D1AD1BE90007C69F1 /* XCJoinLinesAction.m */; };
 		426782E91ABA33C8006F4E53 /* XCHotKeyListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 426782E81ABA33C8006F4E53 /* XCHotKeyListener.m */; };
@@ -83,7 +85,6 @@
 		42CEA4EB1AB0ADDA006973B7 /* XCSearchService.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CEA4EA1AB0ADDA006973B7 /* XCSearchService.m */; };
 		42F3E2931AC1C48100D69E43 /* XCColumnSelectionModeAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F3E2921AC1C48100D69E43 /* XCColumnSelectionModeAction.m */; };
 		42F7294B1AC0C98800B99B7C /* XCSaveTextSelectionAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F7294A1AC0C98800B99B7C /* XCSaveTextSelectionAction.m */; };
-		42F815581AC56F980028A004 /* XCReplaceSelectionAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F815571AC56F980028A004 /* XCReplaceSelectionAction.m */; };
 		42FA5BC81AB82F79007F24B8 /* XCDuplicateLineAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FA5BC71AB82F79007F24B8 /* XCDuplicateLineAction.m */; };
 		42FA5BCB1AB82F84007F24B8 /* XCDeleteLineAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FA5BCA1AB82F84007F24B8 /* XCDeleteLineAction.m */; };
 		42FCAABE1AD7F9DD0036E561 /* XCActionBarPresetStateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FCAABD1AD7F9DD0036E561 /* XCActionBarPresetStateController.m */; };
@@ -109,6 +110,8 @@
 		42135EA41ABC992A0092E97C /* XCActionBarConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCActionBarConfiguration.h; sourceTree = "<group>"; };
 		42135EA51ABC992A0092E97C /* XCActionBarConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCActionBarConfiguration.m; sourceTree = "<group>"; };
 		4214C99F1ACDC33A009FA602 /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
+		421AA9FE1BAB631200226F67 /* NSString+XCExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+XCExtensions.h"; sourceTree = "<group>"; };
+		421AA9FF1BAB631200226F67 /* NSString+XCExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+XCExtensions.m"; sourceTree = "<group>"; };
 		421D37071AB790D900FF8338 /* XCSurroundWithActions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = XCSurroundWithActions.plist; sourceTree = "<group>"; };
 		421D37091AB7982300FF8338 /* XCAddPrefixToLinesAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = XCAddPrefixToLinesAction.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		421D370A1AB7982300FF8338 /* XCAddPrefixToLinesAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCAddPrefixToLinesAction.m; sourceTree = "<group>"; };
@@ -143,6 +146,7 @@
 		4249DCEE1AD9859B00855FE3 /* NSIndexSet+XCCircularIndexSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+XCCircularIndexSet.m"; sourceTree = "<group>"; };
 		4249DCF11AD98D1800855FE3 /* XCFindWithExpressionAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCFindWithExpressionAction.h; sourceTree = "<group>"; };
 		4249DCF21AD98D1800855FE3 /* XCFindWithExpressionAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCFindWithExpressionAction.m; sourceTree = "<group>"; };
+		42537DA71B9DE6220056A350 /* NSString+XCExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+XCExtensions.m"; path = "XCActionBar/Controllers/NSString+XCExtensions.m"; sourceTree = SOURCE_ROOT; };
 		425500EB1ABC594D0029C533 /* XCCopyActiveDocumentDirectoryAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCCopyActiveDocumentDirectoryAction.h; sourceTree = "<group>"; };
 		425500EC1ABC594D0029C533 /* XCCopyActiveDocumentDirectoryAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCCopyActiveDocumentDirectoryAction.m; sourceTree = "<group>"; };
 		425C2DA01AB33B3600143A65 /* IDETestContainer-Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IDETestContainer-Protocol.h"; sourceTree = "<group>"; };
@@ -242,8 +246,6 @@
 		42F3E2921AC1C48100D69E43 /* XCColumnSelectionModeAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCColumnSelectionModeAction.m; sourceTree = "<group>"; };
 		42F729491AC0C98800B99B7C /* XCSaveTextSelectionAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSaveTextSelectionAction.h; sourceTree = "<group>"; };
 		42F7294A1AC0C98800B99B7C /* XCSaveTextSelectionAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCSaveTextSelectionAction.m; sourceTree = "<group>"; };
-		42F815561AC56F980028A004 /* XCReplaceSelectionAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCReplaceSelectionAction.h; sourceTree = "<group>"; };
-		42F815571AC56F980028A004 /* XCReplaceSelectionAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCReplaceSelectionAction.m; sourceTree = "<group>"; };
 		42FA5BC61AB82F79007F24B8 /* XCDuplicateLineAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCDuplicateLineAction.h; sourceTree = "<group>"; };
 		42FA5BC71AB82F79007F24B8 /* XCDuplicateLineAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCDuplicateLineAction.m; sourceTree = "<group>"; };
 		42FA5BC91AB82F84007F24B8 /* XCDeleteLineAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCDeleteLineAction.h; sourceTree = "<group>"; };
@@ -308,10 +310,10 @@
 		424414241AD00E580018D02A /* Text Selection */ = {
 			isa = PBXGroup;
 			children = (
-				42F729491AC0C98800B99B7C /* XCSaveTextSelectionAction.h */,
-				42F7294A1AC0C98800B99B7C /* XCSaveTextSelectionAction.m */,
 				421278DB1ACDEC5E0037B87A /* XCMoveSelectionHereAction.h */,
 				421278DC1ACDEC5E0037B87A /* XCMoveSelectionHereAction.m */,
+				42F729491AC0C98800B99B7C /* XCSaveTextSelectionAction.h */,
+				42F7294A1AC0C98800B99B7C /* XCSaveTextSelectionAction.m */,
 			);
 			name = "Text Selection";
 			sourceTree = "<group>";
@@ -337,8 +339,6 @@
 				42FA5BC71AB82F79007F24B8 /* XCDuplicateLineAction.m */,
 				424414251AD00EAC0018D02A /* XCExpandCodeSnippetAction.h */,
 				424414261AD00EAC0018D02A /* XCExpandCodeSnippetAction.m */,
-				42F815561AC56F980028A004 /* XCReplaceSelectionAction.h */,
-				42F815571AC56F980028A004 /* XCReplaceSelectionAction.m */,
 				42A71F201AB714C2008B5B92 /* XCSortContentsAction.h */,
 				42A71F211AB714C2008B5B92 /* XCSortContentsAction.m */,
 				42A71F1D1AB714AE008B5B92 /* XCSortSelectionAction.h */,
@@ -376,6 +376,8 @@
 		4249DCE91AD9853B00855FE3 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				421AA9FE1BAB631200226F67 /* NSString+XCExtensions.h */,
+				421AA9FF1BAB631200226F67 /* NSString+XCExtensions.m */,
 				4249DCED1AD9859B00855FE3 /* NSIndexSet+XCCircularIndexSet.h */,
 				4249DCEE1AD9859B00855FE3 /* NSIndexSet+XCCircularIndexSet.m */,
 			);
@@ -729,7 +731,7 @@
 		42C1AD3F1AAF3E7F00248A8D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Pedro Gomes";
 				TargetAttributes = {
 					423E7FC81ACD4F0F00BFFC55 = {
@@ -842,7 +844,6 @@
 				42FD3C0F1AB0ABE900F0A442 /* XCRoundCornerWindow.m in Sources */,
 				4264951E1AD1BE90007C69F1 /* XCJoinLinesAction.m in Sources */,
 				42C1AD861AAF534200248A8D /* XCNSMenuActionProvider.m in Sources */,
-				42F815581AC56F980028A004 /* XCReplaceSelectionAction.m in Sources */,
 				429086531AB92AE800EC3F78 /* XCSurroundLineWithAction.m in Sources */,
 				421D370B1AB7982300FF8338 /* XCAddPrefixToLinesAction.m in Sources */,
 				42807D3F1AB0708A007988F3 /* XCUtils.m in Sources */,
@@ -858,12 +859,14 @@
 				42FA5BCB1AB82F84007F24B8 /* XCDeleteLineAction.m in Sources */,
 				42FA5BC81AB82F79007F24B8 /* XCDuplicateLineAction.m in Sources */,
 				42BD03491AB0880200FB7C07 /* XCActionBarWindowController.m in Sources */,
+				42537DA81B9DE6220056A350 /* NSString+XCExtensions.m in Sources */,
 				42CEA4EB1AB0ADDA006973B7 /* XCSearchService.m in Sources */,
 				4275F5DB1AD328F3005F3032 /* NSString_Purification.m in Sources */,
 				42135EA61ABC992A0092E97C /* XCActionBarConfiguration.m in Sources */,
 				4228E3EB1AB1B82A00918EAA /* XCSearchResultCell.m in Sources */,
 				42CB73B21AD6D97500082DCB /* XCActionBarPresetDataSource.m in Sources */,
 				42C1AD931AAF632700248A8D /* XCWorkspaceUnitTestsActionProvider.m in Sources */,
+				421AAA001BAB631200226F67 /* NSString+XCExtensions.m in Sources */,
 				42807D421AB07D4B007988F3 /* XCInputValidation.m in Sources */,
 				427F93371AC6DFC30003D0F8 /* XCAddPrefixToTextAction.m in Sources */,
 				429745501AC85AEF00E1875D /* XCActionBarSearchStateController.m in Sources */,
@@ -939,6 +942,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -999,6 +1003,7 @@
 				INFOPLIST_FILE = PGXcodeActionBrowser/Info.plist;
 				INSTALL_PATH = "/Library/Application Support/Developer/Shared/Xcode/Plug-ins";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.pedrogomes.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xcplugin;
 			};
@@ -1014,6 +1019,7 @@
 				INFOPLIST_FILE = PGXcodeActionBrowser/Info.plist;
 				INSTALL_PATH = "/Library/Application Support/Developer/Shared/Xcode/Plug-ins";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.pedrogomes.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xcplugin;
 			};
@@ -1035,6 +1041,7 @@
 				INFOPLIST_FILE = XcodeActionBrowserSimulatorTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.pedrogomes.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XcodeActionBrowserSimulator.app/Contents/MacOS/XcodeActionBrowserSimulator";
@@ -1054,6 +1061,7 @@
 				INFOPLIST_FILE = XcodeActionBrowserSimulatorTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.pedrogomes.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XcodeActionBrowserSimulator.app/Contents/MacOS/XcodeActionBrowserSimulator";

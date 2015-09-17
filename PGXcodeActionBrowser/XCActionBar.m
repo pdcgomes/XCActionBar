@@ -230,7 +230,7 @@ static XCActionBar *sharedPlugin;
                                 @"Source Control",
                                 @"Window",
                                 @"Help"];
-    NSArray *menuBarItemsSupportingIndexUpdates = @[@"Editor"];
+    NSArray *menuBarItemsSupportingIndexUpdates = @[@"Editor", @"Navigate"];
     
     NSMenu *mainMenu = [NSApp mainMenu];
     
@@ -276,12 +276,21 @@ static XCActionBar *sharedPlugin;
                                     [[XCDeleteLineAction alloc] init],
                                     [[XCDuplicateLineAction alloc] init],
                                     
+                                    // Save, Load, Replace selections
                                     [[XCSaveTextSelectionAction alloc] initWithTextSelectionStorage:textSelectionStorage],
                                     [[XCLoadTextSelectionAction alloc] initWithTextSelectionStorage:textSelectionStorage],
                                     [[XCClearTextSelectionAction alloc] initWithTextSelectionStorage:textSelectionStorage],
+                                    [[XCReplaceTextSelectionAction alloc] initWithTextSelectionStorage:textSelectionStorage],
+                                    
                                     // Sort Selection
-                                    [[XCSortSelectionAction alloc] initWithSortOrder:NSOrderedAscending],
-                                    [[XCSortSelectionAction alloc] initWithSortOrder:NSOrderedDescending],
+                                    [[XCSortSelectionAction alloc] initWithSortOrder:NSOrderedAscending
+                                                                       caseSensitive:NO],
+                                    [[XCSortSelectionAction alloc] initWithSortOrder:NSOrderedAscending
+                                                                       caseSensitive:YES],
+                                    [[XCSortSelectionAction alloc] initWithSortOrder:NSOrderedDescending
+                                                                       caseSensitive:NO],
+                                    [[XCSortSelectionAction alloc] initWithSortOrder:NSOrderedDescending
+                                                                       caseSensitive:YES],
                                     
                                     // Sort Contents
                                     [[XCSortContentsAction alloc] initWithSortOrder:NSOrderedAscending],

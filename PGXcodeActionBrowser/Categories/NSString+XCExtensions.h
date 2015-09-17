@@ -1,16 +1,17 @@
 //
-//  XCReplaceSelectionAction.h
+//  NSString+XCExtensions.h
 //  XCActionBar
 //
-//  Created by Pedro Gomes on 27/03/2015.
+//  Created by Pedro Gomes on 07/09/2015.
 //  Copyright (c) 2015 Pedro Gomes. All rights reserved.
 //
 
-#import "XCSaveTextSelectionAction.h"
+#import <Foundation/Foundation.h>
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@interface XCReplaceSelectionAction : XCTextSelectionAction
+@interface NSString (XCExtensions)
 
+- (NSArray *)characterComponents;
 
 @end

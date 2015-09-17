@@ -1,0 +1,17 @@
+//
+//  NSString+XCExtensions.h
+//  XCActionBar
+//
+//  Created by Pedro Gomes on 07/09/2015.
+//  Copyright (c) 2015 Pedro Gomes. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+@interface NSString (XCExtensions)
+
+- (NSArray *)characterComponents;
+
+@end

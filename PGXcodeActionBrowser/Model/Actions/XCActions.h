@@ -20,7 +20,6 @@
 #import "XCJoinLinesAction.h"
 #import "XCMoveSelectionHereAction.h"
 #import "XCOpenActiveDocumentPathInTerminalAction.h"
-#import "XCReplaceSelectionAction.h"
 #import "XCSaveTextSelectionAction.h"
 #import "XCSortContentsAction.h"
 #import "XCSortContentsAction.h"

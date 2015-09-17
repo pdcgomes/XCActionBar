@@ -12,6 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 @interface XCSortSelectionAction : XCCustomAction
 
-- (instancetype)initWithSortOrder:(NSComparisonResult)sortOrder;
+- (instancetype)initWithSortOrder:(NSComparisonResult)sortOrder
+                    caseSensitive:(BOOL)caseSensitive;
 
 @end

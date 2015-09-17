@@ -11,6 +11,8 @@
 
 #import "XCPartialMatchSearchStrategy.h"
 
+#import "NSString+XCExtensions.h"
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @interface XCPartialMatchSearchStrategy ()
@@ -31,7 +33,10 @@
 {
     NSParameterAssert(completionHandler != nil);
     
-    NSArray *queryComponents       = [query componentsSeparatedByString:@" "];
+    NSArray *queryComponents = [query componentsSeparatedByString:@" "];
+    if(queryComponents.count == 1) {
+        queryComponents = [query characterComponents];
+    }
     NSUInteger queryComponentCount = queryComponents.count;
     
     ////////////////////////////////////////////////////////////////////////////////

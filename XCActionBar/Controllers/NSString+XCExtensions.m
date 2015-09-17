@@ -1,0 +1,27 @@
+//
+//  NSString+XCExtensions.m
+//  XCActionBar
+//
+//  Created by Pedro Gomes on 07/09/2015.
+//  Copyright (c) 2015 Pedro Gomes. All rights reserved.
+//
+
+#import "NSString+XCExtensions.h"
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+@implementation NSString (XCExtensions)
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (NSArray *)characterComponents
+{
+    NSMutableArray *components = [NSMutableArray array];
+    
+    for(int i = 0; i < self.length; i++) {
+        [components addObject:[self substringWithRange:NSMakeRange(i, 1)]];
+    }
+    return components.copy;
+}
+
+@end

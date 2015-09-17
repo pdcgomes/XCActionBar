@@ -363,3 +363,83 @@ NSString *const XCTextSelectionMarkerAttributeName = @"XCTextSelectionMarker";
 }
 
 @end
+
+#pragma mark - 
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+@implementation XCReplaceTextSelectionAction
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (instancetype)initWithTextSelectionStorage:(id<XCTextSelectionStorage>)textSelectionStorage
+{
+    if((self = [super initWithTextSelectionStorage:textSelectionStorage])) {
+        self.title           = NSLocalizedString(@"Replace selection", @"");
+        self.subtitle        = NSLocalizedString(@"Replaced the (non-contiguous) selection with pasteboard contents", @"");
+    }
+    return self;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (BOOL)executeWithContext:(id<XCIDEContext>)context
+{
+    NSTextView *textView        = context.sourceCodeTextView;
+    NSTextStorage *textStorage  = textView.textStorage;
+    
+    ////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
+    NSString *documentIdentifier = [[context.sourceCodeDocument fileURL] absoluteString];
+    NSArray *savedSelections     = [self validateAndLoadSavedSelectionsInContext:context documentIdentifier:documentIdentifier];
+    
+    ////////////////////////////////////////////////////////////////////////////////
+    // Undo support
+    ////////////////////////////////////////////////////////////////////////////////
+    NSUndoManager *undo = textView.undoManager;
+    [undo registerUndoWithTarget:self selector:@selector(undoAction:) object:@{@"TextView": textView,
+                                                                               @"DocumentIdentifier": documentIdentifier,
+                                                                               @"OldSelectionRanges": savedSelections,
+                                                                               @"NewSelectionRanges": @[]}];
+    
+    ////////////////////////////////////////////////////////////////////////////////
+    // Clear selection
+    ////////////////////////////////////////////////////////////////////////////////
+    for(NSValue *selectedTextValueRange in savedSelections) {
+        NSRange selectedTextRange = [selectedTextValueRange rangeValue];
+
+        [textStorage removeAttribute:NSBackgroundColorAttributeName range:selectedTextRange];
+        [textStorage removeAttribute:XCTextSelectionMarkerAttributeName range:selectedTextRange];
+    }
+    
+    [self.textSelectionStorage deleteSelectionWithIdentifier:documentIdentifier];
+    
+    ////////////////////////////////////////////////////////////////////////////////
+    // Replace the selection
+    ////////////////////////////////////////////////////////////////////////////////
+    NSEnumerator *selectionEnumerator = [savedSelections reverseObjectEnumerator];
+
+    [textStorage beginEditing];
+
+    NSString *pastboardTextContents = [context retrievePasteboardTextContents];
+    
+    for(NSValue *selectedTextValueRange in selectionEnumerator) {
+        NSRange selectedTextRange = [selectedTextValueRange rangeValue];
+        
+        if([textView shouldChangeTextInRange:selectedTextRange replacementString:pastboardTextContents] == NO) {
+            return NO;
+        }
+        
+        [context.sourceCodeDocument.textStorage replaceCharactersInRange:selectedTextRange
+                                                              withString:pastboardTextContents];
+
+        [context.sourceCodeDocument.textStorage indentCharacterRange:selectedTextRange
+                                                         undoManager:context.sourceCodeDocument.undoManager];
+    }
+    
+    [textStorage endEditing];
+
+    return YES;
+}
+
+@end
