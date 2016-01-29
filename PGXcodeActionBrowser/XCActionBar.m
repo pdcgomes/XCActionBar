@@ -18,7 +18,7 @@
 #import "XCFuzzySearchStrategy.h"
 
 #import "XCNSMenuActionProvider.h"
-#import "XCWorkspaceUnitTestsActionProvider.h"
+//#import "XCWorkspaceUnitTestsActionProvider.h"
 #import "XCCodeSnippetProvider.h"
 #import "XCCustomActionProvider.h"
 
@@ -339,14 +339,14 @@ static XCActionBar *sharedPlugin;
 ////////////////////////////////////////////////////////////////////////////////
 - (void)buildActionProvidersForWorkspace:(IDEWorkspace *)workspace
 {
-    XCWorkspaceUnitTestsActionProvider *provider = [[XCWorkspaceUnitTestsActionProvider alloc] initWithWorkspace:workspace];
-    
-    id token =
-    [self.actionIndex registerProvider:provider];
-    [self.actionIndex updateWithCompletionHandler:^{
-        XCLog(@"Index updated with %@", provider);
-    }];
-    self.providersByWorkspace[XCIDEWorkspaceKey(workspace)] = token;
+//    XCWorkspaceUnitTestsActionProvider *provider = [[XCWorkspaceUnitTestsActionProvider alloc] initWithWorkspace:workspace];
+//    
+//    id token =
+//    [self.actionIndex registerProvider:provider];
+//    [self.actionIndex updateWithCompletionHandler:^{
+//        XCLog(@"Index updated with %@", provider);
+//    }];
+//    self.providersByWorkspace[XCIDEWorkspaceKey(workspace)] = token;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
