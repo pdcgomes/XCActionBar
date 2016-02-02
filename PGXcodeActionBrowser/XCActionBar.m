@@ -103,7 +103,6 @@ static XCActionBar *sharedPlugin;
         ////////////////////////////////////////////////////////////////////////////////
         // General initialization
         ////////////////////////////////////////////////////////////////////////////////
-        [self performInitialization];
         [self registerObservers];
     }
     return self;
@@ -161,15 +160,18 @@ static XCActionBar *sharedPlugin;
     
     XCDeclareWeakSelf(weakSelf);
 
+    [self buildMenuActionProviders];
+    [self buildActionProviders];
+
     [self buildActionIndexWithCompletionHandler:^{
         XCLog(@"Indexing actions ...");
 
-        [weakSelf buildActionProviders];
         [weakSelf builActionBarMenuItem];
         weakSelf.actionBarMenuItem.title   = @"Action Bar";
         weakSelf.actionBarMenuItem.enabled = YES;
         [weakSelf buildRepeatLastActionMenuItem];
         [weakSelf setupHotKeys];
+        
         XCLog(@"Indexing completed!");
     }];
 }
@@ -214,9 +216,8 @@ static XCActionBar *sharedPlugin;
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-- (void)buildActionProviders
+- (void)buildMenuActionProviders
 {
-    
     ////////////////////////////////////////////////////////////////////////////////
     // Setup providers for MenuBar
     ////////////////////////////////////////////////////////////////////////////////
@@ -244,7 +245,12 @@ static XCActionBar *sharedPlugin;
         provider.respondToMenuChanges = ([menuBarItemsSupportingIndexUpdates containsObject:title] == YES);
         [self.actionIndex registerProvider:provider];
     }
+}
 
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)buildActionProviders
+{
     ////////////////////////////////////////////////////////////////////////////////
     // Code Snippets
     ////////////////////////////////////////////////////////////////////////////////
@@ -413,6 +419,11 @@ static XCActionBar *sharedPlugin;
 #define NSFlagsChangedMaskOff (1 << 8) // need to figure out what values I actually need to get this
 - (void)registerObservers
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleXcodeDidFinishLaunchingNotification:)
+                                                 name:NSApplicationDidFinishLaunchingNotification
+                                               object:nil];
+
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationListener:) name:nil object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleWorkspaceIndexingCompletedNotification:)
@@ -476,6 +487,19 @@ static XCActionBar *sharedPlugin;
 - (void)handleNavigationBarEventNotification:(NSNotification *)notification
 {
     
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+- (void)handleXcodeDidFinishLaunchingNotification:(NSNotification *)notification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:NSApplicationDidFinishLaunchingNotification
+                                                  object:nil];
+    
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        [self performInitialization];
+    }];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
