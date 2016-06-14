@@ -10,6 +10,7 @@
 ### Important note on Xcode 8
 Xcode 8 introduces a new extension system which enables developers to finally be able to build and distribute Xcode extensions. The drawback is that at the present time this breaks the system we've had in place until now, meaning  XCActionBar (along with all other plug-ins) will stop working. Given how sparse the documentation is, it isn't clear whether most of XCActionBar's functionally can be ported over to the new system; I suspect it is _not_, at least not just yet.
 In the meantime, while not pretty, there is a workaround which will allow Xcode 8 to still load all your plugins, please check https://github.com/alcatraz/Alcatraz/issues/475 for more information.
+Do keep in mind that this solution is inherently unsafe and definitely not the way forward, so use your judgement. 
 
 ###Updates:
 If you'd like to keep up to date with the latest feature additions, keep an eye on the [changelog page](https://github.com/pdcgomes/XCActionBar/wiki/Changelog).
