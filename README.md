@@ -7,7 +7,12 @@
 
 **Else** Read along ... :)
 
-### Important note on Xcode 8
+### Xcode 9 support
+
+XCActionBar is at present only _partially_ supported in Xcode 9. The vast majority of custom actions operate on text and therefore require access to Xcode's internal text views which have changed significantly in Xcode 9.
+I know of a few other plugins in a similar situation and people are hard at work trying to figure out what the new hook points are. I'm currently not in a position where I can dedicate a lot of time to research this, but I will definitely get to it at some point. 
+
+### Important notes on Xcode 8
 Xcode 8 introduces a new extension system which enables developers to finally be able to build and distribute Xcode extensions. The drawback is that at the present time this breaks the system we've had in place until now, meaning  XCActionBar (along with all other plug-ins) will stop working. Given how sparse the documentation is, it isn't clear whether most of XCActionBar's functionally can be ported over to the new system; I suspect it is _not_, at least not just yet.
 In the meantime, while not pretty, there is a workaround which will allow Xcode 8 to still load all your plugins, please check https://github.com/alcatraz/Alcatraz/issues/475 for more information.
 Do keep in mind that this solution is inherently unsafe and definitely not the way forward, so use your judgement. 
